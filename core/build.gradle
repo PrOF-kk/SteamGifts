@@ -3,8 +3,13 @@ apply plugin: 'com.android.library'
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
+    lintOptions {
+        disable 'ExpiredTargetSdkVersion'
+    }
+
     defaultConfig {
         minSdkVersion 15
+        //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 26
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName

@@ -3,9 +3,14 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
+    lintOptions {
+        disable 'ExpiredTargetSdkVersion'
+    }
+
     defaultConfig {
         applicationId 'net.mabako.steamgifts'
         minSdkVersion 15
+        //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 26
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
