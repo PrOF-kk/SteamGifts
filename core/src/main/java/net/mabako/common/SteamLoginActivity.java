@@ -41,6 +41,7 @@ public abstract class SteamLoginActivity extends AppCompatActivity {
         webView = (WebView) findViewById(R.id.webview);
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setDomStorageEnabled(true);
 
         webView.setWebViewClient(new SteamWebViewClient());
     }
