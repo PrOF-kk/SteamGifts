@@ -219,10 +219,11 @@ public class ImageFragment extends Fragment {
             }
         });
         imageView.setRegionDecoderFactory(new DecoderFactory<ImageRegionDecoder>() {
-            @Override
+
             /**
              * Since it is downright foolish to load the entire bitmap in memory (I've tried, to no avail), use this decoder to keep it to a minimum.
              */
+            @Override
             public ImageRegionDecoder make() throws IllegalAccessException, java.lang.InstantiationException {
                 return new ImageRegionDecoder() {
                     private final Object decoderLock = new Object();

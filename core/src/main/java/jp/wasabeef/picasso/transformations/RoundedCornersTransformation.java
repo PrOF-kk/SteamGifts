@@ -1,6 +1,6 @@
 package jp.wasabeef.picasso.transformations;
 
-/**
+/*
  * Copyright (C) 2015 Wasabeef
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
