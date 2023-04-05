@@ -121,14 +121,11 @@ public class DiscussionListFragment extends SearchableListFragment<DiscussionAda
                 if (type == DiscussionListFragment.Type.CREATED && !account.isLoggedIn())
                     continue;
 
-                menu.add(type.getNavbarResource()).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        popupMenu.dismiss();
+                menu.add(type.getNavbarResource()).setOnMenuItemClickListener(menuItem -> {
+                    popupMenu.dismiss();
 
-                        ((CommonActivity) getActivity()).loadFragment(DiscussionListFragment.newInstance(type, null));
-                        return true;
-                    }
+                    ((CommonActivity) getActivity()).loadFragment(DiscussionListFragment.newInstance(type, null));
+                    return true;
                 });
             }
 
@@ -151,7 +148,7 @@ public class DiscussionListFragment extends SearchableListFragment<DiscussionAda
         GROUP_RECRUITMENT(R.string.navigation_discussions_group_recruitment, R.string.navigation_discussions_group_recruitment_title, FontAwesome.Icon.faw_users),
         LETS_PLAY_TOGETHER(R.string.navigation_discussions_lets_play_together, R.string.navigation_discussions_lets_play_together_title, FontAwesome.Icon.faw_play_circle),
         OFF_TOPIC(R.string.navigation_discussions_off_topic, R.string.navigation_discussions_off_topic_title, FontAwesome.Icon.faw_comments),
-        PUZZLES(R.string.navigation_discussions_puzzles, R.string.navigation_discussions_puzzles_title, FontAwesome.Icon.faw_puzzle_piece),
+        PUZZLES_EVENTS(R.string.navigation_discussions_puzzles_events, R.string.navigation_discussions_puzzles_events_title, FontAwesome.Icon.faw_puzzle_piece),
         CREATED(R.string.navigation_discussions_created, R.string.navigation_discussions_created_title, FontAwesome.Icon.faw_plus_circle);
 
         private final int titleResource;
