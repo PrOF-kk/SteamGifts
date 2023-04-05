@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.TypedArray;
 import android.net.Uri;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
@@ -31,8 +32,12 @@ public class ChromeTabsDelegate implements IntentDelegate {
 
     @Override
     public void start(@NonNull Activity activity) {
+
+        TypedArray styledAttributes = activity.obtainStyledAttributes(new int[]{R.attr.colorPrimary});
         @ColorInt
-        int color = activity.obtainStyledAttributes(new int[]{R.attr.colorPrimary}).getColor(0, 0);
+        int color = styledAttributes.getColor(0, 0);
+
+        styledAttributes.recycle();
 
         CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder()
                 .setToolbarColor(color)
