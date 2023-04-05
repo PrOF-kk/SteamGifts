@@ -1,5 +1,6 @@
 package net.mabako.steamgifts.adapters;
 
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -105,7 +106,13 @@ public abstract class EndlessAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         // Insert bogus item for the progress bar.
         items.add(null);
-        notifyItemInserted(getItemCount() - 1);
+        // Delay the notify until we are outside the onScrolled callback to avoid
+        // W/RecyclerView: Cannot call this method in a scroll callback.
+        // Scroll callbacks might be run during a measure & layout pass where you cannot change
+        // the RecyclerView data. Any method call that might change the structure of the RecyclerView
+        // or the adapter contents should be postponed to the next frame.java.lang.IllegalStateException
+        new Handler().post(() -> notifyItemInserted(getItemCount() - 1));
+
 
         if (loadListener != null) {
             Log.d(TAG, "Starting to load more content on page " + page);
