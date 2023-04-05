@@ -145,7 +145,7 @@ public final class StringUtils {
     @SuppressWarnings("deprecation")
     public static void setBackgroundDrawable(Context context, View view, boolean highlighted, @AttrRes int attr) {
         if (highlighted) {
-            int attrs[] = new int[]{attr};
+            int[] attrs = new int[]{attr};
             TypedArray ta = context.getTheme().obtainStyledAttributes(attrs);
 
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {

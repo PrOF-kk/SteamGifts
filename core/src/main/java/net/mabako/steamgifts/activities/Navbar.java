@@ -66,7 +66,7 @@ public class Navbar {
             }
         });
 
-        int attrs[] = new int[]{R.attr.colorAccountHeader};
+        int[] attrs = new int[]{R.attr.colorAccountHeader};
         TypedArray ta = activity.getTheme().obtainStyledAttributes(attrs);
 
         // Account?

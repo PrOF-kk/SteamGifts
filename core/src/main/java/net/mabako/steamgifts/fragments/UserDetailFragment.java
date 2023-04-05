@@ -170,7 +170,7 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
         }
 
         // Rescale the avatar to not take up the full navbar height.
-        int attrs[] = new int[]{R.attr.actionBarSize};
+        int[] attrs = new int[]{R.attr.actionBarSize};
         TypedArray ta = getContext().getTheme().obtainStyledAttributes(attrs);
         int size = (int) (ta.getDimensionPixelSize(0, 0) * 0.75f);
 
@@ -276,7 +276,7 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
 
     @SuppressWarnings("ResourceAsColor")
     private void updateWhitelistBlacklistButtons() {
-        int attrs[] = new int[]{android.R.attr.textColorPrimary};
+        int[] attrs = new int[]{android.R.attr.textColorPrimary};
         TypedArray ta = getContext().getTheme().obtainStyledAttributes(attrs);
 
         whitelist.setTextColor(user.isWhitelisted() ? ContextCompat.getColor(getContext(), R.color.colorAccent) : ta.getColor(0, 0));
