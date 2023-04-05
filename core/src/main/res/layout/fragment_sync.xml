@@ -59,7 +59,7 @@
                 android:paddingBottom="4dp"
                 android:textColor="?attr/lightTextColor"
                 android:visibility="gone"
-                tools:text="Last Synched date"
+                tools:text="Last Synced date"
                 tools:visibility="visible" />
 
             <Button

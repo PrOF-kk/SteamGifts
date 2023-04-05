@@ -400,7 +400,7 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
                 && giveaway instanceof Giveaway // giveaway loaded
                 && !((Giveaway) giveaway).isEntered() // haven't entered the giveaway yet
                 && ((Giveaway) giveaway).isOpen() // it is actually open (not in the past, not in the future)
-                && adapter.getXsrfToken() != null // we can do soemthing with the giveaway
+                && adapter.getXsrfToken() != null // we can do something with the giveaway
                 && giveawayCard.getExtras() != null // giveaway loaded #2
                 && giveawayCard.getExtras().isEnterable()) // we can actually enter
             intent.putExtra(WriteCommentActivity.GIVEAWAY_ID, giveaway.getGiveawayId());

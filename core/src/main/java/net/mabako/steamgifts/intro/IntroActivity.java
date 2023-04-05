@@ -15,7 +15,7 @@ public class IntroActivity extends AppIntro2 {
     public static final String INTRO_MAIN = "main";
     public static final int INTRO_MAIN_VERSION = 2;
 
-    public static void showIntroIfNeccessary(Activity parentActivity, final String type, final int version) {
+    public static void showIntroIfNecessary(Activity parentActivity, final String type, final int version) {
         SharedPreferences sp = parentActivity.getSharedPreferences("intro", MODE_PRIVATE);
         int lastSeenVersion = sp.getInt(type, 0);
         if (lastSeenVersion < version) {

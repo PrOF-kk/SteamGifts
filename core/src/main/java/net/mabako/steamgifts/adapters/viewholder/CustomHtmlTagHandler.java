@@ -114,7 +114,7 @@ public class CustomHtmlTagHandler implements Html.TagHandler {
                 if (lists.size() > 1) {
                     bulletMargin = indent - bullet.getLeadingMargin(true);
                     if (lists.size() > 2) {
-                        // This get's more complicated when we add a LeadingMarginSpan into the same line:
+                        // This gets more complicated when we add a LeadingMarginSpan into the same line:
                         // we have also counter it's effect to BulletSpan
                         bulletMargin -= (lists.size() - 2) * listItemIndent;
                     }

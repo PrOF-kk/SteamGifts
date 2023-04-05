@@ -49,7 +49,7 @@ public class SteamGiftsUserData {
         if (current == null) {
             if (context == null) {
                 // do not keep the data, though, so anything here is pretty much a no-op
-                Log.w(TAG, "Instantiiating no-op SteamGiftsUserData");
+                Log.w(TAG, "Instantiating no-op SteamGiftsUserData");
                 return new SteamGiftsUserData();
             }
             current = new SteamGiftsUserData();

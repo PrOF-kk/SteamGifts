@@ -34,7 +34,7 @@ public class UserAdapter extends EndlessAdapter {
         if (viewType == BasicUser.VIEW_LAYOUT || viewType == Winner.VIEW_LAYOUT)
             return new UserViewHolder(view, fragment);
 
-        throw new IllegalStateException("view tpye " + viewType + " is unknown");
+        throw new IllegalStateException("view type " + viewType + " is unknown");
     }
 
     @Override

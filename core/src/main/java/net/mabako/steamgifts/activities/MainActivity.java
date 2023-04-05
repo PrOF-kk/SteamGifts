@@ -71,7 +71,7 @@ public class MainActivity extends CommonActivity implements IPointUpdateNotifica
             }
         }
 
-        IntroActivity.showIntroIfNeccessary(this, IntroActivity.INTRO_MAIN, IntroActivity.INTRO_MAIN_VERSION);
+        IntroActivity.showIntroIfNecessary(this, IntroActivity.INTRO_MAIN, IntroActivity.INTRO_MAIN_VERSION);
     }
 
     @Override

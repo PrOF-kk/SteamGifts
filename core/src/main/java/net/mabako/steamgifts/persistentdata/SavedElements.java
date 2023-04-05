@@ -61,7 +61,7 @@ public abstract class SavedElements<T> implements Comparator<T> {
      * Returns a single persistent element.
      *
      * @param elementId the id of the element
-     * @return the found element, or null if not existant.
+     * @return the found element, or null if not existent.
      */
     @Nullable
     public T get(@NonNull String elementId) {
@@ -161,7 +161,7 @@ public abstract class SavedElements<T> implements Comparator<T> {
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             Log.w(TAG, "Upgrading database from version " + oldVersion + " to " + newVersion);
 
-            // Delete all saved giveawys
+            // Delete all saved giveaways
             if (oldVersion < 2)
                 db.delete(SavedGiveaways.DB_TABLE, null, null);
 
