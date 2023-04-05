@@ -25,6 +25,7 @@ android {
         // ** This is the build flavor you want to pick for running the app locally. **
         chocolate {
             dimension 'iceCream'
+            applicationIdSuffix '.choco'
         }
 
         // actual release
