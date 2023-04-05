@@ -30,7 +30,6 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
-import net.mabako.steamgifts.activities.DetailActivity;
 import net.mabako.steamgifts.activities.UrlHandlingActivity;
 import net.mabako.steamgifts.adapters.CommentAdapter;
 import net.mabako.steamgifts.adapters.GiveawayAdapter;

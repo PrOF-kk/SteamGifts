@@ -20,7 +20,6 @@ import net.mabako.steamgifts.fragments.GiveawayDetailFragment;
 import net.mabako.steamgifts.fragments.UserDetailFragment;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.regex.Pattern;
 
 /**

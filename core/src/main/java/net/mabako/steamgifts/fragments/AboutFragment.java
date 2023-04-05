@@ -14,10 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.mabako.steamgifts.ApplicationTemplate;
-import net.mabako.steamgifts.activities.DetailActivity;
-import net.mabako.steamgifts.core.BuildConfig;
 import net.mabako.steamgifts.core.R;
-import net.mabako.steamgifts.data.BasicDiscussion;
 
 public class AboutFragment extends Fragment {
     @Nullable

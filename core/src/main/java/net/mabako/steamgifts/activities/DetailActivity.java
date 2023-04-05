@@ -36,7 +36,6 @@ import net.mabako.steamgifts.receivers.AbstractNotificationCheckReceiver;
 import net.mabako.steamgifts.receivers.CheckForNewMessages;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 public class DetailActivity extends CommonActivity {
     public static final String ARG_NOTIFICATIONS = "notifications";

@@ -8,7 +8,6 @@ import net.mabako.steamgifts.data.Comment;
 import net.mabako.steamgifts.data.ICommentHolder;
 import net.mabako.steamgifts.data.User;
 import net.mabako.steamgifts.fragments.UserDetailFragment;
-import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;

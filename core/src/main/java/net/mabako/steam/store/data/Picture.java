@@ -1,7 +1,7 @@
 package net.mabako.steam.store.data;
 
-import net.mabako.steamgifts.core.R;
 import net.mabako.steamgifts.adapters.IEndlessAdaptable;
+import net.mabako.steamgifts.core.R;
 
 import java.io.Serializable;
 

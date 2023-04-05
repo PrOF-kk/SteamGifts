@@ -1,6 +1,5 @@
 package net.mabako.steamgifts.fragments;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,7 +7,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
-import net.mabako.steamgifts.activities.DetailActivity;
 import net.mabako.steamgifts.adapters.EndlessAdapter;
 import net.mabako.steamgifts.adapters.UserAdapter;
 import net.mabako.steamgifts.core.R;

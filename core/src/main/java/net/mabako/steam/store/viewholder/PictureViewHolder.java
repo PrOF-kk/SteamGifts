@@ -7,8 +7,8 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
-import net.mabako.steamgifts.core.R;
 import net.mabako.steam.store.data.Picture;
+import net.mabako.steamgifts.core.R;
 
 public class PictureViewHolder extends RecyclerView.ViewHolder {
     private final Context context;
