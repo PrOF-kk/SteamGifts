@@ -8,7 +8,7 @@ public interface IHasWhitelistAndBlacklist {
         BLACKLIST
     }
 
-    public void requestUserListed(BasicUser user, What what, boolean adding);
+    void requestUserListed(BasicUser user, What what, boolean adding);
 
-    public void onUserWhitelistOrBlacklistUpdated(BasicUser user, What what, boolean added);
+    void onUserWhitelistOrBlacklistUpdated(BasicUser user, What what, boolean added);
 }
