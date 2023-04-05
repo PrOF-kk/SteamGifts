@@ -31,7 +31,7 @@ public abstract class SavedElements<T> implements Comparator<T> {
     protected final GiveawayOpenHelper<T> helper;
 
     public SavedElements(Context context, String table) {
-        helper = new GiveawayOpenHelper<T>(context, this);
+        helper = new GiveawayOpenHelper<>(context, this);
 
         this.context = context;
         this.table = table;
@@ -122,7 +122,7 @@ public abstract class SavedElements<T> implements Comparator<T> {
         }
 
         public List<T> all() {
-            List<T> elements = new ArrayList<T>();
+            List<T> elements = new ArrayList<>();
             Gson gson = new Gson();
 
             try (Cursor cursor = getReadableDatabase().query(parent.table, new String[]{KEY_VALUE}, null, null, null, null, null, null)) {

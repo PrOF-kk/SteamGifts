@@ -85,7 +85,7 @@ public class CheckForWonGiveaways extends AbstractNotificationCheckReceiver {
             SharedPreferences sharedPreferences = context.getSharedPreferences(PREFS_NOTIFICATIONS_SERVICE, Context.MODE_PRIVATE);
 
             // Interestingly enough, the question with re-rolls etc is most likely that we can't reliably tell these giveaways will arrive in order.
-            Set<String> knownWonGames = sharedPreferences.getStringSet(PREF_KEY_LAST_DISMISSED_WON_GAMES, new HashSet<String>());
+            Set<String> knownWonGames = sharedPreferences.getStringSet(PREF_KEY_LAST_DISMISSED_WON_GAMES, new HashSet<>());
 
             List<Giveaway> mostRecentWonGames = new ArrayList<>(MAX_DISPLAYED_GIVEAWAYS);
             for (IEndlessAdaptable item : items) {

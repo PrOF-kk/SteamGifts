@@ -69,7 +69,7 @@ public class StoreAppFragment extends StoreFragment {
                     if (sub.getBoolean("success")) {
                         JSONObject data = sub.getJSONObject("data");
 
-                        List<IEndlessAdaptable> items = new ArrayList<IEndlessAdaptable>();
+                        List<IEndlessAdaptable> items = new ArrayList<>();
 
                         // Game name
                         items.add(new Text("<h1>" + TextUtils.htmlEncode(data.getString("name")) + "</h1>", true));
