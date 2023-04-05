@@ -47,7 +47,7 @@ public class LoadEnteredGameListTask extends LoadGameListTask {
 
         Element end = firstColumn.select("p > span").first();
         if (end != null)
-            giveaway.setEndTime(Integer.valueOf(end.attr("data-timestamp")), end.parent().text().trim());
+            giveaway.setEndTime(Integer.parseInt(end.attr("data-timestamp")), end.parent().text().trim());
 
         giveaway.setEntered(giveaway.isOpen());
         giveaway.setDeleted(!element.select(".table__column__deleted").isEmpty());

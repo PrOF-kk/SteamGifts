@@ -329,7 +329,7 @@ public abstract class DetailFragment extends ListFragment<CommentAdapter> implem
             // Parse the page.
             String queryPage = uri.getQueryParameter("page");
             if (queryPage != null) {
-                info.setPage(Integer.valueOf(queryPage));
+                info.setPage(Integer.parseInt(queryPage));
             } else {
                 info.setPage(1);
             }

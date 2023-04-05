@@ -43,7 +43,7 @@ public class LoadWonGameListTask extends LoadGameListTask {
         giveaway.setPoints(-1);
         giveaway.setEntries(-1);
         Element end = firstColumn.select("span").first();
-        giveaway.setEndTime(Integer.valueOf(end.attr("data-timestamp")), end.parent().text().trim());
+        giveaway.setEndTime(Integer.parseInt(end.attr("data-timestamp")), end.parent().text().trim());
 
         // Has any feedback option been picked yet?
         // If so, this would be == 1, 0 hidden items implies both feedback options are currently available to be picked.

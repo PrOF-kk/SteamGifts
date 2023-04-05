@@ -35,7 +35,7 @@ public class User extends BasicUser implements Serializable {
 
     public void setUrl(String url) {
         List<String> segments = Uri.parse(url).getPathSegments();
-        setSteamID64(Long.valueOf(segments.get(1)));
+        setSteamID64(Long.parseLong(segments.get(1)));
     }
 
     public int getLevel() {

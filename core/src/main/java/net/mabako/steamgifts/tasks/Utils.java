@@ -104,7 +104,7 @@ public final class Utils {
         Comment comment = includeTradeScore ? new TradeComment(commentId, author, depth, avatar, isOp, type) : new Comment(commentId, author, depth, avatar, isOp, type);
         comment.setPermalinkId(permalinkUri.getPathSegments().get(2));
         comment.setEditableContent(editableContent);
-        comment.setCreatedTime(Integer.valueOf(timeCreated.attr("data-timestamp")));
+        comment.setCreatedTime(Integer.parseInt(timeCreated.attr("data-timestamp")));
 
 
         Element desc = element.select(type == Comment.Type.COMMENT ? ".comment__description" : ".review_description").first();
@@ -129,7 +129,7 @@ public final class Utils {
             try {
                 ((TradeComment) comment).setTradeScorePositive(Utils.parseInt(element.select(".is_positive").first().text()));
                 ((TradeComment) comment).setTradeScoreNegative(-Utils.parseInt(element.select(".is_negative").first().text()));
-                ((TradeComment) comment).setSteamID64(Long.valueOf(Uri.parse(element.select(".author_name").attr("href")).getPathSegments().get(1)));
+                ((TradeComment) comment).setSteamID64(Long.parseLong(Uri.parse(element.select(".author_name").attr("href")).getPathSegments().get(1)));
             } catch (Exception e) {
                 Log.v(TAG, "Unable to parse feedback", e);
             }
@@ -171,8 +171,8 @@ public final class Utils {
 
         // Time remaining
         Element end = element.select("." + cssNode + "__columns > div span").first();
-        giveaway.setEndTime(Integer.valueOf(end.attr("data-timestamp")), end.parent().text().trim());
-        giveaway.setCreatedTime(Integer.valueOf(element.select("." + cssNode + "__columns > div span").last().attr("data-timestamp")));
+        giveaway.setEndTime(Integer.parseInt(end.attr("data-timestamp")), end.parent().text().trim());
+        giveaway.setCreatedTime(Integer.parseInt(element.select("." + cssNode + "__columns > div span").last().attr("data-timestamp")));
 
         // Flags
         giveaway.setWhitelist(!element.select("." + cssNode + "__column--whitelist").isEmpty());
@@ -286,7 +286,7 @@ public final class Utils {
         // If this isn't the user we're logged in as, we'd get some user id.
         Element idElement = document.select("input[name=child_user_id]").first();
         if (idElement != null) {
-            user.setId(Integer.valueOf(idElement.attr("value")));
+            user.setId(Integer.parseInt(idElement.attr("value")));
         } else {
             Log.v(TAG, "No child_user_id");
         }

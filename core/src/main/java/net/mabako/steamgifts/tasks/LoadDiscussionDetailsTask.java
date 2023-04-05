@@ -116,7 +116,7 @@ public class LoadDiscussionDetailsTask extends AsyncTask<Void, Void, DiscussionE
         discussion.setTitle(Utils.getPageTitle(document));
 
         discussion.setCreator(element.select(".comment__username a").first().text());
-        discussion.setCreatedTime(Integer.valueOf(element.select(".comment__actions > div span").first().attr("data-timestamp")));
+        discussion.setCreatedTime(Integer.parseInt(element.select(".comment__actions > div span").first().attr("data-timestamp")));
 
         Element headerButton = document.select(".page__heading__button").first();
         if (headerButton != null) {
@@ -189,8 +189,8 @@ public class LoadDiscussionDetailsTask extends AsyncTask<Void, Void, DiscussionE
         for (Element thisAnswer : answerElements) {
             Poll.Answer answer = new Poll.Answer();
 
-            answer.setId(Integer.valueOf(thisAnswer.attr("data-id")));
-            answer.setVoteCount(Integer.valueOf(thisAnswer.attr("data-votes")));
+            answer.setId(Integer.parseInt(thisAnswer.attr("data-id")));
+            answer.setVoteCount(Integer.parseInt(thisAnswer.attr("data-votes")));
             answer.setText(thisAnswer.select(".table__column__heading").text());
 
             poll.addAnswer(answer, thisAnswer.hasClass("is-selected"));
