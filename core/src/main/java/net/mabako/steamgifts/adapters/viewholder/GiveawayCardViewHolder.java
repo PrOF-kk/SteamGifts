@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GiveawayCardViewHolder extends RecyclerView.ViewHolder {
-    private GiveawayDetailFragment fragment;
+    private final GiveawayDetailFragment fragment;
 
     private final View progressBar;
     private final TextView title;
@@ -68,12 +68,7 @@ public class GiveawayCardViewHolder extends RecyclerView.ViewHolder {
         commentGiveaway = (Button) v.findViewById(R.id.comment);
         errorMessage = (Button) v.findViewById(R.id.error);
         loginButton = (Button) v.findViewById(R.id.login);
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((CommonActivity) fragment.getActivity()).requestLogin();
-            }
-        });
+        loginButton.setOnClickListener(v2 -> ((CommonActivity) fragment.getActivity()).requestLogin());
         indicator = (Button) v.findViewById(R.id.indicator);
     }
 
@@ -89,12 +84,7 @@ public class GiveawayCardViewHolder extends RecyclerView.ViewHolder {
             progressBar.setVisibility(View.VISIBLE);
         } else {
             user.setText("{faw-user} " + giveaway.getCreator());
-            user.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    fragment.showProfile(giveaway.getCreator());
-                }
-            });
+            user.setOnClickListener(v -> fragment.showProfile(giveaway.getCreator()));
 
             for (View view : new View[]{user, title, timeRemaining, timeCreated, separator})
                 view.setVisibility(View.VISIBLE);
@@ -149,12 +139,7 @@ public class GiveawayCardViewHolder extends RecyclerView.ViewHolder {
 
                     if ("Sync Required".equals(extras.getErrorMessage())) {
                         errorMessage.setEnabled(true);
-                        errorMessage.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                fragment.getActivity().startActivityForResult(new Intent(fragment.getContext(), SyncActivity.class), SyncActivity.REQUEST_SYNC);
-                            }
-                        });
+                        errorMessage.setOnClickListener(v -> fragment.getActivity().startActivityForResult(new Intent(fragment.getContext(), SyncActivity.class), SyncActivity.REQUEST_SYNC));
                     }
                 } else if (extras.getWinners() != null) {
                     viewWinners.setText("{faw-trophy} " + extras.getWinners());
@@ -172,42 +157,28 @@ public class GiveawayCardViewHolder extends RecyclerView.ViewHolder {
                 setupIndicators(giveaway);
             }
 
-            enterGiveaway.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (extras != null) {
-                        enterGiveaway.setEnabled(false);
-                        fragment.requestEnterLeave(giveaway.getGiveawayId(), GiveawayDetailFragment.ENTRY_INSERT, extras.getXsrfToken());
-                    }
+            enterGiveaway.setOnClickListener(v -> {
+                if (extras != null) {
+                    enterGiveaway.setEnabled(false);
+                    fragment.requestEnterLeave(giveaway.getGiveawayId(), GiveawayDetailFragment.ENTRY_INSERT, extras.getXsrfToken());
                 }
             });
 
-            leaveGiveaway.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (extras != null) {
-                        leaveGiveaway.setEnabled(false);
-                        fragment.requestEnterLeave(giveaway.getGiveawayId(), GiveawayDetailFragment.ENTRY_DELETE, extras.getXsrfToken());
-                    }
+            leaveGiveaway.setOnClickListener(v -> {
+                if (extras != null) {
+                    leaveGiveaway.setEnabled(false);
+                    fragment.requestEnterLeave(giveaway.getGiveawayId(), GiveawayDetailFragment.ENTRY_DELETE, extras.getXsrfToken());
                 }
             });
 
-            viewWinners.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(fragment.getContext(), DetailActivity.class);
-                    intent.putExtra(DetailActivity.ARG_GIVEAWAY_DETAILS, new DetailActivity.GiveawayDetails(DetailActivity.GiveawayDetails.Type.WINNERS, giveaway.getGiveawayId() + "/" + giveaway.getName(), giveaway.getTitle()));
+            viewWinners.setOnClickListener(v -> {
+                Intent intent = new Intent(fragment.getContext(), DetailActivity.class);
+                intent.putExtra(DetailActivity.ARG_GIVEAWAY_DETAILS, new DetailActivity.GiveawayDetails(DetailActivity.GiveawayDetails.Type.WINNERS, giveaway.getGiveawayId() + "/" + giveaway.getName(), giveaway.getTitle()));
 
-                    fragment.getActivity().startActivityForResult(intent, CommonActivity.REQUEST_LOGIN_PASSIVE);
-                }
+                fragment.getActivity().startActivityForResult(intent, CommonActivity.REQUEST_LOGIN_PASSIVE);
             });
 
-            commentGiveaway.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    fragment.requestComment(null);
-                }
-            });
+            commentGiveaway.setOnClickListener(v -> fragment.requestComment(null));
         }
 
         AttachedImageUtils.setFrom(itemView, extras, (CommonActivity) (fragment.getActivity()));
@@ -241,18 +212,15 @@ public class GiveawayCardViewHolder extends RecyclerView.ViewHolder {
         if (!spans.isEmpty()) {
             indicator.setVisibility(View.VISIBLE);
 
-            CharSequence text = TextUtils.concat(spans.toArray(new Spannable[spans.size()]));
+            CharSequence text = TextUtils.concat(spans.toArray(new Spannable[0]));
             indicator.setText(text);
 
             if (giveaway.isGroup()) {
-                indicator.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(fragment.getContext(), DetailActivity.class);
-                        intent.putExtra(DetailActivity.ARG_GIVEAWAY_DETAILS, new DetailActivity.GiveawayDetails(DetailActivity.GiveawayDetails.Type.GROUPS, giveaway.getGiveawayId() + "/" + giveaway.getName(), giveaway.getTitle()));
+                indicator.setOnClickListener(v -> {
+                    Intent intent = new Intent(fragment.getContext(), DetailActivity.class);
+                    intent.putExtra(DetailActivity.ARG_GIVEAWAY_DETAILS, new DetailActivity.GiveawayDetails(DetailActivity.GiveawayDetails.Type.GROUPS, giveaway.getGiveawayId() + "/" + giveaway.getName(), giveaway.getTitle()));
 
-                        fragment.getActivity().startActivityForResult(intent, CommonActivity.REQUEST_LOGIN_PASSIVE);
-                    }
+                    fragment.getActivity().startActivityForResult(intent, CommonActivity.REQUEST_LOGIN_PASSIVE);
                 });
             } else {
                 indicator.setOnClickListener(null);
