@@ -5,6 +5,7 @@ android {
 
     defaultConfig {
         minSdkVersion 15
+        //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 26
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
@@ -18,6 +19,7 @@ android {
     }
 
     lintOptions {
+        disable 'ExpiredTargetSdkVersion'
         warning 'InvalidPackage' // okio references java.nio, which is not part of android.
     }
 }
