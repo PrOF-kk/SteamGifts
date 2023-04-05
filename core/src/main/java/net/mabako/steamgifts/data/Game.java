@@ -72,10 +72,11 @@ public class Game implements Serializable, IEndlessAdaptable {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || !(o instanceof Game))
-            return false;
+        if (o instanceof Game) {
+            return ((Game) o).internalGameId == internalGameId;
+        }
+        return false;
 
-        return ((Game) o).internalGameId == internalGameId;
     }
 
     public enum Type {

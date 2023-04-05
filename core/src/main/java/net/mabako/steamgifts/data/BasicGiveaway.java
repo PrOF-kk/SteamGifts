@@ -32,9 +32,10 @@ public class BasicGiveaway implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || !(o instanceof BasicGiveaway) || giveawayId == null)
-            return false;
+        if (o instanceof BasicGiveaway && giveawayId != null) {
+            return giveawayId.equals(((BasicGiveaway) o).giveawayId);
+        }
+        return false;
 
-        return giveawayId.equals(((BasicGiveaway) o).giveawayId);
     }
 }

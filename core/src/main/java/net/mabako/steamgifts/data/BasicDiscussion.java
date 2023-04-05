@@ -16,10 +16,11 @@ public class BasicDiscussion implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || !(o instanceof BasicDiscussion) || discussionId == null)
-            return false;
+        if (o instanceof BasicDiscussion && discussionId != null) {
+            return discussionId.equals(((BasicDiscussion) o).discussionId);
+        }
+        return false;
 
-        return discussionId.equals(((BasicDiscussion) o).discussionId);
     }
 
     @Override

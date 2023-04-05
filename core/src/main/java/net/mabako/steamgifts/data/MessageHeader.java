@@ -41,10 +41,11 @@ public class MessageHeader implements IEndlessAdaptable, ICommentHolder, Seriali
     // TODO if you receive more messages while reading messages and refresh, this is gonna have a bad time
     @Override
     public boolean equals(Object o) {
-        if (o == null || !(o instanceof MessageHeader))
-            return false;
+        if (o instanceof MessageHeader) {
+            return comments.equals(((MessageHeader) o).comments);
+        }
+        return false;
 
-        return comments.equals(((MessageHeader) o).comments);
     }
 
     @Override

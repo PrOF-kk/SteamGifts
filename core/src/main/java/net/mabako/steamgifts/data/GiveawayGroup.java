@@ -29,9 +29,10 @@ public class GiveawayGroup implements IEndlessAdaptable, Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || !(o instanceof GiveawayGroup))
-            return false;
-        return ((GiveawayGroup) o).id == id;
+        if (o instanceof GiveawayGroup) {
+            return ((GiveawayGroup) o).id.equals(id);
+        }
+        return false;
     }
 
     @Override

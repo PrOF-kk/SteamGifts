@@ -137,10 +137,11 @@ public class Poll implements Serializable {
 
         @Override
         public boolean equals(Object o) {
-            if (o == null || !(o instanceof Answer))
-                return false;
+            if (o instanceof Answer) {
+                return ((Answer) o).id == id;
+            }
+            return false;
 
-            return ((Answer) o).id == id;
         }
 
         @Override
