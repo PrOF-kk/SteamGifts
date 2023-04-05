@@ -125,13 +125,10 @@ public abstract class SavedElements<T> implements Comparator<T> {
             List<T> elements = new ArrayList<T>();
             Gson gson = new Gson();
 
-            Cursor cursor = getReadableDatabase().query(parent.table, new String[]{KEY_VALUE}, null, null, null, null, null, null);
-            try {
+            try (Cursor cursor = getReadableDatabase().query(parent.table, new String[]{KEY_VALUE}, null, null, null, null, null, null)) {
                 while (cursor.moveToNext()) {
                     elements.add(parent.getElement(gson, cursor.getString(0)));
                 }
-            } finally {
-                cursor.close();
             }
 
             Collections.sort(elements, parent);
@@ -140,14 +137,11 @@ public abstract class SavedElements<T> implements Comparator<T> {
         }
 
         public T get(String elementId) {
-            Cursor cursor = getReadableDatabase().query(parent.table, new String[]{KEY_VALUE}, KEY_ID + " = ?", new String[]{elementId}, null, null, null, null);
-            try {
+            try (Cursor cursor = getReadableDatabase().query(parent.table, new String[]{KEY_VALUE}, KEY_ID + " = ?", new String[]{elementId}, null, null, null, null)) {
                 if (cursor.moveToFirst())
                     return parent.getElement(new Gson(), cursor.getString(0));
 
                 return null;
-            } finally {
-                cursor.close();
             }
         }
 
