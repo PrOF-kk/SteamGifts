@@ -60,7 +60,7 @@ public class DetailActivity extends CommonActivity {
 
         initLayout(savedInstanceState);
 
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        setSupportActionBar(findViewById(R.id.toolbar));
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -128,7 +128,7 @@ public class DetailActivity extends CommonActivity {
                 }
             }
 
-            setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+            setSupportActionBar(findViewById(R.id.toolbar));
             ActionBar actionBar = getSupportActionBar();
             if (actionBar != null)
                 actionBar.setTitle(R.string.notifications_title);
@@ -165,7 +165,7 @@ public class DetailActivity extends CommonActivity {
         this.layoutId = layoutResID;
         super.setContentView(layoutResID);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null)
             setSupportActionBar(toolbar);
     }
@@ -236,13 +236,13 @@ public class DetailActivity extends CommonActivity {
      * @param fragments
      */
     private void loadPagedFragments(Fragment... fragments) {
-        pager = (ViewPager) findViewById(R.id.viewPager);
+        pager = findViewById(R.id.viewPager);
 
         pagerAdapter = new TitledPagerAdapter(this, pager, fragments);
         pager.setAdapter(pagerAdapter);
         pager.addOnPageChangeListener(pagerAdapter);
 
-        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        tabLayout = findViewById(R.id.tabLayout);
         if (tabLayout != null) {
             tabLayout.setupWithViewPager(pager);
         }

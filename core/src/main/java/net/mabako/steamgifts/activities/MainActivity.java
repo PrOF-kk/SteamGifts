@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 
 import net.mabako.steamgifts.ApplicationTemplate;
 import net.mabako.steamgifts.core.R;
@@ -32,7 +31,7 @@ public class MainActivity extends CommonActivity implements IPointUpdateNotifica
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_one_fragment);
 
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        setSupportActionBar(findViewById(R.id.toolbar));
 
         SteamGiftsUserData.addUpdateHandler(this);
         onUpdatePoints(SteamGiftsUserData.getCurrent(this).getPoints());

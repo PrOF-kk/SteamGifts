@@ -8,7 +8,6 @@ import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -60,7 +59,7 @@ public class WriteCommentActivity extends BaseActivity implements DialogInterfac
 
         setContentView(R.layout.activity_write_comment);
 
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        setSupportActionBar(findViewById(R.id.toolbar));
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setTitle(getIntent().getStringExtra(TITLE));
@@ -72,7 +71,7 @@ public class WriteCommentActivity extends BaseActivity implements DialogInterfac
             loadFragment(R.id.fragment_container, new SingleCommentFragment(), FRAGMENT_TAG_PARENT_COMMENT);
 
             // If the fragment is smaller than the scrollview, resize the scrollview to be smaller as well.
-            final ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
+            final ScrollView scrollView = findViewById(R.id.scrollView);
             scrollView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
                 public void onGlobalLayout() {
