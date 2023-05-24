@@ -53,9 +53,9 @@
     <string name="logged_out">Goodbye!</string>
 
     <!-- About dialog -->
-    <string name="app_name_long">sg for SteamGifts</string>
-    <string name="about_made_with_love">made with {faw-heart} by kt</string>
-    <string name="about_mail">Contact via Mail</string>
+    <string name="app_name_long">sg for SteamGifts - NV edition</string>
+    <string name="about_made_with_love">made with {faw-heart} by kt\nmaintained with {faw-heart} by PrOF</string>
+    <string name="about_issues">Report an Issue</string>
     <string name="about_source_code">Source Code</string>
 
     <!-- Details: Enter/Leave/Comment -->

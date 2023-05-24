@@ -64,11 +64,11 @@
                 android:gravity="center_horizontal">
 
                 <Button
-                    android:id="@+id/mail"
+                    android:id="@+id/issues"
                     style="@style/MediumButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/about_mail" />
+                    android:text="@string/about_issues" />
 
                 <Button
                     android:id="@+id/source"

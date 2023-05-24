@@ -1,4 +1,4 @@
-# sg for SteamGifts
+# sg for SteamGifts - NV Edition
 
 An app to browse SteamGifts giveaways on your phone.
 
