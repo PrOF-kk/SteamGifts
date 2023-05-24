@@ -76,7 +76,7 @@ public abstract class SearchableListFragment<AdapterType extends EndlessAdapter>
         inflater.inflate(R.menu.main_menu, menu);
 
         final MenuItem searchMenu = menu.findItem(R.id.search);
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchMenu);
+        final SearchView searchView = (SearchView) searchMenu.getActionView();
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -95,7 +95,7 @@ public abstract class SearchableListFragment<AdapterType extends EndlessAdapter>
         });
 
         // Stop searching on clicking 'back'
-        MenuItemCompat.setOnActionExpandListener(searchMenu, new MenuItemCompat.OnActionExpandListener() {
+        searchMenu.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
                 return true;
@@ -109,7 +109,7 @@ public abstract class SearchableListFragment<AdapterType extends EndlessAdapter>
         });
 
         if (searchQuery != null) {
-            MenuItemCompat.expandActionView(searchMenu);
+            searchMenu.expandActionView();
             searchView.setQuery(searchQuery, false);
             searchView.clearFocus();
         }
