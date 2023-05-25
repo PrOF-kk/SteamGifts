@@ -12,6 +12,8 @@ import net.mabako.steamgifts.PeriodicTasks;
 public class BootReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        PeriodicTasks.scheduleAllTasks(context);
+        if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction()) || "android.intent.action.QUICKBOOT_POWERON".equals(intent.getAction())) {
+            PeriodicTasks.scheduleAllTasks(context);
+        }
     }
 }
