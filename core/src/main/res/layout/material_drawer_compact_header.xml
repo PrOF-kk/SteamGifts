@@ -86,7 +86,7 @@
                 android:lines="1"
                 android:maxLines="1"
                 android:textColor="@color/material_drawer_header_selection_text"
-                android:textSize="@dimen/material_drawer_account_header_text"
+                android:textSize="20sp"
                 tools:text="Notifications" />
 
             <TextView
