@@ -22,7 +22,8 @@
 
         <activity
             android:name="net.mabako.steamgifts.activities.MainActivity"
-            android:configChanges="orientation|screenSize">
+            android:configChanges="orientation|screenSize"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -59,7 +60,9 @@
             android:theme="@style/AppTheme.Dark" />
 
         <!-- handle all urls... or at least some -->
-        <activity android:name="net.mabako.steamgifts.activities.UrlHandlingActivity">
+        <activity
+            android:name="net.mabako.steamgifts.activities.UrlHandlingActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -108,7 +111,9 @@
             android:theme="@style/AppTheme.Light" />
 
         <!-- start new message checking on boot -->
-        <receiver android:name="net.mabako.steamgifts.receivers.BootReceiver">
+        <receiver
+            android:name="net.mabako.steamgifts.receivers.BootReceiver"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
