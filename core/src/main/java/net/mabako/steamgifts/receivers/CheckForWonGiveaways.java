@@ -158,7 +158,7 @@ public class CheckForWonGiveaways extends AbstractNotificationCheckReceiver {
             Intent intent = new Intent(context, DetailActivity.class);
             intent.putExtra(DetailActivity.ARG_NOTIFICATIONS, NOTIFICATION_ID);
 
-            return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+            return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         }
 
         /**
@@ -174,7 +174,7 @@ public class CheckForWonGiveaways extends AbstractNotificationCheckReceiver {
             intent.setAction(ACTION_DELETE);
             intent.putStringArrayListExtra(EXTRA_GIVEAWAY_IDS, lastGiveawayIds);
 
-            return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+            return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         }
     }
 }

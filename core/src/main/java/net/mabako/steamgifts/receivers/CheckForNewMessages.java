@@ -185,7 +185,7 @@ public class CheckForNewMessages extends AbstractNotificationCheckReceiver {
             intent.setAction(ACTION_DELETE);
             intent.putExtra(EXTRA_COMMENT_ID, lastCommentId);
 
-            return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+            return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         }
 
         /**
@@ -197,7 +197,7 @@ public class CheckForNewMessages extends AbstractNotificationCheckReceiver {
             Intent intent = new Intent(context, DetailActivity.class);
             intent.putExtra(DetailActivity.ARG_NOTIFICATIONS, NOTIFICATION_ID);
 
-            return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+            return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         }
 
         /**
@@ -210,7 +210,7 @@ public class CheckForNewMessages extends AbstractNotificationCheckReceiver {
             Intent intent = UrlHandlingActivity.getPermalinkUri(context, comment);
             intent.putExtra(DetailActivity.ARG_MARK_CONTEXT_READ, true);
 
-            return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+            return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         }
     }
 }

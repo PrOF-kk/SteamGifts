@@ -19,7 +19,7 @@ public class PeriodicTasks {
 
     private static void scheduleTask(Task task, Context context) {
         if (!scheduledTasks.containsKey(task)) {
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, new Intent(context, task.taskClass), PendingIntent.FLAG_CANCEL_CURRENT);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, new Intent(context, task.taskClass), PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             alarmManager.setInexactRepeating(AlarmManager.RTC, System.currentTimeMillis(), task.interval, pendingIntent);
