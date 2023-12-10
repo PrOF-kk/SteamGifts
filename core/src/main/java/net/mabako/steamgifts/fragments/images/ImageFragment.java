@@ -101,7 +101,7 @@ public class ImageFragment extends Fragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable(SAVED_STATE, state);
         outState.putByteArray(SAVED_IMAGE_BYTES, imageBytes);

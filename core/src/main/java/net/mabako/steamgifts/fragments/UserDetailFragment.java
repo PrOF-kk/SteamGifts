@@ -88,7 +88,7 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable(SAVED_USER, user);
     }
@@ -353,7 +353,7 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
         }
 
         @Override
-        public void onSaveInstanceState(Bundle outState) {
+        public void onSaveInstanceState(@NonNull Bundle outState) {
             super.onSaveInstanceState(outState);
             outState.putSerializable(SAVED_USER, user);
             outState.putString(SAVED_PATH, path);
@@ -440,7 +440,7 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
         }
 
         @Override
-        public void onSaveInstanceState(Bundle outState) {
+        public void onSaveInstanceState(@NonNull Bundle outState) {
             super.onSaveInstanceState(outState);
             outState.putSerializable(SAVED_USER, user);
             outState.putString(SAVED_RATING, rating);

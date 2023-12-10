@@ -99,7 +99,7 @@ public class GiveawayListFragment extends SearchableListFragment<GiveawayAdapter
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
         outState.putSerializable(SAVED_TYPE, type);
@@ -413,12 +413,12 @@ public class GiveawayListFragment extends SearchableListFragment<GiveawayAdapter
         }
 
         @Override
-        public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
             return false;
         }
 
         @Override
-        public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             if (direction == ItemTouchHelper.LEFT) {
                 int position = viewHolder.getAdapterPosition();
                 Giveaway giveaway = (Giveaway) adapter.getItem(position);
@@ -432,7 +432,7 @@ public class GiveawayListFragment extends SearchableListFragment<GiveawayAdapter
         }
 
         @Override
-        public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+        public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
             View itemView = viewHolder.itemView;
 
             if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE && dX < 0) {
@@ -462,7 +462,7 @@ public class GiveawayListFragment extends SearchableListFragment<GiveawayAdapter
         }
 
         @Override
-        public int getSwipeDirs(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+        public int getSwipeDirs(@NonNull RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
             int position = viewHolder.getAdapterPosition();
             Giveaway giveaway = (Giveaway) adapter.getItem(position);
 

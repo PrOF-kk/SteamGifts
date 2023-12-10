@@ -72,7 +72,7 @@ public class DiscussionDetailFragment extends DetailFragment implements IHasPoll
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable(SAVED_DISCUSSION, discussion);
         outState.putSerializable(SAVED_CARD, discussionCard);

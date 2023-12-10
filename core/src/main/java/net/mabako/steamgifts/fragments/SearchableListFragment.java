@@ -3,6 +3,7 @@ package net.mabako.steamgifts.fragments;
 import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -53,7 +54,7 @@ public abstract class SearchableListFragment<AdapterType extends EndlessAdapter>
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(SAVED_QUERY, searchQuery);
         outState.putBoolean(SAVED_FINISH_ON_STOP, finishActivityOnSearchStopped);

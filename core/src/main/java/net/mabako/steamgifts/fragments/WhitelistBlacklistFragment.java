@@ -62,7 +62,7 @@ public class WhitelistBlacklistFragment extends SearchableListFragment<UserAdapt
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable(SAVED_TYPE, type);
         outState.putSerializable(SAVED_LAST_REMOVED, lastRemovedUser);

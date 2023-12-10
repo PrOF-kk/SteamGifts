@@ -2,6 +2,7 @@ package net.mabako.steamgifts.fragments;
 
 import android.app.Activity;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -62,7 +63,7 @@ public abstract class FragmentAdapter extends FragmentStatePagerAdapter implemen
     }
 
     @Override
-    public int getItemPosition(Object object) {
+    public int getItemPosition(@NonNull Object object) {
         Fragment fragment = (Fragment) object;
         if (fragments.contains(fragment))
             return fragments.indexOf(fragment);

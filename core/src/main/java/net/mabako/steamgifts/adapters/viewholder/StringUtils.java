@@ -119,7 +119,7 @@ public final class StringUtils {
                 final Uri clickableUri = uri;
                 stringBuilder.setSpan(new ClickableSpan() {
                     @Override
-                    public void onClick(View widget) {
+                    public void onClick(@NonNull View widget) {
                         // Do we have anything in the app we can open with that url?
                         UrlHandlingActivity.getIntentForUri(context, clickableUri, true).start((Activity) context);
                     }
@@ -127,7 +127,7 @@ public final class StringUtils {
             } else {
                 stringBuilder.setSpan(new ClickableSpan() {
                     @Override
-                    public void onClick(View widget) {
+                    public void onClick(@NonNull View widget) {
                         Toast.makeText(context, "Unable to open link " + url + ".", Toast.LENGTH_LONG).show();
                     }
                 }, start, end, flags);

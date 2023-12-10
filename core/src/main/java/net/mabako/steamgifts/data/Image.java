@@ -1,5 +1,7 @@
 package net.mabako.steamgifts.data;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 
 public class Image implements Serializable {
@@ -26,6 +28,7 @@ public class Image implements Serializable {
         this.title = title;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return String.format("(%s,%s)", url, title);

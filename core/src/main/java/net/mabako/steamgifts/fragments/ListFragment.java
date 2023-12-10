@@ -115,7 +115,7 @@ public abstract class ListFragment<AdapterType extends EndlessAdapter> extends F
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable(SAVED_ADAPTER, adapter);
     }

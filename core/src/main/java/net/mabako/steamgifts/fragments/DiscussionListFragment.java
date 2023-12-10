@@ -59,7 +59,7 @@ public class DiscussionListFragment extends SearchableListFragment<DiscussionAda
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable(SAVED_TYPE, type);
     }

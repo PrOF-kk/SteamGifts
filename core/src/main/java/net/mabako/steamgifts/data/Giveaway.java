@@ -225,6 +225,7 @@ public class Giveaway extends BasicGiveaway implements IEndlessAdaptable {
         this.createdTime = new CustomDateTime(createdTimestamp, false);
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "[GA " + getGiveawayId() + ", " + getGameId() + "]";

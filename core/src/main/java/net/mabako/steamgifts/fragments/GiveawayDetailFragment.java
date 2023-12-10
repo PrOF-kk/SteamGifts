@@ -101,7 +101,7 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable(SAVED_GIVEAWAY, giveaway);
     }

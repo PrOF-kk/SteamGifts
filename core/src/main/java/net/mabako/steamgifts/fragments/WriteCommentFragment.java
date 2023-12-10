@@ -1,6 +1,7 @@
 package net.mabako.steamgifts.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
@@ -64,7 +65,7 @@ public class WriteCommentFragment extends DialogFragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable(SAVED_COMMENT, comment);
         outState.putSerializable(SAVED_GIVEAWAY_ID, giveawayId);
