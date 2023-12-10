@@ -32,6 +32,7 @@
             android:hint="@string/filter_min"
             android:imeOptions="actionNext"
             android:inputType="number"
+            android:importantForAutofill="no"
             android:maxLength="2"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -45,6 +46,7 @@
             android:hint="@string/filter_max"
             android:imeOptions="actionNext"
             android:inputType="number"
+            android:importantForAutofill="no"
             android:maxLength="2"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -80,6 +82,7 @@
             android:hint="@string/filter_min"
             android:imeOptions="actionNext"
             android:inputType="number"
+            android:importantForAutofill="no"
             android:maxLength="5"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -93,6 +96,7 @@
             android:hint="@string/filter_max"
             android:imeOptions="actionNext"
             android:inputType="number"
+            android:importantForAutofill="no"
             android:maxLength="5"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -127,6 +131,7 @@
             android:hint="@string/filter_min"
             android:imeOptions="actionNext"
             android:inputType="number"
+            android:importantForAutofill="no"
             android:maxLength="3"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -140,6 +145,7 @@
             android:hint="@string/filter_max"
             android:imeOptions="actionNone"
             android:inputType="number"
+            android:importantForAutofill="no"
             android:maxLength="3"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -164,6 +170,7 @@
             android:hint="@string/filter_min"
             android:imeOptions="actionNext"
             android:inputType="number"
+            android:importantForAutofill="no"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
 
@@ -176,6 +183,7 @@
             android:hint="@string/filter_max"
             android:imeOptions="actionNone"
             android:inputType="number"
+            android:importantForAutofill="no"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
 
