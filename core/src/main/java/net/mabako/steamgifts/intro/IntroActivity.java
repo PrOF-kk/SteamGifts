@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 
 import com.github.paolorotolo.appintro.AppIntro2;
 import com.mikepenz.iconics.context.IconicsContextWrapper;
@@ -37,11 +38,13 @@ public class IntroActivity extends AppIntro2 {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public void init(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         switch (getIntent().getStringExtra("type")) {
             case INTRO_MAIN:
                 setIndicatorColor(getResources().getColor(R.color.colorAccent), getResources().getColor(android.R.color.darker_gray));
+                showSkipButton(false);
 
                 addSlide(Slide.newInstance(SubView.MAIN_WELCOME));
                 addSlide(Slide.newInstance(SubView.MAIN_GIVEAWAY_1));
@@ -52,18 +55,8 @@ public class IntroActivity extends AppIntro2 {
     }
 
     @Override
-    public void onNextPressed() {
-
-    }
-
-    @Override
-    public void onDonePressed() {
+    public void onDonePressed(Fragment currentFragment) {
         finish();
-    }
-
-    @Override
-    public void onSlideChanged() {
-
     }
 
     /**
