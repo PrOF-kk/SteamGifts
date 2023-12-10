@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
         applicationId 'net.mabako.steamgifts'
         minSdkVersion 21
+        compileSdk rootProject.ext.compileSdkVersion
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 26
         versionCode rootProject.ext.versionCode
@@ -19,8 +19,7 @@ android {
         }
     }
 
-    flavorDimensions 'iceCream'
-
+    flavorDimensions = ['iceCream']
     productFlavors {
         // ** This is the build flavor you want to pick for running the app locally. **
         chocolate {

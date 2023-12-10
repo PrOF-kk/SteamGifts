@@ -47,11 +47,11 @@ allprojects {
         google()
     }
 
-    tasks.withType(JavaCompile) {
+    tasks.withType(JavaCompile).configureEach {
         options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
     }
 }
 
-task clean(type: Delete) {
+tasks.register('clean', Delete) {
     delete rootProject.buildDir
 }
