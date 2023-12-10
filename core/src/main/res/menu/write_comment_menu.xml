@@ -6,7 +6,7 @@
     <item
         android:id="@+id/send_comment_and_enter"
         android:title="@string/send_comment_and_enter"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/send_comment"
