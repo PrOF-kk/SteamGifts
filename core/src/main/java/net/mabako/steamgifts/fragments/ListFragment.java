@@ -99,18 +99,15 @@ public abstract class ListFragment<AdapterType extends EndlessAdapter> extends F
         // Swipe to Refresh
 
         // Setup refresh listener which triggers new data loading
-        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // Make sure you call swipeContainer.setRefreshing(false)
-                // once the network request has completed successfully.
-                if (adapter.isViewInReverse()) {
-                    // We'd basically want to clear out the whole view, since view in reverse is a bit different to handle
-                    // TODO can we just call fetchItems(EndlessAdapter.LAST_PAGE)?
-                    refresh();
-                } else {
-                    fetchItems(EndlessAdapter.FIRST_PAGE);
-                }
+        swipeContainer.setOnRefreshListener(() -> {
+            // Make sure you call swipeContainer.setRefreshing(false)
+            // once the network request has completed successfully.
+            if (adapter.isViewInReverse()) {
+                // We'd basically want to clear out the whole view, since view in reverse is a bit different to handle
+                // TODO can we just call fetchItems(EndlessAdapter.LAST_PAGE)?
+                refresh();
+            } else {
+                fetchItems(EndlessAdapter.FIRST_PAGE);
             }
         });
         // Configure the refreshing colors
@@ -238,13 +235,10 @@ public abstract class ListFragment<AdapterType extends EndlessAdapter> extends F
             if (isCurrentFragmentTheActiveFragment()) {
                 scrollToTopButton.hide();
                 scrollToTopButton.setTag("clickable");
-                scrollToTopButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (listView != null) {
-                            ((LinearLayoutManager) listView.getLayoutManager()).scrollToPositionWithOffset(0, 0);
-                            scrollToTopButton.hide();
-                        }
+                scrollToTopButton.setOnClickListener(v -> {
+                    if (listView != null) {
+                        ((LinearLayoutManager) listView.getLayoutManager()).scrollToPositionWithOffset(0, 0);
+                        scrollToTopButton.hide();
                     }
                 });
             } else {
