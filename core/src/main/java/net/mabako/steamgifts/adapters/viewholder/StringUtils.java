@@ -142,17 +142,12 @@ public final class StringUtils {
         setBackgroundDrawable(context, view, highlighted, R.attr.colorHighlightBackground);
     }
 
-    @SuppressWarnings("deprecation")
     public static void setBackgroundDrawable(Context context, View view, boolean highlighted, @AttrRes int attr) {
         if (highlighted) {
             int[] attrs = new int[]{attr};
             TypedArray ta = context.getTheme().obtainStyledAttributes(attrs);
 
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                view.setBackgroundDrawable(ta.getDrawable(0));
-            } else {
-                view.setBackground(ta.getDrawable(0));
-            }
+            view.setBackground(ta.getDrawable(0));
         } else {
             view.setBackgroundResource(R.color.colorTransparent);
         }
