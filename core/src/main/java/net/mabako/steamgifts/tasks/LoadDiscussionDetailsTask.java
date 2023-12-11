@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import net.mabako.Constants;
+import net.mabako.steamgifts.adapters.EndlessAdapter;
 import net.mabako.steamgifts.data.Comment;
 import net.mabako.steamgifts.data.Discussion;
 import net.mabako.steamgifts.data.DiscussionExtras;
@@ -38,7 +39,6 @@ public class LoadDiscussionDetailsTask extends AsyncTask<Void, Void, DiscussionE
         this.discussionId = discussionId;
         this.page = page;
         this.loadDetails = loadDetails;
-
     }
 
     @Override
@@ -91,7 +91,12 @@ public class LoadDiscussionDetailsTask extends AsyncTask<Void, Void, DiscussionE
     }
 
     private Connection.Response connect() throws IOException {
-        String url = "https://www.steamgifts.com/discussion/" + discussionId + "/search?page=" + page;
+
+        // As of 2023-12, pages after the last one return no comments instead of redirecting to the actual last page
+        String url = (page != EndlessAdapter.LAST_PAGE)
+                ? "https://www.steamgifts.com/discussion/" + discussionId + "/search?page=" + page
+                : "https://www.steamgifts.com/discussion/" + discussionId + "/search?page=last";
+
         Log.v(TAG, "Fetching discussion details for " + url);
         Connection connection = Jsoup.connect(url)
                 .userAgent(Constants.JSOUP_USER_AGENT)
