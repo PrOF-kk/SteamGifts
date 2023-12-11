@@ -169,7 +169,7 @@ public class DiscussionDetailFragment extends DetailFragment implements IHasPoll
             if (actionBar != null) {
                 actionBar.setTitle(getTitle());
             }
-            activity.supportInvalidateOptionsMenu();
+            activity.invalidateOptionsMenu();
         }
     }
 
@@ -203,7 +203,7 @@ public class DiscussionDetailFragment extends DetailFragment implements IHasPoll
         addItems(extras.getComments(), false, extras.getXsrfToken());
 
         if (getActivity() != null)
-            getActivity().supportInvalidateOptionsMenu();
+            getActivity().invalidateOptionsMenu();
     }
 
     @Override
@@ -249,13 +249,13 @@ public class DiscussionDetailFragment extends DetailFragment implements IHasPoll
         int itemId = item.getItemId();
         if (itemId == R.id.add_saved_element) {
             if (discussion instanceof Discussion && savedDiscussions.add((Discussion) discussion, discussion.getDiscussionId())) {
-                getActivity().supportInvalidateOptionsMenu();
+                getActivity().invalidateOptionsMenu();
                 Toast.makeText(getContext(), R.string.added_saved_discussion, Toast.LENGTH_SHORT).show();
             }
             return true;
         } else if (itemId == R.id.remove_saved_element) {
             if (discussion instanceof Discussion && savedDiscussions.remove(discussion.getDiscussionId())) {
-                getActivity().supportInvalidateOptionsMenu();
+                getActivity().invalidateOptionsMenu();
                 Toast.makeText(getContext(), R.string.removed_saved_discussion, Toast.LENGTH_SHORT).show();
             }
             return true;

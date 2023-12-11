@@ -112,6 +112,6 @@ public class WriteCommentFragment extends DialogFragment {
 
     public void onEntered() {
         giveawayId = null;
-        getActivity().supportInvalidateOptionsMenu();
+        getActivity().invalidateOptionsMenu();
     }
 }

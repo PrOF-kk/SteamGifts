@@ -179,7 +179,7 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
 
         giveawayCard.setExtras(extras);
         if (getActivity() != null)
-            getActivity().supportInvalidateOptionsMenu();
+            getActivity().invalidateOptionsMenu();
         adapter.setStickyItem(giveawayCard);
     }
 
@@ -257,7 +257,7 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
 
 
         // Re-build the options menu, which may not be created if no giveaway was present.
-        getActivity().supportInvalidateOptionsMenu();
+        getActivity().invalidateOptionsMenu();
 
         if (getActivity() instanceof DetailActivity && giveaway.getGameId() != Game.NO_APP_ID && !fragmentAdded) {
             ((DetailActivity) getActivity()).addFragmentUnlessExists(giveaway.getType() == Game.Type.APP ? StoreAppFragment.newInstance(giveaway.getGameId(), false) : StoreSubFragment.newInstance(giveaway.getGameId()));
@@ -320,13 +320,13 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
             return true;
         } else if (itemId == R.id.add_saved_element) {
             if (giveaway instanceof Giveaway && savedGiveaways.add((Giveaway) giveaway, giveaway.getGiveawayId())) {
-                getActivity().supportInvalidateOptionsMenu();
+                getActivity().invalidateOptionsMenu();
                 Toast.makeText(getContext(), R.string.added_saved_giveaway, Toast.LENGTH_SHORT).show();
             }
             return true;
         } else if (itemId == R.id.remove_saved_element) {
             if (giveaway instanceof Giveaway && savedGiveaways.remove(giveaway.getGiveawayId())) {
-                getActivity().supportInvalidateOptionsMenu();
+                getActivity().invalidateOptionsMenu();
                 Toast.makeText(getContext(), R.string.removed_saved_giveaway, Toast.LENGTH_SHORT).show();
 
                 GiveawayListFragmentStack.onRemoveSavedGiveaway(giveaway.getGiveawayId());

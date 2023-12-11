@@ -197,7 +197,7 @@ public class SavedGiveawaysFragment extends ListFragment<SavedGiveawaysFragment.
 
             FragmentActivity activity = getActivity();
             if (activity != null)
-                activity.supportInvalidateOptionsMenu();
+                activity.invalidateOptionsMenu();
 
             // have we found any non-closed giveaways?
             if (foundAnyClosedGiveaways) {
@@ -237,7 +237,7 @@ public class SavedGiveawaysFragment extends ListFragment<SavedGiveawaysFragment.
 
                 boolean nowEnteredAny = adapter.getEnteredItemCount() > 0;
                 if (currentlyEnteredAny != nowEnteredAny && getActivity() != null)
-                    getActivity().supportInvalidateOptionsMenu();
+                    getActivity().invalidateOptionsMenu();
             }
         } else {
             Log.e(TAG, "Probably an error catching the result...");

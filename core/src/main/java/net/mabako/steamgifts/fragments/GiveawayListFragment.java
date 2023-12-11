@@ -303,7 +303,7 @@ public class GiveawayListFragment extends SearchableListFragment<GiveawayAdapter
 
         FragmentActivity activity = getActivity();
         if (activity != null)
-            activity.supportInvalidateOptionsMenu();
+            activity.invalidateOptionsMenu();
     }
 
     @Override

@@ -135,7 +135,7 @@ public class MessageListFragment extends ListFragment<MessageAdapter> implements
 
         FragmentActivity activity = getActivity();
         if (activity != null)
-            activity.supportInvalidateOptionsMenu();
+            activity.invalidateOptionsMenu();
     }
 
     public void onMarkedMessagesRead() {
@@ -156,7 +156,7 @@ public class MessageListFragment extends ListFragment<MessageAdapter> implements
 
         FragmentActivity activity = getActivity();
         if (activity != null)
-            activity.supportInvalidateOptionsMenu();
+            activity.invalidateOptionsMenu();
 
         // We no longer have any notifications
         SteamGiftsUserData.getCurrent(getContext()).setMessageNotification(0);
