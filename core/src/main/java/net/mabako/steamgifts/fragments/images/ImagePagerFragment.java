@@ -57,29 +57,21 @@ public class ImagePagerFragment extends Fragment {
         final ViewPager pager = view.findViewById(R.id.viewPager);
         pager.setAdapter(new PagerAdapter(getChildFragmentManager()));
 
-        view.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().onBackPressed();
-            }
-        });
+        view.findViewById(R.id.close).setOnClickListener(v -> getActivity().onBackPressed());
 
-        view.findViewById(R.id.share).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int currentPosition = pager.getCurrentItem();
-                try {
-                    Image image = images.get(currentPosition);
+        view.findViewById(R.id.share).setOnClickListener(v -> {
+            int currentPosition = pager.getCurrentItem();
+            try {
+                Image image = images.get(currentPosition);
 
-                    Intent intent = new Intent();
-                    intent.setAction(Intent.ACTION_SEND);
-                    intent.putExtra(Intent.EXTRA_TEXT, image.getUrl());
-                    intent.putExtra(Intent.EXTRA_SUBJECT, image.getTitle());
-                    intent.setType("text/plain");
-                    startActivity(Intent.createChooser(intent, getString(R.string.share_image)));
-                } catch (IndexOutOfBoundsException e) {
-                    Log.e(TAG, "Unable to share image cause none exists (" + currentPosition + ")", e);
-                }
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_TEXT, image.getUrl());
+                intent.putExtra(Intent.EXTRA_SUBJECT, image.getTitle());
+                intent.setType("text/plain");
+                startActivity(Intent.createChooser(intent, getString(R.string.share_image)));
+            } catch (IndexOutOfBoundsException e) {
+                Log.e(TAG, "Unable to share image cause none exists (" + currentPosition + ")", e);
             }
         });
 

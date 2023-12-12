@@ -114,12 +114,8 @@ public class WhitelistBlacklistFragment extends SearchableListFragment<UserAdapt
             // We removed someone!
             lastRemovedUser = adapter.removeUser(user.getId());
             if (lastRemovedUser != null) {
-                Snackbar.make(swipeContainer, String.format(getString(R.string.user_whiteblacklist_removed), user.getName()), Snackbar.LENGTH_LONG).setAction(R.string.undo, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        requestUserListed((BasicUser) lastRemovedUser.getElement(), what, true);
-                    }
-                }).show();
+                Snackbar.make(swipeContainer, String.format(getString(R.string.user_whiteblacklist_removed), user.getName()), Snackbar.LENGTH_LONG)
+                        .setAction(R.string.undo, v -> requestUserListed((BasicUser) lastRemovedUser.getElement(), what, true)).show();
             }
         }
     }

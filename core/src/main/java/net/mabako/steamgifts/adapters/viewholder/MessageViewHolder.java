@@ -20,12 +20,7 @@ public class MessageViewHolder extends CommentViewHolder {
         super.setFrom(comment);
 
         if (comment.getPermalinkId() != null) {
-            View.OnClickListener clickListener = new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    fragment.navigateTo(comment);
-                }
-            };
+            View.OnClickListener clickListener = v -> fragment.navigateTo(comment);
 
             itemView.setOnClickListener(clickListener);
             commentContent.setOnClickListener(clickListener);

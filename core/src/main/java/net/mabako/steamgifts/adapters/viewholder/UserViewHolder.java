@@ -49,22 +49,16 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
         if (!TextUtils.isEmpty(user.getAvatar())) {
             Picasso.with(fragment.getContext()).load(user.getAvatar()).placeholder(R.drawable.default_avatar_mask).transform(new RoundedCornersTransformation(20, 0)).into(userAvatar);
 
-            userHolder.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(fragment.getContext(), DetailActivity.class);
-                    intent.putExtra(UserDetailFragment.ARG_USER, user.getName());
-                    fragment.getActivity().startActivity(intent);
-                }
+            userHolder.setOnClickListener(v -> {
+                Intent intent = new Intent(fragment.getContext(), DetailActivity.class);
+                intent.putExtra(UserDetailFragment.ARG_USER, user.getName());
+                fragment.getActivity().startActivity(intent);
             });
         }
 
         if (removeUser != null && fragment instanceof WhitelistBlacklistFragment) {
-            removeUser.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ((WhitelistBlacklistFragment) fragment).requestUserListed(user, ((WhitelistBlacklistFragment) fragment).getType(), false);
-                }
+            removeUser.setOnClickListener(v -> {
+                ((WhitelistBlacklistFragment) fragment).requestUserListed(user, ((WhitelistBlacklistFragment) fragment).getType(), false);
             });
         }
 

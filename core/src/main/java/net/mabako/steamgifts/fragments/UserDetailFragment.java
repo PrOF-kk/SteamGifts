@@ -132,20 +132,10 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
         tabLayout.setupWithViewPager(viewPager);
 
         whitelist = layout.findViewById(R.id.whitelist);
-        whitelist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requestUserListed(user, What.WHITELIST, !user.isWhitelisted());
-            }
-        });
+        whitelist.setOnClickListener(v -> requestUserListed(user, What.WHITELIST, !user.isWhitelisted()));
 
         blacklist = layout.findViewById(R.id.blacklist);
-        blacklist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requestUserListed(user, What.BLACKLIST, !user.isBlacklisted());
-            }
-        });
+        blacklist.setOnClickListener(v -> requestUserListed(user, What.BLACKLIST, !user.isBlacklisted()));
 
         setHasOptionsMenu(true);
 

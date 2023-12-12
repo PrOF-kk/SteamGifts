@@ -64,20 +64,14 @@ public class SyncFragment extends Fragment {
             return view;
         } else {
             View syncView = view.findViewById(R.id.sync_now);
-            syncView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    syncTask = new SyncTask(SyncFragment.this, xsrfToken);
-                    syncTask.execute();
-                }
+            syncView.setOnClickListener(v -> {
+                syncTask = new SyncTask(SyncFragment.this, xsrfToken);
+                syncTask.execute();
             });
             syncView.setEnabled(false);
 
-            view.findViewById(R.id.privacy_settings).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UrlHandlingActivity.getIntentForUri(getContext(), Uri.parse("http://steamcommunity.com/my/edit/settings"), true).start(getActivity());
-                }
+            view.findViewById(R.id.privacy_settings).setOnClickListener(v -> {
+                UrlHandlingActivity.getIntentForUri(getContext(), Uri.parse("http://steamcommunity.com/my/edit/settings"), true).start(getActivity());
             });
 
             loadSyncDetailsTask = new LoadSyncDetailsTask(this);

@@ -42,20 +42,10 @@ public class GameViewHolder extends RecyclerView.ViewHolder {
         gameName.setText(game.getName());
 
         if (fragment instanceof HiddenGamesFragment && game.getInternalGameId() != Game.NO_APP_ID) {
-            removeGame.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ((HiddenGamesFragment) fragment).requestShowGame(game.getInternalGameId(), game.getName());
-                }
-            });
+            removeGame.setOnClickListener(v -> ((HiddenGamesFragment) fragment).requestShowGame(game.getInternalGameId(), game.getName()));
             removeGame.setVisibility(View.VISIBLE);
         } else if (fragment instanceof StoreSubFragment && game.getGameId() != Game.NO_APP_ID) {
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ((StoreSubFragment) fragment).showDetails(game.getGameId());
-                }
-            });
+            itemView.setOnClickListener(v -> ((StoreSubFragment) fragment).showDetails(game.getGameId()));
         }
 
         // giveaway_image

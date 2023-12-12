@@ -237,12 +237,8 @@ public class GiveawayListFragment extends SearchableListFragment<GiveawayAdapter
 
         if (gameTitle != null) {
             // If we're propagating, this means we're visible instance
-            Snackbar.make(swipeContainer, String.format(getString(R.string.game_was_hidden), gameTitle), Snackbar.LENGTH_LONG).setAction(R.string.undo, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    new UpdateGiveawayFilterTask<>(GiveawayListFragment.this, adapter.getXsrfToken(), UpdateGiveawayFilterTask.UNHIDE, internalGameId, gameTitle).execute();
-                }
-            }).show();
+            Snackbar.make(swipeContainer, String.format(getString(R.string.game_was_hidden), gameTitle), Snackbar.LENGTH_LONG)
+                    .setAction(R.string.undo, v -> new UpdateGiveawayFilterTask<>(GiveawayListFragment.this, adapter.getXsrfToken(), UpdateGiveawayFilterTask.UNHIDE, internalGameId, gameTitle).execute()).show();
         }
     }
 

@@ -24,12 +24,7 @@ public class MessageHeaderViewHolder extends RecyclerView.ViewHolder {
     public void setFrom(final MessageHeader message) {
         text.setText(message.getTitle());
 
-        View.OnClickListener listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                context.startActivity(UrlHandlingActivity.getIntentForUri(context, Uri.parse(message.getUrl())));
-            }
-        };
+        View.OnClickListener listener = v -> context.startActivity(UrlHandlingActivity.getIntentForUri(context, Uri.parse(message.getUrl())));
         itemView.setOnClickListener(listener);
         text.setOnClickListener(listener);
     }

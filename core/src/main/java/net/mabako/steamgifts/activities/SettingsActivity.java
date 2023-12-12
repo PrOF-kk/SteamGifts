@@ -28,51 +28,36 @@ public class SettingsActivity extends BaseActivity {
             if (SteamGiftsUserData.getCurrent(getActivity()).isLoggedIn()) {
                 addPreferencesFromResource(R.xml.preferences_sg);
 
-                findPreference("preference_sg_sync").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        getActivity().startActivity(new Intent(getActivity(), SyncActivity.class));
-                        return true;
-                    }
+                findPreference("preference_sg_sync").setOnPreferenceClickListener(preference -> {
+                    getActivity().startActivity(new Intent(getActivity(), SyncActivity.class));
+                    return true;
                 });
 
-                findPreference("preference_sg_whitelist").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        Intent intent = new Intent(getActivity(), DetailActivity.class);
-                        intent.putExtra(WhitelistBlacklistFragment.ARG_TYPE, WhitelistBlacklistFragment.What.WHITELIST);
-                        getActivity().startActivity(intent);
-                        return true;
-                    }
+                findPreference("preference_sg_whitelist").setOnPreferenceClickListener(preference -> {
+                    Intent intent = new Intent(getActivity(), DetailActivity.class);
+                    intent.putExtra(WhitelistBlacklistFragment.ARG_TYPE, WhitelistBlacklistFragment.What.WHITELIST);
+                    getActivity().startActivity(intent);
+                    return true;
                 });
 
-                findPreference("preference_sg_blacklist").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        Intent intent = new Intent(getActivity(), DetailActivity.class);
-                        intent.putExtra(WhitelistBlacklistFragment.ARG_TYPE, WhitelistBlacklistFragment.What.BLACKLIST);
-                        getActivity().startActivity(intent);
-                        return true;
-                    }
+                findPreference("preference_sg_blacklist").setOnPreferenceClickListener(preference -> {
+                    Intent intent = new Intent(getActivity(), DetailActivity.class);
+                    intent.putExtra(WhitelistBlacklistFragment.ARG_TYPE, WhitelistBlacklistFragment.What.BLACKLIST);
+                    getActivity().startActivity(intent);
+                    return true;
                 });
 
-                findPreference("preference_sg_hidden_games").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        Intent intent = new Intent(getActivity(), DetailActivity.class);
-                        intent.putExtra(DetailActivity.ARG_HIDDEN_GAMES, true);
-                        getActivity().startActivity(intent);
-                        return true;
-                    }
+                findPreference("preference_sg_hidden_games").setOnPreferenceClickListener(preference -> {
+                    Intent intent = new Intent(getActivity(), DetailActivity.class);
+                    intent.putExtra(DetailActivity.ARG_HIDDEN_GAMES, true);
+                    getActivity().startActivity(intent);
+                    return true;
                 });
 
-                findPreference("preference_sg_logout").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        getActivity().setResult(CommonActivity.RESPONSE_LOGOUT);
-                        getActivity().finish();
-                        return true;
-                    }
+                findPreference("preference_sg_logout").setOnPreferenceClickListener(preference -> {
+                    getActivity().setResult(CommonActivity.RESPONSE_LOGOUT);
+                    getActivity().finish();
+                    return true;
                 });
             }
 

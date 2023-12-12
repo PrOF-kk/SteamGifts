@@ -100,56 +100,53 @@ public class Navbar {
                 .withTranslucentStatusBar(true)
                 .withActionBarDrawerToggle(true)
                 .withAccountHeader(accountHeader)
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        // Stop searching, if any is done
-                        Fragment fragment = activity.getCurrentFragment();
-                        if (fragment instanceof SearchableListFragment)
-                            ((SearchableListFragment) fragment).stopSearch();
+                .withOnDrawerItemClickListener((view, position, drawerItem) -> {
+                    // Stop searching, if any is done
+                    Fragment fragment = activity.getCurrentFragment();
+                    if (fragment instanceof SearchableListFragment)
+                        ((SearchableListFragment) fragment).stopSearch();
 
-                        long identifier = drawerItem.getIdentifier();
-                        if (identifier == R.string.login) {
-                            activity.requestLogin();
+                    long identifier = drawerItem.getIdentifier();
+                    if (identifier == R.string.login) {
+                        activity.requestLogin();
 
-                        } else if (identifier == R.string.navigation_help) {
-                            IntroActivity.showIntro(activity, IntroActivity.INTRO_MAIN);
+                    } else if (identifier == R.string.navigation_help) {
+                        IntroActivity.showIntro(activity, IntroActivity.INTRO_MAIN);
 
-                        } else if (identifier == R.string.navigation_about) {
-                            activity.startActivity(new Intent(activity, AboutActivity.class));
+                    } else if (identifier == R.string.navigation_about) {
+                        activity.startActivity(new Intent(activity, AboutActivity.class));
 
-                        } else if (identifier == R.string.preferences) {
-                            activity.startActivityForResult(new Intent(activity, SettingsActivity.class), CommonActivity.REQUEST_SETTINGS);
+                    } else if (identifier == R.string.preferences) {
+                        activity.startActivityForResult(new Intent(activity, SettingsActivity.class), CommonActivity.REQUEST_SETTINGS);
 
-                        } else if (identifier == R.string.navigation_saved_elements) {
-                            activity.loadFragment(new SavedFragment());
-                            ActionBar actionBar = activity.getSupportActionBar();
-                            if (actionBar != null)
-                                actionBar.setSubtitle(null);
-                        } else {
-                            for (GiveawayListFragment.Type type : GiveawayListFragment.Type.values()) {
-                                if (type.getNavbarResource() == identifier) {
-                                    activity.loadFragment(GiveawayListFragment.newInstance(type, null, false));
-                                    break;
-                                }
+                    } else if (identifier == R.string.navigation_saved_elements) {
+                        activity.loadFragment(new SavedFragment());
+                        ActionBar actionBar = activity.getSupportActionBar();
+                        if (actionBar != null)
+                            actionBar.setSubtitle(null);
+                    } else {
+                        for (GiveawayListFragment.Type type : GiveawayListFragment.Type.values()) {
+                            if (type.getNavbarResource() == identifier) {
+                                activity.loadFragment(GiveawayListFragment.newInstance(type, null, false));
+                                break;
                             }
-
-                            for (DiscussionListFragment.Type type : DiscussionListFragment.Type.values()) {
-                                if (type.getNavbarResource() == identifier) {
-                                    activity.loadFragment(DiscussionListFragment.newInstance(type, null));
-                                    ActionBar actionBar = activity.getSupportActionBar();
-                                    if (actionBar != null)
-                                        actionBar.setSubtitle(null);
-                                    break;
-                                }
-                            }
-
-                            return false;
                         }
 
-                        drawer.closeDrawer();
-                        return true;
+                        for (DiscussionListFragment.Type type : DiscussionListFragment.Type.values()) {
+                            if (type.getNavbarResource() == identifier) {
+                                activity.loadFragment(DiscussionListFragment.newInstance(type, null));
+                                ActionBar actionBar = activity.getSupportActionBar();
+                                if (actionBar != null)
+                                    actionBar.setSubtitle(null);
+                                break;
+                            }
+                        }
+
+                        return false;
                     }
+
+                    drawer.closeDrawer();
+                    return true;
                 })
                 .withOnDrawerListener(new Drawer.OnDrawerListener() {
                     @Override
@@ -315,14 +312,11 @@ public class Navbar {
                     notificationText.setOnClickListener(null);
                 } else {
                     profile.notifications.applyTo(notificationText);
-                    notificationText.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (SteamGiftsUserData.getCurrent(activity).isLoggedIn()) {
-                                Intent intent = new Intent(activity, DetailActivity.class);
-                                intent.putExtra(DetailActivity.ARG_NOTIFICATIONS, AbstractNotificationCheckReceiver.NotificationId.NO_TYPE);
-                                activity.startActivity(intent);
-                            }
+                    notificationText.setOnClickListener(v -> {
+                        if (SteamGiftsUserData.getCurrent(activity).isLoggedIn()) {
+                            Intent intent = new Intent(activity, DetailActivity.class);
+                            intent.putExtra(DetailActivity.ARG_NOTIFICATIONS, AbstractNotificationCheckReceiver.NotificationId.NO_TYPE);
+                            activity.startActivity(intent);
                         }
                     });
                 }

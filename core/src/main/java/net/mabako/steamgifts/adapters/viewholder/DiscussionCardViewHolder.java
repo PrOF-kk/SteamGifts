@@ -64,12 +64,7 @@ public class DiscussionCardViewHolder extends RecyclerView.ViewHolder {
             title.setText(discussion.getTitle());
 
             user.setText("{faw-user} " + discussion.getCreator());
-            user.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    fragment.showProfile(discussion.getCreator());
-                }
-            });
+            user.setOnClickListener(v -> fragment.showProfile(discussion.getCreator()));
             discussionTime.setText("{faw-calendar-o} " + discussion.getRelativeCreatedTime(context));
 
             if (extras == null) {
@@ -90,12 +85,7 @@ public class DiscussionCardViewHolder extends RecyclerView.ViewHolder {
                 }
             }
 
-            commentDiscussion.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    fragment.requestComment(null);
-                }
-            });
+            commentDiscussion.setOnClickListener(v -> fragment.requestComment(null));
         }
 
         AttachedImageUtils.setFrom(itemView, extras, (CommonActivity) (((Fragment) fragment).getActivity()));

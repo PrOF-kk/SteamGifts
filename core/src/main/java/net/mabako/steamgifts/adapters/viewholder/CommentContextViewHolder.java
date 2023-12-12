@@ -33,21 +33,18 @@ public class CommentContextViewHolder extends RecyclerView.ViewHolder {
 
     public void setFrom(SerializableHolder from) {
         final Serializable serializable = from.serializable;
-        text.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, DetailActivity.class);
-                if (serializable instanceof BasicGiveaway) {
-                    intent.putExtra(GiveawayDetailFragment.ARG_GIVEAWAY, serializable);
-                } else if (serializable instanceof BasicDiscussion) {
-                    intent.putExtra(DiscussionDetailFragment.ARG_DISCUSSION, serializable);
-                } else {
-                    Log.w("CommentContextVH", "Calling CommentContextViewHolder.text.onClick, but serializable is " + (serializable == null ? "[null]" : serializable.getClass().getSimpleName()));
-                    return;
-                }
-
-                context.startActivity(intent);
+        text.setOnClickListener(v -> {
+            Intent intent = new Intent(context, DetailActivity.class);
+            if (serializable instanceof BasicGiveaway) {
+                intent.putExtra(GiveawayDetailFragment.ARG_GIVEAWAY, serializable);
+            } else if (serializable instanceof BasicDiscussion) {
+                intent.putExtra(DiscussionDetailFragment.ARG_DISCUSSION, serializable);
+            } else {
+                Log.w("CommentContextVH", "Calling CommentContextViewHolder.text.onClick, but serializable is " + (serializable == null ? "[null]" : serializable.getClass().getSimpleName()));
+                return;
             }
+
+            context.startActivity(intent);
         });
     }
 

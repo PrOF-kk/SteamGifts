@@ -154,12 +154,7 @@ public class SteamGiftsUserData {
         this.points = points;
         for (final IPointUpdateNotification handler : pointUpdateHandlers) {
             if (handler instanceof Activity) {
-                ((Activity) handler).runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        handler.onUpdatePoints(points);
-                    }
-                });
+                ((Activity) handler).runOnUiThread(() -> handler.onUpdatePoints(points));
             } else {
                 handler.onUpdatePoints(points);
             }

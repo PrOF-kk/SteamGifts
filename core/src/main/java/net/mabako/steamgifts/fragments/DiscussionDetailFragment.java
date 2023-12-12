@@ -214,24 +214,17 @@ public class DiscussionDetailFragment extends DetailFragment implements IHasPoll
         if (discussion instanceof Discussion) {
             if (!((Discussion) discussion).isLocked()) {
                 commentMenu.setVisible(true);
-                commentMenu.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        requestComment(null);
-
-                        return true;
-                    }
+                commentMenu.setOnMenuItemClickListener(item -> {
+                    requestComment(null);
+                    return true;
                 });
             } else {
                 MenuItem lockedMenu = menu.findItem(R.id.locked);
 
                 lockedMenu.setVisible(true);
-                lockedMenu.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        Toast.makeText(getContext(), R.string.discussion_locked, Toast.LENGTH_SHORT).show();
-                        return true;
-                    }
+                lockedMenu.setOnMenuItemClickListener(item -> {
+                    Toast.makeText(getContext(), R.string.discussion_locked, Toast.LENGTH_SHORT).show();
+                    return true;
                 });
             }
 

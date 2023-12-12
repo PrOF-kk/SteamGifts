@@ -37,12 +37,7 @@ public class PollAnswerViewHolder extends RecyclerView.ViewHolder {
         text.setText(answer.getText());
 
         updateButtonText(answer.isSelected(), answer.isVoteable());
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fragment.selectPollAnswer(answer);
-            }
-        });
+        button.setOnClickListener(v -> fragment.selectPollAnswer(answer));
 
         Poll poll = answer.getPoll();
         int percentage = poll.getTotalVotes() == 0 ? 0 : Math.round(100f * answer.getVoteCount() / poll.getTotalVotes());

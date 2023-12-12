@@ -33,12 +33,9 @@ public final class AttachedImageUtils {
             button.setVisibility(View.VISIBLE);
             button.setText("{faw-picture-o}" + (images.size() > 1 ? (" " + images.size()) : ""));
 
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    FragmentManager fm = activity.getSupportFragmentManager();
-                    fm.beginTransaction().add(android.R.id.content, ImagePagerFragment.newInstance(images), IMAGE_VIEW_TAG).addToBackStack(IMAGE_VIEW_TAG).commit();
-                }
+            button.setOnClickListener(v -> {
+                FragmentManager fm = activity.getSupportFragmentManager();
+                fm.beginTransaction().add(android.R.id.content, ImagePagerFragment.newInstance(images), IMAGE_VIEW_TAG).addToBackStack(IMAGE_VIEW_TAG).commit();
             });
         }
     }

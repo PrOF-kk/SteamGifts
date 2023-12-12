@@ -91,42 +91,24 @@ public class CommentViewHolder extends RecyclerView.ViewHolder implements View.O
         commentIndent.setLayoutParams(params);
 
         Picasso.with(context).load(comment.getAvatar()).placeholder(R.drawable.default_avatar_mask).transform(new RoundedCornersTransformation(20, 0)).into(commentImage);
-        View.OnClickListener viewProfileListener = comment.isDeleted() ? null : new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(comment instanceof TradeComment)
-                    fragment.showProfile(((TradeComment) comment).getSteamID64());
-                else
-                    fragment.showProfile(comment.getAuthor());
-            }
+        View.OnClickListener viewProfileListener = comment.isDeleted() ? null : v -> {
+            if(comment instanceof TradeComment)
+                fragment.showProfile(((TradeComment) comment).getSteamID64());
+            else
+                fragment.showProfile(comment.getAuthor());
         };
 
         commentImage.setOnClickListener(viewProfileListener);
         commentAuthor.setOnClickListener(viewProfileListener);
 
         if (fragment.canPostOrModifyComments() && !(comment instanceof TradeComment)) {
-            writeCommentListener = comment.getId() == 0 ? null : new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    fragment.requestComment(comment);
-                }
-            };
+            writeCommentListener = comment.getId() == 0 ? null : v -> fragment.requestComment(comment);
 
             // We assume that, if we have an editable state, we can edit the comment. Should we check for username here?
-            editCommentListener = comment.getEditableContent() == null || comment.getId() == 0 || (!(fragment instanceof DetailFragment)) ? null : new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ((DetailFragment) fragment).requestCommentEdit(comment);
-                }
-            };
+            editCommentListener = comment.getEditableContent() == null || comment.getId() == 0 || (!(fragment instanceof DetailFragment)) ? null : v -> ((DetailFragment) fragment).requestCommentEdit(comment);
 
             deleted = comment.isDeleted();
-            deleteCommentListener = comment.getId() == 0 || !comment.isDeletable() ? null : new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    fragment.deleteComment(comment);
-                }
-            };
+            deleteCommentListener = comment.getId() == 0 || !comment.isDeletable() ? null : v -> fragment.deleteComment(comment);
         }
 
         if (comment instanceof TradeComment && !comment.isDeleted()) {
@@ -151,35 +133,26 @@ public class CommentViewHolder extends RecyclerView.ViewHolder implements View.O
             menu.setHeaderTitle(R.string.actions);
 
             if (writeCommentListener != null) {
-                menu.add(R.string.add_comment).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        if (writeCommentListener != null)
-                            writeCommentListener.onClick(itemView);
-                        return true;
-                    }
+                menu.add(R.string.add_comment).setOnMenuItemClickListener(item -> {
+                    if (writeCommentListener != null)
+                        writeCommentListener.onClick(itemView);
+                    return true;
                 });
             }
 
             if (editCommentListener != null) {
-                menu.add(R.string.edit_comment).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        if (editCommentListener != null)
-                            editCommentListener.onClick(itemView);
-                        return true;
-                    }
+                menu.add(R.string.edit_comment).setOnMenuItemClickListener(item -> {
+                    if (editCommentListener != null)
+                        editCommentListener.onClick(itemView);
+                    return true;
                 });
             }
 
             if (deleteCommentListener != null) {
-                menu.add(deleted ? R.string.undelete_comment : R.string.delete_comment).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        if (deleteCommentListener != null)
-                            deleteCommentListener.onClick(itemView);
-                        return true;
-                    }
+                menu.add(deleted ? R.string.undelete_comment : R.string.delete_comment).setOnMenuItemClickListener(item -> {
+                    if (deleteCommentListener != null)
+                        deleteCommentListener.onClick(itemView);
+                    return true;
                 });
             }
         }

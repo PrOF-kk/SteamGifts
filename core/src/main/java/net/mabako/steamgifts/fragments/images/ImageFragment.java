@@ -207,17 +207,7 @@ public class ImageFragment extends Fragment {
         fragmentRootView.findViewById(R.id.progressBar).setVisibility(View.GONE);
 
         imageView = fragmentRootView.findViewById(R.id.image);
-        imageView.setBitmapDecoderFactory(new DecoderFactory<ImageDecoder>() {
-            @Override
-            public ImageDecoder make() throws IllegalAccessException, java.lang.InstantiationException {
-                return new ImageDecoder() {
-                    @Override
-                    public Bitmap decode(Context context, Uri uri) throws Exception {
-                        return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-                    }
-                };
-            }
-        });
+        imageView.setBitmapDecoderFactory(() -> (context, uri) -> BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length));
         imageView.setRegionDecoderFactory(new DecoderFactory<ImageRegionDecoder>() {
 
             /**
@@ -266,12 +256,7 @@ public class ImageFragment extends Fragment {
         });
         imageView.setImage(ImageSource.uri(url));
         imageView.setVisibility(View.VISIBLE);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().onBackPressed();
-            }
-        });
+        imageView.setOnClickListener(v -> getActivity().onBackPressed());
     }
 
     /**
@@ -292,12 +277,7 @@ public class ImageFragment extends Fragment {
         GifImageView imageView = fragmentRootView.findViewById(R.id.gif);
         imageView.setImageDrawable(gifDrawable);
         imageView.setVisibility(View.VISIBLE);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().onBackPressed();
-            }
-        });
+        imageView.setOnClickListener(v -> getActivity().onBackPressed());
     }
 
     /**
@@ -311,11 +291,8 @@ public class ImageFragment extends Fragment {
         Log.v(TAG, "unable to load image " + url);
         fragmentRootView.findViewById(R.id.progressBar).setVisibility(View.GONE);
         fragmentRootView.findViewById(R.id.image_not_loaded).setVisibility(View.VISIBLE);
-        fragmentRootView.findViewById(R.id.open_browser).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
-            }
+        fragmentRootView.findViewById(R.id.open_browser).setOnClickListener(v -> {
+            getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
         });
 
     }

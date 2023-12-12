@@ -119,12 +119,7 @@ public abstract class FragmentAdapter extends FragmentStatePagerAdapter implemen
                     ListFragment listFragment = (ListFragment) fragment;
                     listFragment.setupScrollToTopButton();
                 } else {
-                    scrollToTopButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Toast.makeText(activity, "Got no scroll listener, can't scroll to top.", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    scrollToTopButton.setOnClickListener(v -> Toast.makeText(activity, "Got no scroll listener, can't scroll to top.", Toast.LENGTH_SHORT).show());
                 }
             }
         }
