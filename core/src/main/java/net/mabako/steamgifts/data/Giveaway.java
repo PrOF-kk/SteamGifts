@@ -141,24 +141,14 @@ public class Giveaway extends BasicGiveaway implements IEndlessAdaptable {
      */
     public boolean userCanEnter() {
         SteamGiftsUserData currentUser = SteamGiftsUserData.getCurrent(null);
-        boolean canEnter = true;
 
-        //Check if the user has enough points
-        if (this.getPoints() > currentUser.getPoints()){
-            canEnter = false;
-        }
-
-        //Check if the user has the wanted level
-        if (this.getLevel() > currentUser.getLevel()){
-            canEnter = false;
-        }
-
-        //Check if the giveaway is not created by the user
-        if (currentUser.getName().equals(this.getCreator())){
-            canEnter = false;
-        }
-
-        return canEnter;
+        return
+                // The user has enough points
+                currentUser.getPoints() >= this.getPoints()
+                // The user's level is high enough
+                && currentUser.getLevel() >= this.getLevel()
+                // The user is not the giveaway's creator
+                && !currentUser.getName().equals(this.getCreator());
     }
 
     public boolean isEntered() {
