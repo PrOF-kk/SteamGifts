@@ -1,7 +1,6 @@
 package net.mabako.steamgifts.activities;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -122,11 +121,14 @@ public class CommonActivity extends BaseActivity {
         // TODO allow this to be changed to normal overflow menus in the settings.
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             final CharSequence[] strings = new CharSequence[]{getString(R.string.go_to_giveaway), getString(R.string.go_to_discussion), getString(R.string.go_to_user)};
+            final int[] hints = new int[]{R.string.go_to_giveaway_hint, R.string.go_to_discussion_hint, R.string.go_to_user_hint};
 
             AlertDialog.Builder gotoButtonsBuilder = new AlertDialog.Builder(this);
             gotoButtonsBuilder.setTitle(R.string.go_to);
             gotoButtonsBuilder.setItems(strings, (dialogInterface, dialogSelected) -> {
+
                 final View view = getLayoutInflater().inflate(R.layout.go_to_dialog, null);
+                ((EditText) view.findViewById(R.id.edit_text)).setHint(hints[dialogSelected]);
 
                 AlertDialog.Builder idInputBuilder = new AlertDialog.Builder(CommonActivity.this);
                 idInputBuilder.setTitle(R.string.go_to);

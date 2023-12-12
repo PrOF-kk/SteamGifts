@@ -116,6 +116,9 @@
     <string name="go_to_giveaway">Giveaway</string>
     <string name="go_to_discussion">Discussion</string>
     <string name="go_to_user">User</string>
+    <string name="go_to_giveaway_hint">Giveaway ID</string>
+    <string name="go_to_discussion_hint">Discussion ID</string>
+    <string name="go_to_user_hint">Username</string>
 
     <!-- Profiles -->
     <string name="user_level">Level %d</string>
