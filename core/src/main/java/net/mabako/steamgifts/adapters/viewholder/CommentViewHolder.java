@@ -3,10 +3,10 @@ package net.mabako.steamgifts.adapters.viewholder;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.TextViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.LinkMovementMethod;
 import android.view.ContextMenu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -73,7 +73,7 @@ public class CommentViewHolder extends RecyclerView.ViewHolder implements View.O
         StringUtils.setBackgroundDrawable(context, itemView, comment.isHighlighted());
 
         commentAuthor.setText(comment.getAuthor());
-        commentAuthor.setTextAppearance(context, comment.isHighlighted() ? R.style.SmallText : comment.isOp() ? R.style.SmallText_HighlightOp : R.style.SmallText_NormalUser);
+        TextViewCompat.setTextAppearance(commentAuthor, comment.isHighlighted() ? R.style.SmallText : comment.isOp() ? R.style.SmallText_HighlightOp : R.style.SmallText_NormalUser);
         StringUtils.setBackgroundDrawable(context, commentAuthor, comment.isOp() && !comment.isHighlighted(), R.attr.colorAccountHeader);
 
         // TODO this should eventually hold more information, such as white- and blacklisting icons.
@@ -81,7 +81,7 @@ public class CommentViewHolder extends RecyclerView.ViewHolder implements View.O
         commentRole.setText("{faw-gavel} " + comment.getAuthorRole());
 
         commentTime.setText(comment.getRelativeCreatedTime(context));
-        commentTime.setTextAppearance(context, comment.isHighlighted() ? R.style.SmallText : R.style.SmallText_Light);
+        TextViewCompat.setTextAppearance(commentTime, comment.isHighlighted() ? R.style.SmallText : R.style.SmallText_Light);
 
         commentContent.setText(StringUtils.fromHtml(context, comment.getContent(), !comment.isDeleted(), null));
 
