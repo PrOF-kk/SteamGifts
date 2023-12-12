@@ -123,58 +123,46 @@ public class CommonActivity extends BaseActivity {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             final CharSequence[] strings = new CharSequence[]{getString(R.string.go_to_giveaway), getString(R.string.go_to_discussion), getString(R.string.go_to_user)};
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(R.string.go_to);
-            builder.setItems(strings, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, final int dialogSelected) {
-                    final View view = getLayoutInflater().inflate(R.layout.go_to_dialog, null);
+            AlertDialog.Builder gotoButtonsBuilder = new AlertDialog.Builder(this);
+            gotoButtonsBuilder.setTitle(R.string.go_to);
+            gotoButtonsBuilder.setItems(strings, (dialogInterface, dialogSelected) -> {
+                final View view = getLayoutInflater().inflate(R.layout.go_to_dialog, null);
 
-                    AlertDialog.Builder builder = new AlertDialog.Builder(CommonActivity.this);
-                    builder.setTitle(R.string.go_to);
-                    builder.setMessage(strings[dialogSelected]);
-                    builder.setView(view);
-                    builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // do nothing
+                AlertDialog.Builder idInputBuilder = new AlertDialog.Builder(CommonActivity.this);
+                idInputBuilder.setTitle(R.string.go_to);
+                idInputBuilder.setMessage(strings[dialogSelected]);
+                idInputBuilder.setView(view);
+                idInputBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> { /* do nothing */ });
+                final AlertDialog idInputDialog = idInputBuilder.show();
+
+                // Discussion and giveaway ids can only be 5 chars long
+                final boolean limitLength = (dialogSelected == 0 || dialogSelected == 1);
+                if (limitLength)
+                    ((EditText) idInputDialog.findViewById(R.id.edit_text)).setFilters(new InputFilter[]{new InputFilter.LengthFilter(5)});
+
+                idInputDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+                    String target = ((EditText) view.findViewById(R.id.edit_text)).getText().toString();
+                    if (!limitLength || target.length() == 5) {
+                        Intent intent = new Intent(CommonActivity.this, DetailActivity.class);
+                        switch (dialogSelected) {
+                            case 0:
+                                intent.putExtra(GiveawayDetailFragment.ARG_GIVEAWAY, new BasicGiveaway(target));
+                                break;
+                            case 1:
+                                intent.putExtra(DiscussionDetailFragment.ARG_DISCUSSION, new BasicDiscussion(target));
+                                break;
+                            case 2:
+                                intent.putExtra(UserDetailFragment.ARG_USER, target);
+                                break;
                         }
-                    });
-                    final AlertDialog dialog = builder.create();
-                    dialog.show();
+                        startActivity(intent);
 
-                    // Discussion and giveaway ids can only be 5 chars long
-                    final boolean limitLength = dialogSelected == 0 || dialogSelected == 1 || dialogSelected == 3;
-                    if (limitLength)
-                        ((EditText) dialog.findViewById(R.id.edit_text)).setFilters(new InputFilter[]{new InputFilter.LengthFilter(5)});
+                        idInputDialog.dismiss();
+                    }
+                });
 
-                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            String target = ((EditText) view.findViewById(R.id.edit_text)).getText().toString();
-                            if (target != null && (!limitLength || target.length() == 5)) {
-                                Intent intent = new Intent(CommonActivity.this, DetailActivity.class);
-                                switch (dialogSelected) {
-                                    case 0:
-                                        intent.putExtra(GiveawayDetailFragment.ARG_GIVEAWAY, new BasicGiveaway(target));
-                                        break;
-                                    case 1:
-                                        intent.putExtra(DiscussionDetailFragment.ARG_DISCUSSION, new BasicDiscussion(target));
-                                        break;
-                                    case 2:
-                                        intent.putExtra(UserDetailFragment.ARG_USER, target);
-                                        break;
-                                }
-                                startActivity(intent);
-
-                                dialog.dismiss();
-                            }
-                        }
-                    });
-
-                }
             });
-            builder.show();
+            gotoButtonsBuilder.show();
             return true;
         }
         return super.onKeyLongPress(keyCode, event);
