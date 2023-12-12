@@ -184,7 +184,6 @@ public class GiveawayCardViewHolder extends RecyclerView.ViewHolder {
         AttachedImageUtils.setFrom(itemView, extras, (CommonActivity) (fragment.getActivity()));
     }
 
-    @SuppressWarnings("deprecation")
     private void setupIndicators(final Giveaway giveaway) {
         List<Spannable> spans = new ArrayList<>();
 

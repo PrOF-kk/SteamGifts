@@ -180,7 +180,6 @@ public class WebViewActivity extends CommonActivity {
             return shouldOverrideUrlLoading(view, request.getUrl());
         }
 
-        @SuppressWarnings("deprecation")
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             return shouldOverrideUrlLoading(view, Uri.parse(url));

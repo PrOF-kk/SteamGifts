@@ -340,7 +340,6 @@ public class ImageFragment extends Fragment {
         }
 
         @Override
-        @SuppressWarnings("deprecation")
         protected void onPostExecute(byte[] response) {
             createImage(response);
         }

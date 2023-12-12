@@ -97,7 +97,6 @@ public class DiscussionListFragment extends SearchableListFragment<DiscussionAda
 
 
     @Override
-    @SuppressWarnings("deprecation")
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 

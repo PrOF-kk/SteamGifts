@@ -69,7 +69,6 @@ public class CommentViewHolder extends RecyclerView.ViewHolder implements View.O
         v.setOnCreateContextMenuListener(this);
     }
 
-    @SuppressWarnings("deprecation")
     public void setFrom(final Comment comment) {
         StringUtils.setBackgroundDrawable(context, itemView, comment.isHighlighted());
 

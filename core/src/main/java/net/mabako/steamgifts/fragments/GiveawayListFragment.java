@@ -272,7 +272,6 @@ public class GiveawayListFragment extends SearchableListFragment<GiveawayAdapter
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
