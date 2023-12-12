@@ -44,7 +44,7 @@ dependencies {
     implementation 'com.squareup.okio:okio:1.6.0'
     implementation 'com.github.paolorotolo:appintro:4.1.0'
     implementation 'com.google.code.gson:gson:2.10.1'
-    implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.4.1'
+    implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.1.13'
     implementation 'com.wefika:flowlayout:0.4.1'
 }

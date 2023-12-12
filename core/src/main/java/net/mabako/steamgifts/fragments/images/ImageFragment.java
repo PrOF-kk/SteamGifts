@@ -22,7 +22,6 @@ import android.view.ViewGroup;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.davemorrissey.labs.subscaleview.decoder.DecoderFactory;
-import com.davemorrissey.labs.subscaleview.decoder.ImageDecoder;
 import com.davemorrissey.labs.subscaleview.decoder.ImageRegionDecoder;
 import com.squareup.picasso.Downloader;
 import com.squareup.picasso.OkHttpDownloader;
@@ -213,20 +212,23 @@ public class ImageFragment extends Fragment {
             /**
              * Since it is downright foolish to load the entire bitmap in memory (I've tried, to no avail), use this decoder to keep it to a minimum.
              */
+            @NonNull
             @Override
-            public ImageRegionDecoder make() throws IllegalAccessException, java.lang.InstantiationException {
+            public ImageRegionDecoder make() {
                 return new ImageRegionDecoder() {
                     private final Object decoderLock = new Object();
                     private BitmapRegionDecoder decoder;
 
+                    @NonNull
                     @Override
-                    public Point init(Context context, Uri uri) throws Exception {
+                    public Point init(Context context, @NonNull Uri uri) throws Exception {
                         decoder = BitmapRegionDecoder.newInstance(imageBytes, 0, imageBytes.length, true);
                         return new Point(decoder.getWidth(), decoder.getHeight());
                     }
 
+                    @NonNull
                     @Override
-                    public Bitmap decodeRegion(Rect rect, int sampleSize) {
+                    public Bitmap decodeRegion(@NonNull Rect rect, int sampleSize) {
                         synchronized (this.decoderLock) {
                             BitmapFactory.Options options = new BitmapFactory.Options();
                             options.inSampleSize = sampleSize;
@@ -344,6 +346,6 @@ public class ImageFragment extends Fragment {
         /**
          * GIF file
          */
-        GIF;
+        GIF,
     }
 }
