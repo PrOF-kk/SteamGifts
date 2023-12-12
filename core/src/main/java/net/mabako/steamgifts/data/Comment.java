@@ -176,7 +176,7 @@ public class Comment implements Serializable, IEndlessAdaptable, IImageHolder {
         COMMENT("comment"),
         TRADE_FEEDBACK("feedback");
 
-        private String path;
+        private final String path;
 
         Type(String path) {
             this.path = path;
