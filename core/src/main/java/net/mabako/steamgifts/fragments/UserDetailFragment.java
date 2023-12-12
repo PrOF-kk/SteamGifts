@@ -124,14 +124,14 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
         UserTradeFeedbackListFragment fragmentNegativeFeedback = UserTradeFeedbackListFragment.newInstance(user, "negative");
         fragmentNegativeFeedback.setiUserNotification(this);
 
-        viewPager = (ViewPager) layout.findViewById(R.id.viewPager);
+        viewPager = layout.findViewById(R.id.viewPager);
         viewPagerAdapter = new CustomPagerAdapter((AppCompatActivity) getActivity(), viewPager, fragmentSent, fragmentWon, fragmentPositiveFeedback, fragmentNegativeFeedback);
         viewPager.setAdapter(viewPagerAdapter);
 
-        tabLayout = (TabLayout) layout.findViewById(R.id.tabLayout);
+        tabLayout = layout.findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
 
-        whitelist = (Button) layout.findViewById(R.id.whitelist);
+        whitelist = layout.findViewById(R.id.whitelist);
         whitelist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,7 +139,7 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
             }
         });
 
-        blacklist = (Button) layout.findViewById(R.id.blacklist);
+        blacklist = layout.findViewById(R.id.blacklist);
         blacklist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

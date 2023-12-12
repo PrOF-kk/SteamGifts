@@ -104,7 +104,7 @@ public class FilterGiveawayDialogFragment extends DialogFragment implements Dial
     }
 
     private int getValueAndUpdateFlags(int editResource, int oldValue) {
-        EditText editText = (EditText) view.findViewById(editResource);
+        EditText editText = view.findViewById(editResource);
 
         int newValue;
         try {

@@ -14,8 +14,8 @@ public class PollHeaderViewHolder extends RecyclerView.ViewHolder {
     public PollHeaderViewHolder(View itemView) {
         super(itemView);
 
-        question = (TextView) itemView.findViewById(R.id.poll_question);
-        description = (TextView) itemView.findViewById(R.id.poll_description);
+        question = itemView.findViewById(R.id.poll_question);
+        description = itemView.findViewById(R.id.poll_description);
     }
 
     public void setFrom(Poll.Header header) {

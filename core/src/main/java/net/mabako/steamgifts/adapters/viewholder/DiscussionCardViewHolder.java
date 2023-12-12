@@ -37,15 +37,15 @@ public class DiscussionCardViewHolder extends RecyclerView.ViewHolder {
         this.context = context;
 
         progressBar = v.findViewById(R.id.progressBar);
-        user = (TextView) v.findViewById(R.id.user);
-        discussionTime = (TextView) v.findViewById(R.id.time);
-        description = (TextView) v.findViewById(R.id.description);
+        user = v.findViewById(R.id.user);
+        discussionTime = v.findViewById(R.id.time);
+        description = v.findViewById(R.id.description);
         description.setMovementMethod(LinkMovementMethod.getInstance());
         separator = v.findViewById(R.id.separator);
         actionSeparator = v.findViewById(R.id.action_separator);
-        title = (TextView) v.findViewById(R.id.discussion_title);
+        title = v.findViewById(R.id.discussion_title);
 
-        commentDiscussion = (Button) v.findViewById(R.id.comment);
+        commentDiscussion = v.findViewById(R.id.comment);
     }
 
     public void setFrom(final DiscussionDetailsCard card) {

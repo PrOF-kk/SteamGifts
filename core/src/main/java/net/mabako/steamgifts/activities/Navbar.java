@@ -96,7 +96,7 @@ public class Navbar {
 
         drawer = new DrawerBuilder()
                 .withActivity(activity)
-                .withToolbar((Toolbar) activity.findViewById(R.id.toolbar))
+                .withToolbar(activity.findViewById(R.id.toolbar))
                 .withTranslucentStatusBar(true)
                 .withActionBarDrawerToggle(true)
                 .withAccountHeader(accountHeader)
@@ -164,7 +164,7 @@ public class Navbar {
 
                     @Override
                     public void onDrawerSlide(View drawerView, float slideOffset) {
-                        TextView notifications = (TextView) accountHeader.getView().findViewById(R.id.material_drawer_account_header_notifications);
+                        TextView notifications = accountHeader.getView().findViewById(R.id.material_drawer_account_header_notifications);
 
                         // Are we even logged in?
                         SteamGiftsUserData user = SteamGiftsUserData.getCurrent(activity);
@@ -306,7 +306,7 @@ public class Navbar {
         protected void buildProfiles() {
             super.buildProfiles();
 
-            TextView notificationText = (TextView) mAccountHeader.findViewById(R.id.material_drawer_account_header_notifications);
+            TextView notificationText = mAccountHeader.findViewById(R.id.material_drawer_account_header_notifications);
             CustomProfileDrawerItem profile = (CustomProfileDrawerItem) mCurrentProfile;
 
             if(profile != null) {

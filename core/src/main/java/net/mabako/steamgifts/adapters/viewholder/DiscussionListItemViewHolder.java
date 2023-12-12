@@ -34,10 +34,10 @@ public class DiscussionListItemViewHolder extends RecyclerView.ViewHolder implem
         this.activity = activity;
 
         itemContainer = itemView.findViewById(R.id.list_item);
-        discussionTitle = (TextView) itemView.findViewById(R.id.discussion_title);
-        discussionAuthor = (TextView) itemView.findViewById(R.id.discussion_author);
-        discussionAuthorAvatar = (ImageView) itemView.findViewById(R.id.author_avatar);
-        discussionTime = (TextView) itemView.findViewById(R.id.discussion_time);
+        discussionTitle = itemView.findViewById(R.id.discussion_title);
+        discussionAuthor = itemView.findViewById(R.id.discussion_author);
+        discussionAuthorAvatar = itemView.findViewById(R.id.author_avatar);
+        discussionTime = itemView.findViewById(R.id.discussion_time);
 
         itemView.setOnClickListener(this);
     }

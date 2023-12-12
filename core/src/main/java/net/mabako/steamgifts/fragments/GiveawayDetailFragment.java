@@ -237,9 +237,9 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
         giveawayCard.setGiveaway(giveaway);
 
         updateTitle();
-        final CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) getActivity().findViewById(R.id.toolbar_layout);
+        final CollapsingToolbarLayout appBarLayout = getActivity().findViewById(R.id.toolbar_layout);
         if (appBarLayout != null && ((ApplicationTemplate) getActivity().getApplication()).allowGameImages()) {
-            ImageView toolbarImage = (ImageView) getActivity().findViewById(R.id.toolbar_image);
+            ImageView toolbarImage = getActivity().findViewById(R.id.toolbar_image);
             if (toolbarImage != null) {
                 Picasso.with(getContext()).load("http://cdn.akamai.steamstatic.com/steam/" + giveaway.getType().name().toLowerCase(Locale.ENGLISH) + "s/" + giveaway.getGameId() + "/header.jpg").into(toolbarImage, new Callback() {
                     @Override
@@ -384,7 +384,7 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
      */
     private void updateTitle() {
         Log.v(TAG, "Setting title to " + getTitle());
-        final CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) getActivity().findViewById(R.id.toolbar_layout);
+        final CollapsingToolbarLayout appBarLayout = getActivity().findViewById(R.id.toolbar_layout);
         if (appBarLayout != null) {
             appBarLayout.setTitle(getTitle());
         } else {

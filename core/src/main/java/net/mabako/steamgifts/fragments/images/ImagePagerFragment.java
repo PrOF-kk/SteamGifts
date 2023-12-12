@@ -54,7 +54,7 @@ public class ImagePagerFragment extends Fragment {
 
         fixStatusBarSpacing(view);
 
-        final ViewPager pager = (ViewPager) view.findViewById(R.id.viewPager);
+        final ViewPager pager = view.findViewById(R.id.viewPager);
         pager.setAdapter(new PagerAdapter(getChildFragmentManager()));
 
         view.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {

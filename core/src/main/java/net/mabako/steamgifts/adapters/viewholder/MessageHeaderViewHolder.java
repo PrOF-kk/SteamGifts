@@ -18,7 +18,7 @@ public class MessageHeaderViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         this.context = context;
 
-        text = (TextView) itemView.findViewById(R.id.text);
+        text = itemView.findViewById(R.id.text);
     }
 
     public void setFrom(final MessageHeader message) {

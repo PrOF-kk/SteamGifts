@@ -92,7 +92,7 @@ public class SyncFragment extends Fragment {
 
         getView().findViewById(R.id.sync_now).setEnabled(true);
 
-        TextView lastSyncView = (TextView) getView().findViewById(R.id.sync_time);
+        TextView lastSyncView = getView().findViewById(R.id.sync_time);
         lastSyncView.setVisibility(lastSyncTime == null ? View.GONE : View.VISIBLE);
         lastSyncView.setText(lastSyncTime);
 

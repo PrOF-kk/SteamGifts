@@ -32,10 +32,10 @@ public class GameViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         this.fragment = fragment;
 
-        gameName = (TextView) itemView.findViewById(R.id.game_name);
-        image = (ImageView) itemView.findViewById(R.id.game_image);
+        gameName = itemView.findViewById(R.id.game_name);
+        image = itemView.findViewById(R.id.game_image);
 
-        removeGame = (Button) itemView.findViewById(R.id.remove_game);
+        removeGame = itemView.findViewById(R.id.remove_game);
     }
 
     public void setFrom(final Game game) {

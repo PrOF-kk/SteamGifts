@@ -24,8 +24,8 @@ public class GiveawayGroupViewHolder extends RecyclerView.ViewHolder {
 
         this.context = context;
 
-        groupName = (TextView) v.findViewById(R.id.group_name);
-        groupAvatar = (ImageView) v.findViewById(R.id.group_avatar);
+        groupName = v.findViewById(R.id.group_name);
+        groupAvatar = v.findViewById(R.id.group_avatar);
     }
 
     public void setFrom(GiveawayGroup group) {

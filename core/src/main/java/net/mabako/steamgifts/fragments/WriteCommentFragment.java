@@ -78,7 +78,7 @@ public class WriteCommentFragment extends DialogFragment {
 
         setHasOptionsMenu(true);
 
-        edit = (EditText) layout.findViewById(R.id.edit_text);
+        edit = layout.findViewById(R.id.edit_text);
         edit.requestFocus();
 
         if (savedInstanceState == null && comment != null)

@@ -39,7 +39,7 @@ public class ScrollAwareFABBehavior extends FloatingActionButton.Behavior {
 
         // try to get the current page, if there's any.
         View view = coordinatorLayout;
-        ViewPager viewPager = (ViewPager) coordinatorLayout.findViewById(R.id.viewPager);
+        ViewPager viewPager = coordinatorLayout.findViewById(R.id.viewPager);
         if (viewPager != null && viewPager.getAdapter() instanceof FragmentAdapter) {
             int currentPage = viewPager.getCurrentItem();
             FragmentAdapter pagerAdapter = (FragmentAdapter) viewPager.getAdapter();
@@ -56,7 +56,7 @@ public class ScrollAwareFABBehavior extends FloatingActionButton.Behavior {
         }
 
         // Hide if we're over the first item
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
+        RecyclerView recyclerView = view.findViewById(R.id.list);
         if (recyclerView != null && recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
             LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
             if (layoutManager.findFirstVisibleItemPosition() == 0) {

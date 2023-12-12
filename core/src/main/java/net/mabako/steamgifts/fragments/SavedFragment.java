@@ -25,11 +25,11 @@ public class SavedFragment extends Fragment {
         if (toolbar != null)
             toolbar.setTitle(R.string.navigation_saved_elements);
 
-        ViewPager viewPager = (ViewPager) layout.findViewById(R.id.viewPager);
+        ViewPager viewPager = layout.findViewById(R.id.viewPager);
         TitledPagerAdapter viewPagerAdapter = new TitledPagerAdapter((AppCompatActivity) getActivity(), viewPager, new SavedGiveawaysFragment(), new SavedDiscussionsFragment());
         viewPager.setAdapter(viewPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) layout.findViewById(R.id.tabLayout);
+        TabLayout tabLayout = layout.findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
 
         return layout;

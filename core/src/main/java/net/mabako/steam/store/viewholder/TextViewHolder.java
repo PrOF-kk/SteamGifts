@@ -21,7 +21,7 @@ public class TextViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         this.context = context;
 
-        textView = (TextView) itemView.findViewById(R.id.text);
+        textView = itemView.findViewById(R.id.text);
         textView.setMovementMethod(LinkMovementMethod.getInstance());
     }
 

@@ -66,10 +66,10 @@ public abstract class ListFragment<AdapterType extends EndlessAdapter> extends F
         rootView = container.getRootView();
         loadItemsInitially = isCurrentFragmentTheActiveFragment();
 
-        listView = (RecyclerView) layout.findViewById(R.id.list);
-        swipeContainer = (SwipeRefreshLayout) layout.findViewById(R.id.swipeContainer);
-        progressBar = (ProgressBar) layout.findViewById(R.id.progressBar);
-        scrollToTopButton = (FloatingActionButton) container.getRootView().findViewById(R.id.scroll_to_top_button);
+        listView = layout.findViewById(R.id.list);
+        swipeContainer = layout.findViewById(R.id.swipeContainer);
+        progressBar = layout.findViewById(R.id.progressBar);
+        scrollToTopButton = container.getRootView().findViewById(R.id.scroll_to_top_button);
 
         setupListViewAdapter();
         setupSwipeContainer();
@@ -274,7 +274,7 @@ public abstract class ListFragment<AdapterType extends EndlessAdapter> extends F
         if (rootView == null)
             return false;
 
-        ViewPager viewPager = (ViewPager) rootView.findViewById(R.id.viewPager);
+        ViewPager viewPager = rootView.findViewById(R.id.viewPager);
         if (viewPager != null) {
             PagerAdapter adapter = viewPager.getAdapter();
             if (adapter instanceof FragmentAdapter) {

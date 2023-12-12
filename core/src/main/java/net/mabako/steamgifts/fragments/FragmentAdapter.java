@@ -90,7 +90,7 @@ public abstract class FragmentAdapter extends FragmentStatePagerAdapter implemen
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        FloatingActionButton scrollToTopButton = (FloatingActionButton) activity.findViewById(R.id.scroll_to_top_button);
+        FloatingActionButton scrollToTopButton = activity.findViewById(R.id.scroll_to_top_button);
         if (scrollToTopButton != null && positionOffsetPixels != 0) {
             scrollToTopButton.hide();
             scrollToTopButton.setTag(null);
@@ -112,7 +112,7 @@ public abstract class FragmentAdapter extends FragmentStatePagerAdapter implemen
                 notifyDataSetChanged();
             }
 
-            FloatingActionButton scrollToTopButton = (FloatingActionButton) activity.findViewById(R.id.scroll_to_top_button);
+            FloatingActionButton scrollToTopButton = activity.findViewById(R.id.scroll_to_top_button);
             if (scrollToTopButton != null) {
                 Fragment fragment = getItem(position);
                 if (fragment instanceof ListFragment) {

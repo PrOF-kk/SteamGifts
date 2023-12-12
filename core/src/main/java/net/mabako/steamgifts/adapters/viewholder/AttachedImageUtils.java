@@ -29,7 +29,7 @@ public final class AttachedImageUtils {
             if (images.contains("") || images.contains(null))
                 Log.w(AttachedImageUtils.class.getSimpleName(), "Attached Images contain empty string");
 
-            Button button = (Button) itemView.findViewById(R.id.image_link_holder);
+            Button button = itemView.findViewById(R.id.image_link_holder);
             button.setVisibility(View.VISIBLE);
             button.setText("{faw-picture-o}" + (images.size() > 1 ? (" " + images.size()) : ""));
 

@@ -37,11 +37,11 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
 
         userHolder = itemView.findViewById(R.id.user_holder);
 
-        userName = (TextView) itemView.findViewById(R.id.user);
-        userStatus = (TextView) itemView.findViewById(R.id.status);
-        userAvatar = (ImageView) itemView.findViewById(R.id.avatar);
+        userName = itemView.findViewById(R.id.user);
+        userStatus = itemView.findViewById(R.id.status);
+        userAvatar = itemView.findViewById(R.id.avatar);
 
-        removeUser = (Button) itemView.findViewById(R.id.remove_user);
+        removeUser = itemView.findViewById(R.id.remove_user);
     }
 
     public void setFrom(final BasicUser user) {

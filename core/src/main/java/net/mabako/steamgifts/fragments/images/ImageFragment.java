@@ -206,7 +206,7 @@ public class ImageFragment extends Fragment {
         // Hide the progress bar
         fragmentRootView.findViewById(R.id.progressBar).setVisibility(View.GONE);
 
-        imageView = (SubsamplingScaleImageView) fragmentRootView.findViewById(R.id.image);
+        imageView = fragmentRootView.findViewById(R.id.image);
         imageView.setBitmapDecoderFactory(new DecoderFactory<ImageDecoder>() {
             @Override
             public ImageDecoder make() throws IllegalAccessException, java.lang.InstantiationException {
@@ -289,7 +289,7 @@ public class ImageFragment extends Fragment {
         // Hide the progress bar
         fragmentRootView.findViewById(R.id.progressBar).setVisibility(View.GONE);
 
-        GifImageView imageView = (GifImageView) fragmentRootView.findViewById(R.id.gif);
+        GifImageView imageView = fragmentRootView.findViewById(R.id.gif);
         imageView.setImageDrawable(gifDrawable);
         imageView.setVisibility(View.VISIBLE);
         imageView.setOnClickListener(new View.OnClickListener() {

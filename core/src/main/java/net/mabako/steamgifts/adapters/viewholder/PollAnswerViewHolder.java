@@ -26,11 +26,11 @@ public class PollAnswerViewHolder extends RecyclerView.ViewHolder {
     public PollAnswerViewHolder(View itemView) {
         super(itemView);
 
-        text = (TextView) itemView.findViewById(R.id.text);
-        button = (Button) itemView.findViewById(R.id.vote);
+        text = itemView.findViewById(R.id.text);
+        button = itemView.findViewById(R.id.vote);
         buttonSpace = itemView.findViewById(R.id.space_for_no_voting);
-        progressBar = (ProgressBar) itemView.findViewById(R.id.progressBar);
-        percentageText = (TextView) itemView.findViewById(R.id.percentage);
+        progressBar = itemView.findViewById(R.id.progressBar);
+        percentageText = itemView.findViewById(R.id.percentage);
     }
 
     public void setFrom(final Poll.Answer answer, @NonNull final IHasPoll fragment) {

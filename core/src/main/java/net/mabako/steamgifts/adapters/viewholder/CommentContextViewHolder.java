@@ -28,7 +28,7 @@ public class CommentContextViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
 
         this.context = context;
-        text = (TextView) itemView.findViewById(R.id.text);
+        text = itemView.findViewById(R.id.text);
     }
 
     public void setFrom(SerializableHolder from) {

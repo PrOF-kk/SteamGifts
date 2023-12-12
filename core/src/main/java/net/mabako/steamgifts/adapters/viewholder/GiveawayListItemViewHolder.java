@@ -58,11 +58,11 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
     public GiveawayListItemViewHolder(View v, Activity activity, EndlessAdapter adapter, Fragment fragment, SavedGiveaways savedGiveaways) {
         super(v);
         itemContainer = v.findViewById(R.id.list_item);
-        giveawayName = (TextView) v.findViewById(R.id.giveaway_name);
-        giveawayDetails = (TextView) v.findViewById(R.id.giveaway_details);
-        giveawayTime = (TextView) v.findViewById(R.id.time);
-        giveawayImage = (ImageView) v.findViewById(R.id.giveaway_image);
-        giveawayEnterButton = (Button) v.findViewById(R.id.giveaway_enter_button);
+        giveawayName = v.findViewById(R.id.giveaway_name);
+        giveawayDetails = v.findViewById(R.id.giveaway_details);
+        giveawayTime = v.findViewById(R.id.time);
+        giveawayImage = v.findViewById(R.id.giveaway_image);
+        giveawayEnterButton = v.findViewById(R.id.giveaway_enter_button);
 
         indicatorWhitelist = v.findViewById(R.id.giveaway_list_indicator_whitelist);
         indicatorGroup = v.findViewById(R.id.giveaway_list_indicator_group);

@@ -51,25 +51,25 @@ public class GiveawayCardViewHolder extends RecyclerView.ViewHolder {
         this.fragment = fragment;
 
         progressBar = v.findViewById(R.id.progressBar);
-        title = (TextView) v.findViewById(R.id.giveaway_name);
-        user = (TextView) v.findViewById(R.id.user);
-        timeRemaining = (TextView) v.findViewById(R.id.remaining);
-        timeCreated = (TextView) v.findViewById(R.id.created);
-        description = (TextView) v.findViewById(R.id.description);
+        title = v.findViewById(R.id.giveaway_name);
+        user = v.findViewById(R.id.user);
+        timeRemaining = v.findViewById(R.id.remaining);
+        timeCreated = v.findViewById(R.id.created);
+        description = v.findViewById(R.id.description);
         description.setMovementMethod(LinkMovementMethod.getInstance());
-        entries = (TextView) v.findViewById(R.id.entries);
-        copies = (TextView) v.findViewById(R.id.copies);
+        entries = v.findViewById(R.id.entries);
+        copies = v.findViewById(R.id.copies);
         separator = v.findViewById(R.id.separator);
         actionSeparator = v.findViewById(R.id.action_separator);
 
-        enterGiveaway = (Button) v.findViewById(R.id.enter);
-        leaveGiveaway = (Button) v.findViewById(R.id.leave);
-        viewWinners = (Button) v.findViewById(R.id.winners);
-        commentGiveaway = (Button) v.findViewById(R.id.comment);
-        errorMessage = (Button) v.findViewById(R.id.error);
-        loginButton = (Button) v.findViewById(R.id.login);
+        enterGiveaway = v.findViewById(R.id.enter);
+        leaveGiveaway = v.findViewById(R.id.leave);
+        viewWinners = v.findViewById(R.id.winners);
+        commentGiveaway = v.findViewById(R.id.comment);
+        errorMessage = v.findViewById(R.id.error);
+        loginButton = v.findViewById(R.id.login);
         loginButton.setOnClickListener(v2 -> ((CommonActivity) fragment.getActivity()).requestLogin());
-        indicator = (Button) v.findViewById(R.id.indicator);
+        indicator = v.findViewById(R.id.indicator);
     }
 
     @SuppressLint("SetTextI18n")

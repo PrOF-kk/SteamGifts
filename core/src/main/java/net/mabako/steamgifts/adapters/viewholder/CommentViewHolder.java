@@ -51,20 +51,20 @@ public class CommentViewHolder extends RecyclerView.ViewHolder implements View.O
         this.fragment = fragment;
         this.context = context;
 
-        commentAuthor = (TextView) v.findViewById(R.id.user);
-        commentTime = (TextView) v.findViewById(R.id.time);
-        commentRole = (TextView) v.findViewById(R.id.role);
+        commentAuthor = v.findViewById(R.id.user);
+        commentTime = v.findViewById(R.id.time);
+        commentRole = v.findViewById(R.id.role);
 
-        commentContent = (TextView) v.findViewById(R.id.content);
+        commentContent = v.findViewById(R.id.content);
         commentContent.setMovementMethod(LinkMovementMethod.getInstance());
 
         commentMarker = v.findViewById(R.id.comment_marker);
         commentIndent = v.findViewById(R.id.comment_indent);
-        commentImage = (ImageView) v.findViewById(R.id.author_avatar);
+        commentImage = v.findViewById(R.id.author_avatar);
 
         tradeScoreDivider = v.findViewById(R.id.trade_divider);
-        tradeScorePositive = (TextView) v.findViewById(R.id.trade_score_positive);
-        tradeScoreNegative = (TextView) v.findViewById(R.id.trade_score_negative);
+        tradeScorePositive = v.findViewById(R.id.trade_score_positive);
+        tradeScoreNegative = v.findViewById(R.id.trade_score_negative);
 
         v.setOnCreateContextMenuListener(this);
     }
