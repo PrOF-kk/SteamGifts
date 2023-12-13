@@ -168,7 +168,7 @@ public abstract class ListFragment<AdapterType extends EndlessAdapter> extends F
         swipeContainer.setRefreshing(false);
 
         if (scrollToTopButton != null)
-            scrollToTopButton.setVisibility(View.GONE);
+            scrollToTopButton.hide();
 
         // TODO reverse pages?
         fetchItems(adapter.isViewInReverse() ? EndlessAdapter.LAST_PAGE : EndlessAdapter.FIRST_PAGE);
