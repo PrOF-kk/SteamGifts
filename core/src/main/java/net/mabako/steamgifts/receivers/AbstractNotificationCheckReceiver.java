@@ -55,8 +55,9 @@ public abstract class AbstractNotificationCheckReceiver extends BroadcastReceive
 
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = cm.getActiveNetworkInfo();
-        if (activeNetworkInfo == null || !activeNetworkInfo.isConnected() || activeNetworkInfo.getType() != ConnectivityManager.TYPE_WIFI) {
-            Log.v(tag, "Not checking for messages due to network info: " + activeNetworkInfo);
+        boolean activeNetworkMetered = cm.isActiveNetworkMetered();
+        if (activeNetworkInfo == null || !activeNetworkInfo.isConnected() || activeNetworkMetered) {
+            Log.v(tag, "Not checking for messages due to network info: " + activeNetworkInfo + " metered: " + activeNetworkMetered);
             return false;
         }
 
