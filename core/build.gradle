@@ -35,7 +35,7 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:28.0.0'
     implementation 'com.android.support:customtabs:28.0.0'
     implementation 'org.jsoup:jsoup:1.8.3'
-    implementation('com.mikepenz:materialdrawer:5.8.1@aar') {
+    implementation('com.mikepenz:materialdrawer:5.8.3@aar') {
         transitive = true
     }
     implementation 'com.mikepenz:fontawesome-typeface:4.7.0.0@aar'
