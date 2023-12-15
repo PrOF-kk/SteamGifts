@@ -1,6 +1,8 @@
 package net.mabako.steamgifts.adapters.viewholder;
 
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.TextViewCompat;
@@ -129,6 +131,12 @@ public class CommentViewHolder extends RecyclerView.ViewHolder implements View.O
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+
+        menu.add(android.R.string.copy).setOnMenuItemClickListener(item -> {
+            ((ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE)).setPrimaryClip(ClipData.newPlainText("SteamGifts comment text", commentContent.getText()));
+            return true;
+        });
+
         if (SteamGiftsUserData.getCurrent(null).isLoggedIn()) {
             menu.setHeaderTitle(R.string.actions);
 
