@@ -12,7 +12,7 @@
         <item name="colorLighterSeparatorBackground">#cccccc</item>
         <item name="colorAccountHeader">@color/colorPrimary</item>
         <item name="colorHighlightBackground">@color/md_blue_100</item>
-        <item name="lightTextColor">#9a9a9a</item>
+        <item name="lightTextColor">#424242</item>
         <item name="colorTradeScorePositive">@color/md_green_600</item>
         <item name="colorTradeScoreNegative">@color/md_red_600</item>
     </style>
