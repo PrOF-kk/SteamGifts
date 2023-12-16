@@ -274,7 +274,7 @@ public class GiveawayListFragment extends SearchableListFragment<GiveawayAdapter
         MenuItem filterMenu = menu.findItem(R.id.filter);
         filterMenu.setVisible(true);
 
-        ActionItemBadge.update(getActivity(), filterMenu, getResources().getDrawable(R.drawable.ic_filter_variant), (BadgeStyle) null, FilterData.getCurrent(getContext()).isAnyActive() ? "\n\n{faw-check-circle}" : null);
+        ActionItemBadge.update(getActivity(), filterMenu, ContextCompat.getDrawable(getActivity(), R.drawable.ic_filter_variant), (BadgeStyle) null, FilterData.getCurrent(getContext()).isAnyActive() ? "\n\n{faw-check-circle}" : null);
     }
 
     @Override
