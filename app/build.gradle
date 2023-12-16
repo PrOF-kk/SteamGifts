@@ -11,6 +11,7 @@ android {
         targetSdkVersion 26
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
+        signingConfig signingConfigs.debug
         project.ext.set('archivesBaseName', 'SteamGifts')
     }
     buildTypes {
