@@ -6,11 +6,11 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.PreferenceCategory;
-import android.preference.PreferenceFragment;
 import android.support.v7.app.ActionBar;
+import android.support.v7.preference.ListPreference;
+import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceCategory;
+import android.support.v7.preference.PreferenceFragmentCompat;
 import android.util.Log;
 
 import net.mabako.steamgifts.ApplicationTemplate;
@@ -19,10 +19,10 @@ import net.mabako.steamgifts.fragments.WhitelistBlacklistFragment;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
 public class SettingsActivity extends BaseActivity {
-    public static class SettingsFragment extends PreferenceFragment {
+    public static class SettingsFragment extends PreferenceFragmentCompat {
         @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
+        public void onCreatePreferences(Bundle savedInstanceState, String s) {
+
             addPreferencesFromResource(R.xml.preferences_app);
 
             if (SteamGiftsUserData.getCurrent(getActivity()).isLoggedIn()) {
@@ -114,6 +114,6 @@ public class SettingsActivity extends BaseActivity {
             actionbar.setDisplayHomeAsUpEnabled(true);
         }
 
-        getFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingsFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingsFragment()).commit();
     }
 }
