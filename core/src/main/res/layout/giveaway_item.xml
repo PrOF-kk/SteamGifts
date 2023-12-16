@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
@@ -52,35 +53,47 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="start">
 
-                    <View
+                    <com.mikepenz.iconics.view.IconicsImageView
                         android:id="@+id/giveaway_list_indicator_whitelist"
+                        app:iiv_icon="@string/faw_unlock"
+                        app:iiv_color="@color/giveawayIndicatorColorWhitelist"
                         style="@style/GiveawayIndicatorIcon"
-                        android:background="@drawable/circle_indicator_whitelist" />
+                        tools:src="@drawable/circle_indicator_whitelist" />
 
-                    <View
+                    <com.mikepenz.iconics.view.IconicsImageView
                         android:id="@+id/giveaway_list_indicator_group"
+                        app:iiv_icon="@string/faw_users"
+                        app:iiv_color="@color/giveawayIndicatorColorGroup"
                         style="@style/GiveawayIndicatorIcon"
-                        android:background="@drawable/circle_indicator_group" />
+                        tools:src="@drawable/circle_indicator_group" />
 
-                    <View
+                    <com.mikepenz.iconics.view.IconicsImageView
                         android:id="@+id/giveaway_list_indicator_level_positive"
+                        app:iiv_icon="@string/faw_arrow_down"
+                        app:iiv_color="@color/giveawayIndicatorColorLevelOkay"
                         style="@style/GiveawayIndicatorIcon"
-                        android:background="@drawable/circle_indicator_level_positive" />
+                        tools:src="@drawable/circle_indicator_level_positive" />
 
-                    <ImageView
+                    <com.mikepenz.iconics.view.IconicsImageView
                         android:id="@+id/giveaway_list_indicator_level_negative"
+                        app:iiv_icon="@string/faw_arrow_up"
+                        app:iiv_color="@color/giveawayIndicatorColorLevelTooHigh"
                         style="@style/GiveawayIndicatorIcon"
-                        android:background="@drawable/circle_indicator_level_negative" />
+                        tools:src="@drawable/circle_indicator_level_negative" />
 
-                    <ImageView
+                    <com.mikepenz.iconics.view.IconicsImageView
                         android:id="@+id/giveaway_list_indicator_private"
+                        app:iiv_icon="@string/faw_lock"
+                        app:iiv_color="@color/giveawayIndicatorColorPrivate"
                         style="@style/GiveawayIndicatorIcon"
-                        android:background="@drawable/circle_indicator_private" />
+                        tools:src="@drawable/circle_indicator_private" />
 
-                    <ImageView
+                    <com.mikepenz.iconics.view.IconicsImageView
                         android:id="@+id/giveaway_list_indicator_region_restricted"
+                        app:iiv_icon="@string/faw_globe"
+                        app:iiv_color="@color/giveawayIndicatorColorRegionRestricted"
                         style="@style/GiveawayIndicatorIcon"
-                        android:background="@drawable/circle_indicator_region_restricted" />
+                        tools:src="@drawable/circle_indicator_region_restricted" />
 
                     <TextView
                         android:id="@+id/giveaway_details"

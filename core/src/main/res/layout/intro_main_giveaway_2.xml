@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -51,9 +53,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <View
+                <com.mikepenz.iconics.view.IconicsImageView
+                    app:iiv_icon="@string/faw_unlock"
+                    app:iiv_color="@color/giveawayIndicatorColorWhitelist"
                     style="@style/GiveawayIndicatorIcon"
-                    android:background="@drawable/circle_indicator_whitelist" />
+                    tools:src="@drawable/circle_indicator_whitelist" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -68,9 +72,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <View
+                <com.mikepenz.iconics.view.IconicsImageView
+                    app:iiv_icon="@string/faw_users"
+                    app:iiv_color="@color/giveawayIndicatorColorGroup"
                     style="@style/GiveawayIndicatorIcon"
-                    android:background="@drawable/circle_indicator_group" />
+                    tools:src="@drawable/circle_indicator_group" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -85,9 +91,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <View
+                <com.mikepenz.iconics.view.IconicsImageView
+                    app:iiv_icon="@string/faw_lock"
+                    app:iiv_color="@color/giveawayIndicatorColorPrivate"
                     style="@style/GiveawayIndicatorIcon"
-                    android:background="@drawable/circle_indicator_private" />
+                    tools:src="@drawable/circle_indicator_private" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -102,9 +110,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <View
+                <com.mikepenz.iconics.view.IconicsImageView
+                    app:iiv_icon="@string/faw_arrow_down"
+                    app:iiv_color="@color/giveawayIndicatorColorLevelOkay"
                     style="@style/GiveawayIndicatorIcon"
-                    android:background="@drawable/circle_indicator_level_positive" />
+                    tools:src="@drawable/circle_indicator_level_positive" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -119,9 +129,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <View
+                <com.mikepenz.iconics.view.IconicsImageView
+                    app:iiv_icon="@string/faw_arrow_up"
+                    app:iiv_color="@color/giveawayIndicatorColorLevelTooHigh"
                     style="@style/GiveawayIndicatorIcon"
-                    android:background="@drawable/circle_indicator_level_negative" />
+                    tools:src="@drawable/circle_indicator_level_negative" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -136,9 +148,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <View
+                <com.mikepenz.iconics.view.IconicsImageView
+                    app:iiv_icon="@string/faw_globe"
+                    app:iiv_color="@color/giveawayIndicatorColorRegionRestricted"
                     style="@style/GiveawayIndicatorIcon"
-                    android:background="@drawable/circle_indicator_region_restricted" />
+                    tools:src="@drawable/circle_indicator_region_restricted" />
 
                 <TextView
                     android:layout_width="wrap_content"
