@@ -2,7 +2,7 @@ package net.mabako.steamgifts.adapters.viewholder;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;

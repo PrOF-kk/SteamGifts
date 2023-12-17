@@ -8,8 +8,8 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
-import android.support.annotation.DrawableRes;
-import android.support.v4.app.NotificationCompat;
+import androidx.annotation.DrawableRes;
+import androidx.core.app.NotificationCompat;
 import android.util.Log;
 
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;

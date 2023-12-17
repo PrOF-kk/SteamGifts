@@ -1,6 +1,6 @@
 package net.mabako.steamgifts.adapters.viewholder;
 
-import android.support.v4.app.FragmentManager;
+import androidx.fragment.app.FragmentManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;

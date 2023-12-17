@@ -1,7 +1,7 @@
 package net.mabako.steamgifts;
 
 import android.app.Application;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 public abstract class ApplicationTemplate extends Application {
     @Override

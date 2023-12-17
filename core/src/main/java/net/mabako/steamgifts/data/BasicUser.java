@@ -1,6 +1,6 @@
 package net.mabako.steamgifts.data;
 
-import android.support.annotation.LayoutRes;
+import androidx.annotation.LayoutRes;
 
 import net.mabako.steamgifts.adapters.IEndlessAdaptable;
 import net.mabako.steamgifts.core.R;

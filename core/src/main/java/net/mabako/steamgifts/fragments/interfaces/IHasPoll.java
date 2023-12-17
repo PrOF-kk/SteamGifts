@@ -1,6 +1,6 @@
 package net.mabako.steamgifts.fragments.interfaces;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import net.mabako.steamgifts.data.Poll;
 
