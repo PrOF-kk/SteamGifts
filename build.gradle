@@ -25,7 +25,7 @@ androidGitVersion {
 }
 
 ext {
-    compileSdkVersion = 28
+    compileSdkVersion = 34
 
     versionName = androidGitVersion.name().replace('-dirty', '')
     versionCode = androidGitVersion.code()
