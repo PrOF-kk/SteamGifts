@@ -2,10 +2,10 @@ package net.mabako.steamgifts.fragments.profile;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.preference.PreferenceManager;
 
 import net.mabako.steamgifts.adapters.GiveawayAdapter;
 import net.mabako.steamgifts.core.R;

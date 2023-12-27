@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.materialdrawer.AccountHeader;

@@ -7,11 +7,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 import androidx.annotation.DrawableRes;
 import androidx.core.app.NotificationCompat;
+import androidx.preference.PreferenceManager;
 
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 

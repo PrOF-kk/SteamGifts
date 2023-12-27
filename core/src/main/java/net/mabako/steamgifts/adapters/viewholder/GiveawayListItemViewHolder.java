@@ -2,7 +2,6 @@ package net.mabako.steamgifts.adapters.viewholder;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -15,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Callback;
