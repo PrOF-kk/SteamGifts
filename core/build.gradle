@@ -34,19 +34,23 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.preference:preference:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
+
     implementation 'com.google.android.material:material:1.0.0'
-    implementation 'org.jsoup:jsoup:1.8.3'
-    implementation('com.mikepenz:materialdrawer:5.8.3@aar') {
-        transitive = true
-    }
-    implementation 'com.mikepenz:fontawesome-typeface:4.7.0.0@aar'
-    implementation 'com.mikepenz:actionitembadge:3.3.1@aar'
+    implementation 'com.google.code.gson:gson:2.10.1'
+
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.squareup.okhttp:okhttp:2.7.4'
     implementation 'com.squareup.okio:okio:1.17.6'
-    implementation 'com.github.paolorotolo:appintro:4.1.0'
-    implementation 'com.google.code.gson:gson:2.10.1'
-    implementation 'com.davemorrissey.labs:subsampling-scale-image-view-androidx:3.10.0'
-    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.1.13'
+
+    implementation 'com.mikepenz:actionitembadge:3.3.1@aar'
+    implementation 'com.mikepenz:fontawesome-typeface:4.7.0.0@aar'
+    implementation('com.mikepenz:materialdrawer:5.8.3@aar') {
+        transitive = true
+    }
+    
     implementation 'com.wefika:flowlayout:0.4.1'
+    implementation 'com.davemorrissey.labs:subsampling-scale-image-view-androidx:3.10.0'
+    implementation 'com.github.paolorotolo:appintro:4.1.0'
+    implementation 'org.jsoup:jsoup:1.8.3'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.1.13'
 }
