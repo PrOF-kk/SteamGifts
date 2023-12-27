@@ -2,14 +2,15 @@ package net.mabako.steamgifts.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import android.text.InputFilter;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
 
 import com.mikepenz.iconics.context.IconicsContextWrapper;
 

@@ -1,16 +1,18 @@
 package net.mabako.steamgifts.behavior;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import androidx.fragment.app.Fragment;
-import androidx.core.view.ViewCompat;
-import androidx.viewpager.widget.ViewPager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.view.ViewCompat;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import net.mabako.steamgifts.core.R;
 import net.mabako.steamgifts.fragments.FragmentAdapter;

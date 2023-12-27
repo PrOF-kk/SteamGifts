@@ -1,6 +1,7 @@
 package net.mabako.steamgifts.data;
 
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 
 import net.mabako.steamgifts.adapters.IEndlessAdaptable;

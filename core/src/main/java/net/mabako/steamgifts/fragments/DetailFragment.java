@@ -4,12 +4,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import android.text.TextUtils;
-import android.util.Log;
 
 import net.mabako.steamgifts.activities.WriteCommentActivity;
 import net.mabako.steamgifts.adapters.CommentAdapter;

@@ -2,8 +2,9 @@ package net.mabako.steamgifts.tasks;
 
 import android.content.Context;
 import android.content.Intent;
-import androidx.fragment.app.Fragment;
 import android.util.Log;
+
+import androidx.fragment.app.Fragment;
 
 import net.mabako.steamgifts.activities.SyncActivity;
 import net.mabako.steamgifts.fragments.interfaces.IHasEnterableGiveaways;

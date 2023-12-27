@@ -1,9 +1,10 @@
 package net.mabako.steamgifts.adapters;
 
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import net.mabako.steamgifts.adapters.viewholder.CommentContextViewHolder;
 import net.mabako.steamgifts.adapters.viewholder.CommentViewHolder;

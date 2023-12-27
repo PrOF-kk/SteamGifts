@@ -3,10 +3,11 @@ package net.mabako.steamgifts.persistentdata;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import net.mabako.steamgifts.tasks.Utils;
 

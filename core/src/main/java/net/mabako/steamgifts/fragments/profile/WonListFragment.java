@@ -3,6 +3,7 @@ package net.mabako.steamgifts.fragments.profile;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+
 import androidx.annotation.NonNull;
 
 import net.mabako.steamgifts.adapters.GiveawayAdapter;

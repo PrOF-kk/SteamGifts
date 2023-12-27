@@ -1,9 +1,10 @@
 package net.mabako.steam.store.viewholder;
 
 import android.content.Context;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 

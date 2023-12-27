@@ -5,9 +5,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import androidx.annotation.ColorInt;
-import androidx.annotation.ColorRes;
-import androidx.annotation.NonNull;
 import android.text.Editable;
 import android.text.Html;
 import android.text.Layout;
@@ -24,6 +21,10 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.annotation.NonNull;
 
 import net.mabako.steamgifts.core.R;
 

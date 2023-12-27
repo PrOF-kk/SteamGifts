@@ -2,7 +2,6 @@ package net.mabako.steamgifts.adapters.viewholder;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -12,6 +11,8 @@ import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import net.mabako.steamgifts.activities.CommonActivity;
 import net.mabako.steamgifts.activities.DetailActivity;

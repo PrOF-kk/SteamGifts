@@ -3,14 +3,15 @@ package net.mabako.steamgifts.fragments.profile;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 
 import net.mabako.steamgifts.activities.DetailActivity;
 import net.mabako.steamgifts.activities.UrlHandlingActivity;

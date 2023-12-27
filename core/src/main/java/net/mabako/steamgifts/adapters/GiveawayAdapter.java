@@ -2,10 +2,11 @@ package net.mabako.steamgifts.adapters;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.View;
 
 import net.mabako.steamgifts.adapters.viewholder.GiveawayListItemViewHolder;
 import net.mabako.steamgifts.data.Game;

@@ -1,9 +1,10 @@
 package net.mabako.steamgifts.adapters.viewholder;
 
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import net.mabako.steamgifts.core.R;
 import net.mabako.steamgifts.data.Poll;

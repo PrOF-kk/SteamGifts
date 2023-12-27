@@ -1,7 +1,8 @@
 package net.mabako.steamgifts.adapters;
 
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import net.mabako.steamgifts.adapters.viewholder.UserViewHolder;
 import net.mabako.steamgifts.data.BasicUser;

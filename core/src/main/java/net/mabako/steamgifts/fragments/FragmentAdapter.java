@@ -2,14 +2,16 @@ package net.mabako.steamgifts.fragments;
 
 import android.app.Activity;
 import android.os.Parcelable;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
-import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import net.mabako.steamgifts.core.R;
 

@@ -2,10 +2,11 @@ package net.mabako.steamgifts.fragments;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import android.view.Menu;
 import android.view.MenuInflater;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import net.mabako.steamgifts.adapters.GiveawayGroupAdapter;
 import net.mabako.steamgifts.core.R;

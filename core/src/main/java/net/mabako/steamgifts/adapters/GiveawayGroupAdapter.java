@@ -1,8 +1,9 @@
 package net.mabako.steamgifts.adapters;
 
 import android.content.Context;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import net.mabako.steamgifts.adapters.viewholder.GiveawayGroupViewHolder;
 import net.mabako.steamgifts.data.GiveawayGroup;

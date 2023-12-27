@@ -2,9 +2,10 @@ package net.mabako.steamgifts.tasks;
 
 import android.net.Uri;
 import android.os.AsyncTask;
-import androidx.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import net.mabako.Constants;
 import net.mabako.steamgifts.adapters.EndlessAdapter;

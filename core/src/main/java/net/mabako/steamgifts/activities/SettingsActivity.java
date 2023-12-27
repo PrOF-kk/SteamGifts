@@ -6,12 +6,13 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceFragmentCompat;
-import android.util.Log;
 
 import net.mabako.steamgifts.ApplicationTemplate;
 import net.mabako.steamgifts.core.R;

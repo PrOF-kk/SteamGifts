@@ -2,7 +2,6 @@ package net.mabako.common;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.webkit.CookieManager;
@@ -10,6 +9,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import net.mabako.steamgifts.core.R;
 

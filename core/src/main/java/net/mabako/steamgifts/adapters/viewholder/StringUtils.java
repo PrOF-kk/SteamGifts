@@ -5,9 +5,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.net.Uri;
 import android.os.Build;
-import androidx.annotation.AttrRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.text.Html;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -16,6 +13,10 @@ import android.text.style.URLSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.annotation.AttrRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import net.mabako.steamgifts.activities.UrlHandlingActivity;
 import net.mabako.steamgifts.core.R;

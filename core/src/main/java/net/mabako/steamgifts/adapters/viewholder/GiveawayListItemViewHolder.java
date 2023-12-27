@@ -3,8 +3,6 @@ package net.mabako.steamgifts.adapters.viewholder;
 import android.app.Activity;
 import android.content.Intent;
 import android.preference.PreferenceManager;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -15,6 +13,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;

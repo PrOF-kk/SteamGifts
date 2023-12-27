@@ -5,13 +5,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.appcompat.app.ActionBar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ScrollView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.ActionBar;
 
 import net.mabako.steamgifts.core.R;
 import net.mabako.steamgifts.data.Comment;

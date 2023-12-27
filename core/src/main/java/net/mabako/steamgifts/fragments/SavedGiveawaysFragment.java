@@ -5,9 +5,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import androidx.annotation.NonNull;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.fragment.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,6 +12,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import net.mabako.steamgifts.adapters.GiveawayAdapter;
 import net.mabako.steamgifts.adapters.IEndlessAdaptable;

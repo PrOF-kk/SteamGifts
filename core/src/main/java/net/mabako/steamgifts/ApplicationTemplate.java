@@ -1,6 +1,7 @@
 package net.mabako.steamgifts;
 
 import android.app.Application;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public abstract class ApplicationTemplate extends Application {

@@ -4,13 +4,14 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 

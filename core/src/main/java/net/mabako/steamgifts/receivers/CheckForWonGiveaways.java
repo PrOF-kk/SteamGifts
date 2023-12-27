@@ -4,9 +4,10 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import androidx.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import net.mabako.steamgifts.activities.DetailActivity;
 import net.mabako.steamgifts.adapters.IEndlessAdaptable;

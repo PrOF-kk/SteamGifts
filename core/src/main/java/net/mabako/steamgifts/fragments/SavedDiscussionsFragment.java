@@ -3,6 +3,7 @@ package net.mabako.steamgifts.fragments;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 
 import net.mabako.steamgifts.adapters.DiscussionAdapter;

@@ -3,9 +3,11 @@ package net.mabako.steamgifts.fragments;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
-import com.google.android.material.snackbar.Snackbar;
 import androidx.fragment.app.Fragment;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import net.mabako.steamgifts.adapters.EndlessAdapter;
 import net.mabako.steamgifts.adapters.HiddenGamesAdapter;

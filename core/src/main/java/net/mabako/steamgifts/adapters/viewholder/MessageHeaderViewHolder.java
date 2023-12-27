@@ -2,9 +2,10 @@ package net.mabako.steamgifts.adapters.viewholder;
 
 import android.content.Context;
 import android.net.Uri;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import net.mabako.steamgifts.activities.UrlHandlingActivity;
 import net.mabako.steamgifts.core.R;

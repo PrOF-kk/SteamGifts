@@ -5,12 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import androidx.annotation.NonNull;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.StyleSpan;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import net.mabako.steamgifts.activities.DetailActivity;
 import net.mabako.steamgifts.activities.UrlHandlingActivity;

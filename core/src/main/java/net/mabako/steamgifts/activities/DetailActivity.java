@@ -3,15 +3,17 @@ package net.mabako.steamgifts.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
+import android.widget.Toast;
+
 import androidx.annotation.LayoutRes;
-import com.google.android.material.tabs.TabLayout;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import android.util.Log;
-import android.widget.Toast;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.tabs.TabLayout;
 
 import net.mabako.steamgifts.ApplicationTemplate;
 import net.mabako.steamgifts.core.R;

@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.appcompat.app.ActionBar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -23,6 +22,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBar;
 
 import net.mabako.steamgifts.core.R;
 

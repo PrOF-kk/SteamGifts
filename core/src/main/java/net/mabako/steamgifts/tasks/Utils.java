@@ -1,9 +1,10 @@
 package net.mabako.steamgifts.tasks;
 
 import android.net.Uri;
-import androidx.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import net.mabako.steamgifts.data.Comment;
 import net.mabako.steamgifts.data.Game;

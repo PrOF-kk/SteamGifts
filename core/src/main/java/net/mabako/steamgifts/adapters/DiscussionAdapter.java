@@ -1,9 +1,10 @@
 package net.mabako.steamgifts.adapters;
 
 import android.app.Activity;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.View;
 
 import net.mabako.steamgifts.adapters.viewholder.DiscussionListItemViewHolder;
 import net.mabako.steamgifts.data.Discussion;

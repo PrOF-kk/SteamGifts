@@ -2,11 +2,12 @@ package net.mabako.steamgifts.adapters.viewholder;
 
 import android.content.Context;
 import android.content.Intent;
-import androidx.annotation.LayoutRes;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.annotation.LayoutRes;
+import androidx.recyclerview.widget.RecyclerView;
 
 import net.mabako.steamgifts.activities.DetailActivity;
 import net.mabako.steamgifts.adapters.IEndlessAdaptable;
