@@ -49,7 +49,7 @@ dependencies {
     }
 
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view-androidx:3.10.0'
-    implementation 'com.github.paolorotolo:appintro:4.1.0'
+    implementation 'com.github.appintro:appintro:6.3.1'
     implementation 'org.jsoup:jsoup:1.8.3'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.1.13'
 

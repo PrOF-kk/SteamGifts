@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
-import com.github.paolorotolo.appintro.AppIntro2;
+import com.github.appintro.AppIntro2;
 import com.mikepenz.iconics.context.IconicsContextWrapper;
 
 import net.mabako.steamgifts.core.R;
@@ -44,7 +44,7 @@ public class IntroActivity extends AppIntro2 {
         switch (getIntent().getStringExtra("type")) {
             case INTRO_MAIN:
                 setIndicatorColor(getResources().getColor(R.color.colorAccent), getResources().getColor(android.R.color.darker_gray));
-                showSkipButton(false);
+                setSkipButtonEnabled(false);
 
                 addSlide(Slide.newInstance(SubView.MAIN_WELCOME));
                 addSlide(Slide.newInstance(SubView.MAIN_GIVEAWAY_1));
