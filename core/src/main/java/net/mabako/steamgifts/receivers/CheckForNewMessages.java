@@ -31,7 +31,7 @@ import java.util.List;
  * and display a notification if any exists.
  */
 public class CheckForNewMessages extends AbstractNotificationCheckReceiver {
-    private static NotificationId NOTIFICATION_ID = NotificationId.MESSAGES;
+    private static final NotificationId NOTIFICATION_ID = NotificationId.MESSAGES;
 
     private static final String PREF_KEY_LAST_SHOWN_NOTIFICATION = "last-shown-message";
     private static final String PREF_KEY_LAST_DISMISSED_NOTIFICATION = "last-dismissed-message";

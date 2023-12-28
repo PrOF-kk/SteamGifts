@@ -26,7 +26,7 @@ import java.util.Set;
  * Check for won newly won giveaways. This is, eventually, only triggered if {@link CheckForNewMessages} detects any won giveaways.
  */
 public class CheckForWonGiveaways extends AbstractNotificationCheckReceiver {
-    private static NotificationId NOTIFICATION_ID = NotificationId.WON;
+    private static final NotificationId NOTIFICATION_ID = NotificationId.WON;
 
     private static final String PREF_KEY_LAST_SHOWN_WON_GAME = "last-shown-won-game";
     private static final String PREF_KEY_LAST_DISMISSED_WON_GAMES = "last-dismissed-won-game";

@@ -10,12 +10,16 @@ import android.net.NetworkInfo;
 import android.util.Log;
 
 import androidx.annotation.DrawableRes;
+import androidx.core.app.NotificationChannelCompat;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.preference.PreferenceManager;
 
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public abstract class AbstractNotificationCheckReceiver extends BroadcastReceiver {
     private static final String DEFAULT_PREF_NOTIFICATIONS_ENABLED = "preference_notifications";
@@ -31,7 +35,33 @@ public abstract class AbstractNotificationCheckReceiver extends BroadcastReceive
     protected static final int MAX_DISPLAYED_NOTIFICATIONS = 5;
 
     public enum NotificationId {
-        MESSAGES, WON, NO_TYPE
+        MESSAGES("Messages"),
+        WON("Won Giveaways"),
+        NO_TYPE("Other");
+
+        private final String channelName;
+        NotificationId(String channelName) {
+            this.channelName = channelName;
+        }
+        public String channelId() { return this.name(); }
+        public String channelName() { return channelName; }
+    }
+
+    public static void initNotificationChannels(Context context) {
+        NotificationManagerCompat manager = NotificationManagerCompat.from(context);
+        Set<String> notificationChannelIds = new HashSet<>();
+
+        for (NotificationId notificationId : NotificationId.values()) {
+            NotificationChannelCompat channel =
+                    new NotificationChannelCompat.Builder(notificationId.channelId(), NotificationManagerCompat.IMPORTANCE_LOW)
+                            .setName(notificationId.channelName())
+                            .build();
+
+            notificationChannelIds.add(notificationId.channelId());
+            manager.createNotificationChannel(channel);
+        }
+
+        manager.deleteUnlistedNotificationChannels(notificationChannelIds);
     }
 
     /**
@@ -77,7 +107,7 @@ public abstract class AbstractNotificationCheckReceiver extends BroadcastReceive
      * @param deleteIntent   what happens when dismissing the notification
      */
     protected static void showNotification(Context context, NotificationId notificationId, @DrawableRes int iconResource, String title, CharSequence content, PendingIntent viewIntent, PendingIntent deleteIntent) {
-        Notification notification = new NotificationCompat.Builder(context)
+        Notification notification = new NotificationCompat.Builder(context, notificationId.channelId())
                 .setSmallIcon(iconResource)
                 .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setCategory(NotificationCompat.CATEGORY_SOCIAL)
@@ -109,7 +139,7 @@ public abstract class AbstractNotificationCheckReceiver extends BroadcastReceive
         for (CharSequence c : content)
             inboxStyle.addLine(c);
 
-        Notification notification = new NotificationCompat.Builder(context)
+        Notification notification = new NotificationCompat.Builder(context, notificationId.channelId())
                 .setSmallIcon(iconResource)
                 .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setCategory(NotificationCompat.CATEGORY_SOCIAL)
