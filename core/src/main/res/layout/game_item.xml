@@ -20,7 +20,7 @@
             android:adjustViewBounds="true"
             android:scaleType="fitCenter" />
 
-        <Space
+        <android.widget.Space
             android:layout_width="8dp"
             android:layout_height="match_parent" />
 

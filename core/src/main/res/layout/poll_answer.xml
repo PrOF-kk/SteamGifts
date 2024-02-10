@@ -15,12 +15,12 @@
         android:paddingLeft="12dp"
         tools:text="->" />
 
-    <Space
+    <android.widget.Space
         android:layout_width="8dp"
         android:layout_height="match_parent" />
 
     <!-- Space to match up the padding + margin of the vote button above; minus the space that's directly following it -->
-    <Space
+    <android.widget.Space
         android:id="@+id/space_for_no_voting"
         android:layout_width="16dp"
         android:layout_height="match_parent"
