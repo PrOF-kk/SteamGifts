@@ -23,7 +23,7 @@ public class SavedDiscussionsFragment extends ListFragment<DiscussionAdapter> im
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         savedDiscussions = new SavedDiscussions(context);
     }

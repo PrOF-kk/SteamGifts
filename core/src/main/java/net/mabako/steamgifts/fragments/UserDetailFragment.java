@@ -219,7 +219,7 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.user_menu, menu);
     }
 

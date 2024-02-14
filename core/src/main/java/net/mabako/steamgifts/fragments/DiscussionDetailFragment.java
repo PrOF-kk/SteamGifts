@@ -118,7 +118,7 @@ public class DiscussionDetailFragment extends DetailFragment implements IHasPoll
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         savedDiscussions = new SavedDiscussions(context);
     }
@@ -208,7 +208,7 @@ public class DiscussionDetailFragment extends DetailFragment implements IHasPoll
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.discussion_menu, menu);
 
         MenuItem commentMenu = menu.findItem(R.id.comment);

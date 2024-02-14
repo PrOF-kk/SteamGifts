@@ -90,8 +90,7 @@ public class WriteCommentFragment extends DialogFragment {
 
 
     @Override
-    public void onCreateOptionsMenu(
-            Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.write_comment_menu, menu);
 
         menu.findItem(R.id.send_comment_and_enter).setVisible(giveawayId != null);

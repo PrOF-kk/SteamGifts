@@ -108,7 +108,7 @@ public class GiveawayListFragment extends SearchableListFragment<GiveawayAdapter
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         savedGiveaways = new SavedGiveaways(getContext());
     }
@@ -269,7 +269,7 @@ public class GiveawayListFragment extends SearchableListFragment<GiveawayAdapter
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
         MenuItem filterMenu = menu.findItem(R.id.filter);

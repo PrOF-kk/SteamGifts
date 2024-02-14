@@ -108,7 +108,7 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         savedGiveaways = new SavedGiveaways(context);
 
@@ -288,8 +288,7 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
     }
 
     @Override
-    public void onCreateOptionsMenu(
-            Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         if (giveaway instanceof Giveaway) {
             inflater.inflate(R.menu.giveaway_menu, menu);
             menu.findItem(R.id.open_steam_store).setVisible(((Giveaway) giveaway).getGameId() > 0);

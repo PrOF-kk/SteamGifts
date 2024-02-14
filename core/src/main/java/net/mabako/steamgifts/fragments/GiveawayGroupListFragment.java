@@ -84,7 +84,7 @@ public class GiveawayGroupListFragment extends ListFragment<GiveawayGroupAdapter
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         // do nothing
     }
 }

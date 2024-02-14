@@ -64,7 +64,7 @@ public class SettingsActivity extends BaseActivity {
 
             addPreferencesFromResource(R.xml.preferences_other);
 
-            ListPreference browserPreferences = (ListPreference) findPreference("preference_external_browser");
+            ListPreference browserPreferences = findPreference("preference_external_browser");
 
             boolean tabsSupported = ChromeTabsDelegate.isCustomTabsSupported(getActivity());
             if (tabsSupported) {

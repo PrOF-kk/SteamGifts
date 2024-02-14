@@ -105,7 +105,7 @@ public abstract class StoreFragment extends ListFragment<StoreFragment.Adapter> 
 
     // FIXME this isn't properly reset on device rotations; while the main giveaway page has an options menu afterwards, the store pages do not unless they're opened again.
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         if (getActivity() == null)
             return;
 
@@ -113,7 +113,7 @@ public abstract class StoreFragment extends ListFragment<StoreFragment.Adapter> 
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (getActivity() == null)
             return super.onOptionsItemSelected(item);
 

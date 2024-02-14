@@ -70,8 +70,7 @@ public abstract class SearchableListFragment<AdapterType extends EndlessAdapter>
     }
 
     @Override
-    public void onCreateOptionsMenu(
-            Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
         inflater.inflate(R.menu.main_menu, menu);

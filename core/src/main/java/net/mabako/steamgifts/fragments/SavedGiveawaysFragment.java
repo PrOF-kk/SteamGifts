@@ -55,7 +55,7 @@ public class SavedGiveawaysFragment extends ListFragment<SavedGiveawaysFragment.
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         savedGiveaways = new SavedGiveaways(getContext());
     }
@@ -102,7 +102,7 @@ public class SavedGiveawaysFragment extends ListFragment<SavedGiveawaysFragment.
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.saved_giveaways_menu, menu);
         menu.findItem(R.id.remove_all_entered_saved).setVisible(adapter.getEnteredItemCount() > 0);
     }

@@ -53,6 +53,7 @@ public abstract class FragmentAdapter extends FragmentStatePagerAdapter implemen
         return fragments;
     }
 
+    @NonNull
     @Override
     public Fragment getItem(int position) {
         if (position < fragments.size())
@@ -60,7 +61,7 @@ public abstract class FragmentAdapter extends FragmentStatePagerAdapter implemen
         if (position == fragments.size() && transientFragment != null)
             return transientFragment;
 
-        return null;
+        throw new IllegalArgumentException("Invalid position: " + position);
     }
 
     @Override
