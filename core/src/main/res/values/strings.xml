@@ -83,8 +83,8 @@
     <string name="undelete_comment">Undelete Comment</string>
     <string name="send_comment">Send</string>
 
-    <string name="comment_sent">Comment sent, please reload to see.</string>
-    <string name="comment_not_sent">Comment could not be sent</string>
+    <string name="comment_sent">Comment sent, reload to see it.</string>
+    <string name="comment_not_sent">Comment could not be sent.</string>
     <string name="comment_edited">Comment successfully edited.</string>
 
     <string name="sending_comment">Submitting comment&#8230;</string>
