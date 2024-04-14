@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.text.InputFilter;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -129,7 +130,8 @@ public class CommonActivity extends BaseActivity {
             gotoButtonsBuilder.setItems(strings, (dialogInterface, dialogSelected) -> {
 
                 final View view = getLayoutInflater().inflate(R.layout.go_to_dialog, null);
-                ((EditText) view.findViewById(R.id.edit_text)).setHint(hints[dialogSelected]);
+                EditText inputField = view.findViewById(R.id.edit_text);
+                inputField.setHint(hints[dialogSelected]);
 
                 AlertDialog.Builder idInputBuilder = new AlertDialog.Builder(CommonActivity.this);
                 idInputBuilder.setTitle(R.string.go_to);
@@ -138,13 +140,20 @@ public class CommonActivity extends BaseActivity {
                 idInputBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> { /* do nothing */ });
                 final AlertDialog idInputDialog = idInputBuilder.show();
 
+                // Force opening the keyboard. This is a hack.
+                inputField.requestFocus();
+                inputField.postDelayed(() -> {
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.showSoftInput(inputField, InputMethodManager.SHOW_IMPLICIT);
+                }, 500);
+
                 // Discussion and giveaway ids can only be 5 chars long
                 final boolean limitLength = (dialogSelected == 0 || dialogSelected == 1);
                 if (limitLength)
                     ((EditText) idInputDialog.findViewById(R.id.edit_text)).setFilters(new InputFilter[]{new InputFilter.LengthFilter(5)});
 
                 idInputDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
-                    String target = ((EditText) view.findViewById(R.id.edit_text)).getText().toString();
+                    String target = inputField.getText().toString();
                     if (!limitLength || target.length() == 5) {
                         Intent intent = new Intent(CommonActivity.this, DetailActivity.class);
                         switch (dialogSelected) {
