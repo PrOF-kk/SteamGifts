@@ -3,6 +3,11 @@ apply plugin: 'com.android.library'
 android {
     namespace 'net.mabako.steamgifts.core'
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
     defaultConfig {
         minSdkVersion 24
         compileSdk rootProject.ext.compileSdkVersion

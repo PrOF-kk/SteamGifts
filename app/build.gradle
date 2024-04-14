@@ -3,6 +3,11 @@ apply plugin: 'com.android.application'
 android {
     namespace 'net.mabako.steamgifts'
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
     defaultConfig {
         applicationId 'net.mabako.steamgifts'
         minSdkVersion 24
