@@ -4,7 +4,7 @@ android {
     namespace 'net.mabako.steamgifts.core'
 
     defaultConfig {
-        minSdkVersion 21
+        minSdkVersion 24
         compileSdk rootProject.ext.compileSdkVersion
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 26
