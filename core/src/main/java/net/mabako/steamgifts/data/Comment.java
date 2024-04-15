@@ -143,7 +143,7 @@ public class Comment implements Serializable, IEndlessAdaptable, IImageHolder {
     public boolean equals(Object o) {
         if (o instanceof Comment) {
             if (id == 0) {
-                if (permalinkId != null && !"".equals(permalinkId))
+                if (permalinkId != null && !permalinkId.isEmpty())
                     return permalinkId.equals(((Comment) o).permalinkId);
                 else
                     return false;
