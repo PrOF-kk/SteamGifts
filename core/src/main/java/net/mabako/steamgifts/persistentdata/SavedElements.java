@@ -13,7 +13,6 @@ import androidx.annotation.Nullable;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -132,7 +131,7 @@ public abstract class SavedElements<T> implements Comparator<T> {
                 }
             }
 
-            Collections.sort(elements, parent);
+            elements.sort(parent);
 
             return elements;
         }
