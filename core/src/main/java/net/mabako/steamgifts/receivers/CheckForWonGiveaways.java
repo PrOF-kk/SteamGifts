@@ -90,8 +90,7 @@ public class CheckForWonGiveaways extends AbstractNotificationCheckReceiver {
 
             List<Giveaway> mostRecentWonGames = new ArrayList<>(MAX_DISPLAYED_GIVEAWAYS);
             for (IEndlessAdaptable item : items) {
-                if (item instanceof Giveaway) {
-                    Giveaway giveaway = (Giveaway) item;
+                if (item instanceof Giveaway giveaway) {
 
                     // If we marked this giveaway as received yet, we don't want to show it.
                     if (!giveaway.isEntered())

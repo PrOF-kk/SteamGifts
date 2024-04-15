@@ -98,8 +98,7 @@ public class FilterGiveawayDialogFragment extends DialogFragment implements Dial
     }
 
     private void setValue(View view, int value) {
-        if (value >= 0 && view instanceof EditText) {
-            EditText editText = (EditText) view;
+        if (value >= 0 && view instanceof EditText editText) {
             editText.setText(String.valueOf(value));
         }
     }

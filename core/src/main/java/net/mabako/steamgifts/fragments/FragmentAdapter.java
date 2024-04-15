@@ -117,8 +117,7 @@ public abstract class FragmentAdapter extends FragmentStatePagerAdapter implemen
             FloatingActionButton scrollToTopButton = activity.findViewById(R.id.scroll_to_top_button);
             if (scrollToTopButton != null) {
                 Fragment fragment = getItem(position);
-                if (fragment instanceof ListFragment) {
-                    ListFragment listFragment = (ListFragment) fragment;
+                if (fragment instanceof ListFragment listFragment) {
                     listFragment.setupScrollToTopButton();
                 } else {
                     scrollToTopButton.setOnClickListener(v -> Toast.makeText(activity, "Got no scroll listener, can't scroll to top.", Toast.LENGTH_SHORT).show());

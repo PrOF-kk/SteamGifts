@@ -96,8 +96,7 @@ public class CheckForNewMessages extends AbstractNotificationCheckReceiver {
 
             List<Comment> mostRecentComments = new ArrayList<>(MAX_DISPLAYED_NOTIFICATIONS);
             for (IEndlessAdaptable adaptable : items) {
-                if (adaptable instanceof Comment) {
-                    Comment comment = (Comment) adaptable;
+                if (adaptable instanceof Comment comment) {
                     if (!comment.isHighlighted())
                         // This comment isn't new.
                         break;

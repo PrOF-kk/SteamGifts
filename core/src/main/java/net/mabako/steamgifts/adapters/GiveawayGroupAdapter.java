@@ -42,8 +42,7 @@ public class GiveawayGroupAdapter extends EndlessAdapter {
 
     @Override
     protected void onBindActualViewHolder(RecyclerView.ViewHolder h, int position) {
-        if (h instanceof GiveawayGroupViewHolder) {
-            GiveawayGroupViewHolder holder = (GiveawayGroupViewHolder) h;
+        if (h instanceof GiveawayGroupViewHolder holder) {
             GiveawayGroup group = (GiveawayGroup) getItem(position);
             holder.setFrom(group);
         }

@@ -39,9 +39,8 @@ public class HiddenGamesAdapter extends EndlessAdapter {
 
     @Override
     protected void onBindActualViewHolder(RecyclerView.ViewHolder h, int position) {
-        if (h instanceof GameViewHolder) {
+        if (h instanceof GameViewHolder holder) {
             Game game = (Game) getItem(position);
-            GameViewHolder holder = (GameViewHolder) h;
 
             holder.setFrom(game);
         }

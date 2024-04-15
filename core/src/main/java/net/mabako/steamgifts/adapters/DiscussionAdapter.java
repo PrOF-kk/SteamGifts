@@ -39,8 +39,7 @@ public class DiscussionAdapter extends EndlessAdapter {
 
     @Override
     protected void onBindActualViewHolder(RecyclerView.ViewHolder h, int position) {
-        if (h instanceof DiscussionListItemViewHolder) {
-            DiscussionListItemViewHolder holder = (DiscussionListItemViewHolder) h;
+        if (h instanceof DiscussionListItemViewHolder holder) {
             Discussion discussion = (Discussion) getItem(position);
 
             holder.setFrom(discussion);

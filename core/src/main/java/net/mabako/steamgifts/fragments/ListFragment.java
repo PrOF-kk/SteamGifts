@@ -281,12 +281,14 @@ public abstract class ListFragment<AdapterType extends EndlessAdapter> extends F
             PagerAdapter adapter = viewPager.getAdapter();
             if (adapter instanceof FragmentAdapter) {
                 Fragment currentItem = ((FragmentAdapter) adapter).getItem(viewPager.getCurrentItem());
-                if (!(currentItem instanceof ListFragment))
-                    return false;
 
-                ListFragment listFragment = (ListFragment) currentItem;
-                /// TODO separate two instances of the same fragment
-                return listFragment.getClass() == getClass() && BundleEquality.equalBundles(listFragment.getArguments(), getArguments());
+                if (currentItem instanceof ListFragment listFragment) {
+                    // TODO separate two instances of the same fragment
+                    return listFragment.getClass() == getClass() && BundleEquality.equalBundles(listFragment.getArguments(), getArguments());
+                } else {
+                    return false;
+                }
+
             }
 
             Log.w(TAG, getClass().getSimpleName() + " does not have a FragmentAdapter!");

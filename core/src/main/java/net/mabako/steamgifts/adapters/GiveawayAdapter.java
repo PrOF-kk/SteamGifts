@@ -77,8 +77,7 @@ public class GiveawayAdapter extends EndlessAdapter {
 
     @Override
     public void onBindActualViewHolder(RecyclerView.ViewHolder h, int position) {
-        if (h instanceof GiveawayListItemViewHolder) {
-            GiveawayListItemViewHolder holder = (GiveawayListItemViewHolder) h;
+        if (h instanceof GiveawayListItemViewHolder holder) {
             Giveaway giveaway = (Giveaway) getItem(position);
 
             holder.setFrom(giveaway, loadImages);

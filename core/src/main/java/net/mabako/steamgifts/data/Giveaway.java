@@ -237,13 +237,12 @@ public class Giveaway extends BasicGiveaway implements IEndlessAdaptable {
 
     @Override
     public boolean equals(Object o) {
-        if (getGiveawayId() == null && o instanceof Giveaway) {
-            Giveaway g = (Giveaway) o;
-
+        if (getGiveawayId() == null && o instanceof Giveaway g) {
             // Compare some random attributes
             return title.equals(g.title) && endTime.equals(g.endTime) && createdTime.equals(g.createdTime);
-        } else
+        } else {
             return super.equals(o);
+        }
     }
 
     public boolean isPrivate() {

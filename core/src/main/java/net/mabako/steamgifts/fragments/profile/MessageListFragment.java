@@ -142,10 +142,8 @@ public class MessageListFragment extends ListFragment<MessageAdapter> implements
     public void onMarkedMessagesRead() {
         for (int i = 0, size = adapter.getItemCount(); i < size; ++i) {
             IEndlessAdaptable element = adapter.getItem(i);
-            if (!(element instanceof Comment))
+            if (!(element instanceof Comment comment))
                 continue;
-
-            Comment comment = (Comment) element;
 
             if (comment.isHighlighted()) {
                 comment.setHighlighted(false);

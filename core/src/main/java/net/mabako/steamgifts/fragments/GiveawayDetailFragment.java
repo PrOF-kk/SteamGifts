@@ -308,8 +308,7 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.open_steam_store) {
-            if (this.giveaway instanceof Giveaway) {
-                Giveaway giveaway = (Giveaway) this.giveaway;
+            if (this.giveaway instanceof Giveaway giveaway) {
                 Log.i(TAG, "Opening Steam Store entry for game " + giveaway.getGameId());
 
                 UrlHandlingActivity.getIntentForUri(activity, Uri.parse("http://store.steampowered.com/" + giveaway.getType().name().toLowerCase(Locale.ENGLISH) + "/" + giveaway.getGameId() + "/"), true).start(activity);

@@ -42,9 +42,8 @@ public class ScrollAwareFABBehavior extends FloatingActionButton.Behavior {
         // try to get the current page, if there's any.
         View view = coordinatorLayout;
         ViewPager viewPager = coordinatorLayout.findViewById(R.id.viewPager);
-        if (viewPager != null && viewPager.getAdapter() instanceof FragmentAdapter) {
+        if (viewPager != null && viewPager.getAdapter() instanceof FragmentAdapter pagerAdapter) {
             int currentPage = viewPager.getCurrentItem();
-            FragmentAdapter pagerAdapter = (FragmentAdapter) viewPager.getAdapter();
 
             Fragment currentItem = pagerAdapter.getItem(currentPage);
 
@@ -59,14 +58,14 @@ public class ScrollAwareFABBehavior extends FloatingActionButton.Behavior {
 
         // Hide if we're over the first item
         RecyclerView recyclerView = view.findViewById(R.id.list);
-        if (recyclerView != null && recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
-            LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+        if (recyclerView != null && recyclerView.getLayoutManager() instanceof LinearLayoutManager layoutManager) {
             if (layoutManager.findFirstVisibleItemPosition() == 0) {
                 child.hide();
-            } else if (dyConsumed > 1 && child.getVisibility() == View.VISIBLE)
+            } else if (dyConsumed > 1 && child.getVisibility() == View.VISIBLE) {
                 child.hide();
-            else if (dyConsumed < 1 && child.getVisibility() != View.VISIBLE)
+            } else if (dyConsumed < 1 && child.getVisibility() != View.VISIBLE) {
                 child.show();
+            }
         } else {
             // no recyclerview to attach to?
             child.hide();

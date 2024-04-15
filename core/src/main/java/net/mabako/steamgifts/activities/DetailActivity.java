@@ -198,8 +198,7 @@ public class DetailActivity extends CommonActivity {
             }
         }
 
-        if (requestCode == WriteCommentActivity.REQUEST_COMMENT_EDIT && getCurrentFragment() instanceof DetailFragment) {
-            DetailFragment fragment = (DetailFragment) getCurrentFragment();
+        if (requestCode == WriteCommentActivity.REQUEST_COMMENT_EDIT && getCurrentFragment() instanceof DetailFragment fragment) {
 
             if (resultCode == WriteCommentActivity.COMMENT_EDIT_SENT && data.hasExtra("edited-comment")) {
                 Comment comment = (Comment) data.getSerializableExtra("edited-comment");
