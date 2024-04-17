@@ -57,7 +57,8 @@
                     app:iiv_icon="@string/faw_unlock"
                     app:iiv_color="@color/giveawayIndicatorColorWhitelist"
                     style="@style/GiveawayIndicatorIcon"
-                    tools:src="@drawable/circle_indicator_whitelist" />
+                    tools:tint="@color/giveawayIndicatorColorWhitelist"
+                    tools:src="@drawable/circle_indicator_blank" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -76,7 +77,8 @@
                     app:iiv_icon="@string/faw_users"
                     app:iiv_color="@color/giveawayIndicatorColorGroup"
                     style="@style/GiveawayIndicatorIcon"
-                    tools:src="@drawable/circle_indicator_group" />
+                    tools:tint="@color/giveawayIndicatorColorGroup"
+                    tools:src="@drawable/circle_indicator_blank" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -95,7 +97,8 @@
                     app:iiv_icon="@string/faw_lock"
                     app:iiv_color="@color/giveawayIndicatorColorPrivate"
                     style="@style/GiveawayIndicatorIcon"
-                    tools:src="@drawable/circle_indicator_private" />
+                    tools:tint="@color/giveawayIndicatorColorPrivate"
+                    tools:src="@drawable/circle_indicator_blank" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -114,7 +117,8 @@
                     app:iiv_icon="@string/faw_arrow_down"
                     app:iiv_color="@color/giveawayIndicatorColorLevelOkay"
                     style="@style/GiveawayIndicatorIcon"
-                    tools:src="@drawable/circle_indicator_level_positive" />
+                    tools:tint="@color/giveawayIndicatorColorLevelOkay"
+                    tools:src="@drawable/circle_indicator_blank" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -133,7 +137,8 @@
                     app:iiv_icon="@string/faw_arrow_up"
                     app:iiv_color="@color/giveawayIndicatorColorLevelTooHigh"
                     style="@style/GiveawayIndicatorIcon"
-                    tools:src="@drawable/circle_indicator_level_negative" />
+                    tools:tint="@color/giveawayIndicatorColorLevelTooHigh"
+                    tools:src="@drawable/circle_indicator_blank" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -152,7 +157,8 @@
                     app:iiv_icon="@string/faw_globe"
                     app:iiv_color="@color/giveawayIndicatorColorRegionRestricted"
                     style="@style/GiveawayIndicatorIcon"
-                    tools:src="@drawable/circle_indicator_region_restricted" />
+                    tools:tint="@color/giveawayIndicatorColorRegionRestricted"
+                    tools:src="@drawable/circle_indicator_blank" />
 
                 <TextView
                     android:layout_width="wrap_content"
