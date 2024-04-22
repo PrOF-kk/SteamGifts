@@ -51,7 +51,7 @@ public class GameViewHolder extends RecyclerView.ViewHolder {
 
         // giveaway_image
         if (game.getGameId() != Game.NO_APP_ID) {
-            Picasso.with(fragment.getContext()).load("http://cdn.akamai.steamstatic.com/steam/" + game.getType().name().toLowerCase(Locale.ENGLISH) + "s/" + game.getGameId() + "/capsule_184x69.jpg").into(image, new Callback() {
+            Picasso.get().load("http://cdn.akamai.steamstatic.com/steam/" + game.getType().name().toLowerCase(Locale.ENGLISH) + "s/" + game.getGameId() + "/capsule_184x69.jpg").into(image, new Callback() {
                 /**
                  * We manually set the height of this image to fit the container.
                  */
@@ -65,7 +65,7 @@ public class GameViewHolder extends RecyclerView.ViewHolder {
                 }
 
                 @Override
-                public void onError() {
+                public void onError(Exception e) {
 
                 }
             });

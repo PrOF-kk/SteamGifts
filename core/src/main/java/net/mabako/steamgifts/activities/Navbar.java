@@ -56,12 +56,12 @@ public class Navbar {
         DrawerImageLoader.init(new AbstractDrawerImageLoader() {
             @Override
             public void set(ImageView imageView, Uri uri, Drawable placeholder, String tag) {
-                Picasso.with(imageView.getContext()).load(uri).placeholder(R.drawable.default_avatar).into(imageView);
+                Picasso.get().load(uri).placeholder(R.drawable.default_avatar).into(imageView);
             }
 
             @Override
             public void cancel(ImageView imageView) {
-                Picasso.with(imageView.getContext()).cancelRequest(imageView);
+                Picasso.get().cancelRequest(imageView);
             }
         });
 

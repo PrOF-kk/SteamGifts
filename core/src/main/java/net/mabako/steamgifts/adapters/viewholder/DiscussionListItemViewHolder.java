@@ -55,7 +55,7 @@ public class DiscussionListItemViewHolder extends RecyclerView.ViewHolder implem
 
         StringUtils.setBackgroundDrawable(activity, itemContainer, discussion.isLocked());
 
-        Picasso.with(activity).load(discussion.getCreatorAvatar()).placeholder(R.drawable.default_avatar_mask).transform(new RoundedCornersTransformation(20, 0)).into(discussionAuthorAvatar);
+        Picasso.get().load(discussion.getCreatorAvatar()).placeholder(R.drawable.default_avatar_mask).transform(new RoundedCornersTransformation(20, 0)).into(discussionAuthorAvatar);
     }
 
     @Override

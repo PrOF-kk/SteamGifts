@@ -54,7 +54,7 @@ public class Slide extends Fragment {
 
                 // Comment
                 View commentView = view.findViewById(R.id.comment);
-                Picasso.with(getContext()).load(R.drawable.default_avatar).placeholder(R.drawable.default_avatar_mask).transform(new RoundedCornersTransformation(20, 0)).into((ImageView) (commentView.findViewById(R.id.author_avatar)));
+                Picasso.get().load(R.drawable.default_avatar).placeholder(R.drawable.default_avatar_mask).transform(new RoundedCornersTransformation(20, 0)).into((ImageView) (commentView.findViewById(R.id.author_avatar)));
                 commentView.findViewById(R.id.comment_indent).getLayoutParams().width = 0;
                 break;
 

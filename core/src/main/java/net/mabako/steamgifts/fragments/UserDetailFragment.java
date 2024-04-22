@@ -165,7 +165,7 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
         TypedArray ta = getContext().getTheme().obtainStyledAttributes(attrs);
         int size = (int) (ta.getDimensionPixelSize(0, 0) * 0.75f);
 
-        Picasso.with(getContext()).load(user.getAvatar()).placeholder(R.drawable.default_avatar_mask).resize(size, size).transform(new RoundedCornersTransformation(20, 0)).into(new Target() {
+        Picasso.get().load(user.getAvatar()).placeholder(R.drawable.default_avatar_mask).resize(size, size).transform(new RoundedCornersTransformation(20, 0)).into(new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                 AppCompatActivity activity = (AppCompatActivity) getActivity();
@@ -181,7 +181,7 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
             }
 
             @Override
-            public void onBitmapFailed(Drawable errorDrawable) {
+            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
 
             }
 

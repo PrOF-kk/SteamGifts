@@ -24,13 +24,14 @@ import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.davemorrissey.labs.subscaleview.decoder.DecoderFactory;
 import com.davemorrissey.labs.subscaleview.decoder.ImageRegionDecoder;
-import com.squareup.picasso.Downloader;
-import com.squareup.picasso.OkHttpDownloader;
+import com.squareup.picasso.OkHttp3Downloader;
 
 import net.mabako.steamgifts.core.R;
 
 import java.io.IOException;
 
+import okhttp3.Request;
+import okhttp3.Response;
 import okio.Okio;
 import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifIOException;
@@ -308,11 +309,11 @@ public class ImageFragment extends Fragment {
         protected byte[] doInBackground(Void... params) {
             try {
                 // Grab an input stream to the image
-                OkHttpDownloader downloader = new OkHttpDownloader(getContext());
-                Downloader.Response response = downloader.load(Uri.parse(url), 0);
+                OkHttp3Downloader downloader = new OkHttp3Downloader(getContext());
+                Response response = downloader.load(new Request.Builder().url(url).build());
 
                 // Read the image into a byte array
-                return Okio.buffer(Okio.source(response.getInputStream())).readByteArray();
+                return Okio.buffer(Okio.source(response.body().byteStream())).readByteArray();
             } catch (Exception e) {
                 Log.d(ImageFragment.class.getSimpleName(), "Error fetching image", e);
                 return null;

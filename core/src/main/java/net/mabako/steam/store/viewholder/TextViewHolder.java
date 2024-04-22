@@ -30,7 +30,7 @@ public class TextViewHolder extends RecyclerView.ViewHolder {
         if (TextUtils.isEmpty(text.getText()))
             textView.setText(null);
         else if (text.isHtml()) {
-            textView.setText(StringUtils.fromHtml(context, text.getText(), true, new StoreImageGetter(textView, context.getResources(), Picasso.with(context))));
+            textView.setText(StringUtils.fromHtml(context, text.getText(), true, new StoreImageGetter(textView, context.getResources(), Picasso.get())));
             textView.setMovementMethod(LinkMovementMethod.getInstance());
         } else
             textView.setText(text.getText());

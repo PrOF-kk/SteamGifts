@@ -93,7 +93,7 @@ public class CommentViewHolder extends RecyclerView.ViewHolder implements View.O
         params.width = commentMarker.getLayoutParams().width * Math.min(MAX_VISIBLE_DEPTH, comment.getDepth());
         commentIndent.setLayoutParams(params);
 
-        Picasso.with(context).load(comment.getAvatar()).placeholder(R.drawable.default_avatar_mask).transform(new RoundedCornersTransformation(20, 0)).into(commentImage);
+        Picasso.get().load(comment.getAvatar()).placeholder(R.drawable.default_avatar_mask).transform(new RoundedCornersTransformation(20, 0)).into(commentImage);
         View.OnClickListener viewProfileListener = comment.isDeleted() ? null : v -> {
             if(comment instanceof TradeComment)
                 fragment.showProfile(((TradeComment) comment).getSteamID64());

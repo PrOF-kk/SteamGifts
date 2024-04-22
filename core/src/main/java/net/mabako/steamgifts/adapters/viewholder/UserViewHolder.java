@@ -48,7 +48,7 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
     public void setFrom(final BasicUser user) {
         userName.setText(user.getName());
         if (!TextUtils.isEmpty(user.getAvatar())) {
-            Picasso.with(fragment.getContext()).load(user.getAvatar()).placeholder(R.drawable.default_avatar_mask).transform(new RoundedCornersTransformation(20, 0)).into(userAvatar);
+            Picasso.get().load(user.getAvatar()).placeholder(R.drawable.default_avatar_mask).transform(new RoundedCornersTransformation(20, 0)).into(userAvatar);
 
             userHolder.setOnClickListener(v -> {
                 Intent intent = new Intent(fragment.getContext(), DetailActivity.class);

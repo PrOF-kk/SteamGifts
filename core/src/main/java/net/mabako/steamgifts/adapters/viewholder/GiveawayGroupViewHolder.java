@@ -31,7 +31,7 @@ public class GiveawayGroupViewHolder extends RecyclerView.ViewHolder {
 
     public void setFrom(GiveawayGroup group) {
         groupName.setText(group.getTitle());
-        Picasso.with(context).load(group.getAvatar()).placeholder(R.drawable.default_avatar_mask).transform(new RoundedCornersTransformation(20, 0)).into(groupAvatar);
+        Picasso.get().load(group.getAvatar()).placeholder(R.drawable.default_avatar_mask).transform(new RoundedCornersTransformation(20, 0)).into(groupAvatar);
 
     }
 }
