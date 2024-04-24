@@ -46,6 +46,7 @@ public class IntroActivity extends AppIntro2 {
             case INTRO_MAIN:
                 setIndicatorColor(getResources().getColor(R.color.colorAccent), getResources().getColor(android.R.color.darker_gray));
                 setSkipButtonEnabled(false);
+                setWizardMode(true);
 
                 addSlide(Slide.newInstance(SubView.MAIN_WELCOME));
                 addSlide(Slide.newInstance(SubView.MAIN_GIVEAWAY_1));
