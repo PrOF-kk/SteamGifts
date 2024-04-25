@@ -175,7 +175,7 @@
     <string name="preference_default_app_summary">This app is not the default handler for SteamGifts URLs. Custom Chrome Tabs only open links in this app if it is set as default app.\n\nGo to SteamGifts in your browser and open any giveaway or discussion. When asked, select this app as default.</string>
 
     <!-- Intro -->
-    <string name="intro_giveaway_context">Long-Clicking a Giveaway or Comment to quickly enter or comment.</string>
+    <string name="intro_giveaway_context">Long-Click a Giveaway or Comment to quickly enter or comment.</string>
     <string name="intro_giveaway_context_header">Context Menus</string>
 
     <string name="intro_giveaway_indicators_header">Indicators</string>
