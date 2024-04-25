@@ -95,4 +95,11 @@
         <item name="android:layout_marginRight">@dimen/giveaway_list_indicator_padding</item>
         <item name="android:layout_gravity">center_vertical</item>
     </style>
+
+    <style name="GameFeaturesIcon">
+        <item name="android:layout_width">@dimen/game_features_indicator_size</item>
+        <item name="android:layout_height">@dimen/game_features_indicator_size</item>
+        <item name="android:layout_marginLeft">@dimen/game_features_indicator_padding</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
 </resources>

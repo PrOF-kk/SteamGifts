@@ -37,6 +37,12 @@
             android:defaultValue="true"
             android:key="preference_giveaway_swipe_to_hide"
             android:title="@string/preference_giveaway_swipe_to_hide" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="preference_giveaway_show_game_features"
+            android:summary="@string/preference_giveaway_show_game_features_summary"
+            android:title="@string/preference_giveaway_show_game_features" />
     </PreferenceCategory>
 
     <PreferenceCategory

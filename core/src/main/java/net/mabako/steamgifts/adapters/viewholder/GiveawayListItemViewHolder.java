@@ -54,6 +54,8 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
 
     private final View indicatorWhitelist, indicatorGroup, indicatorLevelPositive, indicatorLevelNegative, indicatorPrivate, indicatorRegionRestricted;
 
+    private final View indicatorCards, indicatorDLC, indicatorLimited, indicatorDelisted;
+
     private static int measuredHeight = 0;
 
     public GiveawayListItemViewHolder(View v, Activity activity, EndlessAdapter adapter, Fragment fragment, SavedGiveaways savedGiveaways) {
@@ -71,6 +73,11 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
         indicatorLevelNegative = v.findViewById(R.id.giveaway_list_indicator_level_negative);
         indicatorPrivate = v.findViewById(R.id.giveaway_list_indicator_private);
         indicatorRegionRestricted = v.findViewById(R.id.giveaway_list_indicator_region_restricted);
+
+        indicatorCards = v.findViewById(R.id.giveaway_list_indicator_cards);
+        indicatorDLC = v.findViewById(R.id.giveaway_list_indicator_dlc);
+        indicatorLimited = v.findViewById(R.id.giveaway_list_indicator_limited);
+        indicatorDelisted = v.findViewById(R.id.giveaway_list_indicator_delisted);
 
         this.activity = activity;
         this.fragment = fragment;
@@ -141,6 +148,11 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
         indicatorLevelNegative.setVisibility(giveaway.isLevelNegative() ? View.VISIBLE : View.GONE);
         indicatorPrivate.setVisibility(giveaway.isPrivate() ? View.VISIBLE : View.GONE);
         indicatorRegionRestricted.setVisibility(giveaway.isRegionRestricted() ? View.VISIBLE : View.GONE);
+
+        indicatorCards.setVisibility(giveaway.getGame().getGameFeatures().getCards() > 0 ? View.VISIBLE : View.GONE);
+        indicatorDLC.setVisibility(giveaway.getGame().getGameFeatures().isDlc() ? View.VISIBLE : View.GONE);
+        indicatorLimited.setVisibility(giveaway.getGame().getGameFeatures().isLimited() ? View.VISIBLE : View.GONE);
+        indicatorDelisted.setVisibility(giveaway.getGame().getGameFeatures().isDelisted() ? View.VISIBLE : View.GONE);
 
         // Initialize the enter button
         // Check if logged or the quick enter button setting is enabled

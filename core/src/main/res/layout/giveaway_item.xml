@@ -26,21 +26,67 @@
 
         <LinearLayout
             android:id="@+id/giveaway_container"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
             android:padding="4dp">
 
-            <TextView
-                android:id="@+id/giveaway_name"
-                style="@style/NormalText"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:singleLine="true"
-                android:text="Name of the Game"
-                android:textAlignment="viewStart" />
+                android:orientation="horizontal"
+                android:gravity="start|center_vertical">
+
+                <TextView
+                    android:id="@+id/giveaway_name"
+                    style="@style/NormalText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:singleLine="true"
+                    android:text="Name of the Game"
+                    android:textAlignment="viewStart" />
+
+                <LinearLayout
+                    android:id="@+id/game_features_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <com.mikepenz.iconics.view.IconicsImageView
+                        android:id="@+id/giveaway_list_indicator_cards"
+                        style="@style/GameFeaturesIcon"
+                        app:iiv_color="@color/gameFeaturesColorCards"
+                        app:iiv_icon="@string/faw_ticket"
+                        tools:src="@drawable/circle_indicator_blank"
+                        tools:tint="@color/gameFeaturesColorCards" />
+
+                    <com.mikepenz.iconics.view.IconicsImageView
+                        android:id="@+id/giveaway_list_indicator_dlc"
+                        style="@style/GameFeaturesIcon"
+                        app:iiv_color="@color/gameFeaturesColorDLC"
+                        app:iiv_icon="@string/faw_download"
+                        tools:src="@drawable/circle_indicator_blank"
+                        tools:tint="@color/gameFeaturesColorDLC" />
+
+                    <com.mikepenz.iconics.view.IconicsImageView
+                        android:id="@+id/giveaway_list_indicator_limited"
+                        style="@style/GameFeaturesIcon"
+                        app:iiv_color="@color/gameFeaturesColorLimited"
+                        app:iiv_icon="@string/faw_asterisk"
+                        tools:src="@drawable/circle_indicator_blank"
+                        tools:tint="@color/gameFeaturesColorLimited" />
+
+                    <com.mikepenz.iconics.view.IconicsImageView
+                        android:id="@+id/giveaway_list_indicator_delisted"
+                        style="@style/GameFeaturesIcon"
+                        app:iiv_color="@color/gameFeaturesColorDelisted"
+                        app:iiv_icon="@string/faw_trash"
+                        tools:src="@drawable/circle_indicator_blank"
+                        tools:tint="@color/gameFeaturesColorDelisted" />
+
+                </LinearLayout>
+            </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -54,51 +100,51 @@
 
                     <com.mikepenz.iconics.view.IconicsImageView
                         android:id="@+id/giveaway_list_indicator_whitelist"
-                        app:iiv_icon="@string/faw_unlock"
-                        app:iiv_color="@color/giveawayIndicatorColorWhitelist"
                         style="@style/GiveawayIndicatorIcon"
-                        tools:tint="@color/giveawayIndicatorColorWhitelist"
-                        tools:src="@drawable/circle_indicator_blank" />
+                        app:iiv_color="@color/giveawayIndicatorColorWhitelist"
+                        app:iiv_icon="@string/faw_unlock"
+                        tools:src="@drawable/circle_indicator_blank"
+                        tools:tint="@color/giveawayIndicatorColorWhitelist" />
 
                     <com.mikepenz.iconics.view.IconicsImageView
                         android:id="@+id/giveaway_list_indicator_group"
-                        app:iiv_icon="@string/faw_users"
-                        app:iiv_color="@color/giveawayIndicatorColorGroup"
                         style="@style/GiveawayIndicatorIcon"
-                        tools:tint="@color/giveawayIndicatorColorGroup"
-                        tools:src="@drawable/circle_indicator_blank" />
+                        app:iiv_color="@color/giveawayIndicatorColorGroup"
+                        app:iiv_icon="@string/faw_users"
+                        tools:src="@drawable/circle_indicator_blank"
+                        tools:tint="@color/giveawayIndicatorColorGroup" />
 
                     <com.mikepenz.iconics.view.IconicsImageView
                         android:id="@+id/giveaway_list_indicator_level_positive"
-                        app:iiv_icon="@string/faw_arrow_down"
-                        app:iiv_color="@color/giveawayIndicatorColorLevelOkay"
                         style="@style/GiveawayIndicatorIcon"
-                        tools:tint="@color/giveawayIndicatorColorLevelOkay"
-                        tools:src="@drawable/circle_indicator_blank" />
+                        app:iiv_color="@color/giveawayIndicatorColorLevelOkay"
+                        app:iiv_icon="@string/faw_arrow_down"
+                        tools:src="@drawable/circle_indicator_blank"
+                        tools:tint="@color/giveawayIndicatorColorLevelOkay" />
 
                     <com.mikepenz.iconics.view.IconicsImageView
                         android:id="@+id/giveaway_list_indicator_level_negative"
-                        app:iiv_icon="@string/faw_arrow_up"
-                        app:iiv_color="@color/giveawayIndicatorColorLevelTooHigh"
                         style="@style/GiveawayIndicatorIcon"
-                        tools:tint="@color/giveawayIndicatorColorLevelTooHigh"
-                        tools:src="@drawable/circle_indicator_blank" />
+                        app:iiv_color="@color/giveawayIndicatorColorLevelTooHigh"
+                        app:iiv_icon="@string/faw_arrow_up"
+                        tools:src="@drawable/circle_indicator_blank"
+                        tools:tint="@color/giveawayIndicatorColorLevelTooHigh" />
 
                     <com.mikepenz.iconics.view.IconicsImageView
                         android:id="@+id/giveaway_list_indicator_private"
-                        app:iiv_icon="@string/faw_lock"
-                        app:iiv_color="@color/giveawayIndicatorColorPrivate"
                         style="@style/GiveawayIndicatorIcon"
-                        tools:tint="@color/giveawayIndicatorColorPrivate"
-                        tools:src="@drawable/circle_indicator_blank" />
+                        app:iiv_color="@color/giveawayIndicatorColorPrivate"
+                        app:iiv_icon="@string/faw_lock"
+                        tools:src="@drawable/circle_indicator_blank"
+                        tools:tint="@color/giveawayIndicatorColorPrivate" />
 
                     <com.mikepenz.iconics.view.IconicsImageView
                         android:id="@+id/giveaway_list_indicator_region_restricted"
-                        app:iiv_icon="@string/faw_globe"
-                        app:iiv_color="@color/giveawayIndicatorColorRegionRestricted"
                         style="@style/GiveawayIndicatorIcon"
-                        tools:tint="@color/giveawayIndicatorColorRegionRestricted"
-                        tools:src="@drawable/circle_indicator_blank" />
+                        app:iiv_color="@color/giveawayIndicatorColorRegionRestricted"
+                        app:iiv_icon="@string/faw_globe"
+                        tools:src="@drawable/circle_indicator_blank"
+                        tools:tint="@color/giveawayIndicatorColorRegionRestricted" />
 
                     <TextView
                         android:id="@+id/giveaway_details"

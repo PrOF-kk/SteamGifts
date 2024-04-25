@@ -26,9 +26,9 @@
         android:id="@+id/intro_container"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_weight="2"
         android:gravity="center"
-        android:padding="8dp">
+        android:padding="32dp">
 
         <include
             android:id="@+id/giveaway"
@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center"
-        android:layout_weight="5"
+        android:layout_weight="6"
         android:gravity="center"
         android:paddingLeft="64dp"
         android:paddingRight="64dp">
@@ -48,6 +48,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/intro_giveaway_indicators_giveaway_header"
+                android:textAppearance="?android:textAppearance"
+                android:textSize="20sp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -168,10 +176,106 @@
                     android:textAppearance="?android:textAppearance"
                     android:textSize="16sp" />
             </LinearLayout>
+
+            <android.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:textAppearance="?android:textAppearance"
+                android:text="@string/intro_giveaway_indicators_game_features_header"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.mikepenz.iconics.view.IconicsImageView
+                    android:id="@+id/giveaway_list_indicator_cards"
+                    style="@style/GameFeaturesIcon"
+                    app:iiv_color="@color/gameFeaturesColorCards"
+                    app:iiv_icon="@string/faw_ticket"
+                    tools:src="@drawable/circle_indicator_blank"
+                    tools:tint="@color/gameFeaturesColorCards" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:text="@string/intro_giveaway_indicators_cards"
+                    android:textAppearance="?android:textAppearance"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.mikepenz.iconics.view.IconicsImageView
+                    android:id="@+id/giveaway_list_indicator_dlc"
+                    style="@style/GameFeaturesIcon"
+                    app:iiv_color="@color/gameFeaturesColorDLC"
+                    app:iiv_icon="@string/faw_download"
+                    tools:src="@drawable/circle_indicator_blank"
+                    tools:tint="@color/gameFeaturesColorDLC" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:text="@string/intro_giveaway_indicators_dlc"
+                    android:textAppearance="?android:textAppearance"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.mikepenz.iconics.view.IconicsImageView
+                    android:id="@+id/giveaway_list_indicator_limited"
+                    style="@style/GameFeaturesIcon"
+                    app:iiv_color="@color/gameFeaturesColorLimited"
+                    app:iiv_icon="@string/faw_asterisk"
+                    tools:src="@drawable/circle_indicator_blank"
+                    tools:tint="@color/gameFeaturesColorLimited" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:text="@string/intro_giveaway_indicators_limited"
+                    android:textAppearance="?android:textAppearance"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.mikepenz.iconics.view.IconicsImageView
+                    android:id="@+id/giveaway_list_indicator_delisted"
+                    style="@style/GameFeaturesIcon"
+                    app:iiv_color="@color/gameFeaturesColorDelisted"
+                    app:iiv_icon="@string/faw_trash"
+                    tools:src="@drawable/circle_indicator_blank"
+                    tools:tint="@color/gameFeaturesColorDelisted" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:text="@string/intro_giveaway_indicators_delisted"
+                    android:textAppearance="?android:textAppearance"
+                    android:textSize="16sp" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
+    <android.widget.Space
         android:layout_width="fill_parent"
         android:layout_height="64dp" />
 </LinearLayout>

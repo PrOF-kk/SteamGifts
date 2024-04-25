@@ -149,6 +149,8 @@
 
     <string name="preferences_giveaways">Giveaways</string>
     <string name="preference_giveaway_load_images">Load Images</string>
+    <string name="preference_giveaway_show_game_features">Load Game Features</string>
+    <string name="preference_giveaway_show_game_features_summary">Disable to improve boot times</string>
     <string name="preference_giveaway_show_pinned">Highlight Pinned Giveaways</string>
     <string name="preference_giveaway_show_pinned_on">Always shown first</string>
     <string name="preference_giveaway_show_pinned_off">Not highlighted in a special way</string>
@@ -179,12 +181,18 @@
     <string name="intro_giveaway_context_header">Context Menus</string>
 
     <string name="intro_giveaway_indicators_header">Indicators</string>
+    <string name="intro_giveaway_indicators_giveaway_header">Giveaway Indicators</string>
     <string name="intro_giveaway_indicators_whitelist">Whitelist Giveaway</string>
     <string name="intro_giveaway_indicators_group">Group Giveaway</string>
     <string name="intro_giveaway_indicators_level_positive">At or below your Level</string>
     <string name="intro_giveaway_indicators_level_negative">Above your Level</string>
     <string name="intro_giveaway_indicators_private">Private Giveaway</string>
     <string name="intro_giveaway_indicators_region_restricted">Region Restricted</string>
+    <string name="intro_giveaway_indicators_game_features_header">Game Indicators</string>
+    <string name="intro_giveaway_indicators_cards">Trading Cards</string>
+    <string name="intro_giveaway_indicators_dlc">Is a DLC</string>
+    <string name="intro_giveaway_indicators_limited">Profile Features Limited</string>
+    <string name="intro_giveaway_indicators_delisted">Delisted from Steam</string>
     <string name="intro_giveaway_store_info_header">Steam Store Info</string>
     <string name="intro_giveaway_store_info">Swipe Right for a quick overview of the Steam Store entry.</string>
     <string name="intro_giveaway_welcome">Press \"Next\" for a few quick hints.</string>

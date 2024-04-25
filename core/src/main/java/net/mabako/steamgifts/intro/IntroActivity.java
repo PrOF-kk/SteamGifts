@@ -15,7 +15,7 @@ import net.mabako.steamgifts.core.R;
 
 public class IntroActivity extends AppIntro2 {
     public static final String INTRO_MAIN = "main";
-    public static final int INTRO_MAIN_VERSION = 2;
+    public static final int INTRO_MAIN_VERSION = 3;
 
     public static void showIntroIfNecessary(Activity parentActivity, final String type, final int version) {
         SharedPreferences sp = parentActivity.getSharedPreferences("intro", MODE_PRIVATE);

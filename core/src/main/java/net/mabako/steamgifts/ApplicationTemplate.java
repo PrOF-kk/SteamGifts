@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import net.mabako.steamgifts.data.GameFeaturesRepository;
 import net.mabako.steamgifts.receivers.AbstractNotificationCheckReceiver;
 
 public abstract class ApplicationTemplate extends Application {
@@ -11,6 +12,7 @@ public abstract class ApplicationTemplate extends Application {
     public void onCreate() {
         super.onCreate();
         AbstractNotificationCheckReceiver.initNotificationChannels(getBaseContext());
+        GameFeaturesRepository.init(getBaseContext());
         PeriodicTasks.scheduleAllTasks(getBaseContext());
     }
 

@@ -49,8 +49,13 @@ public class Slide extends Fragment {
             case MAIN_GIVEAWAY_1:
                 // Giveaway
                 View giveawayView = view.findViewById(R.id.giveaway);
-                for (int id : new int[]{R.id.separator, R.id.giveaway_list_indicator_group, R.id.giveaway_list_indicator_level_negative, R.id.giveaway_list_indicator_level_positive, R.id.giveaway_list_indicator_private, R.id.giveaway_list_indicator_whitelist, R.id.giveaway_list_indicator_region_restricted})
+                // Hide all indicators
+                for (int id : new int[]{
+                        R.id.separator, R.id.giveaway_list_indicator_group, R.id.giveaway_list_indicator_level_negative, R.id.giveaway_list_indicator_level_positive, R.id.giveaway_list_indicator_private, R.id.giveaway_list_indicator_whitelist, R.id.giveaway_list_indicator_region_restricted,
+                        R.id.giveaway_list_indicator_cards, R.id.giveaway_list_indicator_dlc, R.id.giveaway_list_indicator_limited, R.id.giveaway_list_indicator_delisted
+                }) {
                     giveawayView.findViewById(id).setVisibility(View.GONE);
+                }
 
                 // Comment
                 View commentView = view.findViewById(R.id.comment);

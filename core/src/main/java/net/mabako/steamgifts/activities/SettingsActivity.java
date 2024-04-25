@@ -16,6 +16,7 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import net.mabako.steamgifts.ApplicationTemplate;
 import net.mabako.steamgifts.core.R;
+import net.mabako.steamgifts.data.GameFeaturesRepository;
 import net.mabako.steamgifts.fragments.WhitelistBlacklistFragment;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
@@ -25,6 +26,11 @@ public class SettingsActivity extends BaseActivity {
         public void onCreatePreferences(Bundle savedInstanceState, String s) {
 
             addPreferencesFromResource(R.xml.preferences_app);
+
+            findPreference("preference_giveaway_show_game_features").setOnPreferenceChangeListener((preference, newValue) -> {
+                GameFeaturesRepository.setLoadGameFeatures((boolean) newValue);
+                return true;
+            });
 
             if (SteamGiftsUserData.getCurrent(getActivity()).isLoggedIn()) {
                 addPreferencesFromResource(R.xml.preferences_sg);
