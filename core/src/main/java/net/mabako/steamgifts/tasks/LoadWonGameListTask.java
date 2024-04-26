@@ -30,8 +30,8 @@ public class LoadWonGameListTask extends LoadGameListTask {
         giveaway.setName(giveawayName);
         giveaway.setTitle(link.text());
 
-
-        Element image = element.select(".global__image-inner-wrap").first();
+        giveaway.setGame(new Game());
+        Element image = element.select(".table_image_thumbnail").first();
         if (image != null) {
             Uri uri = Uri.parse(Utils.extractAvatar(image.attr("style")));
             List<String> pathSegments = uri.getPathSegments();

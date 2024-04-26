@@ -22,6 +22,7 @@ public class Giveaway extends BasicGiveaway implements IEndlessAdaptable {
     private String title;
 
     private String name;
+    // TODO: Either make this explicitly nullable, or mark notnull and make null field state unrepresentable
     private Game game;
 
     /**
