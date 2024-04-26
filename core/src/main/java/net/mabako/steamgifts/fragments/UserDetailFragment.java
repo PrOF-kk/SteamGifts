@@ -227,7 +227,7 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.open_steam_profile) {
-            UrlHandlingActivity.getIntentForUri(getContext(), Uri.parse("http://steamcommunity.com/profiles/" + user.getSteamID64()), true).start(getActivity());
+            UrlHandlingActivity.getIntentForUri(getContext(), Uri.parse("https://steamcommunity.com/profiles/" + user.getSteamID64()), true).start(getActivity());
             return true;
         } else {
             return super.onOptionsItemSelected(item);

@@ -242,7 +242,7 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
         if (appBarLayout != null && ((ApplicationTemplate) getActivity().getApplication()).allowGameImages()) {
             ImageView toolbarImage = getActivity().findViewById(R.id.toolbar_image);
             if (toolbarImage != null) {
-                Picasso.get().load("http://cdn.akamai.steamstatic.com/steam/" + giveaway.getType().name().toLowerCase(Locale.ENGLISH) + "s/" + giveaway.getGameId() + "/header.jpg").into(toolbarImage, new Callback() {
+                Picasso.get().load("https://cdn.akamai.steamstatic.com/steam/" + giveaway.getType().name().toLowerCase(Locale.ENGLISH) + "s/" + giveaway.getGameId() + "/header.jpg").into(toolbarImage, new Callback() {
                     @Override
                     public void onSuccess() {
                         appBarLayout.setExpandedTitleTextAppearance(R.style.TransparentText);
@@ -311,7 +311,7 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
             if (this.giveaway instanceof Giveaway giveaway) {
                 Log.i(TAG, "Opening Steam Store entry for game " + giveaway.getGameId());
 
-                UrlHandlingActivity.getIntentForUri(activity, Uri.parse("http://store.steampowered.com/" + giveaway.getType().name().toLowerCase(Locale.ENGLISH) + "/" + giveaway.getGameId() + "/"), true).start(activity);
+                UrlHandlingActivity.getIntentForUri(activity, Uri.parse("https://store.steampowered.com/" + giveaway.getType().name().toLowerCase(Locale.ENGLISH) + "/" + giveaway.getGameId() + "/"), true).start(activity);
             }
             return true;
         } else if (itemId == R.id.hide_game) {

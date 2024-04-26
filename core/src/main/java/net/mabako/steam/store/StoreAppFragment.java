@@ -52,7 +52,7 @@ public class StoreAppFragment extends StoreFragment {
         @Override
         protected Connection getConnection() {
             return Jsoup
-                    .connect("http://store.steampowered.com/api/appdetails/")
+                    .connect("https://store.steampowered.com/api/appdetails/")
                     .userAgent(Constants.JSOUP_USER_AGENT)
                     .timeout(Constants.JSOUP_TIMEOUT)
                     .data("appids", getArguments().getString("app"))
