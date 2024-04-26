@@ -17,4 +17,5 @@ fabric.properties
 # build files
 build/
 captures/
+app/*/release/*
 *.apk
