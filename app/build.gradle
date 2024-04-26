@@ -48,4 +48,6 @@ android {
 
 dependencies {
     implementation project(':core')
+    // Uncaught exception handler
+    chocolateImplementation 'com.github.haroldadmin:WhatTheStack:1.0.0-alpha04'
 }
