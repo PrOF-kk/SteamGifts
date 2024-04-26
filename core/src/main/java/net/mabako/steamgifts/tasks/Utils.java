@@ -116,7 +116,7 @@ public final class Utils {
         // check if the comment is deleted
         if (type == Comment.Type.COMMENT) {
             comment.setDeleted(element.select(".comment__summary").first().select(".comment__delete-state").size() == 1);
-            comment.setHighlighted(element.select(".comment__parent > .comment__envelope").size() != 0);
+            comment.setHighlighted(!element.select(".comment__parent > .comment__envelope").isEmpty());
 
             Element roleName = element.select(".comment__role-name").first();
             if (roleName != null)

@@ -40,7 +40,7 @@ public class UrlHandlingActivity extends CommonActivity {
         if ("www.steamgifts.com".equals(uri.getHost()) || "steamgifts.com".equals(uri.getHost())) {
             Log.v(TAG, "Parsing path segment " + uri.getPath());
 
-            if (pathSegments.size() == 0 || ("/giveaways/search".equals(uri.getPath()))) {
+            if (pathSegments.isEmpty() || ("/giveaways/search".equals(uri.getPath()))) {
                 // TODO parse query params?
                 return new Intent(context, MainActivity.class);
             } else if (pathSegments.size() >= 2) {

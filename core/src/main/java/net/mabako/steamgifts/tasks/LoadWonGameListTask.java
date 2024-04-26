@@ -47,7 +47,7 @@ public class LoadWonGameListTask extends LoadGameListTask {
 
         // Has any feedback option been picked yet?
         // If so, this would be == 1, 0 hidden items implies both feedback options are currently available to be picked.
-        giveaway.setEntered(element.select(".table__gift-feedback-awaiting-reply.is-hidden").size() == 0);
+        giveaway.setEntered(element.select(".table__gift-feedback-awaiting-reply.is-hidden").isEmpty());
 
         return giveaway;
     }

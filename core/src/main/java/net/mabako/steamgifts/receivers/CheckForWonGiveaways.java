@@ -78,7 +78,7 @@ public class CheckForWonGiveaways extends AbstractNotificationCheckReceiver {
 
         @Override
         public void addItems(List<? extends IEndlessAdaptable> items, boolean clearExistingItems, String xsrfToken) {
-            if (items == null || items.size() == 0) {
+            if (items == null || items.isEmpty()) {
                 Log.d(TAG, "got no won games -at all-");
                 return;
             }

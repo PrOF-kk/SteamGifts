@@ -47,6 +47,6 @@ public class MessageAdapter extends EndlessAdapter {
 
     @Override
     protected boolean hasEnoughItems(List<IEndlessAdaptable> items) {
-        return items.size() > 0;
+        return !items.isEmpty();
     }
 }

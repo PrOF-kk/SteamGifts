@@ -81,7 +81,7 @@ public class CheckForNewMessages extends AbstractNotificationCheckReceiver {
          */
         @Override
         public void addItems(List<? extends IEndlessAdaptable> items, boolean clearExistingItems, String xsrfToken) {
-            if (items == null || items.size() == 0) {
+            if (items == null || items.isEmpty()) {
                 Log.d(TAG, "got no messages -at all-");
                 return;
             }
@@ -159,7 +159,7 @@ public class CheckForNewMessages extends AbstractNotificationCheckReceiver {
         @NonNull
         private CharSequence formatComment(Comment comment, boolean includeName) {
             String content = StringUtils.fromHtml(context, comment.getContent()).toString();
-            if (TextUtils.isEmpty(content) && comment.getAttachedImages() != null && comment.getAttachedImages().size() > 0) {
+            if (TextUtils.isEmpty(content) && comment.getAttachedImages() != null && !comment.getAttachedImages().isEmpty()) {
                 content = context.getString(R.string.notification_has_attached_image);
             }
 

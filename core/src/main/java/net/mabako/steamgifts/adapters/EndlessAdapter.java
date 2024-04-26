@@ -129,7 +129,7 @@ public abstract class EndlessAdapter extends RecyclerView.Adapter<RecyclerView.V
         Log.v(TAG, "Finished loading - " + loading);
         if (loading) {
             // remove loading item for the progress bar
-            if (items.size() > 0) {
+            if (!items.isEmpty()) {
                 items.remove(items.size() - 1);
                 notifyItemRemoved(getItemCount());
             }
@@ -137,7 +137,7 @@ public abstract class EndlessAdapter extends RecyclerView.Adapter<RecyclerView.V
             loading = false;
             loadNextPage = addAll(addedItems);
         } else {
-            boolean wasEmpty = items.size() == 0;
+            boolean wasEmpty = items.isEmpty();
             loadNextPage = addAll(addedItems);
 
             if (!wasEmpty)
@@ -207,7 +207,7 @@ public abstract class EndlessAdapter extends RecyclerView.Adapter<RecyclerView.V
      * @return true if any items were filtered and we should just try to load another page, false otherwise
      */
     private boolean addAll(List<IEndlessAdaptable> items) {
-        if (items.size() > 0) {
+        if (!items.isEmpty()) {
             boolean enoughItems = hasEnoughItems(items);
             // remove all things we already have
             items.removeAll(this.items);
