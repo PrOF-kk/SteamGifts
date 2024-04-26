@@ -48,6 +48,8 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.12.0'
 
     implementation 'com.mikepenz:actionitembadge:3.3.1@aar'
+    implementation 'com.mikepenz:iconics-core:3.2.5'
+    implementation 'com.mikepenz:iconics-views:3.2.5'
     implementation 'com.mikepenz:fontawesome-typeface:4.7.0.0@aar'
     implementation('com.mikepenz:materialdrawer:5.9.4@aar') {
         transitive = true
