@@ -36,6 +36,7 @@ import net.mabako.steamgifts.persistentdata.SavedGiveaways;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
 import java.util.Locale;
+import java.util.StringJoiner;
 
 public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
     private static final String TAG = GiveawayListItemViewHolder.class.getSimpleName();
@@ -97,20 +98,21 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
             giveawayTime.setVisibility(View.GONE);
         }
 
-        StringBuilder sb = new StringBuilder();
+        // Unicode "Bullet"
+        StringJoiner sj = new StringJoiner(" • ");
         if (giveaway.getCopies() > 1)
-            sb.append(activity.getResources().getQuantityString(R.plurals.copies, giveaway.getCopies(), giveaway.getCopies())).append(" \u2022 ");
+            sj.add(activity.getResources().getQuantityString(R.plurals.copies, giveaway.getCopies(), giveaway.getCopies()));
 
         if (giveaway.getPoints() >= 0)
-            sb.append(giveaway.getPoints()).append("P \u2022 ");
+            sj.add(giveaway.getPoints() + "P");
 
         if (giveaway.getLevel() > 0)
-            sb.append("L").append(giveaway.getLevel()).append(" \u2022 ");
+            sj.add("L" + giveaway.getLevel());
 
         if (giveaway.getEntries() >= 0)
-            sb.append(activity.getResources().getQuantityString(R.plurals.entries, giveaway.getEntries(), giveaway.getEntries())).append(" \u2022 ");
+            sj.add(activity.getResources().getQuantityString(R.plurals.entries, giveaway.getEntries(), giveaway.getEntries()));
 
-        giveawayDetails.setText(sb.length() > 3 ? sb.substring(0, sb.length() - 3) : sb.toString());
+        giveawayDetails.setText(sj.toString());
 
         // giveaway_image
         if (giveaway.getGameId() != Game.NO_APP_ID && showImage && ((ApplicationTemplate) activity.getApplication()).allowGameImages()) {
