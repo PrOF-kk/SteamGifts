@@ -51,7 +51,7 @@ dependencies {
     implementation 'com.mikepenz:iconics-core:3.2.5'
     implementation 'com.mikepenz:iconics-views:3.2.5'
     implementation 'com.mikepenz:fontawesome-typeface:4.7.0.0@aar'
-    implementation('com.mikepenz:materialdrawer:5.9.4@aar') {
+    implementation('com.mikepenz:materialdrawer:6.0.9@aar') {
         transitive = true
     }
 
