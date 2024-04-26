@@ -129,6 +129,7 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
 
                 @Override
                 public void onError(Exception e) {
+                    Log.e(TAG, "Failed to load capsule image for giveaway " + giveaway.getName() + " (game " + giveaway.getGameId() + ")", e);
                     ViewGroup.LayoutParams params = giveawayImage.getLayoutParams();
                     params.height = 0;
                 }
