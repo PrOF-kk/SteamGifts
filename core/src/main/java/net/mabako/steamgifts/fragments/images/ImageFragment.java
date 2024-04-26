@@ -307,11 +307,9 @@ public class ImageFragment extends Fragment {
     private class FetchImageTask extends AsyncTask<Void, Void, byte[]> {
         @Override
         protected byte[] doInBackground(Void... params) {
-            try {
-                // Grab an input stream to the image
-                OkHttp3Downloader downloader = new OkHttp3Downloader(getContext());
-                Response response = downloader.load(new Request.Builder().url(url).build());
-
+            // Grab an input stream to the image
+            OkHttp3Downloader downloader = new OkHttp3Downloader(getContext());
+            try (Response response = downloader.load(new Request.Builder().url(url).build())) {
                 // Read the image into a byte array
                 return Okio.buffer(Okio.source(response.body().byteStream())).readByteArray();
             } catch (Exception e) {
