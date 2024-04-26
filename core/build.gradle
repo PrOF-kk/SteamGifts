@@ -49,7 +49,7 @@ dependencies {
 
     implementation 'com.mikepenz:actionitembadge:3.3.1@aar'
     implementation 'com.mikepenz:fontawesome-typeface:4.7.0.0@aar'
-    implementation('com.mikepenz:materialdrawer:5.8.3@aar') {
+    implementation('com.mikepenz:materialdrawer:5.9.4@aar') {
         transitive = true
     }
 
