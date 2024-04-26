@@ -13,8 +13,6 @@ android {
         compileSdk rootProject.ext.compileSdkVersion
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 26
-        versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionName
     }
 
     buildTypes {
