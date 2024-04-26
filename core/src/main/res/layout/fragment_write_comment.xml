@@ -9,5 +9,6 @@
         android:layout_height="match_parent"
         android:layout_margin="8dp"
         android:gravity="left|top"
+        android:importantForAutofill="no"
         android:inputType="textMultiLine|textLongMessage|textCapSentences" />
 </LinearLayout>
