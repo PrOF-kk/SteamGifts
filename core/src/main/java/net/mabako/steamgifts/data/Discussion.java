@@ -16,7 +16,7 @@ public class Discussion extends BasicDiscussion implements IEndlessAdaptable {
     private CustomDateTime createdTime;
     private String creatorAvatar;
 
-    private boolean locked, poll;
+    private boolean locked, poll, pinned;
 
     public Discussion(String discussionId) {
         super(discussionId);
@@ -80,6 +80,13 @@ public class Discussion extends BasicDiscussion implements IEndlessAdaptable {
 
     public void setPoll(boolean poll) {
         this.poll = poll;
+    }
+    public boolean isPinned() {
+        return pinned;
+    }
+
+    public void setPinned(boolean pinned) {
+        this.pinned = pinned;
     }
 
     @Override

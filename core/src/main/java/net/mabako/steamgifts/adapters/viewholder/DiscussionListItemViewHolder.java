@@ -45,6 +45,8 @@ public class DiscussionListItemViewHolder extends RecyclerView.ViewHolder implem
 
     public void setFrom(Discussion discussion) {
         StringBuilder text = new StringBuilder();
+        if (discussion.isPinned())
+            text.append("{faw-long-arrow-right} ");
         if (discussion.isPoll())
             text.append("{faw-align-left} ");
         text.append(discussion.getTitle());

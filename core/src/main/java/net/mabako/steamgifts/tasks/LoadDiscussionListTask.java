@@ -40,7 +40,7 @@ public class LoadDiscussionListTask extends AsyncTask<Void, Void, List<Discussio
     @Override
     protected List<Discussion> doInBackground(Void... params) {
         try {
-            // Fetch the Giveaway page
+            // Fetch the Discussions page
             String segment = "";
             if (type != DiscussionListFragment.Type.ALL)
                 segment = type.name().replace("_", "-").toLowerCase(Locale.ENGLISH) + "/";
@@ -95,6 +95,7 @@ public class LoadDiscussionListTask extends AsyncTask<Void, Void, List<Discussio
 
                 discussion.setLocked(element.hasClass("is-faded"));
                 discussion.setPoll(!element.select("h3 i.fa-align-left").isEmpty());
+                discussion.setPinned(!element.select("h3 i.fa-long-arrow-right").isEmpty());
                 discussionList.add(discussion);
             }
             return discussionList;
