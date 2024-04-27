@@ -206,51 +206,51 @@ public abstract class EndlessAdapter extends RecyclerView.Adapter<RecyclerView.V
      * @param items items to add.
      * @return true if any items were filtered and we should just try to load another page, false otherwise
      */
-    private boolean addAll(List<IEndlessAdaptable> items) {
-        if (!items.isEmpty()) {
-            boolean enoughItems = hasEnoughItems(items);
-            // remove all things we already have
-            items.removeAll(this.items);
-
-            // How many items were on the page?
-            int realItemCount = items.size();
-
-            // And how many items did we add after filtering?
-            int insertedItems = addFiltered(items);
-
-            notifyItemRangeInserted(getItemCount() - insertedItems, insertedItems);
-
-            if (enoughItems && realItemCount == 0 && alternativeEnd) {
-                enoughItems = false;
-                Log.v(TAG, "Not Enough items for the next page [1]");
-            }
-
-            if (viewInReverse && page > FIRST_PAGE) {
-                enoughItems = true;
-                Log.v(TAG, "Not Enough items for the next page [2]");
-            }
-
-            // Did we have enough items and have not reached the end?
-            if (!enoughItems && !reachedTheEnd) {
-                reachedTheEnd();
-                return false;
-            }
-
-            // Have we filtered out all items, while we should have had some items?
-            if (realItemCount > 0) {
-                // We didn't even get a single item out of this
-                if (insertedItems == 0)
-                    return true;
-
-                // Have we filtered any items, and are we still at the start of reasonable suspicion of this view not being fully filled?
-                return this.items.size() <= 25 && insertedItems != realItemCount;
-            }
-            return false;
-        } else {
+    private boolean addAll(@NonNull List<IEndlessAdaptable> items) {
+        if (items.isEmpty()) {
             Log.v(TAG, "Got no items on the current page");
             reachedTheEnd();
             return false;
         }
+
+        boolean enoughItems = hasEnoughItems(items);
+        // remove all things we already have
+        items.removeAll(this.items);
+
+        // How many items were on the page?
+        int realItemCount = items.size();
+
+        // And how many items did we add after filtering?
+        int insertedItems = addFiltered(items);
+
+        notifyItemRangeInserted(getItemCount() - insertedItems, insertedItems);
+
+        if (enoughItems && realItemCount == 0 && alternativeEnd) {
+            enoughItems = false;
+            Log.v(TAG, "Not Enough items for the next page [1]");
+        }
+
+        if (viewInReverse && page > FIRST_PAGE) {
+            enoughItems = true;
+            Log.v(TAG, "Not Enough items for the next page [2]");
+        }
+
+        // Did we have enough items and have not reached the end?
+        if (!enoughItems && !reachedTheEnd) {
+            reachedTheEnd();
+            return false;
+        }
+
+        // Have we filtered out all items, while we should have had some items?
+        if (realItemCount > 0) {
+            // We didn't even get a single item out of this
+            if (insertedItems == 0)
+                return true;
+
+            // Have we filtered any items, and are we still at the start of reasonable suspicion of this view not being fully filled?
+            return this.items.size() <= 25 && insertedItems != realItemCount;
+        }
+        return false;
     }
 
     protected int addFiltered(List<IEndlessAdaptable> items) {
