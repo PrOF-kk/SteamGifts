@@ -209,6 +209,18 @@ public class GiveawayCardViewHolder extends RecyclerView.ViewHolder {
             spans.add(span);
         }
 
+        if (!spans.isEmpty())
+            spans.add(new SpannableString(" "));
+
+        if (giveaway.getGame().getGameFeatures().getCards() > 0)
+            spans.add(new SpannableString("{faw-ticket} "));
+        if (giveaway.getGame().getGameFeatures().isDlc())
+            spans.add(new SpannableString("{faw-download} "));
+        if (giveaway.getGame().getGameFeatures().isLimited())
+            spans.add(new SpannableString("{faw-asterisk} "));
+        if (giveaway.getGame().getGameFeatures().isDelisted())
+            spans.add(new SpannableString("{faw-trash} "));
+
         if (!spans.isEmpty()) {
             indicator.setVisibility(View.VISIBLE);
 
