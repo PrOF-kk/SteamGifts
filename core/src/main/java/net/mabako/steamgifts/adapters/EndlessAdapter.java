@@ -223,7 +223,7 @@ public abstract class EndlessAdapter extends RecyclerView.Adapter<RecyclerView.V
         // And how many items did we add after filtering?
         int insertedItems = addFiltered(items);
 
-        notifyItemRangeInserted(getItemCount() - insertedItems, insertedItems);
+        notifyItemRangeInserted(getItemCount(), insertedItems);
 
         if (enoughItems && realItemCount == 0 && alternativeEnd) {
             enoughItems = false;
