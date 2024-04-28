@@ -28,65 +28,60 @@
                 android:paddingTop="@dimen/card_margin_outer"
                 tools:text="Title" />
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingBottom="0dp"
-                android:paddingLeft="@dimen/card_margin_outer"
-                android:paddingRight="@dimen/card_margin_outer">
+                android:paddingHorizontal="@dimen/card_margin_outer">
 
-                <com.wefika.flowlayout.FlowLayout
-                    android:layout_width="0dp"
+                <androidx.constraintlayout.helper.widget.Flow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="@dimen/card_margin_small"
+                    card_view:constraint_referenced_ids="user,created,entries,copies"
+                    card_view:flow_horizontalBias="0"
+                    card_view:flow_horizontalStyle="packed" />
+
+                <TextView
+                    android:id="@+id/user"
+                    style="@style/SmallText.Light"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingBottom="@dimen/card_margin_small">
+                    android:paddingHorizontal="@dimen/card_margin_small"
+                    android:paddingTop="@dimen/card_margin_small"
+                    android:text="@string/placeholder_giveaway_creator"
+                    android:textStyle="bold"
+                    tools:text="Creator" />
 
-                    <TextView
-                        android:id="@+id/user"
-                        style="@style/SmallText.Light"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/card_margin_small"
-                        android:paddingRight="@dimen/card_margin_small"
-                        android:paddingTop="@dimen/card_margin_small"
-                        android:text="@string/placeholder_giveaway_creator"
-                        android:textStyle="bold"
-                        tools:text="Creator" />
+                <TextView
+                    android:id="@+id/created"
+                    style="@style/SmallText.Light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/card_margin_small"
+                    android:paddingTop="@dimen/card_margin_small"
+                    android:text="@string/placeholder_giveaway_start"
+                    tools:text="Started" />
 
-                    <TextView
-                        android:id="@+id/created"
-                        style="@style/SmallText.Light"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/card_margin_small"
-                        android:paddingRight="@dimen/card_margin_small"
-                        android:paddingTop="@dimen/card_margin_small"
-                        android:text="@string/placeholder_giveaway_start"
-                        tools:text="Started" />
+                <TextView
+                    android:id="@+id/entries"
+                    style="@style/SmallText.Light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/card_margin_small"
+                    android:paddingTop="@dimen/card_margin_small"
+                    android:text="@string/placeholder_giveaway_entries"
+                    tools:text="Entries" />
 
-                    <TextView
-                        android:id="@+id/entries"
-                        style="@style/SmallText.Light"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/card_margin_small"
-                        android:paddingRight="@dimen/card_margin_small"
-                        android:paddingTop="@dimen/card_margin_small"
-                        android:text="@string/placeholder_giveaway_entries"
-                        tools:text="Entries" />
+                <TextView
+                    android:id="@+id/copies"
+                    style="@style/SmallText.Light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/card_margin_small"
+                    android:paddingTop="@dimen/card_margin_small"
+                    android:text="@string/placeholder_giveaway_copies"
+                    tools:text="Copies" />
 
-                    <TextView
-                        android:id="@+id/copies"
-                        style="@style/SmallText.Light"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/card_margin_small"
-                        android:paddingRight="@dimen/card_margin_small"
-                        android:paddingTop="@dimen/card_margin_small"
-                        android:text="@string/placeholder_giveaway_copies"
-                        tools:text="Copies" />
-                </com.wefika.flowlayout.FlowLayout>
 
                 <TextView
                     android:id="@+id/remaining"
@@ -96,8 +91,10 @@
                     android:padding="@dimen/card_margin_small"
                     android:text="@string/placeholder_giveaway_end"
                     android:textColor="?attr/lightTextColor"
+                    card_view:layout_constraintEnd_toEndOf="parent"
+                    card_view:layout_constraintTop_toTopOf="parent"
                     tools:text="End" />
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
