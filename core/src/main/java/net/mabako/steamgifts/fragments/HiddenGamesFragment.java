@@ -1,5 +1,6 @@
 package net.mabako.steamgifts.fragments;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import net.mabako.steamgifts.core.R;
 import net.mabako.steamgifts.data.Game;
 import net.mabako.steamgifts.fragments.interfaces.IActivityTitle;
 import net.mabako.steamgifts.fragments.interfaces.IHasHideableGiveaways;
+import net.mabako.steamgifts.fragments.interfaces.ILoadItemsListener;
 import net.mabako.steamgifts.tasks.LoadGameListTask;
 import net.mabako.steamgifts.tasks.UpdateGiveawayFilterTask;
 
@@ -65,29 +67,7 @@ public class HiddenGamesFragment extends SearchableListFragment<HiddenGamesAdapt
 
     @Override
     protected AsyncTask<Void, Void, ?> getFetchItemsTask(int page) {
-        return new LoadGameListTask(this, getContext(), "account/settings/giveaways/filters", page, getSearchQuery()) {
-            @Override
-            protected Game load(Element element) {
-                Game game = new Game();
-                game.setName(element.select(".table__column__heading").text());
-                game.setInternalGameId(Long.parseLong(element.select("input[name=game_id]").first().attr("value")));
-
-                Element link = element.select(".table__column--width-fill .table__column__secondary-link").first();
-                if (link != null) {
-                    Uri steamUri = Uri.parse(link.attr("href"));
-
-                    // Steam link
-                    if (steamUri != null) {
-                        List<String> pathSegments = steamUri.getPathSegments();
-                        if (pathSegments.size() >= 2)
-                            game.setGameId(Integer.parseInt(pathSegments.get(1)));
-                        game.setType("app".equals(pathSegments.get(0)) ? Game.Type.APP : Game.Type.SUB);
-                    }
-                }
-
-                return game;
-            }
-        };
+        return new LoadHiddenGamesTask(this, getContext(), page, getSearchQuery());
     }
 
     @Override
@@ -130,5 +110,33 @@ public class HiddenGamesFragment extends SearchableListFragment<HiddenGamesAdapt
     @Override
     public String getExtraTitle() {
         return null;
+    }
+
+    private static class LoadHiddenGamesTask extends LoadGameListTask {
+
+        public LoadHiddenGamesTask(ILoadItemsListener listener, Context context, int page, String query) {
+            super(listener, context, "account/settings/giveaways/filters", page, query);
+        }
+        @Override
+        protected Game load(Element element) {
+            Game game = new Game();
+            game.setName(element.select(".table__column__heading").text());
+            game.setInternalGameId(Long.parseLong(element.select("input[name=game_id]").first().attr("value")));
+
+            Element link = element.select(".table__column--width-fill .table__column__secondary-link").first();
+            if (link != null) {
+                Uri steamUri = Uri.parse(link.attr("href"));
+
+                // Steam link
+                if (steamUri != null) {
+                    List<String> pathSegments = steamUri.getPathSegments();
+                    if (pathSegments.size() >= 2)
+                        game.setGameId(Integer.parseInt(pathSegments.get(1)));
+                    game.setType("app".equals(pathSegments.get(0)) ? Game.Type.APP : Game.Type.SUB);
+                }
+            }
+
+            return game;
+        }
     }
 }
