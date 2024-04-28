@@ -10,6 +10,7 @@ android {
 
     defaultConfig {
         applicationId 'net.mabako.steamgifts'
+        archivesBaseName = applicationId
         minSdkVersion 24
         compileSdk rootProject.ext.compileSdkVersion
         //noinspection ExpiredTargetSdkVersion
@@ -17,7 +18,6 @@ android {
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
         signingConfig signingConfigs.debug
-        project.ext.set('archivesBaseName', 'SteamGifts')
     }
     buildTypes {
         release {
