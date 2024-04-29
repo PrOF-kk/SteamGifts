@@ -106,13 +106,15 @@ public abstract class EndlessAdapter extends RecyclerView.Adapter<RecyclerView.V
         loading = true;
 
         // Insert bogus item for the progress bar.
-        items.add(null);
-        // Delay the notify until we are outside the onScrolled callback to avoid
+        // Delay until we are outside the onScrolled callback to avoid
         // W/RecyclerView: Cannot call this method in a scroll callback.
         // Scroll callbacks might be run during a measure & layout pass where you cannot change
         // the RecyclerView data. Any method call that might change the structure of the RecyclerView
-        // or the adapter contents should be postponed to the next frame.java.lang.IllegalStateException
-        new Handler().post(() -> notifyItemInserted(getItemCount() - 1));
+        // **or the adapter contents** should be postponed to the next frame.java.lang.IllegalStateException
+        new Handler().post(() -> {
+            items.add(null);
+            notifyItemInserted(getItemCount() - 1);
+        });
 
 
         if (loadListener != null) {
