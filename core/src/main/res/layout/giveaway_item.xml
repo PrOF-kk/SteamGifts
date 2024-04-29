@@ -102,7 +102,7 @@
                         android:id="@+id/giveaway_list_indicator_whitelist"
                         style="@style/GiveawayIndicatorIcon"
                         app:iiv_color="@color/giveawayIndicatorColorWhitelist"
-                        app:iiv_icon="@string/faw_unlock"
+                        app:iiv_icon="@string/faw_heart"
                         tools:src="@drawable/circle_indicator_blank"
                         tools:tint="@color/giveawayIndicatorColorWhitelist" />
 

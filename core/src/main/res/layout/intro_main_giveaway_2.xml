@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content">
 
                 <com.mikepenz.iconics.view.IconicsImageView
-                    app:iiv_icon="@string/faw_unlock"
+                    app:iiv_icon="@string/faw_heart"
                     app:iiv_color="@color/giveawayIndicatorColorWhitelist"
                     style="@style/GiveawayIndicatorIcon"
                     tools:tint="@color/giveawayIndicatorColorWhitelist"
