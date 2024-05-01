@@ -178,23 +178,20 @@ public abstract class ListFragment<AdapterType extends EndlessAdapter> extends F
 
     /**
      * Load a tab's items only if the user is on that tab.
-     *
-     * @param isVisibleToUser
      */
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            setupScrollToTopButton();
+    public void onResume() {
+        super.onResume();
+        setupScrollToTopButton();
 
-            if (!loadItemsInitially) {
-                loadItemsInitially = true;
+        if (!loadItemsInitially) {
+            loadItemsInitially = true;
 
-                if (getView() == null) {
-                    // Fallback for a rare circumstance in which setUserVisibleHint would be called before onCreateView,
-                    // in which case getView() returns null.
-                } else
-                    initializeListView();
+            if (getView() != null) {
+                // Do nothing in a rare circumstance in which setUserVisibleHint would be called before onCreateView,
+                // in which case getView() returns null.
+                // After setUserVisibleHint got changed to onPause/onResume, this may not be needed anymore.
+                initializeListView();
             }
         }
     }
