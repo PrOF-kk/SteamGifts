@@ -12,7 +12,7 @@ public class Game implements Serializable, IEndlessAdaptable {
 
     private String name;
     private Type type;
-    private int gameId;
+    private int id;
     private GameFeatures gameFeatures;
 
     /**
@@ -24,10 +24,10 @@ public class Game implements Serializable, IEndlessAdaptable {
         this(Type.APP, NO_APP_ID);
     }
 
-    public Game(Type type, int gameId) {
+    public Game(Type type, int id) {
         this.type = type;
-        this.gameId = gameId;
-        this.gameFeatures = GameFeaturesRepository.getInstance().getGameFeatures(gameId);
+        this.id = id;
+        this.gameFeatures = GameFeaturesRepository.getInstance().getGameFeatures(id);
     }
 
     @Override
@@ -51,13 +51,13 @@ public class Game implements Serializable, IEndlessAdaptable {
         this.type = type;
     }
 
-    public int getGameId() {
-        return gameId;
+    public int getId() {
+        return id;
     }
 
-    public void setGameId(int gameId) {
-        this.gameId = gameId;
-        this.gameFeatures = GameFeaturesRepository.getInstance().getGameFeatures(gameId);
+    public void setId(int id) {
+        this.id = id;
+        this.gameFeatures = GameFeaturesRepository.getInstance().getGameFeatures(id);
     }
 
     public GameFeatures getGameFeatures() {

@@ -131,7 +131,7 @@ public class HiddenGamesFragment extends SearchableListFragment<HiddenGamesAdapt
                 if (steamUri != null) {
                     List<String> pathSegments = steamUri.getPathSegments();
                     if (pathSegments.size() >= 2)
-                        game.setGameId(Integer.parseInt(pathSegments.get(1)));
+                        game.setId(Integer.parseInt(pathSegments.get(1)));
                     game.setType("app".equals(pathSegments.get(0)) ? Game.Type.APP : Game.Type.SUB);
                 }
             }

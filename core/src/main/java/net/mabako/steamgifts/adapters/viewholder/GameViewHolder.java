@@ -45,13 +45,13 @@ public class GameViewHolder extends RecyclerView.ViewHolder {
         if (fragment instanceof HiddenGamesFragment && game.getInternalGameId() != Game.NO_APP_ID) {
             removeGame.setOnClickListener(v -> ((HiddenGamesFragment) fragment).requestShowGame(game.getInternalGameId(), game.getName()));
             removeGame.setVisibility(View.VISIBLE);
-        } else if (fragment instanceof StoreSubFragment && game.getGameId() != Game.NO_APP_ID) {
-            itemView.setOnClickListener(v -> ((StoreSubFragment) fragment).showDetails(game.getGameId()));
+        } else if (fragment instanceof StoreSubFragment && game.getId() != Game.NO_APP_ID) {
+            itemView.setOnClickListener(v -> ((StoreSubFragment) fragment).showDetails(game.getId()));
         }
 
         // giveaway_image
-        if (game.getGameId() != Game.NO_APP_ID) {
-            Picasso.get().load("http://cdn.akamai.steamstatic.com/steam/" + game.getType().name().toLowerCase(Locale.ENGLISH) + "s/" + game.getGameId() + "/capsule_184x69.jpg").into(image, new Callback() {
+        if (game.getId() != Game.NO_APP_ID) {
+            Picasso.get().load("http://cdn.akamai.steamstatic.com/steam/" + game.getType().name().toLowerCase(Locale.ENGLISH) + "s/" + game.getId() + "/capsule_184x69.jpg").into(image, new Callback() {
                 /**
                  * We manually set the height of this image to fit the container.
                  */

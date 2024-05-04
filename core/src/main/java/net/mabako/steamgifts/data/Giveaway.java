@@ -22,8 +22,8 @@ public class Giveaway extends BasicGiveaway implements IEndlessAdaptable {
     private String title;
 
     private String name;
-    // TODO: Either make this explicitly nullable, or mark notnull and make null field state unrepresentable
-    private Game game;
+
+    private @NonNull Game game;
 
     /**
      * Who created this giveaway?
@@ -62,11 +62,12 @@ public class Giveaway extends BasicGiveaway implements IEndlessAdaptable {
     private long internalGameId;
 
     public Giveaway() {
-        super(null);
+        this(null);
     }
 
     public Giveaway(String giveawayId) {
         super(giveawayId);
+        game = new Game();
     }
 
     public String getTitle() {
@@ -75,10 +76,6 @@ public class Giveaway extends BasicGiveaway implements IEndlessAdaptable {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public int getGameId() {
-        return game != null ? game.getGameId() : Game.NO_APP_ID;
     }
 
     public String getName() {
@@ -113,10 +110,6 @@ public class Giveaway extends BasicGiveaway implements IEndlessAdaptable {
         this.copies = copies;
     }
 
-    public Game.Type getType() {
-        return game != null ? game.getType() : Game.Type.APP;
-    }
-
     public int getPoints() {
         return points;
     }
@@ -147,10 +140,10 @@ public class Giveaway extends BasicGiveaway implements IEndlessAdaptable {
         return
                 // The user has enough points
                 currentUser.getPoints() >= this.getPoints()
-                // The user's level is high enough
-                && currentUser.getLevel() >= this.getLevel()
-                // The user is not the giveaway's creator
-                && !currentUser.getName().equals(this.getCreator());
+                        // The user's level is high enough
+                        && currentUser.getLevel() >= this.getLevel()
+                        // The user is not the giveaway's creator
+                        && !currentUser.getName().equals(this.getCreator());
     }
 
     public boolean isEntered() {
@@ -220,7 +213,7 @@ public class Giveaway extends BasicGiveaway implements IEndlessAdaptable {
     @NonNull
     @Override
     public String toString() {
-        return "[GA " + getGiveawayId() + ", " + getGameId() + "]";
+        return "[GA " + getGiveawayId() + ", " + getGame().getId() + "]";
     }
 
     public long getInternalGameId() {
@@ -254,11 +247,11 @@ public class Giveaway extends BasicGiveaway implements IEndlessAdaptable {
         this.isPrivate = isPrivate;
     }
 
-    public void setGame(Game game) {
+    public void setGame(@NonNull Game game) {
         this.game = game;
     }
 
-    public Game getGame() {
+    public @NonNull Game getGame() {
         return game;
     }
 }

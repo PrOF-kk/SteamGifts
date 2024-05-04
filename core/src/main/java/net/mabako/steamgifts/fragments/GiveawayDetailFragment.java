@@ -242,7 +242,7 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
         if (appBarLayout != null && ((ApplicationTemplate) getActivity().getApplication()).allowGameImages()) {
             ImageView toolbarImage = getActivity().findViewById(R.id.toolbar_image);
             if (toolbarImage != null) {
-                Picasso.get().load("https://cdn.akamai.steamstatic.com/steam/" + giveaway.getType().name().toLowerCase(Locale.ENGLISH) + "s/" + giveaway.getGameId() + "/header.jpg").into(toolbarImage, new Callback() {
+                Picasso.get().load("https://cdn.akamai.steamstatic.com/steam/" + giveaway.getGame().getType().name().toLowerCase(Locale.ENGLISH) + "s/" + giveaway.getGame().getId() + "/header.jpg").into(toolbarImage, new Callback() {
                     @Override
                     public void onSuccess() {
                         appBarLayout.setExpandedTitleTextAppearance(R.style.TransparentText);
@@ -260,8 +260,8 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
         // Re-build the options menu, which may not be created if no giveaway was present.
         getActivity().invalidateOptionsMenu();
 
-        if (getActivity() instanceof DetailActivity && giveaway.getGameId() != Game.NO_APP_ID && !fragmentAdded) {
-            ((DetailActivity) getActivity()).addFragmentUnlessExists(giveaway.getType() == Game.Type.APP ? StoreAppFragment.newInstance(giveaway.getGameId(), false) : StoreSubFragment.newInstance(giveaway.getGameId()));
+        if (getActivity() instanceof DetailActivity && giveaway.getGame().getId() != Game.NO_APP_ID && !fragmentAdded) {
+            ((DetailActivity) getActivity()).addFragmentUnlessExists(giveaway.getGame().getType() == Game.Type.APP ? StoreAppFragment.newInstance(giveaway.getGame().getId(), false) : StoreSubFragment.newInstance(giveaway.getGame().getId()));
             fragmentAdded = true;
         }
 
@@ -291,7 +291,7 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         if (giveaway instanceof Giveaway) {
             inflater.inflate(R.menu.giveaway_menu, menu);
-            menu.findItem(R.id.open_steam_store).setVisible(((Giveaway) giveaway).getGameId() > 0);
+            menu.findItem(R.id.open_steam_store).setVisible(((Giveaway) giveaway).getGame().getId() > 0);
             menu.findItem(R.id.hide_game).setEnabled(((Giveaway) giveaway).getInternalGameId() > 0 && giveawayCard.getExtras() != null && giveawayCard.getExtras().getXsrfToken() != null);
 
             if (savedGiveaways != null) {
@@ -309,9 +309,9 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
         int itemId = item.getItemId();
         if (itemId == R.id.open_steam_store) {
             if (this.giveaway instanceof Giveaway giveaway) {
-                Log.i(TAG, "Opening Steam Store entry for game " + giveaway.getGameId());
+                Log.i(TAG, "Opening Steam Store entry for game " + giveaway.getGame().getId());
 
-                UrlHandlingActivity.getIntentForUri(activity, Uri.parse("https://store.steampowered.com/" + giveaway.getType().name().toLowerCase(Locale.ENGLISH) + "/" + giveaway.getGameId() + "/"), true).start(activity);
+                UrlHandlingActivity.getIntentForUri(activity, Uri.parse("https://store.steampowered.com/" + giveaway.getGame().getType().name().toLowerCase(Locale.ENGLISH) + "/" + giveaway.getGame().getId() + "/"), true).start(activity);
             }
             return true;
         } else if (itemId == R.id.hide_game) {

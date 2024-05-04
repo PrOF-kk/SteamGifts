@@ -72,7 +72,7 @@ public class StoreSubFragment extends StoreFragment {
 
                             Game game = new Game();
                             game.setType(Game.Type.APP);
-                            game.setGameId(app.getInt("id"));
+                            game.setId(app.getInt("id"));
                             game.setName(app.getString("name"));
 
                             games.add(game);

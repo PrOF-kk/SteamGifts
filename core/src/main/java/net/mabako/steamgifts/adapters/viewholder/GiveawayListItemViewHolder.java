@@ -115,8 +115,8 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
         giveawayDetails.setText(sj.toString());
 
         // giveaway_image
-        if (giveaway.getGameId() != Game.NO_APP_ID && showImage && ((ApplicationTemplate) activity.getApplication()).allowGameImages()) {
-            Picasso.get().load("https://cdn.akamai.steamstatic.com/steam/" + giveaway.getType().name().toLowerCase(Locale.ENGLISH) + "s/" + giveaway.getGameId() + "/capsule_184x69.jpg").into(giveawayImage, new Callback() {
+        if (giveaway.getGame().getId() != Game.NO_APP_ID && showImage && ((ApplicationTemplate) activity.getApplication()).allowGameImages()) {
+            Picasso.get().load("https://cdn.akamai.steamstatic.com/steam/" + giveaway.getGame().getType().name().toLowerCase(Locale.ENGLISH) + "s/" + giveaway.getGame().getId() + "/capsule_184x69.jpg").into(giveawayImage, new Callback() {
                 /**
                  * We manually set the height of this image to fit the container.
                  */
@@ -131,7 +131,7 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
 
                 @Override
                 public void onError(Exception e) {
-                    Log.e(TAG, "Failed to load capsule image for giveaway " + giveaway.getName() + " (game " + giveaway.getGameId() + ")", e);
+                    Log.e(TAG, "Failed to load capsule image for giveaway " + giveaway.getName() + " (game " + giveaway.getGame().getId() + ")", e);
                     ViewGroup.LayoutParams params = giveawayImage.getLayoutParams();
                     params.height = 0;
                 }
