@@ -370,8 +370,8 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
         @Override
         public void addItems(List<? extends IEndlessAdaptable> items, boolean clearExistingItems, String xsrfToken) {
             super.addItems(items, clearExistingItems, xsrfToken);
-            if (iUserNotification != null && iUserNotification instanceof UserDetailFragment)
-                ((UserDetailFragment) iUserNotification).xsrfToken = xsrfToken;
+            if (iUserNotification != null && xsrfToken != null && iUserNotification instanceof UserDetailFragment userDetailFragment)
+                userDetailFragment.xsrfToken = xsrfToken;
         }
 
         @Override
@@ -462,8 +462,8 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
         @Override
         public void addItems(List<? extends IEndlessAdaptable> items, boolean clearExistingItems, String xsrfToken) {
             super.addItems(items, clearExistingItems, xsrfToken);
-            if (iUserNotification != null && iUserNotification instanceof UserDetailFragment)
-                ((UserDetailFragment) iUserNotification).xsrfToken = xsrfToken;
+            if (iUserNotification != null && xsrfToken != null && iUserNotification instanceof UserDetailFragment userDetailFragment)
+                userDetailFragment.xsrfToken = xsrfToken;
         }
 
         @Override
