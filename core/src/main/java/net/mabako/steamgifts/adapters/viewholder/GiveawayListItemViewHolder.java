@@ -131,7 +131,11 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
 
                 @Override
                 public void onError(Exception e) {
-                    Log.e(TAG, "Failed to load capsule image for giveaway " + giveaway.getName() + " (game " + giveaway.getGame().getId() + ")", e);
+                    // HTTP 404 is expected for delisted games and most bundles
+                    // Picasso's ResponseException is not public
+                    if (!"HTTP 404".equals(e.getMessage())) {
+                        Log.e(TAG, "Failed to load capsule image for giveaway " + giveaway.getName() + " (game " + giveaway.getGame().getId() + ")", e);
+                    }
                     ViewGroup.LayoutParams params = giveawayImage.getLayoutParams();
                     params.height = 0;
                 }
