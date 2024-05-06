@@ -49,9 +49,9 @@ dependencies {
     implementation 'com.mikepenz:iconics-core:3.2.5'
     implementation 'com.mikepenz:iconics-views:3.2.5'
     implementation 'com.mikepenz:fontawesome-typeface:4.7.0.0@aar'
-    implementation('com.mikepenz:materialdrawer:6.0.9@aar') {
-        transitive = true
-    }
+    implementation 'com.mikepenz:materialdrawer:6.1.2'
+    // Force version to fix error spam for MaterialDrawer 6.1.2, remove after upgrading to >= 7.0.0
+    implementation 'com.mikepenz:fastadapter:3.3.1'
 
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view-androidx:3.10.0'
     implementation 'com.github.AppIntro:AppIntro:6.2.0'

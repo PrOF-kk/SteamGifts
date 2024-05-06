@@ -15,6 +15,10 @@
         <item name="lightTextColor">#424242</item>
         <item name="colorTradeScorePositive">@color/md_green_600</item>
         <item name="colorTradeScoreNegative">@color/md_red_600</item>
+
+        <!-- Force white text in header-->
+        <item name="material_drawer_header_selection_text">@color/material_drawer_dark_header_selection_text</item>
+        <item name="material_drawer_header_selection_subtext">@color/material_drawer_dark_header_selection_subtext</item>
     </style>
 
     <style name="AppTheme.Dark" parent="MaterialDrawerTheme">

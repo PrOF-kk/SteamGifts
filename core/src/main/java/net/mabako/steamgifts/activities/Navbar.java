@@ -305,7 +305,7 @@ public class Navbar {
             TextView notificationText = mAccountHeader.findViewById(R.id.material_drawer_account_header_notifications);
             CustomProfileDrawerItem profile = (CustomProfileDrawerItem) mCurrentProfile;
 
-            if(profile != null) {
+            if (profile != null) {
                 if (profile.notifications == null) {
                     notificationText.setText("");
                     notificationText.setOnClickListener(null);
