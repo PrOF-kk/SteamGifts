@@ -147,7 +147,7 @@ public class SavedGiveawaysFragment extends ListFragment<SavedGiveawaysFragment.
         super.addItems(savedGiveaways.all(), true);
         adapter.reachedTheEnd();
 
-        // Load all entered giveaways
+        // Load all entered giveaways to update the saved giveaways db
         if (enteredGameListTask != null)
             enteredGameListTask.cancel(true);
 
@@ -177,39 +177,31 @@ public class SavedGiveawaysFragment extends ListFragment<SavedGiveawaysFragment.
      */
     @Override
     public void addItems(List<? extends IEndlessAdaptable> items, boolean clearExistingItems) {
-        if (items != null) {
-            // closed or not deleted
-            boolean foundAnyClosedGiveaways = false;
-
-            // do nothing much except update the status of existing giveaways.
-            for (IEndlessAdaptable endlessAdaptable : items) {
-                ProfileGiveaway giveaway = (ProfileGiveaway) endlessAdaptable;
-                if (!giveaway.isOpen() && !giveaway.isDeleted()) {
-                    foundAnyClosedGiveaways = true;
-                    break;
-                }
-
-                Giveaway existingGiveaway = adapter.findItem(giveaway.getGiveawayId());
-                if (existingGiveaway != null) {
-                    existingGiveaway.setEntries(giveaway.getEntries());
-                    existingGiveaway.setEntered(true);
-                    adapter.notifyItemChanged(existingGiveaway);
-                }
-            }
-
-            FragmentActivity activity = getActivity();
-            if (activity != null)
-                activity.invalidateOptionsMenu();
-
-            // have we found any non-closed giveaways?
-            if (foundAnyClosedGiveaways) {
-                enteredGameListTask = null;
-            } else {
-                enteredGameListTask = new LoadEnteredGameListTask(this, enteredGameListTask.getPage() + 1);
-                enteredGameListTask.execute();
-            }
-        } else {
+        if (items == null) {
             showSnack("Failed to update entered giveaways", Snackbar.LENGTH_LONG);
+            return;
+        }
+
+        // do nothing much except update the status of saved giveaways.
+        for (IEndlessAdaptable endlessAdaptable : items) {
+            ProfileGiveaway giveaway = (ProfileGiveaway) endlessAdaptable;
+
+            Giveaway existingGiveaway = adapter.findItem(giveaway.getGiveawayId());
+            if (existingGiveaway != null) {
+                existingGiveaway.setEntries(giveaway.getEntries());
+                existingGiveaway.setEntered(giveaway.isEntered());
+                adapter.notifyItemChanged(existingGiveaway);
+            }
+        }
+
+        FragmentActivity activity = getActivity();
+        if (activity != null)
+            activity.invalidateOptionsMenu();
+
+        // Load next page until we loaded all entered giveaways
+        if (items.size() >= LoadEnteredGameListTask.ENTRIES_PER_PAGE) {
+            enteredGameListTask = new LoadEnteredGameListTask(this, enteredGameListTask.getPage() + 1);
+            enteredGameListTask.execute();
         }
     }
 
