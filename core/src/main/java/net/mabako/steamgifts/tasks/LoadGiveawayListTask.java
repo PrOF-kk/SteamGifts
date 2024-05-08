@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
 import net.mabako.Constants;
 import net.mabako.steamgifts.data.Giveaway;
 import net.mabako.steamgifts.fragments.GiveawayListFragment;
@@ -24,12 +26,12 @@ public class LoadGiveawayListTask extends AsyncTask<Void, Void, List<Giveaway>> 
     private final GiveawayListFragment fragment;
     private final int page;
     private final GiveawayListFragment.Type type;
-    private final String searchQuery;
+    private final @Nullable String searchQuery;
     private final boolean showPinnedGiveaways;
 
     private String foundXsrfToken = null;
 
-    public LoadGiveawayListTask(GiveawayListFragment activity, int page, GiveawayListFragment.Type type, String searchQuery, boolean showPinnedGiveaways) {
+    public LoadGiveawayListTask(GiveawayListFragment activity, int page, GiveawayListFragment.Type type, @Nullable String searchQuery, boolean showPinnedGiveaways) {
         this.fragment = activity;
         this.page = page;
         this.type = type;
