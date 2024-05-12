@@ -16,11 +16,6 @@ public class MarkMessagesReadTask extends AjaxTask<MessageListFragment> {
     }
 
     @Override
-    protected void addExtraParameters(Connection connection) {
-
-    }
-
-    @Override
     protected void onPostExecute(Connection.Response response) {
         super.onPostExecute(response);
         if (response != null && response.statusCode() == 301) {

@@ -63,7 +63,7 @@ public abstract class AjaxTask<FragmentType> extends AsyncTask<Void, Void, Conne
         }
     }
 
-    protected abstract void addExtraParameters(Connection connection);
+    protected void addExtraParameters(Connection connection) { };
 
     protected FragmentType getFragment() {
         return fragment;

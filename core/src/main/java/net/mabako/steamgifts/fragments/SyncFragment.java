@@ -167,11 +167,6 @@ public class SyncFragment extends Fragment {
         }
 
         @Override
-        protected void addExtraParameters(Connection connection) {
-
-        }
-
-        @Override
         protected void onPostExecute(Connection.Response response) {
             if (response != null && response.statusCode() == 200) {
                 try {
