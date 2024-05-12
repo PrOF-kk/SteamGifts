@@ -20,5 +20,5 @@ public interface IHasEnterableGiveaways {
      * @param what       what kind of action was executed
      * @param success    whether or not the action was successful
      */
-    void onEnterLeaveResult(String giveawayId, String what, Boolean success, boolean propagate);
+    void onEnterLeaveResult(String giveawayId, String what, boolean success, boolean propagate);
 }

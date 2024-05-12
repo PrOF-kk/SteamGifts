@@ -195,8 +195,8 @@ public class GiveawayListFragment extends SearchableListFragment<GiveawayAdapter
     }
 
     @Override
-    public void onEnterLeaveResult(String giveawayId, String what, Boolean success, boolean propagate) {
-        if (success == Boolean.TRUE) {
+    public void onEnterLeaveResult(String giveawayId, String what, boolean success, boolean propagate) {
+        if (success) {
             Giveaway giveaway = adapter.findItem(giveawayId);
             if (giveaway != null) {
                 giveaway.setEntered(GiveawayDetailFragment.ENTRY_INSERT.equals(what));

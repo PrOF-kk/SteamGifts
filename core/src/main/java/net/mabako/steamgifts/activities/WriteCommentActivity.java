@@ -176,7 +176,7 @@ public class WriteCommentActivity extends BaseActivity implements DialogInterfac
             }
 
             @Override
-            public void onEnterLeaveResult(String giveawayId, String what, Boolean success, boolean propagate) {
+            public void onEnterLeaveResult(String giveawayId, String what, boolean success, boolean propagate) {
                 if (success) {
                     Log.v(TAG, "entered giveaway " + giveawayId);
 

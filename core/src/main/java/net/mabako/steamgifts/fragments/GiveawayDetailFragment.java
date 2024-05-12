@@ -202,9 +202,9 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
      * @param propagate
      */
     @Override
-    public void onEnterLeaveResult(String giveawayId, String what, Boolean success, boolean propagate) {
+    public void onEnterLeaveResult(String giveawayId, String what, boolean success, boolean propagate) {
         Log.v(TAG, "Enter Leave Result -> " + what + ", " + success);
-        if (success == Boolean.TRUE) {
+        if (success) {
 
             GiveawayExtras extras = giveawayCard.getExtras();
             extras.setEntered(ENTRY_INSERT.equals(what));

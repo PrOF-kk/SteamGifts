@@ -65,8 +65,8 @@ public class EnteredListFragment extends ListFragment<GiveawayAdapter> implement
     }
 
     @Override
-    public void onEnterLeaveResult(String giveawayId, String what, Boolean success, boolean propagate) {
-        if (success == Boolean.TRUE && GiveawayDetailFragment.ENTRY_DELETE.equals(what)) {
+    public void onEnterLeaveResult(String giveawayId, String what, boolean success, boolean propagate) {
+        if (success && GiveawayDetailFragment.ENTRY_DELETE.equals(what)) {
             adapter.removeGiveaway(giveawayId);
         } else {
             Log.e(TAG, "Probably an error catching the result...");

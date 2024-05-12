@@ -220,8 +220,8 @@ public class SavedGiveawaysFragment extends ListFragment<SavedGiveawaysFragment.
     }
 
     @Override
-    public void onEnterLeaveResult(String giveawayId, String what, Boolean success, boolean propagate) {
-        if (success == Boolean.TRUE) {
+    public void onEnterLeaveResult(String giveawayId, String what, boolean success, boolean propagate) {
+        if (success) {
             Giveaway giveaway = adapter.findItem(giveawayId);
             if (giveaway != null) {
                 boolean currentlyEnteredAny = adapter.getEnteredItemCount() > 0;

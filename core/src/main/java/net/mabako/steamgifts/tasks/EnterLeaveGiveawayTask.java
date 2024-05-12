@@ -41,14 +41,16 @@ public class EnterLeaveGiveawayTask extends AjaxTask<IHasEnterableGiveaways> {
                 boolean success = "success".equals(root.getString("type"));
                 int points = root.getInt("points");
 
-                IHasEnterableGiveaways fragment = getFragment();
-                fragment.onEnterLeaveResult(giveawayId, getWhat(), success, true);
+                IHasEnterableGiveaways enterLeaveHolder = getFragment();
+                enterLeaveHolder.onEnterLeaveResult(giveawayId, getWhat(), success, true);
 
                 // Update the points we have.
                 SteamGiftsUserData.getCurrent(getContext()).setPoints(points);
 
-                if (fragment instanceof Fragment && "error".equals(root.getString("type")) && "Sync Required".equals(root.getString("msg"))) {
-                    ((Fragment) fragment).getActivity().startActivity(new Intent(((Fragment) fragment).getContext(), SyncActivity.class));
+                if (enterLeaveHolder instanceof Fragment fragment
+                        && "error".equals(root.getString("type"))
+                        && "Sync Required".equals(root.getString("msg"))) {
+                    fragment.getActivity().startActivity(new Intent(fragment.getContext(), SyncActivity.class));
                 }
 
                 return;
@@ -57,6 +59,6 @@ public class EnterLeaveGiveawayTask extends AjaxTask<IHasEnterableGiveaways> {
             }
         }
 
-        getFragment().onEnterLeaveResult(giveawayId, getWhat(), null, false);
+        getFragment().onEnterLeaveResult(giveawayId, getWhat(), false, false);
     }
 }
