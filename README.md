@@ -4,10 +4,9 @@ An app to browse SteamGifts giveaways on your phone.
 
 # Features
 ## Giveaways
-- Browse and search through all, group, wishlist and new giveaways
+- Browse and search through all, group, wishlist, recommended and new giveaways
 - Enter, leave, comment on giveaways
 - Filter giveaways by level, entries, points, entered
-- Star giveaways to be able to look at them later
 - Hide & Un-hide games (the latter via settings)
 
 ## Discussions
@@ -15,9 +14,10 @@ An app to browse SteamGifts giveaways on your phone.
 - Comment on giveaways
 
 ## Misc
+- Bookmark giveaways and discussions for later
 - Night Mode (Settings)
 - Sync Account (manually via Settings, opens automatically if you're trying to enter a giveaway while Sync is required)
-- and some more...
+- and more...
 
 # Build Info
 ## Flavors
