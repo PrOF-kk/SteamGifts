@@ -61,6 +61,7 @@ public class GiveawayAdapter extends EndlessAdapter {
         this.itemsPerPage = itemsPerPage;
         this.filterItems = filterItems;
         this.loadImages = sharedPreferences.getString("preference_giveaway_load_images", "details;list").contains("list");
+        setHasStableIds(true);
     }
 
     public void setFragmentValues(@NonNull Activity activity, @NonNull ListFragment fragment, SavedGiveaways savedGiveaways) {
@@ -166,5 +167,14 @@ public class GiveawayAdapter extends EndlessAdapter {
             }
         }
         return super.addFiltered(items);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        IEndlessAdaptable item = getItem(position);
+        return item != null
+                ? ((Giveaway) item).getGiveawayId().hashCode()
+                // Loading item
+                : 0;
     }
 }
