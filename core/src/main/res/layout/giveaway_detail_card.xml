@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -18,15 +19,34 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/giveaway_name"
-                style="@style/BigText"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"
-                android:paddingTop="@dimen/card_margin_outer"
-                tools:text="Title" />
+                android:baselineAligned="true"
+                android:gravity="start"
+                android:paddingHorizontal="12dp"
+                android:paddingTop="@dimen/card_margin_outer">
+
+                <TextView
+                    android:id="@+id/giveaway_name"
+                    style="@style/BigText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Title" />
+
+                <com.mikepenz.iconics.view.IconicsImageView
+                    android:id="@+id/game_hidden_indicator"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginLeft="@dimen/card_margin_small"
+                    android:baselineAlignBottom="true"
+                    android:visibility="gone"
+                    app:iiv_color="@color/md_red_500"
+                    app:iiv_icon="@string/faw_eye_slash"
+                    tools:src="@drawable/circle_indicator_blank"
+                    tools:tint="@color/md_red_500"
+                    tools:visibility="visible" />
+            </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -50,7 +70,7 @@
                     android:paddingTop="@dimen/card_margin_small"
                     android:text="@string/placeholder_giveaway_creator"
                     android:textStyle="bold"
-                    tools:text="Creator" />
+                    tools:text="👤 Creator" />
 
                 <TextView
                     android:id="@+id/created"
@@ -60,7 +80,7 @@
                     android:paddingHorizontal="@dimen/card_margin_small"
                     android:paddingTop="@dimen/card_margin_small"
                     android:text="@string/placeholder_giveaway_start"
-                    tools:text="Started" />
+                    tools:text="📅 Started" />
 
                 <TextView
                     android:id="@+id/entries"
@@ -70,7 +90,7 @@
                     android:paddingHorizontal="@dimen/card_margin_small"
                     android:paddingTop="@dimen/card_margin_small"
                     android:text="@string/placeholder_giveaway_entries"
-                    tools:text="Entries" />
+                    tools:text="👥 Entries" />
 
                 <TextView
                     android:id="@+id/copies"

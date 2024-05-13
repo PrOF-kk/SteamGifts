@@ -7,6 +7,7 @@ import java.util.List;
 public class GiveawayExtras implements Serializable, ICommentHolder, IImageHolder {
     private static final long serialVersionUID = 2559783080850462760L;
     private String title;
+    private boolean gameHidden;
     private String description;
     private String xsrfToken;
     private boolean entered;
@@ -27,6 +28,14 @@ public class GiveawayExtras implements Serializable, ICommentHolder, IImageHolde
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public boolean isGameHidden() {
+        return gameHidden;
+    }
+
+    public void setGameHidden(boolean gameHidden) {
+        this.gameHidden = gameHidden;
     }
 
     public String getDescription() {

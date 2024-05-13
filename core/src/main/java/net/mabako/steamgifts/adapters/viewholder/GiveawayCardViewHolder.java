@@ -32,6 +32,7 @@ public class GiveawayCardViewHolder extends RecyclerView.ViewHolder {
 
     private final View progressBar;
     private final TextView title;
+    private final View gameHiddenIndicator;
     private final TextView user;
     private final TextView timeRemaining;
     private final TextView timeCreated;
@@ -53,6 +54,7 @@ public class GiveawayCardViewHolder extends RecyclerView.ViewHolder {
 
         progressBar = v.findViewById(R.id.progressBar);
         title = v.findViewById(R.id.giveaway_name);
+        gameHiddenIndicator = v.findViewById(R.id.game_hidden_indicator);
         user = v.findViewById(R.id.user);
         timeRemaining = v.findViewById(R.id.remaining);
         timeCreated = v.findViewById(R.id.created);
@@ -91,6 +93,8 @@ public class GiveawayCardViewHolder extends RecyclerView.ViewHolder {
                 view.setVisibility(View.VISIBLE);
 
             title.setText(giveaway.getTitle());
+
+            gameHiddenIndicator.setVisibility(extras.isGameHidden() ? View.VISIBLE : View.GONE);
 
             if (giveaway.getEndTime() != null) {
                 timeRemaining.setText("{faw-clock-o} " + giveaway.getRelativeEndTime(fragment.getContext()));

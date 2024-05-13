@@ -130,6 +130,8 @@ public class LoadGiveawayDetailsTask extends AsyncTask<Void, Void, GiveawayExtra
 
         extras.setTitle(Utils.getPageTitle(document));
 
+        extras.setGameHidden(document.getElementsByClass("featured__giveaway__hide").isEmpty());
+
         // Load the description
         Element description = document.select(".page__description__display-state .markdown").first();
         if (description != null) {
