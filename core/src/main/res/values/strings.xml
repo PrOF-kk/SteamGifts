@@ -150,7 +150,6 @@
     <string name="preferences_giveaways">Giveaways</string>
     <string name="preference_giveaway_load_images">Load Images</string>
     <string name="preference_giveaway_show_game_features">Load Game Features</string>
-    <string name="preference_giveaway_show_game_features_summary">Disable to improve boot times</string>
     <string name="preference_giveaway_show_pinned">Highlight Pinned Giveaways</string>
     <string name="preference_giveaway_show_pinned_on">Always shown first</string>
     <string name="preference_giveaway_show_pinned_off">Not highlighted in a special way</string>

@@ -27,6 +27,8 @@ import net.mabako.steamgifts.adapters.EndlessAdapter;
 import net.mabako.steamgifts.core.R;
 import net.mabako.steamgifts.data.BasicGiveaway;
 import net.mabako.steamgifts.data.Game;
+import net.mabako.steamgifts.data.GameFeatures;
+import net.mabako.steamgifts.data.GameFeaturesRepository;
 import net.mabako.steamgifts.data.Giveaway;
 import net.mabako.steamgifts.fragments.GiveawayDetailFragment;
 import net.mabako.steamgifts.fragments.GiveawayListFragment;
@@ -37,6 +39,7 @@ import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
 import java.util.Locale;
 import java.util.StringJoiner;
+import java.util.stream.Stream;
 
 public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
     private static final String TAG = GiveawayListItemViewHolder.class.getSimpleName();
@@ -156,10 +159,16 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
         indicatorPrivate.setVisibility(giveaway.isPrivate() ? View.VISIBLE : View.GONE);
         indicatorRegionRestricted.setVisibility(giveaway.isRegionRestricted() ? View.VISIBLE : View.GONE);
 
-        indicatorCards.setVisibility(giveaway.getGame().getGameFeatures().getCards() > 0 ? View.VISIBLE : View.GONE);
-        indicatorDLC.setVisibility(giveaway.getGame().getGameFeatures().isDlc() ? View.VISIBLE : View.GONE);
-        indicatorLimited.setVisibility(giveaway.getGame().getGameFeatures().isLimited() ? View.VISIBLE : View.GONE);
-        indicatorDelisted.setVisibility(giveaway.getGame().getGameFeatures().isDelisted() ? View.VISIBLE : View.GONE);
+        Stream.of(indicatorCards, indicatorDLC, indicatorLimited, indicatorDelisted).forEach(v -> v.setVisibility(View.GONE));
+        GameFeaturesRepository.waitForGameFeaturesDownload().thenAcceptAsync(gameFeaturesRepository -> {
+            GameFeatures gameFeatures = gameFeaturesRepository.getGameFeatures(giveaway.getGame().getId());
+            activity.runOnUiThread(() -> {
+                indicatorCards.setVisibility(gameFeatures.getCards() > 0 ? View.VISIBLE : View.GONE);
+                indicatorDLC.setVisibility(gameFeatures.isDlc() ? View.VISIBLE : View.GONE);
+                indicatorLimited.setVisibility(gameFeatures.isLimited() ? View.VISIBLE : View.GONE);
+                indicatorDelisted.setVisibility(gameFeatures.isDelisted() ? View.VISIBLE : View.GONE);
+            });
+        });
 
         // Initialize the enter button
         // Check if logged or the quick enter button setting is enabled

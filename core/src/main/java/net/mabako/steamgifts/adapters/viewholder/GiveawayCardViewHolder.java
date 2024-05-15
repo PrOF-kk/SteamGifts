@@ -18,6 +18,8 @@ import net.mabako.steamgifts.activities.CommonActivity;
 import net.mabako.steamgifts.activities.DetailActivity;
 import net.mabako.steamgifts.activities.SyncActivity;
 import net.mabako.steamgifts.core.R;
+import net.mabako.steamgifts.data.GameFeatures;
+import net.mabako.steamgifts.data.GameFeaturesRepository;
 import net.mabako.steamgifts.data.Giveaway;
 import net.mabako.steamgifts.data.GiveawayExtras;
 import net.mabako.steamgifts.fragments.GiveawayDetailFragment;
@@ -216,13 +218,15 @@ public class GiveawayCardViewHolder extends RecyclerView.ViewHolder {
         if (!spans.isEmpty())
             spans.add(new SpannableString(" "));
 
-        if (giveaway.getGame().getGameFeatures().getCards() > 0)
+        GameFeatures gameFeatures = GameFeaturesRepository.waitForGameFeaturesDownload().join().getGameFeatures(giveaway.getGame().getId());
+
+        if (gameFeatures.getCards() > 0)
             spans.add(new SpannableString("{faw-ticket} "));
-        if (giveaway.getGame().getGameFeatures().isDlc())
+        if (gameFeatures.isDlc())
             spans.add(new SpannableString("{faw-download} "));
-        if (giveaway.getGame().getGameFeatures().isLimited())
+        if (gameFeatures.isLimited())
             spans.add(new SpannableString("{faw-asterisk} "));
-        if (giveaway.getGame().getGameFeatures().isDelisted())
+        if (gameFeatures.isDelisted())
             spans.add(new SpannableString("{faw-trash} "));
 
         if (!spans.isEmpty()) {

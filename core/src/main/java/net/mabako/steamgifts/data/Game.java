@@ -13,7 +13,6 @@ public class Game implements Serializable, IEndlessAdaptable {
     private String name;
     private Type type;
     private int id;
-    private GameFeatures gameFeatures;
 
     /**
      * Id used (exclusively?) for filtering games.
@@ -27,7 +26,6 @@ public class Game implements Serializable, IEndlessAdaptable {
     public Game(Type type, int id) {
         this.type = type;
         this.id = id;
-        this.gameFeatures = GameFeaturesRepository.getInstance().getGameFeatures(id);
     }
 
     @Override
@@ -57,11 +55,6 @@ public class Game implements Serializable, IEndlessAdaptable {
 
     public void setId(int id) {
         this.id = id;
-        this.gameFeatures = GameFeaturesRepository.getInstance().getGameFeatures(id);
-    }
-
-    public GameFeatures getGameFeatures() {
-        return gameFeatures;
     }
 
     public long getInternalGameId() {

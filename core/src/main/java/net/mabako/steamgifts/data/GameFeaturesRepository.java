@@ -32,6 +32,8 @@ public final class GameFeaturesRepository {
     private static boolean loadGameFeatures;
     private static boolean initDone = false;
 
+    private static CompletableFuture<GameFeaturesRepository> downloadGameFeatures;
+
     private final Map<Integer, GameFeatures> data;
 
     private GameFeaturesRepository() {
@@ -190,7 +192,7 @@ public final class GameFeaturesRepository {
         Log.d(TAG, "Loaded " + data.size() + " game features");
     }
 
-    public static GameFeaturesRepository getInstance() {
+    private static GameFeaturesRepository getInstance() {
         if (instance == null) {
             instance = new GameFeaturesRepository();
         }
@@ -204,6 +206,13 @@ public final class GameFeaturesRepository {
     public static void setLoadGameFeatures(boolean load) {
         loadGameFeatures = load;
         instance = null;
+    }
+
+    public static CompletableFuture<GameFeaturesRepository> waitForGameFeaturesDownload() {
+        if (downloadGameFeatures == null) {
+            downloadGameFeatures = CompletableFuture.supplyAsync(GameFeaturesRepository::getInstance);
+        }
+        return downloadGameFeatures;
     }
 }
 
