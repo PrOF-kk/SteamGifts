@@ -66,7 +66,7 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
     /**
      * Content to show for the giveaway details.
      */
-    private BasicGiveaway giveaway;
+    private BasicGiveaway basicGiveaway;
     private GiveawayDetailsCard giveawayCard;
     private EnterLeaveGiveawayTask enterLeaveTask;
     private Activity activity;
@@ -88,13 +88,13 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState == null) {
-            giveaway = (BasicGiveaway) getArguments().getSerializable(SAVED_GIVEAWAY);
+            basicGiveaway = (BasicGiveaway) getArguments().getSerializable(SAVED_GIVEAWAY);
             giveawayCard = new GiveawayDetailsCard();
 
             // Add the cardview for the Giveaway details
             adapter.setStickyItem(giveawayCard);
         } else {
-            giveaway = (BasicGiveaway) savedInstanceState.getSerializable(SAVED_GIVEAWAY);
+            basicGiveaway = (BasicGiveaway) savedInstanceState.getSerializable(SAVED_GIVEAWAY);
             giveawayCard = (GiveawayDetailsCard) adapter.getStickyItem();
         }
 
@@ -104,7 +104,7 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(SAVED_GIVEAWAY, giveaway);
+        outState.putSerializable(SAVED_GIVEAWAY, basicGiveaway);
     }
 
     @Override
@@ -131,10 +131,10 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = super.onCreateView(inflater, container, savedInstanceState);
 
-        if (giveaway instanceof Giveaway) {
-            onPostGiveawayLoaded((Giveaway) giveaway, true);
+        if (basicGiveaway instanceof Giveaway giveaway) {
+            onPostGiveawayLoaded(giveaway, true);
         } else {
-            Log.d(TAG, "Loading activity for basic giveaway " + giveaway.getGiveawayId());
+            Log.d(TAG, "Loading activity for basic giveaway " + basicGiveaway.getGiveawayId());
         }
 
         setHasOptionsMenu(true);
@@ -156,13 +156,13 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
 
     @Override
     protected AsyncTask<Void, Void, ?> getFetchItemsTaskEx(int page) {
-        String url = giveaway.getGiveawayId();
-        if (giveaway instanceof Giveaway)
-            url += "/" + ((Giveaway) giveaway).getName();
+        String url = basicGiveaway.getGiveawayId();
+        if (basicGiveaway instanceof Giveaway giveaway)
+            url += "/" + giveaway.getName();
         else if (getCommentContext() != null)
             url += "/" + getCommentContext().getDetailName();
 
-        return new LoadGiveawayDetailsTask(this, url, page, !(giveaway instanceof Giveaway));
+        return new LoadGiveawayDetailsTask(this, url, page, !(basicGiveaway instanceof Giveaway));
     }
 
     public void addItems(GiveawayExtras extras, int page) {
@@ -173,9 +173,9 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
 
         // We should always have a giveaway instance at this point of time, as
         // #onPostGiveawayLoaded is called prior to this method.
-        if (!(giveaway instanceof Giveaway))
+        if (!(basicGiveaway instanceof Giveaway))
             throw new IllegalStateException("#onPostGiveawayLoaded was probably not called");
-        ((Giveaway) giveaway).setTitle(extras.getTitle());
+        ((Giveaway) basicGiveaway).setTitle(extras.getTitle());
         updateTitle();
 
         giveawayCard.setExtras(extras);
@@ -208,7 +208,7 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
 
             GiveawayExtras extras = giveawayCard.getExtras();
             extras.setEntered(ENTRY_INSERT.equals(what));
-            ((Giveaway) giveaway).setEntered(extras.isEntered());
+            ((Giveaway) basicGiveaway).setEntered(extras.isEntered());
 
             giveawayCard.setExtras(extras);
             adapter.setStickyItem(giveawayCard);
@@ -221,7 +221,7 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
     }
 
     public void onEntered() {
-        onEnterLeaveResult(giveaway.getGiveawayId(), ENTRY_INSERT, true, true);
+        onEnterLeaveResult(basicGiveaway.getGiveawayId(), ENTRY_INSERT, true, true);
     }
 
     /**
@@ -231,10 +231,10 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
      */
     private void onPostGiveawayLoaded(Giveaway giveaway, boolean ignoreExisting) {
         // Called this twice, eh...
-        if (this.giveaway instanceof Giveaway && !ignoreExisting)
+        if (this.basicGiveaway instanceof Giveaway && !ignoreExisting)
             return;
 
-        this.giveaway = giveaway;
+        this.basicGiveaway = giveaway;
         giveawayCard.setGiveaway(giveaway);
 
         updateTitle();
@@ -289,18 +289,18 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        if (giveaway instanceof Giveaway) {
+        if (basicGiveaway instanceof Giveaway giveaway) {
             inflater.inflate(R.menu.giveaway_menu, menu);
-            menu.findItem(R.id.open_steam_store).setVisible(((Giveaway) giveaway).getGame().getId() > 0);
-            menu.findItem(R.id.hide_game).setEnabled(((Giveaway) giveaway).getInternalGameId() > 0 && giveawayCard.getExtras() != null && giveawayCard.getExtras().getXsrfToken() != null);
+            menu.findItem(R.id.open_steam_store).setVisible(giveaway.getGame().getId() > 0);
+            menu.findItem(R.id.hide_game).setEnabled(giveaway.getInternalGameId() > 0 && giveawayCard.getExtras() != null && giveawayCard.getExtras().getXsrfToken() != null);
 
             if (savedGiveaways != null) {
-                boolean isSaved = savedGiveaways.exists(giveaway.getGiveawayId());
+                boolean isSaved = savedGiveaways.exists(basicGiveaway.getGiveawayId());
                 menu.findItem(R.id.add_saved_element).setVisible(!isSaved);
                 menu.findItem(R.id.remove_saved_element).setVisible(isSaved);
             }
 
-            menu.findItem(R.id.more_like_this).setEnabled(((Giveaway) giveaway).getTitle() != null);
+            menu.findItem(R.id.more_like_this).setEnabled(giveaway.getTitle() != null);
         }
     }
 
@@ -308,33 +308,33 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.open_steam_store) {
-            if (this.giveaway instanceof Giveaway giveaway) {
+            if (this.basicGiveaway instanceof Giveaway giveaway) {
                 Log.i(TAG, "Opening Steam Store entry for game " + giveaway.getGame().getId());
 
                 UrlHandlingActivity.getIntentForUri(activity, Uri.parse("https://store.steampowered.com/" + giveaway.getGame().getType().name().toLowerCase(Locale.ENGLISH) + "/" + giveaway.getGame().getId() + "/"), true).start(activity);
             }
             return true;
         } else if (itemId == R.id.hide_game) {
-            new UpdateGiveawayFilterTask<>(this, giveawayCard.getExtras().getXsrfToken(), UpdateGiveawayFilterTask.HIDE, ((Giveaway) giveaway).getInternalGameId(), ((Giveaway) giveaway).getTitle()).execute();
+            new UpdateGiveawayFilterTask<>(this, giveawayCard.getExtras().getXsrfToken(), UpdateGiveawayFilterTask.HIDE, ((Giveaway) basicGiveaway).getInternalGameId(), ((Giveaway) basicGiveaway).getTitle()).execute();
             return true;
         } else if (itemId == R.id.add_saved_element) {
-            if (giveaway instanceof Giveaway && savedGiveaways.add((Giveaway) giveaway, giveaway.getGiveawayId())) {
+            if (basicGiveaway instanceof Giveaway && savedGiveaways.add((Giveaway) basicGiveaway, basicGiveaway.getGiveawayId())) {
                 getActivity().invalidateOptionsMenu();
                 Toast.makeText(getContext(), R.string.added_saved_giveaway, Toast.LENGTH_SHORT).show();
             }
             return true;
         } else if (itemId == R.id.remove_saved_element) {
-            if (giveaway instanceof Giveaway && savedGiveaways.remove(giveaway.getGiveawayId())) {
+            if (basicGiveaway instanceof Giveaway && savedGiveaways.remove(basicGiveaway.getGiveawayId())) {
                 getActivity().invalidateOptionsMenu();
                 Toast.makeText(getContext(), R.string.removed_saved_giveaway, Toast.LENGTH_SHORT).show();
 
-                GiveawayListFragmentStack.onRemoveSavedGiveaway(giveaway.getGiveawayId());
+                GiveawayListFragmentStack.onRemoveSavedGiveaway(basicGiveaway.getGiveawayId());
             }
             return true;
         } else if (itemId == R.id.more_like_this) {
             Intent intent = new Intent(getContext(), MainActivity.class);
             intent.putExtra(MainActivity.ARG_TYPE, GiveawayListFragment.Type.ALL);
-            intent.putExtra(MainActivity.ARG_QUERY, ((Giveaway) giveaway).getTitle());
+            intent.putExtra(MainActivity.ARG_QUERY, ((Giveaway) basicGiveaway).getTitle());
             intent.putExtra(MainActivity.ARG_NO_DRAWER, true);
             getActivity().startActivityForResult(intent, CommonActivity.REQUEST_LOGIN);
             return true;
@@ -361,21 +361,21 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
     @NonNull
     @Override
     protected Serializable getDetailObject() {
-        return giveaway;
+        return basicGiveaway;
     }
 
     @Nullable
     @Override
     protected String getDetailPath() {
-        if (giveaway instanceof Giveaway)
-            return "giveaway/" + giveaway.getGiveawayId() + "/" + ((Giveaway) giveaway).getName();
+        if (basicGiveaway instanceof Giveaway giveaway)
+            return "giveaway/" + giveaway.getGiveawayId() + "/" + giveaway.getName();
 
         return null;
     }
 
     @Override
     protected String getTitle() {
-        return giveaway instanceof Giveaway ? ((Giveaway) giveaway).getTitle() : null;
+        return basicGiveaway instanceof Giveaway giveaway ? giveaway.getTitle() : null;
     }
 
     /**
@@ -396,9 +396,9 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
     @Override
     protected void addExtraForCommentIntent(@NonNull Intent intent, @Nullable Comment parentComment) {
         if (parentComment == null // no parent comment
-                && giveaway instanceof Giveaway // giveaway loaded
-                && !((Giveaway) giveaway).isEntered() // haven't entered the giveaway yet
-                && ((Giveaway) giveaway).isOpen() // it is actually open (not in the past, not in the future)
+                && basicGiveaway instanceof Giveaway giveaway // giveaway loaded
+                && !giveaway.isEntered() // haven't entered the giveaway yet
+                && giveaway.isOpen() // it is actually open (not in the past, not in the future)
                 && adapter.getXsrfToken() != null // we can do something with the giveaway
                 && giveawayCard.getExtras() != null // giveaway loaded #2
                 && giveawayCard.getExtras().isEnterable()) // we can actually enter
