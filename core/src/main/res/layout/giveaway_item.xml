@@ -85,6 +85,13 @@
                         tools:src="@drawable/circle_indicator_blank"
                         tools:tint="@color/gameFeaturesColorDelisted" />
 
+                    <com.mikepenz.iconics.view.IconicsImageView
+                        android:id="@+id/giveaway_list_indicator_loading"
+                        style="@style/GameFeaturesIcon"
+                        android:visibility="gone"
+                        app:iiv_color="@color/gameFeaturesColorDelisted"
+                        app:iiv_icon="@string/faw_ellipsis_h" />
+
                 </LinearLayout>
             </LinearLayout>
 
@@ -152,7 +159,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
-                        android:text="Points | Entries" />
+                        android:text="Points • Entries" />
                 </LinearLayout>
 
                 <TextView

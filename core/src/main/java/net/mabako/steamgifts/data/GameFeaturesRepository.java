@@ -206,8 +206,12 @@ public final class GameFeaturesRepository {
     public static void setLoadGameFeatures(boolean load) {
         loadGameFeatures = load;
         instance = null;
+        downloadGameFeatures = null;
     }
 
+    /**
+     * Don't save this future to a variable, it gets recreated when the user changes settings
+     */
     public static CompletableFuture<GameFeaturesRepository> waitForGameFeaturesDownload() {
         if (downloadGameFeatures == null) {
             downloadGameFeatures = CompletableFuture.supplyAsync(GameFeaturesRepository::getInstance);

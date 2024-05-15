@@ -58,7 +58,7 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
 
     private final View indicatorWhitelist, indicatorGroup, indicatorLevelPositive, indicatorLevelNegative, indicatorPrivate, indicatorRegionRestricted;
 
-    private final View indicatorCards, indicatorDLC, indicatorLimited, indicatorDelisted;
+    private final View indicatorCards, indicatorDLC, indicatorLimited, indicatorDelisted, indicatorLoading;
 
     private static int measuredHeight = 0;
 
@@ -82,6 +82,7 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
         indicatorDLC = v.findViewById(R.id.giveaway_list_indicator_dlc);
         indicatorLimited = v.findViewById(R.id.giveaway_list_indicator_limited);
         indicatorDelisted = v.findViewById(R.id.giveaway_list_indicator_delisted);
+        indicatorLoading = v.findViewById(R.id.giveaway_list_indicator_loading);
 
         this.activity = activity;
         this.fragment = fragment;
@@ -159,10 +160,12 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
         indicatorPrivate.setVisibility(giveaway.isPrivate() ? View.VISIBLE : View.GONE);
         indicatorRegionRestricted.setVisibility(giveaway.isRegionRestricted() ? View.VISIBLE : View.GONE);
 
+        indicatorLoading.setVisibility(View.VISIBLE);
         Stream.of(indicatorCards, indicatorDLC, indicatorLimited, indicatorDelisted).forEach(v -> v.setVisibility(View.GONE));
-        GameFeaturesRepository.waitForGameFeaturesDownload().thenAcceptAsync(gameFeaturesRepository -> {
+        GameFeaturesRepository.waitForGameFeaturesDownload().thenAccept(gameFeaturesRepository -> {
             GameFeatures gameFeatures = gameFeaturesRepository.getGameFeatures(giveaway.getGame().getId());
             activity.runOnUiThread(() -> {
+                indicatorLoading.setVisibility(View.GONE);
                 indicatorCards.setVisibility(gameFeatures.getCards() > 0 ? View.VISIBLE : View.GONE);
                 indicatorDLC.setVisibility(gameFeatures.isDlc() ? View.VISIBLE : View.GONE);
                 indicatorLimited.setVisibility(gameFeatures.isLimited() ? View.VISIBLE : View.GONE);
