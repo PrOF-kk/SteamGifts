@@ -292,7 +292,11 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
         if (basicGiveaway instanceof Giveaway giveaway) {
             inflater.inflate(R.menu.giveaway_menu, menu);
             menu.findItem(R.id.open_steam_store).setVisible(giveaway.getGame().getId() > 0);
-            menu.findItem(R.id.hide_game).setEnabled(giveaway.getInternalGameId() > 0 && giveawayCard.getExtras() != null && giveawayCard.getExtras().getXsrfToken() != null);
+
+            boolean showHideUnhide = giveaway.getInternalGameId() > 0
+                    && giveawayCard.getExtras() != null
+                    && giveawayCard.getExtras().getXsrfToken() != null;
+            menu.findItem(R.id.hide_game).setEnabled(showHideUnhide && !giveawayCard.getExtras().isGameHidden());
 
             if (savedGiveaways != null) {
                 boolean isSaved = savedGiveaways.exists(basicGiveaway.getGiveawayId());
