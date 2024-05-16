@@ -90,7 +90,8 @@
                         style="@style/GameFeaturesIcon"
                         android:visibility="gone"
                         app:iiv_color="@color/gameFeaturesColorDelisted"
-                        app:iiv_icon="@string/faw_ellipsis_h" />
+                        app:iiv_icon="@string/faw_ellipsis_h"
+                        app:iiv_animations="blink_alpha" />
 
                 </LinearLayout>
             </LinearLayout>
