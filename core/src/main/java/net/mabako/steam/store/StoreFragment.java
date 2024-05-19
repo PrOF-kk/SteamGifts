@@ -71,7 +71,7 @@ public abstract class StoreFragment extends ListFragment<StoreFragment.Adapter> 
                 };
             } else if (viewType == Game.VIEW_LAYOUT) {
                 return new GameViewHolder(view, fragment);
-            } else if (viewType == Picture.VIEW_LAYOUT) {
+            } else if (viewType == Picture.VIEW_LAYOUT_WIDE || viewType == Picture.VIEW_LAYOUT_INLINE) {
                 return new PictureViewHolder(view, fragment.getContext());
             } else if (viewType == Text.VIEW_LAYOUT || viewType == R.layout.endless_scroll_end) {
                 return new TextViewHolder(view, fragment.getContext());

@@ -8,11 +8,13 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.text.Html;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
 public class StoreImageGetter implements Html.ImageGetter {
+    private static final String TAG = StoreImageGetter.class.getSimpleName();
     final Resources resources;
     final Picasso picasso;
     final TextView textView;
@@ -26,8 +28,10 @@ public class StoreImageGetter implements Html.ImageGetter {
     @Override
     public Drawable getDrawable(final String source) {
         Uri uri = Uri.parse(source);
-        if (!"cdn.akamai.steamstatic.com".equals(uri.getHost()))
+        if (!"cdn.akamai.steamstatic.com".equals(uri.getHost()) && !"cdn.cloudflare.steamstatic.com".equals(uri.getHost())) {
+            Log.w(TAG, "Not a Steam image: " + source);
             return null;
+        }
 
         final BitmapDrawablePlaceHolder result = new BitmapDrawablePlaceHolder(resources);
 

@@ -149,6 +149,7 @@ public final class StringUtils {
             TypedArray ta = context.getTheme().obtainStyledAttributes(attrs);
 
             view.setBackground(ta.getDrawable(0));
+            ta.recycle();
         } else {
             view.setBackgroundResource(R.color.colorTransparent);
         }

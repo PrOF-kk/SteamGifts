@@ -7,12 +7,15 @@ import java.io.Serializable;
 
 public class Picture implements IEndlessAdaptable, Serializable {
     private static final long serialVersionUID = 1373131985788155321L;
-    public static final int VIEW_LAYOUT = R.layout.store_picture;
+    public static final int VIEW_LAYOUT_WIDE = R.layout.store_picture;
+    public static final int VIEW_LAYOUT_INLINE = R.layout.store_picture_inline;
 
     private final String url;
+    private final boolean inline;
 
-    public Picture(String url) {
+    public Picture(String url, boolean inline) {
         this.url = url;
+        this.inline = inline;
     }
 
     public String getUrl() {
@@ -21,6 +24,6 @@ public class Picture implements IEndlessAdaptable, Serializable {
 
     @Override
     public int getLayout() {
-        return VIEW_LAYOUT;
+        return  inline ? VIEW_LAYOUT_INLINE : VIEW_LAYOUT_WIDE;
     }
 }
