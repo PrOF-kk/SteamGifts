@@ -14,6 +14,8 @@ import net.mabako.steam.store.data.Space;
 import net.mabako.steam.store.data.Text;
 import net.mabako.steamgifts.adapters.IEndlessAdaptable;
 import net.mabako.steamgifts.core.R;
+import net.mabako.steamgifts.data.GameFeatures;
+import net.mabako.steamgifts.data.GameFeaturesRepository;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -49,7 +51,10 @@ public class StoreAppFragment extends StoreFragment {
 
     @Override
     protected AsyncTask<Void, Void, ?> getFetchItemsTask(int page) {
-        return new LoadAppTask();
+        int appId = Integer.parseInt(getArguments().getString("app"));
+        GameFeatures gameFeatures = GameFeaturesRepository.waitForGameFeaturesDownload().join().getGameFeatures(appId);
+
+        return gameFeatures.isDelisted() ? new ShowDelistedAppTask() : new LoadAppTask();
     }
 
     private class LoadAppTask extends AsyncTask<Void, Void, Void> {
@@ -168,6 +173,21 @@ public class StoreAppFragment extends StoreFragment {
                 // Clear StringBuilder contents
                 sb.setLength(0);
             }
+        }
+    }
+
+    private class ShowDelistedAppTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) { return null; }
+
+        @Override
+        protected void onPostExecute(Void unused) {
+            getView().findViewById(R.id.progressBar).setVisibility(View.GONE);
+            addItems(List.of(
+                    new Text("This app has been retired and is no longer available on the Steam store.", false),
+                    new Text("Click <a href='https://steamdb.info/app/" + getArguments().getString("app") + "/'>HERE</a> to visit its SteamDB page", true)
+                    ), true);
         }
     }
 }
