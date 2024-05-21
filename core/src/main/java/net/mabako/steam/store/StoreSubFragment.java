@@ -47,7 +47,7 @@ public class StoreSubFragment extends StoreFragment {
         @Override
         protected Connection getConnection() {
             return Jsoup
-                    .connect("http://store.steampowered.com/api/packagedetails/")
+                    .connect("https://store.steampowered.com/api/packagedetails/")
                     .userAgent(Constants.JSOUP_USER_AGENT)
                     .timeout(Constants.JSOUP_TIMEOUT)
                     .data("packageids", getArguments().getString("sub"))
