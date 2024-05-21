@@ -1,5 +1,6 @@
 package net.mabako.steamgifts.tasks;
 
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -34,7 +35,7 @@ public class LoadGiveawayGroupsTask extends AsyncTask<Void, Void, List<GiveawayG
 
     @Override
     protected List<GiveawayGroup> doInBackground(Void... params) {
-        Log.d(TAG, "Fetching giveaways for page " + page);
+        Log.d(TAG, "Fetching giveaway groups for page " + page);
 
         try {
             // Fetch the Giveaway page
@@ -59,11 +60,14 @@ public class LoadGiveawayGroupsTask extends AsyncTask<Void, Void, List<GiveawayG
                 Element link = element.select(".table__column__heading").first();
 
                 // Basic information
+                Uri href = Uri.parse(link.attr("href"));
                 String title = link.text();
-                String id = link.attr("href").substring(7, 12);
+                String id = href.getPathSegments().get(href.getPathSegments().size() - 2);
+                if (title.isEmpty())
+                    title = href.getLastPathSegment();
 
                 String avatar = null;
-                Element avatarNode = element.select(".global__image-inner-wrap").first();
+                Element avatarNode = element.getElementsByClass("table_image_avatar").first();
                 if (avatarNode != null)
                     avatar = Utils.extractAvatar(avatarNode.attr("style"));
 
