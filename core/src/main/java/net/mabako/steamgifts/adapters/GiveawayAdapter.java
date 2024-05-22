@@ -173,8 +173,8 @@ public class GiveawayAdapter extends EndlessAdapter {
     public long getItemId(int position) {
         IEndlessAdaptable item = getItem(position);
         return item != null
-                ? ((Giveaway) item).getGiveawayId().hashCode()
+                ? item.hashCode()
                 // Loading item
-                : 0;
+                : Integer.MAX_VALUE;
     }
 }
