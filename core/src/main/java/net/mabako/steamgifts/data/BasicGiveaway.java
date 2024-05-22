@@ -3,6 +3,8 @@ package net.mabako.steamgifts.data;
 import android.content.Context;
 import android.net.Uri;
 
+import androidx.annotation.Nullable;
+
 import java.io.Serializable;
 
 /**
@@ -13,12 +15,13 @@ import java.io.Serializable;
  */
 public class BasicGiveaway implements Serializable {
     private static final long serialVersionUID = 8330168808371401692L;
-    private String giveawayId;
+    private @Nullable String giveawayId;
 
-    public BasicGiveaway(String giveawayId) {
+    public BasicGiveaway(@Nullable String giveawayId) {
         this.giveawayId = giveawayId;
     }
 
+    @Nullable
     public String getGiveawayId() {
         return giveawayId;
     }
@@ -32,8 +35,8 @@ public class BasicGiveaway implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof BasicGiveaway && giveawayId != null) {
-            return giveawayId.equals(((BasicGiveaway) o).giveawayId);
+        if (o instanceof BasicGiveaway basicGiveaway && giveawayId != null) {
+            return giveawayId.equals(basicGiveaway.giveawayId);
         }
         return false;
 

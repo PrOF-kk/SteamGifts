@@ -3,6 +3,7 @@ package net.mabako.steamgifts.data;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import net.mabako.steamgifts.adapters.IEndlessAdaptable;
 import net.mabako.steamgifts.core.R;
@@ -65,7 +66,7 @@ public class Giveaway extends BasicGiveaway implements IEndlessAdaptable {
         this(null);
     }
 
-    public Giveaway(String giveawayId) {
+    public Giveaway(@Nullable String giveawayId) {
         super(giveawayId);
         game = new Game();
     }
