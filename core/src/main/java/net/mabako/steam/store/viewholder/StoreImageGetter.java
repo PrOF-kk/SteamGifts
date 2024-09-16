@@ -28,7 +28,10 @@ public class StoreImageGetter implements Html.ImageGetter {
     @Override
     public Drawable getDrawable(final String source) {
         Uri uri = Uri.parse(source);
-        if (!"cdn.akamai.steamstatic.com".equals(uri.getHost()) && !"cdn.cloudflare.steamstatic.com".equals(uri.getHost())) {
+        if (!"cdn.akamai.steamstatic.com".equals(uri.getHost())
+                && !"shared.akamai.steamstatic.com".equals(uri.getHost())
+                && !"cdn.cloudflare.steamstatic.com".equals(uri.getHost()))
+        {
             Log.w(TAG, "Not a Steam image: " + source);
             return null;
         }
