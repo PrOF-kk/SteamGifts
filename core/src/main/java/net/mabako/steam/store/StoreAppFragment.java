@@ -86,9 +86,18 @@ public class StoreAppFragment extends StoreFragment {
                     items.add(new Space());
 
                     // All reviews
-                    Element allReviews = document.select("[itemprop=aggregateRating] [itemprop=description]").first();
-                    if (allReviews != null)
-                        items.add(new Text("<strong>All Reviews:</strong> " + allReviews.ownText(), true));
+                    Element allReviewsDesc = document.select("[itemprop=aggregateRating] [itemprop=description]").first();
+                    if (allReviewsDesc != null) {
+                        String line = "<strong>All Reviews:</strong> " + allReviewsDesc.ownText();
+
+                        Element allReviewsScore = allReviewsDesc.siblingElements().select(".responsive_reviewdesc").first();
+                        if (allReviewsScore != null) {
+                            // "- X% of the Y user reviews for this game are positive."
+                            String score = allReviewsScore.ownText().substring(2, allReviewsScore.ownText().indexOf('%') + 1);
+                            line += " (" + score + " positive)";
+                        }
+                        items.add(new Text(line, true));
+                    }
 
                     // Release date
                     Element releaseDate = document.getElementsByClass("date").first();
