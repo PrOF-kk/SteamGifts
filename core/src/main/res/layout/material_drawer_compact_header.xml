@@ -98,7 +98,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/material_drawer_statusbar_guideline"
         tools:background="@drawable/circle_indicator_blank"
-        tools:backgroundTint="@color/material_drawer_header_selection_subtext" />
+        tools:backgroundTint="@color/material_drawer_header_selection_subtext"
+        tools:width="@dimen/material_drawer_account_header_dropdown" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/material_drawer_account_header_email"
