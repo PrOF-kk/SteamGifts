@@ -86,7 +86,7 @@ public class StoreAppFragment extends StoreFragment {
                     items.add(new Space());
 
                     // All reviews
-                    Element allReviews = document.getElementsByClass("game_review_summary").first();
+                    Element allReviews = document.select("[itemprop=aggregateRating] [itemprop=description]").first();
                     if (allReviews != null)
                         items.add(new Text("<strong>All Reviews:</strong> " + allReviews.ownText(), true));
 
