@@ -40,7 +40,7 @@ public class StoreImageGetter implements Html.ImageGetter {
             @Override
             protected Bitmap doInBackground(final Void... meh) {
                 try {
-                    return picasso.load(source).get();
+                    return picasso.load(uri).get();
                 } catch (Exception e) {
                     return null;
                 }
