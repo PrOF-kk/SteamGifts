@@ -1,6 +1,7 @@
 package net.mabako.steamgifts;
 
 import android.app.Application;
+import android.os.StrictMode;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +12,8 @@ public abstract class ApplicationTemplate extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        // Needed as long as AjaxTask returns a Connection.Response, accessing its body in the UI thread is a NetworkOnMainThreadException violation
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitNetwork().build());
         AbstractNotificationCheckReceiver.initNotificationChannels(getBaseContext());
         GameFeaturesRepository.init(getBaseContext());
         PeriodicTasks.scheduleAllTasks(getBaseContext());
