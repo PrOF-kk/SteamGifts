@@ -305,7 +305,7 @@ public final class Utils {
         user.setUrl(document.select(".sidebar a[data-tooltip=\"Visit Steam Profile\"]").first().attr("href"));
 
         Elements columns = document.select(".featured__table__column");
-        user.setRole(columns.first().select("a[href^=/roles/").text());
+        user.setRole(columns.first().select("a[href^=/roles/]").text());
         user.setComments(parseInt(columns.first().select(".featured__table__row__right").get(3).text()));
 
         Elements right = columns.last().select(".featured__table__row__right");
