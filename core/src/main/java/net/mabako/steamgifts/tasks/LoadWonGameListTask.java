@@ -10,8 +10,6 @@ import net.mabako.steamgifts.fragments.interfaces.ILoadItemsListener;
 
 import org.jsoup.nodes.Element;
 
-import java.util.List;
-
 public class LoadWonGameListTask extends LoadGameListTask {
     public LoadWonGameListTask(ILoadItemsListener listener, Context context, int page) {
         super(listener, context, "giveaways/won", page, null);
@@ -31,12 +29,11 @@ public class LoadWonGameListTask extends LoadGameListTask {
         giveaway.setTitle(link.text());
 
         giveaway.setGame(new Game());
-        Element image = element.select(".table_image_thumbnail").first();
-        if (image != null) {
-            Uri uri = Uri.parse(Utils.extractAvatar(image.attr("style")));
-            List<String> pathSegments = uri.getPathSegments();
-            if (pathSegments.size() >= 3) {
-                giveaway.setGame(new Game("apps".equals(pathSegments.get(1)) ? Game.Type.APP : Game.Type.SUB, Integer.parseInt(pathSegments.get(2))));
+        Element thumbnail = element.select(".table_image_thumbnail").first();
+        if (thumbnail != null) {
+            Game game = Utils.extractGameFromThumbnail(thumbnail);
+            if (game != null) {
+                giveaway.setGame(game);
             }
         }
 

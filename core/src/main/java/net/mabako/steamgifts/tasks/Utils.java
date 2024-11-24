@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import net.mabako.steamgifts.data.Comment;
 import net.mabako.steamgifts.data.Game;
@@ -141,6 +142,30 @@ public final class Utils {
 
     public static String extractAvatar(String style) {
         return style.replace("background-image:url(", "").replace(");", "").replace("_medium", "_full");
+    }
+
+    /**
+     * Extracts game info from thumbnails found in "list" pages (Won, Entered, Created, etc.)
+     */
+    @Nullable
+    public static Game extractGameFromThumbnail(@NonNull Element thumbnail) {
+        Uri thumbUri = Uri.parse(Utils.extractAvatar(thumbnail.attr("style")));
+        List<String> pathSegments = thumbUri.getPathSegments();
+        // Thumbnail uris are usually like
+        // SOMETHING/steam/apps/APPID/...
+        int steamSegmentIndex = pathSegments.indexOf("steam");
+        if (steamSegmentIndex != -1 && pathSegments.size() > steamSegmentIndex + 2) {
+            Game.Type type = pathSegments.get(steamSegmentIndex + 1).equals("apps") ? Game.Type.APP : Game.Type.SUB;
+            try {
+                int id = Integer.parseInt(pathSegments.get(steamSegmentIndex + 2));
+                return new Game(type, id);
+            } catch (NumberFormatException e) {
+                Log.w(TAG, "Could not parse game ID from thumbnail", e);
+                return null;
+            }
+        }
+        Log.w(TAG, "Could not parse game ID from uri " + thumbUri);
+        return null;
     }
 
     /**
