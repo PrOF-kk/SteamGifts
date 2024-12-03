@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -196,9 +197,9 @@ public class GiveawayListFragment extends SearchableListFragment<GiveawayAdapter
 
     @Override
     public void onEnterLeaveResult(String giveawayId, String what, boolean success, boolean propagate) {
-        if (success) {
-            Giveaway giveaway = adapter.findItem(giveawayId);
-            if (giveaway != null) {
+        @Nullable Giveaway giveaway = adapter.findItem(giveawayId);
+        if (giveaway != null) {
+            if (success) {
                 giveaway.setEntered(GiveawayDetailFragment.ENTRY_INSERT.equals(what));
                 if (GiveawayDetailFragment.ENTRY_INSERT.equals(what) && FilterData.getCurrent(getContext()).isHideEntered()) {
                     // we want to hide entered giveaways
@@ -207,13 +208,15 @@ public class GiveawayListFragment extends SearchableListFragment<GiveawayAdapter
 
                 // We refresh the entire dataset to let the other quick enter buttons know if the user still have enough points
                 adapter.notifyDataSetChanged();
+            } else {
+                Log.e(TAG, "Probably an error catching the result...");
+                // Refresh the single item to update time left and re-enable buttons
+                adapter.notifyItemChanged(giveaway);
             }
-        } else {
-            Log.e(TAG, "Probably an error catching the result...");
         }
-
-        if (propagate)
+        if (propagate) {
             GiveawayListFragmentStack.onEnterLeaveResult(giveawayId, what, success);
+        }
     }
 
     public void requestHideGame(long internalGameId, String title) {

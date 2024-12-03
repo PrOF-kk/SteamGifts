@@ -198,8 +198,11 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
 
                     // When clicking this too quickly after another, you can essentially click on a giveaway that is null.
                     // There's probably no need to show a notification or anything, since there is visual feedback for whether or not you entered a giveaway.
-                    if (giveaway != null)
+                    if (giveaway != null) {
+                        giveawayEnterButton.setEnabled(false);
+                        giveawayEnterButton.setText("{faw-ellipsis-h}");
                         ((IHasEnterableGiveaways) fragment).requestEnterLeave(giveaway.getGiveawayId(), giveaway.isEntered() ? GiveawayDetailFragment.ENTRY_DELETE : GiveawayDetailFragment.ENTRY_INSERT, adapter.getXsrfToken());
+                    }
                 }
             });
         }
