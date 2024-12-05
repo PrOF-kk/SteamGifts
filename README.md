@@ -19,7 +19,13 @@ An app to browse SteamGifts giveaways on your phone.
 - Sync Account (manually via Settings, opens automatically if you're trying to enter a giveaway while Sync is required)
 - and more...
 
-# Build Info
-## Flavors
-- vanilla (stable releases)
-- chocolate (local releases, essentially beta with some features disabled)
+# Installation
+[<img src="https://github.com/ImranR98/Obtainium/blob/main/assets/graphics/badge_obtainium.png"
+    alt="Get it on Obtainium"
+    height="80">](http://apps.obtainium.imranr.dev/redirect.html?r=obtainium://add/https://github.com/PrOF-kk/SteamGifts)
+[<img src="https://github.com/machiav3lli/oandbackupx/blob/034b226cea5c1b30eb4f6a6f313e4dadcbb0ece4/badge_github.png"
+    alt="Get it on GitHub"
+    height="80">](https://github.com/PrOF-kk/SteamGifts/releases/latest)
+## Build Flavors
+- Vanilla (stable builds)
+- Chocolate (beta and developer builds)
