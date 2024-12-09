@@ -123,7 +123,7 @@ public class MessageListFragment extends ListFragment<MessageAdapter> implements
     }
 
     @Override
-    public void addItems(@Nullable List<? extends IEndlessAdaptable> items, boolean clearExistingItems, String foundXsrfToken) {
+    public void addItems(@Nullable List<? extends IEndlessAdaptable> items, boolean clearExistingItems, @Nullable String foundXsrfToken) {
         super.addItems(items, clearExistingItems, foundXsrfToken);
 
         if (items != null && clearExistingItems) {

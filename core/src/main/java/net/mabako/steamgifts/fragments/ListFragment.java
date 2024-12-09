@@ -149,7 +149,7 @@ public abstract class ListFragment<AdapterType extends EndlessAdapter> extends F
     }
 
 
-    public void addItems(@Nullable List<? extends IEndlessAdaptable> items, boolean clearExistingItems, String xsrfToken) {
+    public void addItems(@Nullable List<? extends IEndlessAdaptable> items, boolean clearExistingItems, @Nullable String xsrfToken) {
         addItems(items, clearExistingItems);
 
         if (xsrfToken != null)
