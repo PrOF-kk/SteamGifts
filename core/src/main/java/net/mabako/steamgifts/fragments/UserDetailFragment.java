@@ -357,7 +357,7 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
         }
 
         @Override
-        public void addItems(List<? extends IEndlessAdaptable> items, boolean clearExistingItems) {
+        public void addItems(@Nullable List<? extends IEndlessAdaptable> items, boolean clearExistingItems) {
             if (clearExistingItems && items == null && !user.isLoaded()) {
                 Log.w(TAG + "/Giveaways", "User does not exist?");
                 Toast.makeText(getContext(), "User does not exist.", Toast.LENGTH_SHORT).show();
@@ -368,7 +368,7 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
         }
 
         @Override
-        public void addItems(List<? extends IEndlessAdaptable> items, boolean clearExistingItems, String xsrfToken) {
+        public void addItems(@Nullable List<? extends IEndlessAdaptable> items, boolean clearExistingItems, String xsrfToken) {
             super.addItems(items, clearExistingItems, xsrfToken);
             if (iUserNotification != null && xsrfToken != null && iUserNotification instanceof UserDetailFragment userDetailFragment)
                 userDetailFragment.xsrfToken = xsrfToken;
@@ -449,7 +449,7 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
         }
 
         @Override
-        public void addItems(List<? extends IEndlessAdaptable> items, boolean clearExistingItems) {
+        public void addItems(@Nullable List<? extends IEndlessAdaptable> items, boolean clearExistingItems) {
             if (clearExistingItems && items == null && !user.isLoaded()) {
                 Log.w(TAG + "/Trades", "User does not exist?");
                 Toast.makeText(getContext(), "User does not exist.", Toast.LENGTH_SHORT).show();
@@ -460,7 +460,7 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
         }
 
         @Override
-        public void addItems(List<? extends IEndlessAdaptable> items, boolean clearExistingItems, String xsrfToken) {
+        public void addItems(@Nullable List<? extends IEndlessAdaptable> items, boolean clearExistingItems, String xsrfToken) {
             super.addItems(items, clearExistingItems, xsrfToken);
             if (iUserNotification != null && xsrfToken != null && iUserNotification instanceof UserDetailFragment userDetailFragment)
                 userDetailFragment.xsrfToken = xsrfToken;

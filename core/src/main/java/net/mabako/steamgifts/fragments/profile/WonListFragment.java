@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.preference.PreferenceManager;
 
 import net.mabako.steamgifts.adapters.GiveawayAdapter;
@@ -43,7 +44,7 @@ public class WonListFragment extends ListFragment<GiveawayAdapter> implements IA
     }
 
     @Override
-    public void addItems(List<? extends IEndlessAdaptable> items, boolean clearExistingItems) {
+    public void addItems(@Nullable List<? extends IEndlessAdaptable> items, boolean clearExistingItems) {
         super.addItems(items, clearExistingItems);
         if (clearExistingItems && items != null) {
             List<String> ids = new ArrayList<>();

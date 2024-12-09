@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 
 import net.mabako.steamgifts.activities.DetailActivity;
@@ -122,7 +123,7 @@ public class MessageListFragment extends ListFragment<MessageAdapter> implements
     }
 
     @Override
-    public void addItems(List<? extends IEndlessAdaptable> items, boolean clearExistingItems, String foundXsrfToken) {
+    public void addItems(@Nullable List<? extends IEndlessAdaptable> items, boolean clearExistingItems, String foundXsrfToken) {
         super.addItems(items, clearExistingItems, foundXsrfToken);
 
         if (items != null && clearExistingItems) {

@@ -83,7 +83,7 @@ public abstract class DetailFragment extends ListFragment<CommentAdapter> implem
     }
 
     @Override
-    public void addItems(List<? extends IEndlessAdaptable> items, boolean clearExistingItems) {
+    public void addItems(@Nullable List<? extends IEndlessAdaptable> items, boolean clearExistingItems) {
         if (commentContext == null || items == null) {
             super.addItems(items, clearExistingItems);
         } else {

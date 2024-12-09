@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import androidx.preference.PreferenceManager;
 
@@ -176,7 +177,7 @@ public class SavedGiveawaysFragment extends ListFragment<SavedGiveawaysFragment.
      * <p>Note: do NOT call this from within this class.</p>
      */
     @Override
-    public void addItems(List<? extends IEndlessAdaptable> items, boolean clearExistingItems) {
+    public void addItems(@Nullable List<? extends IEndlessAdaptable> items, boolean clearExistingItems) {
         if (items == null) {
             showSnack("Failed to update entered giveaways", Snackbar.LENGTH_LONG);
             return;

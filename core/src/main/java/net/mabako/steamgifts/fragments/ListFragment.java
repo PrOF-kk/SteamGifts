@@ -133,7 +133,7 @@ public abstract class ListFragment<AdapterType extends EndlessAdapter> extends F
         }
     }
 
-    public void addItems(List<? extends IEndlessAdaptable> items, boolean clearExistingItems) {
+    public void addItems(@Nullable List<? extends IEndlessAdaptable> items, boolean clearExistingItems) {
         if (items != null) {
             if (clearExistingItems)
                 adapter.clear();
@@ -149,7 +149,7 @@ public abstract class ListFragment<AdapterType extends EndlessAdapter> extends F
     }
 
 
-    public void addItems(List<? extends IEndlessAdaptable> items, boolean clearExistingItems, String xsrfToken) {
+    public void addItems(@Nullable List<? extends IEndlessAdaptable> items, boolean clearExistingItems, String xsrfToken) {
         addItems(items, clearExistingItems);
 
         if (xsrfToken != null)
