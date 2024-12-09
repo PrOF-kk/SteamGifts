@@ -3,6 +3,7 @@ package net.mabako.steamgifts.adapters;
 import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -124,7 +125,7 @@ public class CommentAdapter extends EndlessAdapter {
      * @param commentId
      * @return comment with the given id, if found, null otherwise
      */
-    public Comment findItem(long commentId) {
+    public @Nullable Comment findItem(long commentId) {
         if (commentId == 0)
             return null;
 

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -90,7 +91,7 @@ public class GiveawayAdapter extends EndlessAdapter {
         return items.size() >= itemsPerPage;
     }
 
-    public Giveaway findItem(@NonNull String giveawayId) {
+    public @Nullable Giveaway findItem(@NonNull String giveawayId) {
         for (IEndlessAdaptable adaptable : getItems()) {
             Giveaway giveaway = (Giveaway) adaptable;
             if (giveaway != null && giveawayId.equals(giveaway.getGiveawayId()))
