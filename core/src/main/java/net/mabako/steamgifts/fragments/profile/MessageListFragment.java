@@ -129,8 +129,8 @@ public class MessageListFragment extends ListFragment<MessageAdapter> implements
         if (items != null && clearExistingItems) {
             // The top message for the first page (clearExistingItems == true) will be marked as the last we've actually looked at/dismissed and will not be shown in a notification again.
             for (IEndlessAdaptable item : items)
-                if (item instanceof Comment) {
-                    CheckForNewMessages.setLastDismissedCommentId(getContext(), ((Comment) item).getPermalinkId());
+                if (item instanceof Comment comment) {
+                    CheckForNewMessages.setLastDismissedCommentId(getContext(), comment.getPermalinkId());
                     break;
                 }
         }

@@ -63,8 +63,8 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
             });
         }
 
-        if (userStatus != null && user instanceof Winner) {
-            userStatus.setText(((Winner) user).getStatus());
+        if (userStatus != null && user instanceof Winner winner) {
+            userStatus.setText(winner.getStatus());
         }
     }
 }

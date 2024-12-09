@@ -113,7 +113,7 @@ public class CommentAdapter extends EndlessAdapter {
 
         int rootLevelComments = 0;
         for (IEndlessAdaptable adaptable : items)
-            if (adaptable instanceof Comment && ((Comment) adaptable).getDepth() == 0)
+            if (adaptable instanceof Comment comment && comment.getDepth() == 0)
                 ++rootLevelComments;
 
         return rootLevelComments == ITEMS_PER_PAGE;
@@ -130,8 +130,8 @@ public class CommentAdapter extends EndlessAdapter {
             return null;
 
         for (IEndlessAdaptable item : getItems()) {
-            if (item instanceof Comment && ((Comment) item).getId() == commentId) {
-                return (Comment) item;
+            if (item instanceof Comment comment && comment.getId() == commentId) {
+                return comment;
             }
         }
 
@@ -143,8 +143,8 @@ public class CommentAdapter extends EndlessAdapter {
             return null;
 
         for (IEndlessAdaptable item : getStickyItems()) {
-            if (item instanceof Poll.Answer && ((Poll.Answer) item).getId() == answerId) {
-                return (Poll.Answer) item;
+            if (item instanceof Poll.Answer answer && answer.getId() == answerId) {
+                return answer;
             }
         }
 

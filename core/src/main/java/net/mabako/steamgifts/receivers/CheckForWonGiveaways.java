@@ -126,8 +126,8 @@ public class CheckForWonGiveaways extends AbstractNotificationCheckReceiver {
 
                 lastGiveawayIds = new ArrayList<>();
                 for (IEndlessAdaptable item : items) {
-                    if (item instanceof Giveaway)
-                        lastGiveawayIds.add(((Giveaway) item).getGiveawayId());
+                    if (item instanceof Giveaway giveaway)
+                        lastGiveawayIds.add(giveaway.getGiveawayId());
                 }
 
                 // Save the last comment id
