@@ -256,8 +256,9 @@ public class SavedGiveawaysFragment extends ListFragment<SavedGiveawaysFragment.
             int entered = 0;
 
             for (IEndlessAdaptable item : getItems()) {
-                if (item instanceof Giveaway && ((Giveaway) item).isEntered())
+                if (item instanceof Giveaway giveaway && giveaway.isEntered()) {
                     ++entered;
+                }
             }
 
             return entered;
@@ -266,8 +267,9 @@ public class SavedGiveawaysFragment extends ListFragment<SavedGiveawaysFragment.
         public List<Giveaway> getEnteredItems() {
             List<Giveaway> entered = new ArrayList<>();
             for (IEndlessAdaptable item : getItems()) {
-                if (item instanceof Giveaway && ((Giveaway) item).isEntered())
-                    entered.add((Giveaway) item);
+                if (item instanceof Giveaway giveaway && giveaway.isEntered()) {
+                    entered.add(giveaway);
+                }
             }
 
             return entered;
