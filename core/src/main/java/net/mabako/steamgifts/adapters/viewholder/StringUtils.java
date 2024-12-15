@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.net.Uri;
-import android.os.Build;
 import android.text.Html;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -66,13 +65,8 @@ public final class StringUtils {
     /**
      * Wrapper around Html.fromHtml for deprecation.
      */
-    @SuppressWarnings("deprecation")
     private static CharSequence fromHtml(String source, Html.ImageGetter imageGetter, CustomHtmlTagHandler customHtmlTagHandler) {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return Html.fromHtml(source, Html.FROM_HTML_MODE_LEGACY, imageGetter, customHtmlTagHandler);
-        } else {
-            return Html.fromHtml(source, imageGetter, customHtmlTagHandler);
-        }
+        return Html.fromHtml(source, Html.FROM_HTML_MODE_LEGACY, imageGetter, customHtmlTagHandler);
     }
 
     private static CharSequence trim(CharSequence s, int start, int end) {

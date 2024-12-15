@@ -1,11 +1,9 @@
 package net.mabako.steamgifts.activities;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.net.http.SslError;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -175,15 +173,9 @@ public class WebViewActivity extends CommonActivity {
             return false;
         }
 
-        @TargetApi(Build.VERSION_CODES.N)
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
             return shouldOverrideUrlLoading(view, request.getUrl());
-        }
-
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            return shouldOverrideUrlLoading(view, Uri.parse(url));
         }
     }
 
