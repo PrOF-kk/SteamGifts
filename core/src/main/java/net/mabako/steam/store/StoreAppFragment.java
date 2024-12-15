@@ -64,7 +64,7 @@ public class StoreAppFragment extends StoreFragment {
                         .timeout(Constants.JSOUP_TIMEOUT)
                         // Bypass age check
                         .cookie("birthtime", "0")
-                        .followRedirects(true)
+                        .followRedirects(false)
                         .execute();
 
                 responseCode = response.statusCode();
