@@ -141,11 +141,6 @@ public class ImageFragment extends Fragment {
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
-
-    @Override
     public void onDestroy() {
         if (fetchImageTask != null)
             fetchImageTask.cancel(true);

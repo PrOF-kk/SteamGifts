@@ -48,11 +48,6 @@ public abstract class StoreFragment extends ListFragment<StoreFragment.Adapter> 
         return layout;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
-
     public static class Adapter extends EndlessAdapter {
         private static final long serialVersionUID = 7169019794513055782L;
         private transient StoreFragment fragment;
