@@ -87,13 +87,19 @@ public class StoreAppFragment extends StoreFragment {
                     // All reviews
                     Element allReviewsDesc = document.select("[itemprop=aggregateRating] [itemprop=description]").first();
                     if (allReviewsDesc != null) {
+                        // "All Reviews: (Negative/Positive/X reviews)"
                         String line = "<strong>All Reviews:</strong> " + allReviewsDesc.ownText();
 
                         Element allReviewsScore = allReviewsDesc.siblingElements().select(".responsive_reviewdesc").first();
                         if (allReviewsScore != null) {
-                            // "- X% of the Y user reviews for this game are positive."
-                            String score = allReviewsScore.ownText().substring(2, allReviewsScore.ownText().indexOf('%') + 1);
-                            line += " (" + score + " positive)";
+                            String allReviewsScoreText = allReviewsScore.ownText();
+                            if (allReviewsScoreText.indexOf('%') != -1) {
+                                // "- X% of the Y user reviews for this game are positive."
+                                String score = allReviewsScoreText.substring(2, allReviewsScoreText.indexOf('%') + 1);
+                                // -> " (X% positive)"
+                                line += " (" + score + " positive)";
+                            }
+                            // else "- Need more user reviews to generate a score"
                         }
                         items.add(new Text(line, true));
                     }
