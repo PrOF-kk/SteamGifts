@@ -3,9 +3,11 @@ package net.mabako.steam.store.data;
 import net.mabako.steamgifts.adapters.IEndlessAdaptable;
 import net.mabako.steamgifts.core.R;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class Picture implements IEndlessAdaptable, Serializable {
+    @Serial
     private static final long serialVersionUID = 1373131985788155321L;
     public static final int VIEW_LAYOUT_WIDE = R.layout.store_picture;
     public static final int VIEW_LAYOUT_INLINE = R.layout.store_picture_inline;

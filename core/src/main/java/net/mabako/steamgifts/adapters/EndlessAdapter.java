@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import net.mabako.steamgifts.core.R;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,6 +44,7 @@ public abstract class EndlessAdapter extends RecyclerView.Adapter<RecyclerView.V
      */
     private static final int END_VIEW = -2;
 
+    @Serial
     private static final long serialVersionUID = 95216226584860610L;
 
     /**
@@ -535,6 +537,7 @@ public abstract class EndlessAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     private class ScrollListener extends RecyclerView.OnScrollListener implements Serializable {
+        @Serial
         private static final long serialVersionUID = -9087960089493875144L;
 
         @Override
@@ -552,6 +555,7 @@ public abstract class EndlessAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     public static class RemovedElement implements Serializable {
+        @Serial
         private static final long serialVersionUID = -4246240052789998135L;
 
         /**

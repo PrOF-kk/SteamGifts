@@ -21,6 +21,7 @@ import net.mabako.steamgifts.data.Comment;
 import net.mabako.steamgifts.fragments.interfaces.ICommentableFragment;
 import net.mabako.steamgifts.tasks.DeleteCommentTask;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -277,6 +278,7 @@ public abstract class DetailFragment extends ListFragment<CommentAdapter> implem
      * Context for a single comment.
      */
     public static class CommentContextInfo implements Serializable {
+        @Serial
         private static final long serialVersionUID = -6422147335611873577L;
 
         private String detailName;

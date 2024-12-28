@@ -1,10 +1,12 @@
 package net.mabako.steamgifts.data;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DiscussionExtras implements Serializable, ICommentHolder, IImageHolder {
+    @Serial
     private static final long serialVersionUID = 5303211073144498554L;
     private String description;
     private String xsrfToken;

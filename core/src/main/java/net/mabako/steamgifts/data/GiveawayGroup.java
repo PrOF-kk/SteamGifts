@@ -3,10 +3,12 @@ package net.mabako.steamgifts.data;
 import net.mabako.steamgifts.adapters.IEndlessAdaptable;
 import net.mabako.steamgifts.core.R;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class GiveawayGroup implements IEndlessAdaptable, Serializable {
     public static final int VIEW_LAYOUT = R.layout.giveaway_group_item;
+    @Serial
     private static final long serialVersionUID = 6889558816716859611L;
 
     private final String id;

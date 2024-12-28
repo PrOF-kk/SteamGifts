@@ -23,12 +23,14 @@ import net.mabako.steamgifts.fragments.interfaces.IHasPoll;
 import net.mabako.steamgifts.fragments.util.DiscussionDetailsCard;
 import net.mabako.steamgifts.fragments.util.GiveawayDetailsCard;
 
+import java.io.Serial;
 import java.util.List;
 
 /**
  * Adapter to hold comments for a giveaway/discussion.
  */
 public class CommentAdapter extends EndlessAdapter {
+    @Serial
     private static final long serialVersionUID = 5961119226634909060L;
 
     /**

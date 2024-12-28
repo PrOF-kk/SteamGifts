@@ -8,9 +8,11 @@ import net.mabako.steamgifts.adapters.viewholder.GameViewHolder;
 import net.mabako.steamgifts.data.Game;
 import net.mabako.steamgifts.fragments.HiddenGamesFragment;
 
+import java.io.Serial;
 import java.util.List;
 
 public class HiddenGamesAdapter extends EndlessAdapter {
+    @Serial
     private static final long serialVersionUID = 6766947242204190106L;
 
     /**

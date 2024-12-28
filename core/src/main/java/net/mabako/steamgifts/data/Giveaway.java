@@ -9,9 +9,11 @@ import net.mabako.steamgifts.adapters.IEndlessAdaptable;
 import net.mabako.steamgifts.core.R;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
+import java.io.Serial;
 import java.util.Calendar;
 
 public class Giveaway extends BasicGiveaway implements IEndlessAdaptable {
+    @Serial
     private static final long serialVersionUID = 1356878822345232771L;
     public static final int VIEW_LAYOUT = R.layout.giveaway_item;
 

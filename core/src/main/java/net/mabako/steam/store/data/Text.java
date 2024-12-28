@@ -5,9 +5,11 @@ import androidx.annotation.LayoutRes;
 import net.mabako.steamgifts.adapters.IEndlessAdaptable;
 import net.mabako.steamgifts.core.R;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class Text implements IEndlessAdaptable, Serializable {
+    @Serial
     private static final long serialVersionUID = 1675033471669858154L;
     public static final int VIEW_LAYOUT = R.layout.text_item;
 

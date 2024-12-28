@@ -10,9 +10,11 @@ import net.mabako.steamgifts.data.Comment;
 import net.mabako.steamgifts.data.MessageHeader;
 import net.mabako.steamgifts.fragments.profile.MessageListFragment;
 
+import java.io.Serial;
 import java.util.List;
 
 public class MessageAdapter extends EndlessAdapter {
+    @Serial
     private static final long serialVersionUID = 5997941227817634662L;
 
     private transient MessageListFragment fragment;

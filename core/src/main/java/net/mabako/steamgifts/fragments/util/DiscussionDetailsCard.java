@@ -5,9 +5,11 @@ import net.mabako.steamgifts.core.R;
 import net.mabako.steamgifts.data.Discussion;
 import net.mabako.steamgifts.data.DiscussionExtras;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class DiscussionDetailsCard implements IEndlessAdaptable, Serializable {
+    @Serial
     private static final long serialVersionUID = -6316766705848863209L;
     public static final int VIEW_LAYOUT = R.layout.discussion_detail_card;
 

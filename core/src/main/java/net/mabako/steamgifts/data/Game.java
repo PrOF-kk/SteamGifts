@@ -3,9 +3,11 @@ package net.mabako.steamgifts.data;
 import net.mabako.steamgifts.adapters.IEndlessAdaptable;
 import net.mabako.steamgifts.core.R;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class Game implements Serializable, IEndlessAdaptable {
+    @Serial
     private static final long serialVersionUID = -4047245968975766647L;
     public static final int NO_APP_ID = 0;
     public static final int VIEW_LAYOUT = R.layout.game_item;

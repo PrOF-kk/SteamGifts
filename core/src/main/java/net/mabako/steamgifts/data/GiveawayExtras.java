@@ -1,10 +1,12 @@
 package net.mabako.steamgifts.data;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GiveawayExtras implements Serializable, ICommentHolder, IImageHolder {
+    @Serial
     private static final long serialVersionUID = 2559783080850462760L;
     private String title;
     private boolean gameHidden;

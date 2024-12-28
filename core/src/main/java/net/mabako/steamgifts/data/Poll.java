@@ -5,12 +5,14 @@ import androidx.annotation.NonNull;
 import net.mabako.steamgifts.adapters.IEndlessAdaptable;
 import net.mabako.steamgifts.core.R;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 // TODO polls can show individual games, right now this is only shown as text.
 public class Poll implements Serializable {
+    @Serial
     private static final long serialVersionUID = -2876811085489294457L;
 
     private Header header = new Header();
@@ -82,6 +84,7 @@ public class Poll implements Serializable {
     }
 
     public static class Answer implements Serializable, IEndlessAdaptable {
+        @Serial
         private static final long serialVersionUID = 879317134785161587L;
         public static final int VIEW_LAYOUT = R.layout.poll_answer;
 
@@ -159,6 +162,7 @@ public class Poll implements Serializable {
 
     public static class CommentSeparator implements IEndlessAdaptable, Serializable {
         public static final int VIEW_LAYOUT = R.layout.comment_separator;
+        @Serial
         private static final long serialVersionUID = -8237738700191365276L;
 
         @Override
@@ -169,6 +173,7 @@ public class Poll implements Serializable {
 
     public static class Header implements IEndlessAdaptable, Serializable {
         public static final int VIEW_LAYOUT = R.layout.poll_header;
+        @Serial
         private static final long serialVersionUID = 6397402142913281497L;
 
         private String question;

@@ -8,9 +8,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import net.mabako.steamgifts.adapters.viewholder.GiveawayGroupViewHolder;
 import net.mabako.steamgifts.data.GiveawayGroup;
 
+import java.io.Serial;
 import java.util.List;
 
 public class GiveawayGroupAdapter extends EndlessAdapter {
+    @Serial
     private static final long serialVersionUID = -7332179308183390985L;
 
     /**

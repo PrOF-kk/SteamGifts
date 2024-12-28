@@ -4,12 +4,15 @@ import android.content.Context;
 
 import net.mabako.steamgifts.data.Giveaway;
 
+import java.io.Serial;
+
 /**
  * It is presumably interesting to note that albeit this extends the 'Giveaway' class, not all of
  * its properties are likely to be set. For example, you can neither hide nor unhide any such
  * giveaway, as there's no SG game id (different from the store app ids).
  */
 public class ProfileGiveaway extends Giveaway {
+    @Serial
     private static final long serialVersionUID = 5980737736788961021L;
     private boolean deleted;
 

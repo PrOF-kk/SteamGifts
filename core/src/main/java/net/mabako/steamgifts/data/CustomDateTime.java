@@ -3,6 +3,7 @@ package net.mabako.steamgifts.data;
 import android.content.Context;
 import android.text.format.DateUtils;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Locale;
@@ -17,6 +18,7 @@ import java.util.Locale;
  * </ol>
  */
 public class CustomDateTime implements Serializable {
+    @Serial
     private static final long serialVersionUID = -1927137928995548949L;
 
     /**

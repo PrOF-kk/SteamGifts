@@ -9,9 +9,11 @@ import net.mabako.steamgifts.data.BasicUser;
 import net.mabako.steamgifts.data.Winner;
 import net.mabako.steamgifts.fragments.ListFragment;
 
+import java.io.Serial;
 import java.util.List;
 
 public class UserAdapter extends EndlessAdapter {
+    @Serial
     private static final long serialVersionUID = -1382099248508481575L;
 
     /**

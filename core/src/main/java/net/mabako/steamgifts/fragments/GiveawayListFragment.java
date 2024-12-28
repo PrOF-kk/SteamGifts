@@ -45,6 +45,7 @@ import net.mabako.steamgifts.tasks.EnterLeaveGiveawayTask;
 import net.mabako.steamgifts.tasks.LoadGiveawayListTask;
 import net.mabako.steamgifts.tasks.UpdateGiveawayFilterTask;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -365,6 +366,7 @@ public class GiveawayListFragment extends SearchableListFragment<GiveawayAdapter
     }
 
     private static class LastRemovedGame implements Serializable {
+        @Serial
         private static final long serialVersionUID = -7112241651196581480L;
 
         private List<List<EndlessAdapter.RemovedElement>> removedGiveaways = new ArrayList<>();

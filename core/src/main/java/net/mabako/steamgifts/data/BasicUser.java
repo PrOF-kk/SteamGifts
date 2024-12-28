@@ -5,10 +5,12 @@ import androidx.annotation.LayoutRes;
 import net.mabako.steamgifts.adapters.IEndlessAdaptable;
 import net.mabako.steamgifts.core.R;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class BasicUser implements IEndlessAdaptable, Serializable {
     public static final int VIEW_LAYOUT = R.layout.basic_user_item;
+    @Serial
     private static final long serialVersionUID = 2288877588005277781L;
 
     private int id;

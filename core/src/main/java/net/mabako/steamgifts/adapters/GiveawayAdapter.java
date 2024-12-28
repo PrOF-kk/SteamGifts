@@ -16,12 +16,14 @@ import net.mabako.steamgifts.fragments.ListFragment;
 import net.mabako.steamgifts.persistentdata.FilterData;
 import net.mabako.steamgifts.persistentdata.SavedGiveaways;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.ListIterator;
 
 public class GiveawayAdapter extends EndlessAdapter {
+    @Serial
     private static final long serialVersionUID = 4291118458389025091L;
 
     /**

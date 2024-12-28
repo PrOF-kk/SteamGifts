@@ -6,12 +6,14 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
  * Giveaway filters.
  */
 public class FilterData implements Serializable {
+    @Serial
     private static final long serialVersionUID = 924136599147980741L;
 
     public static final String PREF_FILTER = "giveaway.filter";

@@ -37,6 +37,7 @@ import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 import net.mabako.steamgifts.receivers.AbstractNotificationCheckReceiver;
 import net.mabako.steamgifts.receivers.CheckForNewMessages;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class DetailActivity extends CommonActivity {
@@ -305,6 +306,7 @@ public class DetailActivity extends CommonActivity {
     }
 
     public static final class GiveawayDetails implements Serializable {
+        @Serial
         private static final long serialVersionUID = 8711132604891618178L;
 
         private Type type;

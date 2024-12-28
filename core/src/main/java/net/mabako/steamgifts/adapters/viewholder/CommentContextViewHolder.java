@@ -17,6 +17,7 @@ import net.mabako.steamgifts.data.BasicGiveaway;
 import net.mabako.steamgifts.fragments.DiscussionDetailFragment;
 import net.mabako.steamgifts.fragments.GiveawayDetailFragment;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class CommentContextViewHolder extends RecyclerView.ViewHolder {
@@ -50,6 +51,7 @@ public class CommentContextViewHolder extends RecyclerView.ViewHolder {
     }
 
     public static class SerializableHolder implements IEndlessAdaptable, Serializable {
+        @Serial
         private static final long serialVersionUID = 1876122223753554650L;
         private Serializable serializable;
 

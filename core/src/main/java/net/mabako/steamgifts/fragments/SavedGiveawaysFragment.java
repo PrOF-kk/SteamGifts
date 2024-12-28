@@ -32,6 +32,7 @@ import net.mabako.steamgifts.persistentdata.SavedGiveaways;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 import net.mabako.steamgifts.tasks.EnterLeaveGiveawayTask;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -246,6 +247,7 @@ public class SavedGiveawaysFragment extends ListFragment<SavedGiveawaysFragment.
      * Adapter with some useful functions for saved items.
      */
     public static class SavedGiveawaysAdapter extends GiveawayAdapter {
+        @Serial
         private static final long serialVersionUID = -6841859269105451683L;
 
         private SavedGiveawaysAdapter(int itemsPerPage, boolean filterItems, SharedPreferences sharedPreferences) {

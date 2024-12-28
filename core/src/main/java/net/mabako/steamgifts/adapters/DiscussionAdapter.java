@@ -9,9 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import net.mabako.steamgifts.adapters.viewholder.DiscussionListItemViewHolder;
 import net.mabako.steamgifts.data.Discussion;
 
+import java.io.Serial;
 import java.util.List;
 
 public class DiscussionAdapter extends EndlessAdapter {
+    @Serial
     private static final long serialVersionUID = 8932865507723121067L;
 
     /**

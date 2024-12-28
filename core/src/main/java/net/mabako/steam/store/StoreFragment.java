@@ -25,6 +25,7 @@ import net.mabako.steamgifts.core.R;
 import net.mabako.steamgifts.data.Game;
 import net.mabako.steamgifts.fragments.ListFragment;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
@@ -49,6 +50,7 @@ public abstract class StoreFragment extends ListFragment<StoreFragment.Adapter> 
     }
 
     public static class Adapter extends EndlessAdapter {
+        @Serial
         private static final long serialVersionUID = 7169019794513055782L;
         private transient StoreFragment fragment;
 

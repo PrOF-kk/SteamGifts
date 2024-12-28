@@ -5,6 +5,7 @@ import android.net.Uri;
 
 import androidx.annotation.Nullable;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -14,6 +15,7 @@ import java.io.Serializable;
  * us no real content outside of the Giveaway Id.
  */
 public class BasicGiveaway implements Serializable {
+    @Serial
     private static final long serialVersionUID = 8330168808371401692L;
     private @Nullable String giveawayId;
 

@@ -1,6 +1,9 @@
 package net.mabako.steamgifts.data;
 
+import java.io.Serial;
+
 public class TradeComment extends Comment {
+    @Serial
     private static final long serialVersionUID = 7399592725523466062L;
 
     private int tradeScorePositive, tradeScoreNegative;

@@ -3,11 +3,13 @@ package net.mabako.steamgifts.data;
 import net.mabako.steamgifts.adapters.IEndlessAdaptable;
 import net.mabako.steamgifts.core.R;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MessageHeader implements IEndlessAdaptable, ICommentHolder, Serializable {
+    @Serial
     private static final long serialVersionUID = -4026179915503324775L;
     public static final int VIEW_LAYOUT = R.layout.message_header_item;
 

@@ -4,10 +4,12 @@ import android.net.Uri;
 
 import net.mabako.Constants;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
 public class User extends BasicUser implements Serializable {
+    @Serial
     private static final long serialVersionUID = -313348528668961481L;
     private String role;
     private long steamID64;
