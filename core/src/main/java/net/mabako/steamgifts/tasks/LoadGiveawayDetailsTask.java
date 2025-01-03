@@ -68,18 +68,17 @@ public class LoadGiveawayDetailsTask extends AsyncTask<Void, Void, GiveawayExtra
                     this.error = error.substring(0, 1).toUpperCase(Locale.ENGLISH) + error.substring(1);
                 }
                 return null;
-            } else {
-                GiveawayExtras extras = loadExtras(document);
-                if (loadDetails) {
-                    try {
-                        loadedDetails = loadGiveaway(document, Uri.parse(response.url().toURI().toString()));
-                    } catch (URISyntaxException e) {
-                        Log.w(TAG, "say what - invalid url???", e);
-                    }
-                }
-
-                return extras;
             }
+            GiveawayExtras extras = loadExtras(document);
+            if (loadDetails) {
+                try {
+                    loadedDetails = loadGiveaway(document, Uri.parse(response.url().toURI().toString()));
+                } catch (URISyntaxException e) {
+                    Log.w(TAG, "say what - invalid url???", e);
+                }
+            }
+
+            return extras;
         } catch (Exception e) {
             Log.e(TAG, "Error fetching URL", e);
             error = "Giveaway does not exist or could not be loaded.";
