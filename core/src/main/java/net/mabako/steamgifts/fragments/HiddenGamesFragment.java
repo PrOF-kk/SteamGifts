@@ -121,9 +121,9 @@ public class HiddenGamesFragment extends SearchableListFragment<HiddenGamesAdapt
         protected Game load(Element element) {
             Game game = new Game();
             game.setName(element.select(".table__column__heading").text());
-            game.setInternalGameId(Long.parseLong(element.select("input[name=game_id]").first().attr("value")));
+            game.setInternalGameId(Long.parseLong(element.expectFirst("input[name=game_id]").attr("value")));
 
-            Element link = element.select(".table__column--width-fill .table__column__secondary-link").first();
+            Element link = element.selectFirst(".table__column--width-fill .table__column__secondary-link");
             if (link != null) {
                 Uri steamUri = Uri.parse(link.attr("href"));
 

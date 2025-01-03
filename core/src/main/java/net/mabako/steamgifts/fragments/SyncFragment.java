@@ -135,8 +135,8 @@ public class SyncFragment extends Fragment {
                 SteamGiftsUserData.extract(fragment.getContext(), document);
 
                 // Fetch the xsrf token
-                Element xsrfToken = document.select("input[name=xsrf_token]").first();
-                Element lastSyncTime = document.select(".form__sync-data .notification").first();
+                Element xsrfToken = document.selectFirst("input[name=xsrf_token]");
+                Element lastSyncTime = document.selectFirst(".form__sync-data .notification");
                 if (xsrfToken != null) {
                     return new String[]{xsrfToken.attr("value"), lastSyncTime == null ? null : lastSyncTime.text()};
                 }

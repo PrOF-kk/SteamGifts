@@ -85,7 +85,7 @@ public class StoreAppFragment extends StoreFragment {
                     items.add(new Space());
 
                     // All reviews
-                    Element allReviewsDesc = document.select("[itemprop=aggregateRating] [itemprop=description]").first();
+                    Element allReviewsDesc = document.selectFirst("[itemprop=aggregateRating] [itemprop=description]");
                     if (allReviewsDesc != null) {
                         // "All Reviews: (Negative/Positive/X reviews)"
                         String line = "<strong>All Reviews:</strong> " + allReviewsDesc.ownText();
