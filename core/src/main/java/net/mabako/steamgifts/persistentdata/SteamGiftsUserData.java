@@ -77,14 +77,14 @@ public class SteamGiftsUserData {
 
         Elements navbar = document.select(".nav__button-container");
 
-        Element userContainer = navbar.last().select("a").first();
+        Element userContainer = navbar.last().expectFirst("a");
         String link = userContainer.attr("href");
 
         if (link.startsWith("/user/")) {
             current.setName(link.substring(6));
 
             // fetch the image
-            String style = userContainer.select("div").first().attr("style");
+            String style = userContainer.expectFirst("div").attr("style");
             style = Utils.extractAvatar(style);
             current.setImageUrl(style);
 
