@@ -68,6 +68,7 @@ public class LoadGiveawayDetailsTask extends AsyncTask<Void, Void, GiveawayExtra
                 if (errorElem != null) {
                     String error = errorElem.text().replace("You do not have permission to view this giveaway, since ", "");
                     this.error = error.substring(0, 1).toUpperCase(Locale.ENGLISH) + error.substring(1);
+                    Log.d(TAG, "Error: " + this.error);
                 }
                 return null;
             }
