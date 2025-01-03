@@ -19,8 +19,8 @@ public class LoadEnteredGameListTask extends LoadGameListTask {
 
     @Override
     protected IEndlessAdaptable load(Element element) {
-        Element firstColumn = element.select(".table__column--width-fill").first();
-        Element link = firstColumn.select("a.table__column__heading").first();
+        Element firstColumn = element.expectFirst(".table__column--width-fill");
+        Element link = firstColumn.expectFirst("a.table__column__heading");
 
         Uri linkUri = Uri.parse(link.attr("href"));
         String giveawayLink = linkUri.getPathSegments().get(1);
@@ -31,7 +31,7 @@ public class LoadEnteredGameListTask extends LoadGameListTask {
         giveaway.setTitle(link.text());
 
         giveaway.setGame(new Game());
-        Element thumbnail = element.select(".table_image_thumbnail").first();
+        Element thumbnail = element.selectFirst(".table_image_thumbnail");
         if (thumbnail != null) {
             Game game = Utils.extractGameFromThumbnail(thumbnail);
             if (game != null) {
@@ -40,14 +40,15 @@ public class LoadEnteredGameListTask extends LoadGameListTask {
         }
 
         giveaway.setPoints(-1);
-        giveaway.setEntries(Utils.parseInt(element.select(".table__column--width-small").first().text()));
+        giveaway.setEntries(Utils.parseInt(element.expectFirst(".table__column--width-small").text()));
 
-        Element end = firstColumn.select("p > span").first();
-        if (end != null)
+        Element end = firstColumn.selectFirst("p > span");
+        if (end != null) {
             giveaway.setEndTime(Integer.parseInt(end.attr("data-timestamp")), end.parent().text().trim());
+        }
 
         giveaway.setEntered(giveaway.isOpen());
-        giveaway.setDeleted(!element.select(".table__column__deleted").isEmpty());
+        giveaway.setDeleted(element.selectFirst(".table__column__deleted") != null);
 
         return giveaway;
     }
