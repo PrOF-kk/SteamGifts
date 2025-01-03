@@ -47,12 +47,13 @@ public abstract class EditCommentTask extends AjaxTask<Activity> {
                     Document commentHtml = Jsoup.parse(root.getString("comment"));
 
                     // Save the content of the edit state for a bit & remove the edit state from being rendered.
-                    Element editState = commentHtml.select(".comment__edit-state.is-hidden textarea[name=description]").first();
-                    commentHtml.select(".comment__edit-state").html("");
-                    Element desc = commentHtml.select(".comment__description").first();
-
+                    Element editState = commentHtml.selectFirst(".comment__edit-state.is-hidden textarea[name=description]");
                     if (editState == null)
                         Log.d(TAG, "edit state is null?");
+
+                    commentHtml.select(".comment__edit-state").html("");
+                    Element desc = commentHtml.expectFirst(".comment__description");
+
                     comment.setEditableContent(editState == null ? null : editState.text());
                     comment.setContent(desc.html());
 
