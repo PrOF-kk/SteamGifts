@@ -29,8 +29,7 @@ import java.util.List;
 public final class Utils {
     private static final String TAG = Utils.class.getSimpleName();
 
-    private Utils() {
-    }
+    private Utils() {}
 
     /**
      * Extract comments recursively.
@@ -43,13 +42,15 @@ public final class Utils {
     }
 
     public static void loadComments(Element commentNode, ICommentHolder parent, int depth, boolean reversed, boolean includeTradeScore, Comment.Type type) {
-        if (commentNode == null)
+        if (commentNode == null) {
             return;
+        }
 
         Elements children = commentNode.children();
 
-        if (reversed)
+        if (reversed) {
             Collections.reverse(children);
+        }
 
         for (Element c : children) {
             long commentId = 0;
@@ -65,7 +66,7 @@ public final class Utils {
             parent.addComment(comment);
 
             // Add all children
-            loadComments(c.select(".comment__children").first(), parent, depth + 1, false, includeTradeScore, type);
+            loadComments(c.selectFirst(".comment__children"), parent, depth + 1, false, includeTradeScore, type);
         }
     }
 
@@ -83,25 +84,27 @@ public final class Utils {
         // TODO Since we're not passing any session information to Steam Trades, we can't edit. This is NOT feature complete for both trading & normal use
 
         // Save the content of the edit state for a bit & remove the edit state from being rendered.
-        Element editState = type == Comment.Type.COMMENT ? element.select(".comment__edit-state.is-hidden textarea[name=description]").first() : null;
+        Element editState = type == Comment.Type.COMMENT ? element.selectFirst(".comment__edit-state.is-hidden textarea[name=description]") : null;
         String editableContent = null;
-        if (editState != null)
+        if (editState != null) {
             editableContent = editState.text();
+        }
         element.select(".comment__edit-state").html("");
 
-        Element authorNode = element.select(type == Comment.Type.COMMENT ? ".comment__username" : ".author_name").first();
+        Element authorNode = element.expectFirst(type == Comment.Type.COMMENT ? ".comment__username" : ".author_name");
         String author = authorNode.text();
         boolean isOp = authorNode.hasClass("comment__username--op");
 
         String avatar = null;
-        Element avatarNode = element.select(type == Comment.Type.COMMENT ? ".global__image-inner-wrap" : ".author_avatar").first();
-        if (avatarNode != null)
+        Element avatarNode = element.selectFirst(type == Comment.Type.COMMENT ? ".global__image-inner-wrap" : ".author_avatar");
+        if (avatarNode != null) {
             avatar = extractAvatar(avatarNode.attr("style"));
+        }
 
-        Element timeCreated = element.select(type == Comment.Type.COMMENT ? ".comment__actions > div span" : ".action_list > span > span").first();
+        Element timeCreated = element.expectFirst(type == Comment.Type.COMMENT ? ".comment__actions > div span" : ".action_list > span > span");
 
         String actions = type == Comment.Type.COMMENT ? ".comment__actions" : ".action_list";
-        Uri permalinkUri = Uri.parse(element.select(actions + " a[href^=/go/]").first().attr("href"));
+        Uri permalinkUri = Uri.parse(element.expectFirst(actions + " a[href^=/go/]").attr("href"));
 
         Comment comment = includeTradeScore ? new TradeComment(commentId, author, depth, avatar, isOp, type) : new Comment(commentId, author, depth, avatar, isOp, type);
         comment.setPermalinkId(permalinkUri.getPathSegments().get(2));
@@ -109,29 +112,30 @@ public final class Utils {
         comment.setCreatedTime(Integer.parseInt(timeCreated.attr("data-timestamp")));
 
 
-        Element desc = element.select(type == Comment.Type.COMMENT ? ".comment__description" : ".review_description").first();
+        Element desc = element.expectFirst(type == Comment.Type.COMMENT ? ".comment__description" : ".review_description");
         desc.select("blockquote").tagName("custom_quote");
         String content = loadAttachedImages(comment, desc);
         comment.setContent(content);
 
         // check if the comment is deleted
         if (type == Comment.Type.COMMENT) {
-            comment.setDeleted(element.select(".comment__summary").first().select(".comment__delete-state").size() == 1);
-            comment.setHighlighted(!element.select(".comment__parent > .comment__envelope").isEmpty());
+            comment.setDeleted(element.expectFirst(".comment__summary").select(".comment__delete-state").size() == 1);
+            comment.setHighlighted(element.selectFirst(".comment__parent > .comment__envelope") != null);
 
-            Element roleName = element.select(".comment__role-name").first();
-            if (roleName != null)
+            Element roleName = element.selectFirst(".comment__role-name");
+            if (roleName != null) {
                 comment.setAuthorRole(roleName.text().replace("(", "").replace(")", ""));
+            }
 
             // Do we have either a delete or undelete link?
-            comment.setDeletable(element.select(".comment__actions__button.js__comment-delete").size() + element.select(".comment__actions__button.js__comment-undelete").size() == 1);
+            comment.setDeletable((element.select(".comment__actions__button.js__comment-delete").size() + element.select(".comment__actions__button.js__comment-undelete").size()) == 1);
         }
 
-        if (comment instanceof TradeComment && !comment.isDeleted()) {
+        if (comment instanceof TradeComment tradeComment && !comment.isDeleted()) {
             try {
-                ((TradeComment) comment).setTradeScorePositive(Utils.parseInt(element.select(".is_positive").first().text()));
-                ((TradeComment) comment).setTradeScoreNegative(-Utils.parseInt(element.select(".is_negative").first().text()));
-                ((TradeComment) comment).setSteamID64(Long.parseLong(Uri.parse(element.select(".author_name").attr("href")).getPathSegments().get(1)));
+                tradeComment.setTradeScorePositive(Utils.parseInt(element.expectFirst(".is_positive").text()));
+                tradeComment.setTradeScoreNegative(-Utils.parseInt(element.expectFirst(".is_negative").text()));
+                tradeComment.setSteamID64(Long.parseLong(Uri.parse(element.select(".author_name").attr("href")).getPathSegments().get(1)));
             } catch (Exception e) {
                 Log.v(TAG, "Unable to parse feedback", e);
             }
@@ -196,17 +200,17 @@ public final class Utils {
         }
 
         // Time remaining
-        Element end = element.select("." + cssNode + "__columns > div span").first();
+        Element end = element.expectFirst("." + cssNode + "__columns > div span");
         giveaway.setEndTime(Integer.parseInt(end.attr("data-timestamp")), end.parent().text().trim());
         giveaway.setCreatedTime(Integer.parseInt(element.select("." + cssNode + "__columns > div span").last().attr("data-timestamp")));
 
         // Flags
-        giveaway.setWhitelist(!element.select("." + cssNode + "__column--whitelist").isEmpty());
-        giveaway.setGroup(!element.select("." + cssNode + "__column--group").isEmpty());
-        giveaway.setPrivate(!element.select("." + cssNode + "__column--invite-only").isEmpty());
-        giveaway.setRegionRestricted(!element.select("." + cssNode + "__column--region-restricted").isEmpty());
+        giveaway.setWhitelist(element.selectFirst("." + cssNode + "__column--whitelist") != null);
+        giveaway.setGroup(element.selectFirst("." + cssNode + "__column--group") != null);
+        giveaway.setPrivate(element.selectFirst("." + cssNode + "__column--invite-only") != null);
+        giveaway.setRegionRestricted(element.selectFirst("." + cssNode + "__column--region-restricted") != null);
 
-        Element level = element.select("." + cssNode + "__column--contributor-level").first();
+        Element level = element.selectFirst("." + cssNode + "__column--contributor-level");
         if (level != null)
             giveaway.setLevel(Integer.parseInt(level.text().replace("Level", "").replace("+", "").trim()));
 
@@ -231,9 +235,9 @@ public final class Utils {
         List<Giveaway> giveawayList = new ArrayList<>();
         for (Element element : giveaways) {
             // Basic information
-            Element link = element.select("h2 a").first();
+            Element link = element.expectFirst("h2 a");
 
-            Giveaway giveaway = null;
+            Giveaway giveaway;
             if (link.hasAttr("href")) {
                 Uri linkUri = Uri.parse(link.attr("href"));
                 String giveawayLink = linkUri.getPathSegments().get(1);
@@ -289,8 +293,9 @@ public final class Utils {
         for (Element image : images) {
             // Extract the link.
             String src = image.attr("src");
-            if (!TextUtils.isEmpty(src))
+            if (!TextUtils.isEmpty(src)) {
                 imageHolder.attachImage(new Image(src, image.attr("title")));
+            }
 
             // Remove this image.
             image.parent().parent().html("");
@@ -310,24 +315,24 @@ public final class Utils {
         String foundXsrfToken = null;
 
         // If this isn't the user we're logged in as, we'd get some user id.
-        Element idElement = document.select("input[name=child_user_id]").first();
+        Element idElement = document.selectFirst("input[name=child_user_id]");
         if (idElement != null) {
             user.setId(Integer.parseInt(idElement.attr("value")));
         } else {
             Log.v(TAG, "No child_user_id");
         }
 
-        user.setWhitelisted(!document.select(".sidebar__shortcut__whitelist.is-selected").isEmpty());
-        user.setBlacklisted(!document.select(".sidebar__shortcut__blacklist.is-selected").isEmpty());
+        user.setWhitelisted(document.selectFirst(".sidebar__shortcut__whitelist.is-selected") != null);
+        user.setBlacklisted(document.selectFirst(".sidebar__shortcut__blacklist.is-selected") != null);
 
         // Fetch the xsrf token - this, again, is only present if we're on another user's page.
-        Element xsrfToken = document.select("input[name=xsrf_token]").first();
+        Element xsrfToken = document.selectFirst("input[name=xsrf_token]");
         if (xsrfToken != null)
             foundXsrfToken = xsrfToken.attr("value");
 
-        user.setName(document.select(".featured__heading__medium").first().text());
-        user.setAvatar(Utils.extractAvatar(document.select(".global__image-inner-wrap").first().attr("style")));
-        user.setUrl(document.select(".sidebar a[data-tooltip=\"Visit Steam Profile\"]").first().attr("href"));
+        user.setName(document.expectFirst(".featured__heading__medium").text());
+        user.setAvatar(Utils.extractAvatar(document.expectFirst(".global__image-inner-wrap").attr("style")));
+        user.setUrl(document.expectFirst(".sidebar a[data-tooltip=\"Visit Steam Profile\"]").attr("href"));
 
         Elements columns = document.select(".featured__table__column");
         user.setRole(columns.first().select("a[href^=/roles/]").text());
@@ -338,24 +343,23 @@ public final class Utils {
         // Both won and created have <a href="...">[amount won]</a> [value of won items],
         // so it's impossible to get the text for the amount directly.
         Element won = right.get(1);
-        user.setWon(parseInt(won.select("a").first().text()));
+        user.setWon(parseInt(won.expectFirst("a").text()));
         won.select("a").html("");
         user.setWonAmount(won.text().trim());
 
         Element created = right.get(2);
-        user.setCreated(parseInt(created.select("a").first().text()));
+        user.setCreated(parseInt(created.expectFirst("a").text()));
         created.select("a").html("");
         user.setCreatedAmount(created.text().trim());
 
         // Fetch user level from the JSON-ish tooltip
-        try
-        {
-            Log.d(TAG, right.get(3).select("span").first().attr("data-ui-tooltip"));
-            JSONObject levelObj = new JSONObject(right.get(3).select("span").first().attr("data-ui-tooltip").replace("&quot;", "\""));
+        try {
+            String rawUiTooltip = right.get(3).expectFirst("span").attr("data-ui-tooltip");
+            Log.d(TAG, rawUiTooltip);
+            JSONObject levelObj = new JSONObject(rawUiTooltip.replace("&quot;", "\""));
             user.setLevel((int) levelObj.getJSONArray("rows").getJSONObject(0).getJSONArray("columns").getJSONObject(1).getDouble("name"));
         }
-        catch (JSONException e)
-        {
+        catch (JSONException e) {
             Log.e(TAG, "Unable to fetch user level", e);
             user.setLevel(0);
         }
