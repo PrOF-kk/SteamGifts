@@ -17,8 +17,8 @@ public class LoadWonGameListTask extends LoadGameListTask {
 
     @Override
     protected IEndlessAdaptable load(Element element) {
-        Element firstColumn = element.select(".table__column--width-fill").first();
-        Element link = firstColumn.select("a.table__column__heading").first();
+        Element firstColumn = element.expectFirst(".table__column--width-fill");
+        Element link = firstColumn.expectFirst("a.table__column__heading");
 
         Uri linkUri = Uri.parse(link.attr("href"));
         String giveawayLink = linkUri.getPathSegments().get(1);
@@ -29,7 +29,7 @@ public class LoadWonGameListTask extends LoadGameListTask {
         giveaway.setTitle(link.text());
 
         giveaway.setGame(new Game());
-        Element thumbnail = element.select(".table_image_thumbnail").first();
+        Element thumbnail = element.selectFirst(".table_image_thumbnail");
         if (thumbnail != null) {
             Game game = Utils.extractGameFromThumbnail(thumbnail);
             if (game != null) {
@@ -39,7 +39,7 @@ public class LoadWonGameListTask extends LoadGameListTask {
 
         giveaway.setPoints(-1);
         giveaway.setEntries(-1);
-        Element end = firstColumn.select("span").first();
+        Element end = firstColumn.expectFirst("span");
         giveaway.setEndTime(Integer.parseInt(end.attr("data-timestamp")), end.parent().text().trim());
 
         // Has any feedback option been picked yet?
