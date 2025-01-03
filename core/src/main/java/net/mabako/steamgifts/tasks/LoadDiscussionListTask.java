@@ -73,7 +73,7 @@ public class LoadDiscussionListTask extends AsyncTask<Void, Void, List<Discussio
 
             List<Discussion> discussionList = new ArrayList<>();
             for (Element element : discussions) {
-                Element link = element.select("h3 a").first();
+                Element link = element.expectFirst("h3 a");
 
                 // Basic information
                 Uri uri = Uri.parse(link.attr("href"));
@@ -84,18 +84,19 @@ public class LoadDiscussionListTask extends AsyncTask<Void, Void, List<Discussio
                 discussion.setTitle(link.text());
                 discussion.setName(discussionName);
 
-                Element p = element.select(".table__column--width-fill p").first();
-                discussion.setCreatedTime(Integer.parseInt(p.select("span").first().attr("data-timestamp")));
+                Element p = element.expectFirst(".table__column--width-fill p");
+                discussion.setCreatedTime(Integer.parseInt(p.expectFirst("span").attr("data-timestamp")));
                 discussion.setCreator(p.select("a").last().text());
 
                 // The creator's avatar
-                Element avatarNode = element.select(".table_image_avatar").first();
+                Element avatarNode = element.selectFirst(".table_image_avatar");
                 if (avatarNode != null)
                     discussion.setCreatorAvatar(Utils.extractAvatar(avatarNode.attr("style")));
 
                 discussion.setLocked(element.hasClass("is-faded"));
-                discussion.setPoll(!element.select("h3 i.fa-align-left").isEmpty());
-                discussion.setPinned(!element.select("h3 i.fa-long-arrow-right").isEmpty());
+                // Discussion title has the poll or pinned icon
+                discussion.setPoll(element.selectFirst("h3 i.fa-align-left") != null);
+                discussion.setPinned(element.selectFirst("h3 i.fa-long-arrow-right") != null);
                 discussionList.add(discussion);
             }
             return discussionList;
