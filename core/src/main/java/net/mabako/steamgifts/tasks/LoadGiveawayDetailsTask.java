@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import net.mabako.Constants;
 import net.mabako.steamgifts.data.Comment;
@@ -41,6 +42,7 @@ public class LoadGiveawayDetailsTask extends AsyncTask<Void, Void, GiveawayExtra
     }
 
     @Override
+    @Nullable
     protected GiveawayExtras doInBackground(Void... params) {
         String url = "https://www.steamgifts.com/giveaway/" + giveawayId + "/search?page=" + page;
         Log.d(TAG, "Fetching giveaway details for " + url);
@@ -175,7 +177,7 @@ public class LoadGiveawayDetailsTask extends AsyncTask<Void, Void, GiveawayExtra
     }
 
     @Override
-    protected void onPostExecute(GiveawayExtras giveawayDetails) {
+    protected void onPostExecute(@Nullable GiveawayExtras giveawayDetails) {
         super.onPostExecute(giveawayDetails);
 
         if (giveawayDetails != null || (!loadDetails && error == null)) {
