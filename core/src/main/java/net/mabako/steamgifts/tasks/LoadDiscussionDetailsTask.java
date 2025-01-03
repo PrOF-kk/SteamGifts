@@ -111,7 +111,7 @@ public class LoadDiscussionDetailsTask extends AsyncTask<Void, Void, DiscussionE
     }
 
     private Discussion loadDiscussion(Document document, Uri linkUri) {
-        Element element = document.select(".comments").first();
+        Element element = document.expectFirst(".comments");
 
         // Basic information
         String discussionLink = linkUri.getPathSegments().get(1);
@@ -121,10 +121,10 @@ public class LoadDiscussionDetailsTask extends AsyncTask<Void, Void, DiscussionE
         discussion.setName(discussionName);
         discussion.setTitle(Utils.getPageTitle(document));
 
-        discussion.setCreator(element.select(".comment__username a").first().text());
-        discussion.setCreatedTime(Integer.parseInt(element.select(".comment__actions > div span").first().attr("data-timestamp")));
+        discussion.setCreator(element.expectFirst(".comment__username a").text());
+        discussion.setCreatedTime(Integer.parseInt(element.expectFirst(".comment__actions > div span").attr("data-timestamp")));
 
-        Element headerButton = document.select(".page__heading__button").first();
+        Element headerButton = document.selectFirst(".page__heading__button");
         if (headerButton != null) {
             // remove the dropdown menu.
             headerButton.select(".page__heading__relative-dropdown").html("");
@@ -141,7 +141,7 @@ public class LoadDiscussionDetailsTask extends AsyncTask<Void, Void, DiscussionE
         DiscussionExtras extras = new DiscussionExtras();
 
         // Load the description
-        Element description = document.select(".comment__display-state .markdown").first();
+        Element description = document.selectFirst(".comment__display-state .markdown");
         if (description != null) {
             // This will be null if no description is given.
             description.select("blockquote").tagName("custom_quote");
@@ -149,7 +149,7 @@ public class LoadDiscussionDetailsTask extends AsyncTask<Void, Void, DiscussionE
         }
 
         // Can we send a comment?
-        Element xsrf = document.select(".comment--submit form input[name=xsrf_token]").first();
+        Element xsrf = document.selectFirst(".comment--submit form input[name=xsrf_token]");
         if (xsrf != null)
             extras.setXsrfToken(xsrf.attr("value"));
 
@@ -163,7 +163,7 @@ public class LoadDiscussionDetailsTask extends AsyncTask<Void, Void, DiscussionE
         }
 
         // Do we have a poll?
-        Element pollElement = document.select(".poll").first();
+        Element pollElement = document.selectFirst(".poll");
         if (pollElement != null) {
             try {
                 extras.setPoll(loadPoll(pollElement));
@@ -189,7 +189,7 @@ public class LoadDiscussionDetailsTask extends AsyncTask<Void, Void, DiscussionE
         // the remaining text is the question.
         poll.setQuestion(pollHeader.text());
 
-        poll.setClosed(pollElement.select("form").isEmpty());
+        poll.setClosed(pollElement.selectFirst("form") == null);
 
         Elements answerElements = pollElement.select(".table__rows div[data-id]");
         for (Element thisAnswer : answerElements) {
