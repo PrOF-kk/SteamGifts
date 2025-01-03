@@ -301,13 +301,10 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
                 ((GiveawayListFragment) fragment).requestHideGame(giveaway.getInternalGameId(), giveaway.getTitle());
                 return true;
             case 4:
-                if (savedGiveaways.add(giveaway, giveaway.getGiveawayId())) {
-                    Toast.makeText(fragment.getContext(), R.string.added_saved_giveaway, Toast.LENGTH_SHORT).show();
-                }
+                savedGiveaways.add(giveaway, giveaway.getGiveawayId());
                 return true;
             case 5:
                 if (savedGiveaways.remove(giveaway.getGiveawayId())) {
-                    Toast.makeText(fragment.getContext(), R.string.removed_saved_giveaway, Toast.LENGTH_SHORT).show();
                     if (fragment instanceof SavedGiveawaysFragment)
                         ((SavedGiveawaysFragment) fragment).onRemoveSavedGiveaway(giveaway.getGiveawayId());
                 }

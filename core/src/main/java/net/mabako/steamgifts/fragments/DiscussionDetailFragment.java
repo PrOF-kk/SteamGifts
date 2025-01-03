@@ -244,13 +244,11 @@ public class DiscussionDetailFragment extends DetailFragment implements IHasPoll
         if (itemId == R.id.add_saved_element) {
             if (discussion instanceof Discussion && savedDiscussions.add((Discussion) discussion, discussion.getDiscussionId())) {
                 getActivity().invalidateOptionsMenu();
-                Toast.makeText(getContext(), R.string.added_saved_discussion, Toast.LENGTH_SHORT).show();
             }
             return true;
         } else if (itemId == R.id.remove_saved_element) {
             if (discussion instanceof Discussion && savedDiscussions.remove(discussion.getDiscussionId())) {
                 getActivity().invalidateOptionsMenu();
-                Toast.makeText(getContext(), R.string.removed_saved_discussion, Toast.LENGTH_SHORT).show();
             }
             return true;
         } else {

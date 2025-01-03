@@ -14,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -324,13 +323,11 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
         } else if (itemId == R.id.add_saved_element) {
             if (basicGiveaway instanceof Giveaway && savedGiveaways.add((Giveaway) basicGiveaway, basicGiveaway.getGiveawayId())) {
                 getActivity().invalidateOptionsMenu();
-                Toast.makeText(getContext(), R.string.added_saved_giveaway, Toast.LENGTH_SHORT).show();
             }
             return true;
         } else if (itemId == R.id.remove_saved_element) {
             if (basicGiveaway instanceof Giveaway && savedGiveaways.remove(basicGiveaway.getGiveawayId())) {
                 getActivity().invalidateOptionsMenu();
-                Toast.makeText(getContext(), R.string.removed_saved_giveaway, Toast.LENGTH_SHORT).show();
 
                 GiveawayListFragmentStack.onRemoveSavedGiveaway(basicGiveaway.getGiveawayId());
             }
