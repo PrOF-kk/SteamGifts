@@ -61,7 +61,7 @@ public class LoadGiveawayDetailsTask extends AsyncTask<Void, Void, GiveawayExtra
             SteamGiftsUserData.extract(fragment.getContext(), document);
 
             // Check if we have an error page showing...
-            Element breadcrumbs = document.select(".page__heading__breadcrumbs").first();
+            Element breadcrumbs = document.selectFirst(".page__heading__breadcrumbs");
             if (breadcrumbs != null && "Error".equals(breadcrumbs.text())) {
                 Log.d(TAG, "Error loading Giveaway");
                 Element errorElem = document.select(".table__column--width-fill").last();
@@ -90,7 +90,7 @@ public class LoadGiveawayDetailsTask extends AsyncTask<Void, Void, GiveawayExtra
     }
 
     private Giveaway loadGiveaway(Document document, Uri linkUri) {
-        Element element = document.select(".featured__inner-wrap").first();
+        Element element = document.expectFirst(".featured__inner-wrap");
 
         // Basic information
         if (linkUri.getPathSegments().size() < 3)
@@ -105,7 +105,7 @@ public class LoadGiveawayDetailsTask extends AsyncTask<Void, Void, GiveawayExtra
         giveaway.setCreator(element.select(".featured__columns > div a").text());
 
         // Entries, would usually have comment count too... but we don't display that anywhere.
-        Element sidebarElement = document.select("a.sidebar__navigation__item__link[href$=/entries] .sidebar__navigation__item__count").first();
+        Element sidebarElement = document.selectFirst("a.sidebar__navigation__item__link[href$=/entries] .sidebar__navigation__item__count");
         try {
             giveaway.setEntries(sidebarElement == null ? -1 : Utils.parseInt(sidebarElement.text()));
         } catch (NumberFormatException e) {
@@ -119,7 +119,7 @@ public class LoadGiveawayDetailsTask extends AsyncTask<Void, Void, GiveawayExtra
         giveaway.setEntered(false);
 
         // More details
-        Element icon = element.select(".global__image-outer-wrap--game-large").first();
+        Element icon = element.expectFirst(".global__image-outer-wrap--game-large");
         Uri uriIcon = icon.hasClass("global__image-outer-wrap--missing-image") ? null : Uri.parse(icon.attr("href"));
 
         Utils.loadGiveaway(giveaway, element, "featured", "featured__heading__small", uriIcon);
@@ -135,7 +135,7 @@ public class LoadGiveawayDetailsTask extends AsyncTask<Void, Void, GiveawayExtra
         extras.setGameHidden(document.getElementsByClass("featured__giveaway__hide").isEmpty());
 
         // Load the description
-        Element description = document.select(".page__description__display-state .markdown").first();
+        Element description = document.selectFirst(".page__description__display-state .markdown");
         if (description != null) {
             // This will be null if no description is given.
             description.select("blockquote").tagName("custom_quote");
@@ -143,24 +143,24 @@ public class LoadGiveawayDetailsTask extends AsyncTask<Void, Void, GiveawayExtra
         }
 
         // Load the xsrf token regardless of whether or not you can enter.
-        Element xsrfToken = document.select("input[name=xsrf_token]").first();
+        Element xsrfToken = document.selectFirst("input[name=xsrf_token]");
         if (xsrfToken != null)
             extras.setXsrfToken(xsrfToken.attr("value"));
 
         // Enter/Leave giveaway
-        Element enterLeaveForm = document.select(".sidebar form").first();
+        Element enterLeaveForm = document.selectFirst(".sidebar form");
         if (enterLeaveForm != null) {
             extras.setEntered(enterLeaveForm.select(".sidebar__entry-insert").hasClass("is-hidden"));
 
-            extras.setEnterable(enterLeaveForm == document.select(".sidebar > form").first());
+            extras.setEnterable(enterLeaveForm == document.selectFirst(".sidebar > form"));
         } else {
-            Element error = document.select(".sidebar .sidebar__error").first();
+            Element error = document.selectFirst(".sidebar .sidebar__error");
             if (error != null)
                 extras.setErrorMessage(error.text().trim());
         }
 
         // Winners, if any
-        Element sidebarElement = document.select("a.sidebar__navigation__item__link[href$=/winners] .sidebar__navigation__item__count").first();
+        Element sidebarElement = document.selectFirst("a.sidebar__navigation__item__link[href$=/winners] .sidebar__navigation__item__count");
         try {
             extras.setWinners(sidebarElement == null ? null : Utils.parseInt(sidebarElement.text()));
         } catch (NumberFormatException e) {
@@ -171,7 +171,7 @@ public class LoadGiveawayDetailsTask extends AsyncTask<Void, Void, GiveawayExtra
         }
 
         // Load comments
-        Element rootCommentNode = document.select(".comments").first();
+        Element rootCommentNode = document.selectFirst(".comments");
         if (rootCommentNode != null)
             Utils.loadComments(rootCommentNode, extras, Comment.Type.COMMENT);
         return extras;
