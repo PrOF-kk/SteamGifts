@@ -59,7 +59,7 @@ public abstract class LoadGameListTask extends AsyncTask<Void, Void, List<IEndle
             SteamGiftsUserData.extract(context, document);
 
             // Fetch the xsrf token
-            Element xsrfToken = document.select("input[name=xsrf_token]").first();
+            Element xsrfToken = document.selectFirst("input[name=xsrf_token]");
             if (xsrfToken != null)
                 foundXsrfToken = xsrfToken.attr("value");
 

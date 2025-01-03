@@ -59,7 +59,7 @@ public class LoadWhitelistBlacklistTask extends AsyncTask<Void, Void, List<Basic
             SteamGiftsUserData.extract(fragment.getContext(), document);
 
             // Fetch the xsrf token
-            Element xsrfToken = document.select("input[name=xsrf_token]").first();
+            Element xsrfToken = document.selectFirst("input[name=xsrf_token]");
             if (xsrfToken != null)
                 foundXsrfToken = xsrfToken.attr("value");
 
@@ -94,8 +94,8 @@ public class LoadWhitelistBlacklistTask extends AsyncTask<Void, Void, List<Basic
         BasicUser user = new BasicUser();
 
         user.setName(element.select(".table__column__heading").text());
-        user.setAvatar(Utils.extractAvatar(element.select(".global__image-inner-wrap").attr("style")));
-        user.setId(Integer.parseInt(element.select("input[name=child_user_id]").first().attr("value")));
+        user.setAvatar(Utils.extractAvatar(element.expectFirst(".global__image-inner-wrap").attr("style")));
+        user.setId(Integer.parseInt(element.expectFirst("input[name=child_user_id]").attr("value")));
 
         return user;
     }

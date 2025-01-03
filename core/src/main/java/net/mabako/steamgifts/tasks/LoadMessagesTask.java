@@ -50,7 +50,7 @@ public class LoadMessagesTask extends AsyncTask<Void, Void, List<IEndlessAdaptab
             SteamGiftsUserData.extract(context, document);
 
             // Fetch the xsrf token
-            Element xsrfToken = document.select("input[name=xsrf_token]").first();
+            Element xsrfToken = document.selectFirst("input[name=xsrf_token]");
             if (xsrfToken != null)
                 foundXsrfToken = xsrfToken.attr("value");
 
@@ -66,7 +66,7 @@ public class LoadMessagesTask extends AsyncTask<Void, Void, List<IEndlessAdaptab
         List<IEndlessAdaptable> list = new ArrayList<>();
         Elements children = document.select(".comments__entity");
         for (Element element : children) {
-            Element link = element.select(".comments__entity__name a").first();
+            Element link = element.selectFirst(".comments__entity__name a");
             if (link != null) {
                 MessageHeader message = new MessageHeader(link.text(), link.absUrl("href"));
 

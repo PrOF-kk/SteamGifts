@@ -79,7 +79,7 @@ public class LoadGiveawayListTask extends AsyncTask<Void, Void, List<Giveaway>> 
             SteamGiftsUserData.extract(fragment.getContext(), document);
 
             // Fetch the xsrf token
-            Element xsrfToken = document.select("input[name=xsrf_token]").first();
+            Element xsrfToken = document.selectFirst("input[name=xsrf_token]");
             if (xsrfToken != null)
                 foundXsrfToken = xsrfToken.attr("value");
 

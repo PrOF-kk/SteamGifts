@@ -67,7 +67,7 @@ public class LoadUserTradeFeedbackTask extends AsyncTask<Void, Void, List<Commen
                 user.setNegativeFeedback(Utils.parseInt(document.select(".increment_negative_review_count").text()));
 
 
-                Element rootCommentNode = document.select(".reviews").first();
+                Element rootCommentNode = document.selectFirst(".reviews");
                 if (rootCommentNode != null) {
                     // Parse all rows of giveaways
                     ICommentHolder holder = new ICommentHolder() {

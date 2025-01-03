@@ -57,7 +57,7 @@ public class LoadGiveawayGroupsTask extends AsyncTask<Void, Void, List<GiveawayG
 
             List<GiveawayGroup> groupList = new ArrayList<>();
             for (Element element : groups) {
-                Element link = element.select(".table__column__heading").first();
+                Element link = element.expectFirst(".table__column__heading");
 
                 // Basic information
                 Uri href = Uri.parse(link.attr("href"));
