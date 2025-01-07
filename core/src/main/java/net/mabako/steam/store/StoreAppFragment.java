@@ -116,11 +116,13 @@ public class StoreAppFragment extends StoreFragment {
 
                     // Tags
                     Elements tags = document.getElementsByClass("app_tag");
-                    String tagString = tags.stream()
-                            .limit(5)
-                            .map(Element::ownText)
-                            .collect(Collectors.joining(", "));
-                    items.add(new Text("<strong>Tags:</strong> " + tagString, true));
+                    if (!tags.isEmpty()) {
+                        String tagString = tags.stream()
+                                .limit(5)
+                                .map(Element::ownText)
+                                .collect(Collectors.joining(", "));
+                        items.add(new Text("<strong>Tags:</strong> " + tagString, true));
+                    }
 
                     // Space!
                     items.add(new Space());
