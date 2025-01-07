@@ -69,13 +69,21 @@ public class StoreAppFragment extends StoreFragment {
 
                 responseCode = response.statusCode();
 
-                if (responseCode != 200) {
-                    // Store page unavailable
-                    items.add(new Text("The Steam store page for this app is not available.", false));
-                    items.add(new Text("Click <a href='https://steamdb.info/app/" + getArguments().getString("app") + "/'>HERE</a> to visit its SteamDB page instead.", true));
-                } else {
-                    Document document = response.parse();
+                Document document = response.parse();
 
+                Element errorBox = document.getElementById("error_box");
+                if (responseCode != 200 || errorBox != null) {
+                    // Store page unavailable
+                    items.add(new Text("The Steam store page for this app is not available:", false));
+                    if (errorBox != null) {
+                        items.add(new Text(errorBox.expectFirst(".error").text(), false));
+                    } else if (responseCode != 200) {
+                        items.add(new Text(response.statusMessage(), false));
+                    } else {
+                        items.add(new Text("Unknown error", false));
+                    }
+                    items.add(new Text("You can <a href='https://steamdb.info/app/" + getArguments().getString("app") + "/'>visit its SteamDB page instead.</a>", true));
+                } else {
                     // Game description
                     Element description = document.getElementById("game_area_description");
                     if (description != null)
