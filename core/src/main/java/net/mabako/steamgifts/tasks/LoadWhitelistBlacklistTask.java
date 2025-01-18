@@ -94,7 +94,7 @@ public class LoadWhitelistBlacklistTask extends AsyncTask<Void, Void, List<Basic
         BasicUser user = new BasicUser();
 
         user.setName(element.select(".table__column__heading").text());
-        user.setAvatar(Utils.extractAvatar(element.expectFirst(".global__image-inner-wrap").attr("style")));
+        user.setAvatar(Utils.extractAvatar(element.expectFirst(".table_image_avatar").attr("style")));
         user.setId(Integer.parseInt(element.expectFirst("input[name=child_user_id]").attr("value")));
 
         return user;
