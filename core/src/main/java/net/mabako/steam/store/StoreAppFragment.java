@@ -64,7 +64,8 @@ public class StoreAppFragment extends StoreFragment {
                         .timeout(Constants.JSOUP_TIMEOUT)
                         // Bypass age check
                         .cookie("birthtime", "0")
-                        .followRedirects(false)
+                        // Age-restricted games always redirect
+                        .followRedirects(true)
                         .execute();
 
                 responseCode = response.statusCode();
@@ -72,15 +73,17 @@ public class StoreAppFragment extends StoreFragment {
                 Document document = response.parse();
 
                 Element errorBox = document.getElementById("error_box");
-                if (responseCode != 200 || errorBox != null) {
-                    // Store page unavailable
-                    items.add(new Text("The Steam store page for this app is not available:", false));
+                if (responseCode != 200 || errorBox != null
+                        // Redirected to homepage
+                        || response.url().getPath().equals("/")
+                        // Redirected to login page
+                        || response.url().getPath().equals("/login/")) {
+
+                    items.add(new Text("The Steam store page for this app is not available.", false));
                     if (errorBox != null) {
                         items.add(new Text(errorBox.expectFirst(".error").text(), false));
                     } else if (responseCode != 200) {
                         items.add(new Text(response.statusMessage(), false));
-                    } else {
-                        items.add(new Text("Unknown error", false));
                     }
                     items.add(new Text("You can <a href='https://steamdb.info/app/" + getArguments().getString("app") + "/'>visit its SteamDB page instead.</a>", true));
                 } else {
