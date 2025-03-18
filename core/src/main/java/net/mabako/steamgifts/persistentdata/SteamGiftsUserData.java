@@ -89,7 +89,7 @@ public class SteamGiftsUserData {
             current.setImageUrl(style);
 
             // points
-            Element accountContainer = navbar.select("a[href=/account]").first();
+            Element accountContainer = navbar.expectFirst("a[href=/account]");
             current.setPoints(Utils.parseInt(accountContainer.select(".nav__points").text()));
 
             // Level
@@ -98,9 +98,9 @@ public class SteamGiftsUserData {
 
             // Notifications
             Elements notifications = navbar.select(".nav__button-container--notification");
-            current.setCreatedNotification(getInt(notifications.select("a[href=/giveaways/created]").first().text()));
-            current.setWonNotification(getInt(notifications.select("a[href=/giveaways/won]").first().text()));
-            current.setMessageNotification(getInt(notifications.select("a[href=/messages]").first().text()));
+            current.setCreatedNotification(getInt(notifications.expectFirst("a[href=/giveaways/created]").text()));
+            current.setWonNotification(getInt(notifications.expectFirst("a[href=/giveaways/won]").text()));
+            current.setMessageNotification(getInt(notifications.expectFirst("a[href=/messages]").text()));
         } else if (link.startsWith("/?login") && current.isLoggedIn()) {
             current = new SteamGiftsUserData();
             if (context != null)

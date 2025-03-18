@@ -101,7 +101,7 @@ public class StoreAppFragment extends StoreFragment {
                         // "All Reviews: (Negative/Positive/X reviews)"
                         String line = "<strong>All Reviews:</strong> " + allReviewsDesc.ownText();
 
-                        Element allReviewsScore = allReviewsDesc.siblingElements().select(".responsive_reviewdesc").first();
+                        Element allReviewsScore = allReviewsDesc.siblingElements().selectFirst(".responsive_reviewdesc");
                         if (allReviewsScore != null) {
                             String allReviewsScoreText = allReviewsScore.ownText();
                             if (allReviewsScoreText.indexOf('%') != -1) {
