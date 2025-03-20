@@ -153,7 +153,7 @@ public class StoreAppFragment extends StoreFragment {
 
         @Override
         protected void onPostExecute(Void result) {
-            getView().findViewById(R.id.progressBar).setVisibility(View.GONE);
+            requireView().findViewById(R.id.progressBar).setVisibility(View.GONE);
             if (responseCode / 100 == 5) {
                 // Error 5XX
                 Toast.makeText(getContext(), "Unable to load Store App", Toast.LENGTH_LONG).show();

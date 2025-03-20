@@ -88,7 +88,7 @@ public class StoreSubFragment extends StoreFragment {
                 Toast.makeText(getContext(), "Unable to load Store Sub", Toast.LENGTH_LONG).show();
             }
 
-            getView().findViewById(R.id.progressBar).setVisibility(View.GONE);
+            requireView().findViewById(R.id.progressBar).setVisibility(View.GONE);
         }
     }
 }

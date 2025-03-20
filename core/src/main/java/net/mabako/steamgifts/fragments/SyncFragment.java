@@ -85,9 +85,9 @@ public class SyncFragment extends Fragment {
     public void onSyncDetailsLoaded(String xsrfToken, String lastSyncTime) {
         this.xsrfToken = xsrfToken;
 
-        getView().findViewById(R.id.sync_now).setEnabled(true);
+        requireView().findViewById(R.id.sync_now).setEnabled(true);
 
-        TextView lastSyncView = getView().findViewById(R.id.sync_time);
+        TextView lastSyncView = requireView().findViewById(R.id.sync_time);
         lastSyncView.setVisibility(lastSyncTime == null ? View.INVISIBLE : View.VISIBLE);
         lastSyncView.setText(lastSyncTime);
 
