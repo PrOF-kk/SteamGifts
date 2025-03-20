@@ -43,7 +43,7 @@ public class StoreAppFragment extends StoreFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (getArguments().getBoolean("refresh", false))
+        if (requireArguments().getBoolean("refresh", false))
             refresh();
     }
 
@@ -59,7 +59,7 @@ public class StoreAppFragment extends StoreFragment {
         protected Void doInBackground(Void... params) {
             try {
                 Connection.Response response = Jsoup
-                        .connect("https://store.steampowered.com/app/" + getArguments().getString("app"))
+                        .connect("https://store.steampowered.com/app/" + requireArguments().getString("app"))
                         .userAgent(Constants.JSOUP_USER_AGENT)
                         .timeout(Constants.JSOUP_TIMEOUT)
                         // Bypass age check
@@ -85,7 +85,7 @@ public class StoreAppFragment extends StoreFragment {
                     } else if (responseCode != 200) {
                         items.add(new Text(response.statusMessage(), false));
                     }
-                    items.add(new Text("You can <a href='https://steamdb.info/app/" + getArguments().getString("app") + "/'>visit its SteamDB page instead.</a>", true));
+                    items.add(new Text("You can <a href='https://steamdb.info/app/" + requireArguments().getString("app") + "/'>visit its SteamDB page instead.</a>", true));
                 } else {
                     // Game description
                     Element description = document.getElementById("game_area_description");

@@ -50,7 +50,7 @@ public class StoreSubFragment extends StoreFragment {
                     .connect("https://store.steampowered.com/api/packagedetails/")
                     .userAgent(Constants.JSOUP_USER_AGENT)
                     .timeout(Constants.JSOUP_TIMEOUT)
-                    .data("packageids", getArguments().getString("sub"))
+                    .data("packageids", requireArguments().getString("sub"))
                     .data("l", "en");
         }
 
@@ -58,7 +58,7 @@ public class StoreSubFragment extends StoreFragment {
         protected void onPostExecute(JSONObject jsonObject) {
             if (jsonObject != null) {
                 try {
-                    JSONObject sub = jsonObject.getJSONObject(getArguments().getString("sub"));
+                    JSONObject sub = jsonObject.getJSONObject(requireArguments().getString("sub"));
 
                     // Were we successful in fetching the details?
                     if (sub.getBoolean("success")) {

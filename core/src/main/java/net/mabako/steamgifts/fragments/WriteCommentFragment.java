@@ -55,7 +55,7 @@ public class WriteCommentFragment extends DialogFragment {
 
         if (savedInstanceState == null) {
             comment = (Comment) getArguments().getSerializable(SAVED_COMMENT);
-            giveawayId = getArguments().getString(SAVED_GIVEAWAY_ID, null);
+            giveawayId = requireArguments().getString(SAVED_GIVEAWAY_ID, null);
         } else {
             comment = (Comment) savedInstanceState.getSerializable(SAVED_COMMENT);
             giveawayId = savedInstanceState.getString(SAVED_GIVEAWAY_ID, null);

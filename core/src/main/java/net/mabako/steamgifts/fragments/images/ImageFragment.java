@@ -91,7 +91,7 @@ public class ImageFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        url = getArguments().getString(ARG_URL);
+        url = requireArguments().getString(ARG_URL);
         if (TextUtils.isEmpty(url))
             throw new IllegalStateException("No URL passed");
 

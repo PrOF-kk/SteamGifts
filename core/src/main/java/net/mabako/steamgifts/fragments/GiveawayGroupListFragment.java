@@ -47,8 +47,8 @@ public class GiveawayGroupListFragment extends ListFragment<GiveawayGroupAdapter
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState == null) {
-            title = getArguments().getString(SAVED_TITLE);
-            path = getArguments().getString(SAVED_PATH);
+            title = requireArguments().getString(SAVED_TITLE);
+            path = requireArguments().getString(SAVED_PATH);
         } else {
             title = savedInstanceState.getString(SAVED_TITLE);
             path = savedInstanceState.getString(SAVED_PATH);

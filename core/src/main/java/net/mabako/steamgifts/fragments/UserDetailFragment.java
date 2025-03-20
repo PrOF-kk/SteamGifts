@@ -333,7 +333,7 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
         public void onCreate(Bundle savedInstanceState) {
             if (savedInstanceState == null) {
                 user = (User) getArguments().getSerializable(SAVED_USER);
-                path = getArguments().getString(SAVED_PATH);
+                path = requireArguments().getString(SAVED_PATH);
             } else {
                 user = (User) savedInstanceState.getSerializable(SAVED_USER);
                 path = savedInstanceState.getString(SAVED_PATH);
@@ -420,7 +420,7 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
         public void onCreate(Bundle savedInstanceState) {
             if (savedInstanceState == null) {
                 user = (User) getArguments().getSerializable(SAVED_USER);
-                rating = getArguments().getString(SAVED_RATING);
+                rating = requireArguments().getString(SAVED_RATING);
             } else {
                 user = (User) savedInstanceState.getSerializable(SAVED_USER);
                 rating = savedInstanceState.getString(SAVED_RATING);
