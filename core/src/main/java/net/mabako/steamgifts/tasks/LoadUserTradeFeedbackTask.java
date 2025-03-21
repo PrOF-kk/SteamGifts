@@ -71,7 +71,7 @@ public class LoadUserTradeFeedbackTask extends AsyncTask<Void, Void, List<Commen
                 if (rootCommentNode != null) {
                     // Parse all rows of giveaways
                     ICommentHolder holder = new ICommentHolder() {
-                        private List<Comment> list = new ArrayList<>();
+                        private final List<Comment> list = new ArrayList<>();
 
                         @Override
                         public List<Comment> getComments() {

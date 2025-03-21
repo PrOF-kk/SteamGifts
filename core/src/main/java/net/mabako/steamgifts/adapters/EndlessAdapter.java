@@ -50,7 +50,7 @@ public abstract class EndlessAdapter extends RecyclerView.Adapter<RecyclerView.V
     /**
      * Sticky items, for example when using cards.
      */
-    private List<IEndlessAdaptable> stickyItems = new ArrayList<>();
+    private final List<IEndlessAdaptable> stickyItems = new ArrayList<>();
 
     /**
      * The list of items this adapter holds.

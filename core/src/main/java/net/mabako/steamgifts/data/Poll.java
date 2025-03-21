@@ -16,7 +16,7 @@ public class Poll implements Serializable {
     private static final long serialVersionUID = -2876811085489294457L;
 
     private Header header = new Header();
-    private List<IEndlessAdaptable> answers = new ArrayList<>();
+    private final List<IEndlessAdaptable> answers = new ArrayList<>();
 
     private int totalVotes = 0;
     private int selectedAnswerId;

@@ -15,7 +15,7 @@ import java.util.Map;
  * Tasks to schedule for execution every now and then.
  */
 public class PeriodicTasks {
-    private static Map<Task, TaskData> scheduledTasks = new HashMap<>();
+    private static final Map<Task, TaskData> scheduledTasks = new HashMap<>();
 
     private static void scheduleTask(Task task, Context context) {
         if (!scheduledTasks.containsKey(task)) {

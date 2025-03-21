@@ -36,7 +36,7 @@ public class SteamGiftsUserData {
 
     private transient int createdNotification, wonNotification, messageNotification;
 
-    private static List<IPointUpdateNotification> pointUpdateHandlers = new ArrayList<>();
+    private static final List<IPointUpdateNotification> pointUpdateHandlers = new ArrayList<>();
 
     public static void addUpdateHandler(IPointUpdateNotification handler) {
         pointUpdateHandlers.add(handler);

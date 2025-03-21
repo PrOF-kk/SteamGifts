@@ -15,7 +15,7 @@ public class MessageHeader implements IEndlessAdaptable, ICommentHolder, Seriali
 
     private final String title;
     private final String url;
-    private List<Comment> comments = new ArrayList<>();
+    private final List<Comment> comments = new ArrayList<>();
 
     public MessageHeader(String title, String url) {
         this.title = title;
