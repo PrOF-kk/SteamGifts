@@ -232,7 +232,7 @@ public final class Utils {
     public static List<Giveaway> loadGiveawaysFromList(Document document) {
         Elements giveaways = document.select(".giveaway__row-inner-wrap");
 
-        List<Giveaway> giveawayList = new ArrayList<>();
+        List<Giveaway> giveawayList = new ArrayList<>(giveaways.size());
         for (Element element : giveaways) {
             // Basic information
             Element link = element.expectFirst("h2 a");

@@ -65,7 +65,7 @@ public class LoadGiveawayWinnersTask extends AsyncTask<Void, Void, List<Winner>>
 
     private List<Winner> loadAll(Document document) {
         Elements users = document.select(".table__row-inner-wrap");
-        List<Winner> userList = new ArrayList<>();
+        List<Winner> userList = new ArrayList<>(users.size());
 
         for (Element element : users) {
             userList.add(load(element));

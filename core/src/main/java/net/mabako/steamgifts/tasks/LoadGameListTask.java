@@ -82,7 +82,7 @@ public abstract class LoadGameListTask extends AsyncTask<Void, Void, List<IEndle
 
     private List<IEndlessAdaptable> loadAll(Document document) {
         Elements games = document.select(".table__row-inner-wrap");
-        List<IEndlessAdaptable> gameList = new ArrayList<>();
+        List<IEndlessAdaptable> gameList = new ArrayList<>(games.size());
 
         for (Element element : games) {
             gameList.add(load(element));

@@ -189,9 +189,8 @@ public class DiscussionDetailFragment extends DetailFragment implements IHasPoll
         discussionCard.setExtras(extras);
 
         if (extras.hasPoll() && getCommentContext() == null) {
-            List<IEndlessAdaptable> pollItems = new ArrayList<>();
+            List<IEndlessAdaptable> pollItems = new ArrayList<>(3 + extras.getPoll().getAnswers().size());
             pollItems.add(discussionCard);
-
             pollItems.add(extras.getPoll().getHeader());
             pollItems.addAll(extras.getPoll().getAnswers());
             pollItems.add(new Poll.CommentSeparator());

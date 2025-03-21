@@ -267,7 +267,7 @@ public class SavedGiveawaysFragment extends ListFragment<SavedGiveawaysFragment.
         }
 
         public List<Giveaway> getEnteredItems() {
-            List<Giveaway> entered = new ArrayList<>();
+            List<Giveaway> entered = new ArrayList<>(getItems().size());
             for (IEndlessAdaptable item : getItems()) {
                 if (item instanceof Giveaway giveaway && giveaway.isEntered()) {
                     entered.add(giveaway);

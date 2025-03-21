@@ -71,7 +71,7 @@ public class LoadDiscussionListTask extends AsyncTask<Void, Void, List<Discussio
             Elements discussions = document.select(".table__row-inner-wrap");
             Log.d(TAG, "Found inner " + discussions.size() + " elements");
 
-            List<Discussion> discussionList = new ArrayList<>();
+            List<Discussion> discussionList = new ArrayList<>(discussions.size());
             for (Element element : discussions) {
                 Element link = element.expectFirst("h3 a");
 

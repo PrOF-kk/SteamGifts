@@ -55,7 +55,7 @@ public class LoadGiveawayGroupsTask extends AsyncTask<Void, Void, List<GiveawayG
             Elements groups = document.select(".table__row-inner-wrap");
             Log.d(TAG, "Found inner " + groups.size() + " elements");
 
-            List<GiveawayGroup> groupList = new ArrayList<>();
+            List<GiveawayGroup> groupList = new ArrayList<>(groups.size());
             for (Element element : groups) {
                 Element link = element.expectFirst(".table__column__heading");
 

@@ -369,15 +369,12 @@ public class GiveawayListFragment extends SearchableListFragment<GiveawayAdapter
         @Serial
         private static final long serialVersionUID = -7112241651196581480L;
 
-        private List<List<EndlessAdapter.RemovedElement>> removedGiveaways = new ArrayList<>();
+        private final List<List<EndlessAdapter.RemovedElement>> removedGiveaways = new ArrayList<>();
         private final long internalGameId;
         private boolean wasSwiped;
 
         private LastRemovedGame(EndlessAdapter.RemovedElement removedGiveaway, long internalGameId) {
-            List<EndlessAdapter.RemovedElement> list = new ArrayList<>();
-            list.add(removedGiveaway);
-            removedGiveaways.add(list);
-
+            this.removedGiveaways.add(List.of(removedGiveaway));
             this.internalGameId = internalGameId;
             wasSwiped = true;
         }
@@ -385,7 +382,6 @@ public class GiveawayListFragment extends SearchableListFragment<GiveawayAdapter
         private LastRemovedGame(List<EndlessAdapter.RemovedElement> removedGiveaways, long internalGameId) {
             this.removedGiveaways.add(removedGiveaways);
             this.internalGameId = internalGameId;
-
             wasSwiped = false;
         }
 

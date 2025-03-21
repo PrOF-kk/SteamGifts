@@ -82,7 +82,7 @@ public class LoadWhitelistBlacklistTask extends AsyncTask<Void, Void, List<Basic
 
     private List<BasicUser> loadAll(Document document) {
         Elements users = document.select(".table__row-inner-wrap");
-        List<BasicUser> userList = new ArrayList<>();
+        List<BasicUser> userList = new ArrayList<>(users.size());
 
         for (Element element : users) {
             userList.add(load(element));

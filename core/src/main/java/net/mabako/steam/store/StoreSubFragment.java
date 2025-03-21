@@ -65,7 +65,7 @@ public class StoreSubFragment extends StoreFragment {
                         JSONObject data = sub.getJSONObject("data");
                         JSONArray apps = data.getJSONArray("apps");
 
-                        List<IEndlessAdaptable> games = new ArrayList<>();
+                        List<IEndlessAdaptable> games = new ArrayList<>(apps.length());
 
                         for (int i = 0; i < apps.length(); ++i) {
                             JSONObject app = apps.getJSONObject(i);
