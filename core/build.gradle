@@ -48,7 +48,7 @@ dependencies {
     implementation 'com.mikepenz:actionitembadge:3.3.1@aar'
     implementation 'com.mikepenz:iconics-core:3.2.5'
     implementation 'com.mikepenz:iconics-views:3.2.5'
-    implementation 'com.mikepenz:fontawesome-typeface:4.7.0.0@aar'
+    implementation 'com.mikepenz:fontawesome-typeface:4.7.0.2@aar'
     implementation 'com.mikepenz:materialdrawer:6.1.2'
     // Force version to fix error spam for MaterialDrawer 6.1.2, remove after upgrading to >= 7.0.0
     implementation 'com.mikepenz:fastadapter:3.3.1'
@@ -61,4 +61,8 @@ dependencies {
     implementation('com.wefika:flowlayout:0.4.1') {
         exclude group: 'com.intellij', module: 'annotations'
     }
+
+    // Font string generator
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'ru.ztrap.iconics:generator:1.0.3'
 }
