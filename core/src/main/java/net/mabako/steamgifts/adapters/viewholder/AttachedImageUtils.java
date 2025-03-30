@@ -32,7 +32,11 @@ public final class AttachedImageUtils {
 
             Button button = itemView.findViewById(R.id.image_link_holder);
             button.setVisibility(View.VISIBLE);
-            button.setText("{faw-picture-o}" + (images.size() > 1 ? (" " + images.size()) : ""));
+
+            String text = "{faw-picture-o}";
+            if (images.size() > 1)
+                text += " " + images.size();
+            button.setText(text);
 
             button.setOnClickListener(v -> {
                 FragmentManager fm = activity.getSupportFragmentManager();
