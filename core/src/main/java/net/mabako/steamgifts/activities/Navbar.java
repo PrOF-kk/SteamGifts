@@ -40,6 +40,8 @@ import net.mabako.steamgifts.intro.IntroActivity;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 import net.mabako.steamgifts.receivers.AbstractNotificationCheckReceiver;
 
+import java.util.StringJoiner;
+
 public class Navbar {
     private final CommonActivity activity;
 
@@ -174,18 +176,18 @@ public class Navbar {
                             }
 
                             if (user.hasNotifications()) {
-                                StringBuilder sb = new StringBuilder();
+                                StringJoiner sj = new StringJoiner(" ");
 
                                 if (user.getCreatedNotification() > 0)
-                                    sb.append("{faw-gift} ").append(user.getCreatedNotification());
+                                    sj.add("{faw-gift}").add(String.valueOf(user.getCreatedNotification()));
 
                                 if (user.getWonNotification() > 0)
-                                    sb.append(" {faw-trophy} ").append(user.getWonNotification());
+                                    sj.add("{faw-trophy}").add(String.valueOf(user.getWonNotification()));
 
                                 if (user.getMessageNotification() > 0)
-                                    sb.append(" {faw-envelope} ").append(user.getMessageNotification());
+                                    sj.add("{faw-envelope}").add(String.valueOf(user.getMessageNotification()));
 
-                                profile.withNotifications(sb.toString());
+                                profile.withNotifications(sj.toString());
                             } else {
                                 profile.withNotifications("{faw-envelope}");
                             }
