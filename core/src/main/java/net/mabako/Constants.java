@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface Constants {
     /**
-     * Important user roles we want to display. Does not include "Member", "Bundler" or "Developer".
+     * Important user roles we want to display. Does not include "Member" or "Game Developer".
      */
-    List<String> IMPORTANT_USER_ROLES = List.of("Admin", "Super Mod", "Moderator", "Support");
+    List<String> IMPORTANT_USER_ROLES = List.of("Administrator", "Ultra Moderator", "Super Moderator", "Senior Moderator", "Junior Moderator");
 
     /**
      * User agent to be used for Jsoup connections, which is a generic Chrome build.
