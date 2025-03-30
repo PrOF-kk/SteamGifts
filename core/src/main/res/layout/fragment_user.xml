@@ -10,26 +10,24 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal">
 
-        <Button
+        <com.mikepenz.iconics.view.IconicsImageButton
             android:id="@+id/whitelist"
             style="@style/MediumButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="{faw-heart}"
-            android:textSize="16sp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:visibility="gone"
-            tools:text="Whitelist"
+            app:iiv_icon="@string/faw_heart"
+            tools:src="@android:color/holo_blue_dark"
             tools:visibility="visible" />
 
-        <Button
+        <com.mikepenz.iconics.view.IconicsImageButton
             android:id="@+id/blacklist"
             style="@style/MediumButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="{faw-ban}"
-            android:textSize="16sp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:visibility="gone"
-            tools:text="Blacklist"
+            app:iiv_icon="@string/faw_ban"
+            tools:src="@android:color/holo_red_dark"
             tools:visibility="visible" />
     </LinearLayout>
 

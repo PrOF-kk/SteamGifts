@@ -15,7 +15,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,6 +27,7 @@ import androidx.preference.PreferenceManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+import com.mikepenz.iconics.view.IconicsImageButton;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -63,7 +63,8 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
     private CustomPagerAdapter viewPagerAdapter;
     private ViewPager viewPager;
     private TabLayout tabLayout;
-    private Button whitelist, blacklist;
+    private IconicsImageButton whitelist;
+    private IconicsImageButton blacklist;
 
     private UpdateWhitelistBlacklistTask updateWhitelistBlacklistTask;
 
@@ -270,8 +271,8 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
         int[] attrs = new int[]{android.R.attr.textColorPrimary};
         TypedArray ta = getContext().getTheme().obtainStyledAttributes(attrs);
 
-        whitelist.setTextColor(user.isWhitelisted() ? ContextCompat.getColor(getContext(), R.color.colorAccent) : ta.getColor(0, 0));
-        blacklist.setTextColor(user.isBlacklisted() ? ContextCompat.getColor(getContext(), R.color.colorAccent) : ta.getColor(0, 0));
+        whitelist.setColorFilter(user.isWhitelisted() ? ContextCompat.getColor(getContext(), R.color.colorAccent) : ta.getColor(0, 0));
+        blacklist.setColorFilter(user.isBlacklisted() ? ContextCompat.getColor(getContext(), R.color.colorAccent) : ta.getColor(0, 0));
     }
 
     private class CustomPagerAdapter extends FragmentAdapter {
