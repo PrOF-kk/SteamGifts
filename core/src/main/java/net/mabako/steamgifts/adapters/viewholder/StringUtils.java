@@ -30,9 +30,8 @@ public final class StringUtils {
      */
     private static final Uri BASE_URI = Uri.parse("https://www.steamgifts.com");
 
-    private static final Pattern
-            tdPattern = Pattern.compile("</td>([\\s\\r\\n]+)<td"),
-            thPattern = Pattern.compile("</th>([\\s\\r\\n]+)<th");
+    private static final Pattern tdPattern = Pattern.compile("</td>([\\s\\r\\n]+)<td");
+    private static final Pattern thPattern = Pattern.compile("</th>([\\s\\r\\n]+)<th");
 
     public static CharSequence fromHtml(@NonNull Context context, String source) {
         return fromHtml(context, source, true, null);
