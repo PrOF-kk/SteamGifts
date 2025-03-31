@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentActivity;
 import androidx.preference.PreferenceManager;
 
@@ -112,13 +113,20 @@ public class SavedGiveawaysFragment extends ListFragment<SavedGiveawaysFragment.
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.remove_all_entered_saved) {
-            for (Giveaway enteredGiveaway : adapter.getEnteredItems()) {
-                savedGiveaways.remove(enteredGiveaway.getGiveawayId());
-                adapter.removeGiveaway(enteredGiveaway.getGiveawayId());
-            }
+            new AlertDialog.Builder(requireContext())
+                    .setMessage("Confirm removing all entered giveaways?\nThis cannot be undone")
+                    .setCancelable(true)
+                    .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                        for (Giveaway enteredGiveaway : adapter.getEnteredItems()) {
+                            savedGiveaways.remove(enteredGiveaway.getGiveawayId());
+                            adapter.removeGiveaway(enteredGiveaway.getGiveawayId());
+                        }
 
-            if (getActivity() != null)
-                getActivity().invalidateOptionsMenu();
+                        if (getActivity() != null)
+                            getActivity().invalidateOptionsMenu();
+                    })
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .show();
             return true;
         } else {
             return super.onOptionsItemSelected(item);
