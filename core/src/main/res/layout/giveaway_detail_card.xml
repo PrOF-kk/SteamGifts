@@ -53,23 +53,16 @@
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="@dimen/card_margin_outer">
 
-                <androidx.constraintlayout.helper.widget.Flow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingBottom="@dimen/card_margin_small"
-                    card_view:constraint_referenced_ids="user,created,entries,copies"
-                    card_view:flow_horizontalBias="0"
-                    card_view:flow_horizontalStyle="packed" />
-
                 <TextView
                     android:id="@+id/user"
                     style="@style/SmallText.Light"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="@dimen/card_margin_small"
-                    android:paddingTop="@dimen/card_margin_small"
+                    android:padding="@dimen/card_margin_small"
                     android:text="@string/placeholder_giveaway_creator"
                     android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:text="👤 Creator" />
 
                 <TextView
@@ -77,9 +70,10 @@
                     style="@style/SmallText.Light"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="@dimen/card_margin_small"
-                    android:paddingTop="@dimen/card_margin_small"
+                    android:padding="@dimen/card_margin_small"
                     android:text="@string/placeholder_giveaway_start"
+                    app:layout_constraintStart_toEndOf="@id/user"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:text="📅 Started" />
 
                 <TextView
@@ -87,9 +81,10 @@
                     style="@style/SmallText.Light"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="@dimen/card_margin_small"
-                    android:paddingTop="@dimen/card_margin_small"
+                    android:padding="@dimen/card_margin_small"
                     android:text="@string/placeholder_giveaway_entries"
+                    app:layout_constraintStart_toEndOf="@id/created"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:text="👥 Entries" />
 
                 <TextView
@@ -97,9 +92,10 @@
                     style="@style/SmallText.Light"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="@dimen/card_margin_small"
-                    android:paddingTop="@dimen/card_margin_small"
+                    android:padding="@dimen/card_margin_small"
                     android:text="@string/placeholder_giveaway_copies"
+                    app:layout_constraintStart_toEndOf="@id/entries"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:text="Copies" />
 
 
@@ -111,8 +107,8 @@
                     android:padding="@dimen/card_margin_small"
                     android:text="@string/placeholder_giveaway_end"
                     android:textColor="?attr/lightTextColor"
-                    card_view:layout_constraintEnd_toEndOf="parent"
-                    card_view:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:text="End" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
