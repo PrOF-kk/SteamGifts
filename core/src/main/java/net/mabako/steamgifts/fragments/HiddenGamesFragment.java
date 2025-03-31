@@ -84,7 +84,7 @@ public class HiddenGamesFragment extends SearchableListFragment<HiddenGamesAdapt
 
         if (lastRemovedGame != null) {
             final Game game = (Game) lastRemovedGame.getElement();
-            Snackbar.make(swipeContainer, String.format(getString(R.string.hidden_game_removed), game.getName()), Snackbar.LENGTH_INDEFINITE)
+            Snackbar.make(swipeContainer, getString(R.string.hidden_game_removed, game.getName()), Snackbar.LENGTH_INDEFINITE)
                     .setAction(R.string.undo, v -> new UpdateGiveawayFilterTask<>(HiddenGamesFragment.this, adapter.getXsrfToken(), UpdateGiveawayFilterTask.HIDE, game.getInternalGameId(), game.getName()).execute()).show();
         }
     }

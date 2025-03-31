@@ -136,13 +136,13 @@ public class CheckForNewMessages extends AbstractNotificationCheckReceiver {
 
                 // Do we show a single (expanded) content or a bunch of comments?
                 if (mostRecentComments.size() == 1) {
-                    showNotification(context, NOTIFICATION_ID, R.drawable.sgwhite, String.format(context.getString(R.string.notification_user_replied_to_you), firstComment.getAuthor()), formatComment(firstComment, false), getViewMessageIntent(firstComment), getDeleteIntent());
+                    showNotification(context, NOTIFICATION_ID, R.drawable.sgwhite, context.getString(R.string.notification_user_replied_to_you, firstComment.getAuthor()), formatComment(firstComment, false), getViewMessageIntent(firstComment), getDeleteIntent());
                 } else {
                     List<CharSequence> texts = new ArrayList<>(mostRecentComments.size());
                     for (Comment comment : mostRecentComments)
                         texts.add(formatComment(comment, true));
 
-                    showNotification(context, NOTIFICATION_ID, R.drawable.sgwhite, String.format(context.getString(R.string.notification_new_messages), SteamGiftsUserData.getCurrent(context).getMessageNotification()), texts, getViewMessagesIntent(), getDeleteIntent());
+                    showNotification(context, NOTIFICATION_ID, R.drawable.sgwhite, context.getString(R.string.notification_new_messages, SteamGiftsUserData.getCurrent(context).getMessageNotification()), texts, getViewMessagesIntent(), getDeleteIntent());
                 }
 
                 Log.d(TAG, "Shown " + mostRecentComments.size() + " messages as notification");

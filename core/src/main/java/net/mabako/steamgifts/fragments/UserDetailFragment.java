@@ -285,25 +285,25 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
             switch (position) {
                 case 0:
                     if (user.isLoaded()) {
-                        return String.format(getString(R.string.user_giveaways_created_count), user.getCreated(), user.getCreatedAmount());
+                        return getString(R.string.user_giveaways_created_count, user.getCreated(), user.getCreatedAmount());
                     } else {
                         return getString(R.string.user_giveaways_created);
                     }
                 case 1:
                     if (user.isLoaded()) {
-                        return String.format(getString(R.string.user_giveaway_won_count), user.getWon(), user.getWonAmount());
+                        return getString(R.string.user_giveaway_won_count, user.getWon(), user.getWonAmount());
                     } else {
                         return getString(R.string.user_giveaway_won);
                     }
                 case 2:
                     if (user.isFeedbackLoaded()) {
-                        return String.format(getString(R.string.user_trade_feedback_positive_count), user.getPositiveFeedback());
+                        return getString(R.string.user_trade_feedback_positive_count, user.getPositiveFeedback());
                     } else {
                         return getString(R.string.user_trade_feedback_positive);
                     }
                 case 3:
                     if (user.isFeedbackLoaded()) {
-                        return String.format(getString(R.string.user_trade_feedback_negative_count), user.getNegativeFeedback());
+                        return getString(R.string.user_trade_feedback_negative_count, user.getNegativeFeedback());
                     } else {
                         return getString(R.string.user_trade_feedback_negative);
                     }

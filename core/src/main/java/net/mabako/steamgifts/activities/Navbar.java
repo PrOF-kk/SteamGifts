@@ -168,7 +168,7 @@ public class Navbar {
                         SteamGiftsUserData user = SteamGiftsUserData.getCurrent(activity);
                         if (user.isLoggedIn()) {
                             // Format the string
-                            String newInfo = String.format(activity.getString(R.string.drawer_profile_info), user.getLevel(), user.getPoints());
+                            String newInfo = activity.getString(R.string.drawer_profile_info, user.getLevel(), user.getPoints());
 
                             // Is this still up-to-date?
                             if (!newInfo.equals(profile.getEmail().toString())) {

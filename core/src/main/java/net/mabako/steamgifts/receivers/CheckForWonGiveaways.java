@@ -135,13 +135,13 @@ public class CheckForWonGiveaways extends AbstractNotificationCheckReceiver {
 
                 // Do we show a single (expanded) content or a bunch of comments?
                 if (mostRecentWonGames.size() == 1) {
-                    showNotification(context, NOTIFICATION_ID, R.drawable.ic_gift, String.format(context.getString(R.string.notification_won_game), mostRecentWonGames.get(0).getTitle()), mostRecentWonGames.get(0).getRelativeEndTime(context), getViewIntent(), getDeleteIntent());
+                    showNotification(context, NOTIFICATION_ID, R.drawable.ic_gift, context.getString(R.string.notification_won_game, mostRecentWonGames.get(0).getTitle()), mostRecentWonGames.get(0).getRelativeEndTime(context), getViewIntent(), getDeleteIntent());
                 } else {
                     List<CharSequence> texts = new ArrayList<>(mostRecentWonGames.size());
                     for (Giveaway giveaway : mostRecentWonGames)
                         texts.add(giveaway.getTitle());
 
-                    showNotification(context, NOTIFICATION_ID, R.drawable.ic_gift, String.format(context.getString(R.string.notification_won_games), SteamGiftsUserData.getCurrent(context).getWonNotification()), texts, getViewIntent(), getDeleteIntent());
+                    showNotification(context, NOTIFICATION_ID, R.drawable.ic_gift, context.getString(R.string.notification_won_games, SteamGiftsUserData.getCurrent(context).getWonNotification()), texts, getViewIntent(), getDeleteIntent());
 
                 }
 

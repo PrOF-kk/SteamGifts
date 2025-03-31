@@ -104,8 +104,8 @@ public class GiveawayCardViewHolder extends RecyclerView.ViewHolder {
                 timeCreated.setVisibility(View.GONE);
             }
 
-            enterGiveaway.setText(String.format(String.valueOf(itemView.getContext().getText(R.string.enter_giveaway_with_points)), giveaway.getPoints()));
-            leaveGiveaway.setText(String.format(String.valueOf(itemView.getContext().getText(R.string.leave_giveaway_with_points)), giveaway.getPoints()));
+            enterGiveaway.setText(itemView.getContext().getString(R.string.enter_giveaway_with_points, giveaway.getPoints()));
+            leaveGiveaway.setText(itemView.getContext().getString(R.string.leave_giveaway_with_points, giveaway.getPoints()));
 
             if (giveaway.getEntries() >= 0) {
                 entries.setText("{faw-users} " + fragment.getContext().getResources().getQuantityString(R.plurals.entries, giveaway.getEntries(), giveaway.getEntries()));

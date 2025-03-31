@@ -44,7 +44,7 @@ public class Slide extends Fragment {
     public void onCreateSubView(View view) {
         switch (subview) {
             case MAIN_WELCOME:
-                ((TextView) view.getRootView().findViewById(R.id.welcome_text)).setText(String.format(getText(R.string.intro_giveaway_welcome_header).toString(), getText(R.string.app_name).toString()));
+                ((TextView) view.getRootView().findViewById(R.id.welcome_text)).setText(getString(R.string.intro_giveaway_welcome_header, getText(R.string.app_name)));
                 break;
             case MAIN_GIVEAWAY_1:
                 // Giveaway

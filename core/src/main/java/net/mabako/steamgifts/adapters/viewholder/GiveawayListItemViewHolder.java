@@ -251,8 +251,8 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
 
                 // Include the points if we know
                 if (giveaway.getPoints() >= 0) {
-                    enterText = String.format(activity.getString(R.string.enter_giveaway_with_points), giveaway.getPoints());
-                    leaveText = String.format(activity.getString(R.string.leave_giveaway_with_points), giveaway.getPoints());
+                    enterText = activity.getString(R.string.enter_giveaway_with_points, giveaway.getPoints());
+                    leaveText = activity.getString(R.string.leave_giveaway_with_points, giveaway.getPoints());
                 }
 
                 // Show the relevant menu item.
