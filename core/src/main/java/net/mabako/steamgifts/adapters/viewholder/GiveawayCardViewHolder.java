@@ -2,12 +2,7 @@ package net.mabako.steamgifts.adapters.viewholder;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
-import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -26,8 +21,7 @@ import net.mabako.steamgifts.fragments.GiveawayDetailFragment;
 import net.mabako.steamgifts.fragments.util.GiveawayDetailsCard;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.StringJoiner;
 
 public class GiveawayCardViewHolder extends RecyclerView.ViewHolder {
     private final GiveawayDetailFragment fragment;
@@ -192,48 +186,34 @@ public class GiveawayCardViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void setupIndicators(final Giveaway giveaway) {
-        List<Spannable> spans = new ArrayList<>();
+        StringJoiner sj = new StringJoiner(" ");
 
         if (giveaway.isPrivate())
-            spans.add(new SpannableString("{faw-lock} "));
-
+            sj.add("{faw-lock}");
         if (giveaway.isWhitelist())
-            spans.add(new SpannableString("{faw-heart} "));
-
+            sj.add("{faw-heart}");
         if (giveaway.isGroup())
-            spans.add(new SpannableString("{faw-users} "));
-
+            sj.add("{faw-users}");
         if (giveaway.isRegionRestricted())
-            spans.add(new SpannableString("{faw-globe} "));
+            sj.add("{faw-globe}");
 
-        if (giveaway.isLevelPositive())
-            spans.add(new SpannableString("L" + giveaway.getLevel()));
-
-        if (giveaway.isLevelNegative()) {
-            Spannable span = new SpannableString("L" + giveaway.getLevel());
-            span.setSpan(new ForegroundColorSpan(fragment.getResources().getColor(R.color.giveawayIndicatorColorLevelTooHigh)), 0, span.toString().length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-            spans.add(span);
-        }
-
-        if (!spans.isEmpty())
-            spans.add(new SpannableString(" "));
+        if (giveaway.getLevel() > 0)
+            sj.add("L" + giveaway.getLevel());
 
         GameFeatures gameFeatures = GameFeaturesRepository.waitForGameFeaturesDownload().join().getGameFeatures(giveaway.getGame().getId());
-
         if (gameFeatures.getCards() > 0)
-            spans.add(new SpannableString("{faw-ticket} "));
+            sj.add("{faw-ticket}");
         if (gameFeatures.isDlc())
-            spans.add(new SpannableString("{faw-download} "));
+            sj.add("{faw-download}");
         if (gameFeatures.isLimited())
-            spans.add(new SpannableString("{faw-asterisk} "));
+            sj.add("{faw-asterisk}");
         if (gameFeatures.isDelisted())
-            spans.add(new SpannableString("{faw-trash} "));
+            sj.add("{faw-trash}");
 
-        if (!spans.isEmpty()) {
+        if (sj.length() > 0) {
             indicator.setVisibility(View.VISIBLE);
 
-            CharSequence text = TextUtils.concat(spans.toArray(new Spannable[0]));
-            indicator.setText(text);
+            indicator.setText(sj.toString());
 
             if (giveaway.isGroup()) {
                 indicator.setOnClickListener(v -> {
