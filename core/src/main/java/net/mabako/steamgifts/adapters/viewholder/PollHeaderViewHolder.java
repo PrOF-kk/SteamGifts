@@ -10,7 +10,8 @@ import net.mabako.steamgifts.core.R;
 import net.mabako.steamgifts.data.Poll;
 
 public class PollHeaderViewHolder extends RecyclerView.ViewHolder {
-    private final TextView question, description;
+    private final TextView question;
+    private final TextView description;
 
     public PollHeaderViewHolder(View itemView) {
         super(itemView);

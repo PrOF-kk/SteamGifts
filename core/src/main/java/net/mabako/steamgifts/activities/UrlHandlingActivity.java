@@ -29,9 +29,8 @@ import java.util.regex.Pattern;
 public class UrlHandlingActivity extends CommonActivity {
     private static final String TAG = UrlHandlingActivity.class.getSimpleName();
 
-    private static final Pattern
-            youtubePattern = Pattern.compile("^https?://[\\.\\w]*youtube\\.\\w+/.*"),
-            youtu_bePattern = Pattern.compile("^https?://[\\.\\w]*youtu\\.be/([A-Za-z0-9\\-_]+)(\\?.*|).*");
+    private static final Pattern youtubePattern = Pattern.compile("^https?://[\\.\\w]*youtube\\.\\w+/.*");
+    private static final Pattern youtu_bePattern = Pattern.compile("^https?://[\\.\\w]*youtu\\.be/([A-Za-z0-9\\-_]+)(\\?.*|).*");
 
     @Nullable
     public static Intent getIntentForUri(@NonNull Context context, @NonNull Uri uri) {

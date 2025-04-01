@@ -52,7 +52,10 @@ public class Giveaway extends BasicGiveaway implements IEndlessAdaptable {
      */
     private boolean entered;
 
-    private boolean whitelist, group, isPrivate, regionRestricted;
+    private boolean whitelist;
+    private boolean group;
+    private boolean isPrivate;
+    private boolean regionRestricted;
 
     /**
      * Level required to enter this giveaway.

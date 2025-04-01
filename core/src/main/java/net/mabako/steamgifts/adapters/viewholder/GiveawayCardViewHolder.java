@@ -33,7 +33,8 @@ public class GiveawayCardViewHolder extends RecyclerView.ViewHolder {
     private final TextView timeRemaining;
     private final TextView timeCreated;
     private final TextView description;
-    private final TextView entries, copies;
+    private final TextView entries;
+    private final TextView copies;
 
     private final Button enterGiveaway;
     private final Button leaveGiveaway;
@@ -42,7 +43,8 @@ public class GiveawayCardViewHolder extends RecyclerView.ViewHolder {
     private final Button loginButton;
     private final Button errorMessage;
     private final Button indicator;
-    private final View separator, actionSeparator;
+    private final View separator;
+    private final View actionSeparator;
 
     public GiveawayCardViewHolder(View v, final GiveawayDetailFragment fragment) {
         super(v);

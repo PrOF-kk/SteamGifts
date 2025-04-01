@@ -30,8 +30,11 @@ public class Comment implements Serializable, IEndlessAdaptable, IImageHolder {
     private final boolean op;
     private String authorRole;
 
-    private boolean deleted, deletable, highlighted;
-    private String permalinkId, editableContent;
+    private boolean deleted;
+    private boolean deletable;
+    private boolean highlighted;
+    private String permalinkId;
+    private String editableContent;
 
     private List<Image> attachedImages;
 

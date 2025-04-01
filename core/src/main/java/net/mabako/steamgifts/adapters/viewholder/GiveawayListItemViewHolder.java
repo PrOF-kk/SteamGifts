@@ -56,9 +56,18 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
     private final Fragment fragment;
     private SavedGiveaways savedGiveaways;
 
-    private final View indicatorWhitelist, indicatorGroup, indicatorLevelPositive, indicatorLevelNegative, indicatorPrivate, indicatorRegionRestricted;
+    private final View indicatorWhitelist;
+    private final View indicatorGroup;
+    private final View indicatorLevelPositive;
+    private final View indicatorLevelNegative;
+    private final View indicatorPrivate;
+    private final View indicatorRegionRestricted;
 
-    private final View indicatorCards, indicatorDLC, indicatorLimited, indicatorDelisted, indicatorLoading;
+    private final View indicatorCards;
+    private final View indicatorDLC;
+    private final View indicatorLimited;
+    private final View indicatorDelisted;
+    private final View indicatorLoading;
 
     private static int measuredHeight = 0;
 

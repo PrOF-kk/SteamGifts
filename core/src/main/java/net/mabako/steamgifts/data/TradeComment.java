@@ -6,7 +6,8 @@ public class TradeComment extends Comment {
     @Serial
     private static final long serialVersionUID = 7399592725523466062L;
 
-    private int tradeScorePositive, tradeScoreNegative;
+    private int tradeScorePositive;
+    private int tradeScoreNegative;
     private long steamID64;
 
     public TradeComment(long id, String author, int depth, String avatar, boolean isOp, Type type) {

@@ -14,10 +14,19 @@ public class User extends BasicUser implements Serializable {
     private String role;
     private long steamID64;
 
-    private int level, created, won, comments, positiveFeedback, negativeFeedback;
-    private String createdAmount, wonAmount;
+    private int level;
+    private int created;
+    private int won;
+    private int comments;
+    private int positiveFeedback;
+    private int negativeFeedback;
+    private String createdAmount;
+    private String wonAmount;
 
-    private boolean loaded = false, feedbackLoaded = false, whitelisted, blacklisted;
+    private boolean loaded = false;
+    private boolean feedbackLoaded = false;
+    private boolean whitelisted;
+    private boolean blacklisted;
 
     public User() {
 

@@ -46,7 +46,9 @@ public class CommentViewHolder extends RecyclerView.ViewHolder implements View.O
     private final TextView tradeScoreNegative;
 
     private final Context context;
-    private View.OnClickListener writeCommentListener, editCommentListener, deleteCommentListener;
+    private View.OnClickListener writeCommentListener;
+    private View.OnClickListener editCommentListener;
+    private View.OnClickListener deleteCommentListener;
     private boolean deleted;
 
     public CommentViewHolder(View v, Context context, ICommentableFragment fragment) {

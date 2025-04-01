@@ -34,7 +34,9 @@ public class SteamGiftsUserData {
     private transient int points = 0;
     private transient int level = 0;
 
-    private transient int createdNotification, wonNotification, messageNotification;
+    private transient int createdNotification;
+    private transient int wonNotification;
+    private transient int messageNotification;
 
     private static final List<IPointUpdateNotification> pointUpdateHandlers = new ArrayList<>();
 

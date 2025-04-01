@@ -14,7 +14,8 @@ public class BasicUser implements IEndlessAdaptable, Serializable {
     private static final long serialVersionUID = 2288877588005277781L;
 
     private int id;
-    private String name, avatar;
+    private String name;
+    private String avatar;
 
     public int getId() {
         return id;

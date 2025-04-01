@@ -14,7 +14,8 @@ public class Text implements IEndlessAdaptable, Serializable {
     public static final int VIEW_LAYOUT = R.layout.text_item;
 
     private final String text;
-    private final boolean html, loadRemoteImages;
+    private final boolean html;
+    private final boolean loadRemoteImages;
 
     @LayoutRes
     private final int layout;

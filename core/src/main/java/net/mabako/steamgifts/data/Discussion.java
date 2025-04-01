@@ -16,7 +16,9 @@ public class Discussion extends BasicDiscussion implements IEndlessAdaptable {
     private CustomDateTime createdTime;
     private String creatorAvatar;
 
-    private boolean locked, poll, pinned;
+    private boolean locked;
+    private boolean poll;
+    private boolean pinned;
 
     public Discussion(String discussionId) {
         super(discussionId);

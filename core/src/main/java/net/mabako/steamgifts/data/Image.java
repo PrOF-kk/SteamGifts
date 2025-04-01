@@ -5,7 +5,8 @@ import androidx.annotation.NonNull;
 import java.io.Serializable;
 
 public class Image implements Serializable {
-    private String url, title;
+    private String url;
+    private String title;
 
     public Image(String url, String title) {
         this.url = url;

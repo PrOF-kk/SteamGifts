@@ -21,8 +21,18 @@ public class FilterData implements Serializable {
 
     private static FilterData current = null;
 
-    private int minEntries = -1, maxEntries = -1, minPoints = -1, maxPoints = -1, minLevel = -1, maxLevel = -1, minCopies = -1, maxCopies = -1;
-    private boolean hideEntered, restrictLevelOnlyOnPublicGiveaways, entriesPerCopy, regionRestrictedOnly;
+    private int minEntries = -1;
+    private int maxEntries = -1;
+    private int minPoints = -1;
+    private int maxPoints = -1;
+    private int minLevel = -1;
+    private int maxLevel = -1;
+    private int minCopies = -1;
+    private int maxCopies = -1;
+    private boolean hideEntered;
+    private boolean restrictLevelOnlyOnPublicGiveaways;
+    private boolean entriesPerCopy;
+    private boolean regionRestrictedOnly;
 
     public static synchronized FilterData getCurrent(Context context) {
         if (current == null) {
