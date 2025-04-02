@@ -53,6 +53,17 @@
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="@dimen/card_margin_outer">
 
+                <androidx.constraintlayout.helper.widget.Flow
+                    android:layout_width="0px"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="@dimen/card_margin_small"
+                    app:constraint_referenced_ids="user,created,entries,copies"
+                    app:flow_horizontalBias="0"
+                    app:flow_horizontalStyle="packed"
+                    app:flow_wrapMode="chain"
+                    app:layout_constraintEnd_toStartOf="@id/remaining"
+                    app:layout_constraintStart_toStartOf="parent" />
+
                 <TextView
                     android:id="@+id/user"
                     style="@style/SmallText.Light"
@@ -61,8 +72,6 @@
                     android:padding="@dimen/card_margin_small"
                     android:text="@string/placeholder_giveaway_creator"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
                     tools:text="👤 Creator" />
 
                 <TextView
@@ -72,8 +81,6 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/card_margin_small"
                     android:text="@string/placeholder_giveaway_start"
-                    app:layout_constraintStart_toEndOf="@id/user"
-                    app:layout_constraintTop_toTopOf="parent"
                     tools:text="📅 Started" />
 
                 <TextView
@@ -83,8 +90,6 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/card_margin_small"
                     android:text="@string/placeholder_giveaway_entries"
-                    app:layout_constraintStart_toEndOf="@id/created"
-                    app:layout_constraintTop_toTopOf="parent"
                     tools:text="👥 Entries" />
 
                 <TextView
@@ -94,9 +99,7 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/card_margin_small"
                     android:text="@string/placeholder_giveaway_copies"
-                    app:layout_constraintStart_toEndOf="@id/entries"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Copies" />
+                    tools:text="📔 Copies" />
 
 
                 <TextView
@@ -109,7 +112,7 @@
                     android:textColor="?attr/lightTextColor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="End" />
+                    tools:text="🕒 End" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <RelativeLayout
