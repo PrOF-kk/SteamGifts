@@ -2,10 +2,11 @@ package net.mabako.steamgifts.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.text.InputFilter;
+import android.text.Editable;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.mikepenz.iconics.context.IconicsContextWrapper;
 
+import net.mabako.common.AbstractTextWatcher;
 import net.mabako.steamgifts.core.R;
 import net.mabako.steamgifts.data.BasicDiscussion;
 import net.mabako.steamgifts.data.BasicGiveaway;
@@ -113,10 +115,6 @@ public class CommonActivity extends BaseActivity {
 
     /**
      * Always-available "Go to ..." menu by long-pressing back.
-     *
-     * @param keyCode
-     * @param event
-     * @return
      */
     @Override
     public boolean onKeyLongPress(int keyCode, KeyEvent event) {
@@ -147,31 +145,31 @@ public class CommonActivity extends BaseActivity {
                     inputMethodManager.showSoftInput(inputField, InputMethodManager.SHOW_IMPLICIT);
                 }, 500);
 
-                // Discussion and giveaway ids can only be 5 chars long
-                final boolean limitLength = (dialogSelected == 0 || dialogSelected == 1);
-                if (limitLength)
-                    ((EditText) idInputDialog.findViewById(R.id.edit_text)).setFilters(new InputFilter[]{new InputFilter.LengthFilter(5)});
-
-                idInputDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+                Button okButton = idInputDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                okButton.setOnClickListener(v -> {
                     String target = inputField.getText().toString();
-                    if (!limitLength || target.length() == 5) {
-                        Intent intent = new Intent(CommonActivity.this, DetailActivity.class);
-                        switch (dialogSelected) {
-                            case 0:
-                                intent.putExtra(GiveawayDetailFragment.ARG_GIVEAWAY, new BasicGiveaway(target));
-                                break;
-                            case 1:
-                                intent.putExtra(DiscussionDetailFragment.ARG_DISCUSSION, new BasicDiscussion(target));
-                                break;
-                            case 2:
-                                intent.putExtra(UserDetailFragment.ARG_USER, target);
-                                break;
-                        }
-                        startActivity(intent);
-
-                        idInputDialog.dismiss();
+                    Intent intent = new Intent(CommonActivity.this, DetailActivity.class);
+                    switch (dialogSelected) {
+                        case 0 -> intent.putExtra(GiveawayDetailFragment.ARG_GIVEAWAY, new BasicGiveaway(target));
+                        case 1 -> intent.putExtra(DiscussionDetailFragment.ARG_DISCUSSION, new BasicDiscussion(target));
+                        case 2 -> intent.putExtra(UserDetailFragment.ARG_USER, target);
                     }
+                    startActivity(intent);
+
+                    idInputDialog.dismiss();
                 });
+
+                // Discussion and giveaway ids can only be 5 chars long, allow entering longer text and then editing it down to 5
+                boolean isGiveawayOrUserDialog = (dialogSelected == 0 || dialogSelected == 1);
+                if (isGiveawayOrUserDialog) {
+                    okButton.setEnabled(false);
+                    ((EditText) idInputDialog.findViewById(R.id.edit_text)).addTextChangedListener(new AbstractTextWatcher() {
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            okButton.setEnabled(s.length() == 5);
+                        }
+                    });
+                }
 
             });
             gotoButtonsBuilder.show();
