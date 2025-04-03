@@ -14,8 +14,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
-import com.mikepenz.iconics.context.IconicsContextWrapper;
-
 import net.mabako.common.AbstractTextWatcher;
 import net.mabako.steamgifts.core.R;
 import net.mabako.steamgifts.data.BasicDiscussion;
@@ -176,15 +174,5 @@ public class CommonActivity extends BaseActivity {
             return true;
         }
         return super.onKeyLongPress(keyCode, event);
-    }
-
-    /**
-     * Allow icons to be used in {@link android.widget.TextView}
-     *
-     * @param newBase
-     */
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(IconicsContextWrapper.wrap(newBase));
     }
 }
