@@ -150,10 +150,8 @@
     <string name="preferences_giveaways">Giveaways</string>
     <string name="preference_giveaway_load_images">Load Images</string>
     <string name="preference_giveaway_show_game_features">Load Game Features</string>
-    <string name="preference_giveaway_show_pinned">Highlight Pinned Giveaways</string>
-    <string name="preference_giveaway_show_pinned_on">Always shown first</string>
-    <string name="preference_giveaway_show_pinned_off">Not highlighted in a special way</string>
-    <string name="preference_giveaway_quick_enter">Quick Enter button</string>
+    <string name="preference_giveaway_show_pinned">Show Pinned Giveaways first</string>
+    <string name="preference_giveaway_quick_enter">Show quick Enter button</string>
     <string name="preference_giveaway_swipe_to_hide">Swipe giveaway to hide game</string>
 
     <string name="preferences_discussions">Discussions</string>
