@@ -64,7 +64,7 @@
                     app:layout_constraintEnd_toStartOf="@id/remaining"
                     app:layout_constraintStart_toStartOf="parent" />
 
-                <TextView
+                <com.mikepenz.iconics.view.IconicsTextView
                     android:id="@+id/user"
                     style="@style/SmallText.Light"
                     android:layout_width="wrap_content"
@@ -72,37 +72,41 @@
                     android:padding="@dimen/card_margin_small"
                     android:text="@string/placeholder_giveaway_creator"
                     android:textStyle="bold"
+                    app:emojiCompatEnabled="false"
                     tools:text="👤 Creator" />
 
-                <TextView
+                <com.mikepenz.iconics.view.IconicsTextView
                     android:id="@+id/created"
                     style="@style/SmallText.Light"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/card_margin_small"
                     android:text="@string/placeholder_giveaway_start"
+                    app:emojiCompatEnabled="false"
                     tools:text="📅 Started" />
 
-                <TextView
+                <com.mikepenz.iconics.view.IconicsTextView
                     android:id="@+id/entries"
                     style="@style/SmallText.Light"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/card_margin_small"
                     android:text="@string/placeholder_giveaway_entries"
+                    app:emojiCompatEnabled="false"
                     tools:text="👥 Entries" />
 
-                <TextView
+                <com.mikepenz.iconics.view.IconicsTextView
                     android:id="@+id/copies"
                     style="@style/SmallText.Light"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/card_margin_small"
                     android:text="@string/placeholder_giveaway_copies"
+                    app:emojiCompatEnabled="false"
                     tools:text="📔 Copies" />
 
 
-                <TextView
+                <com.mikepenz.iconics.view.IconicsTextView
                     android:id="@+id/remaining"
                     style="@style/SmallText"
                     android:layout_width="wrap_content"
@@ -110,6 +114,7 @@
                     android:padding="@dimen/card_margin_small"
                     android:text="@string/placeholder_giveaway_end"
                     android:textColor="?attr/lightTextColor"
+                    app:emojiCompatEnabled="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="🕒 End" />
