@@ -190,6 +190,7 @@
             android:paddingRight="16dp"
             android:text="{faw-times}"
             android:visibility="gone"
+            app:emojiCompatEnabled="false"
             tools:text="x"
             tools:visibility="visible" />
 

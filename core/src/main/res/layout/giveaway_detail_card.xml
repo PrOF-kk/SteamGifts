@@ -211,6 +211,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
+                    app:emojiCompatEnabled="false"
                     tools:text="🏆" />
 
                 <Button
@@ -236,6 +237,7 @@
                     style="@style/MediumButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:emojiCompatEnabled="false"
                     tools:text="L10+" />
             </LinearLayout>
         </LinearLayout>

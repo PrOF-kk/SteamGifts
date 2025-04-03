@@ -1,7 +1,9 @@
 <com.mikepenz.iconics.view.IconicsButton xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/image_link_holder"
     style="@style/MediumButton"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    app:emojiCompatEnabled="false"
     tools:text="🖼" />
