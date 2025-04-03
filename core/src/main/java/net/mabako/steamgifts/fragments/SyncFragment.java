@@ -72,7 +72,7 @@ public class SyncFragment extends Fragment {
             syncView.setEnabled(false);
 
             view.findViewById(R.id.privacy_settings).setOnClickListener(v -> {
-                UrlHandlingActivity.getIntentForUri(getContext(), Uri.parse("http://steamcommunity.com/my/edit/settings"), true).start(getActivity());
+                UrlHandlingActivity.getIntentForUri(getContext(), Uri.parse("https://steamcommunity.com/my/edit/settings"), true).start(getActivity());
             });
 
             loadSyncDetailsTask = new LoadSyncDetailsTask(this);
