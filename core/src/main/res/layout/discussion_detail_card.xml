@@ -36,6 +36,16 @@
                 android:paddingRight="@dimen/card_margin_outer">
 
                 <TextView
+                    android:id="@+id/user"
+                    style="@style/SmallText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/card_margin_small"
+                    android:textColor="?attr/lightTextColor"
+                    android:textStyle="bold"
+                    tools:text="👤 Creator" />
+
+                <TextView
                     android:id="@+id/time"
                     style="@style/SmallText"
                     android:layout_width="wrap_content"
@@ -44,18 +54,9 @@
                     android:layout_toRightOf="@+id/user"
                     android:gravity="right"
                     android:padding="@dimen/card_margin_small"
-                    android:text="Time"
+                    android:text="📅 Time"
                     android:textColor="?attr/lightTextColor" />
 
-                <TextView
-                    android:id="@+id/user"
-                    style="@style/SmallText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/card_margin_small"
-                    android:text="Creator"
-                    android:textColor="?attr/lightTextColor"
-                    android:textStyle="bold" />
 
                 <View
                     android:id="@+id/separator"
