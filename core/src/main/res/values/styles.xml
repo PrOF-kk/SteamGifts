@@ -16,6 +16,8 @@
         <item name="colorTradeScorePositive">@color/md_green_600</item>
         <item name="colorTradeScoreNegative">@color/md_red_600</item>
 
+        <item name="android:textAllCaps">false</item>
+
         <!-- Force white text in header-->
         <item name="material_drawer_header_selection_text">@color/material_drawer_dark_header_selection_text</item>
         <item name="material_drawer_header_selection_subtext">@color/material_drawer_dark_header_selection_subtext</item>
@@ -36,6 +38,8 @@
         <item name="lightTextColor">#777777</item>
         <item name="colorTradeScorePositive">@color/md_green_600</item>
         <item name="colorTradeScoreNegative">@color/md_red_600</item>
+
+        <item name="android:textAllCaps">false</item>
     </style>
 
     <style name="TransparentText" parent="@android:style/TextAppearance">

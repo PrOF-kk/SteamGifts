@@ -39,7 +39,7 @@
                 tools:text="Username" />
         </LinearLayout>
 
-        <Button
+        <com.mikepenz.iconics.view.IconicsButton
             android:id="@+id/remove_user"
             style="@style/MediumButton"
             android:layout_width="wrap_content"

@@ -5,7 +5,7 @@
     android:paddingLeft="0dp"
     android:paddingRight="24dp">
 
-    <Button
+    <com.mikepenz.iconics.view.IconicsButton
         android:id="@+id/vote"
         style="@style/MediumButton"
         android:layout_width="wrap_content"

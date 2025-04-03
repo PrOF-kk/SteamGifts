@@ -205,13 +205,13 @@
                     android:text="@string/leave_giveaway"
                     android:visibility="gone" />
 
-                <Button
+                <com.mikepenz.iconics.view.IconicsButton
                     android:id="@+id/winners"
                     style="@style/MediumButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
-                    tools:text="View Winners" />
+                    tools:text="🏆" />
 
                 <Button
                     android:id="@+id/comment"

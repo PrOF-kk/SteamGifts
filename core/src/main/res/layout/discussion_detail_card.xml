@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -35,7 +36,7 @@
                 android:paddingLeft="@dimen/card_margin_outer"
                 android:paddingRight="@dimen/card_margin_outer">
 
-                <TextView
+                <com.mikepenz.iconics.view.IconicsTextView
                     android:id="@+id/user"
                     style="@style/SmallText"
                     android:layout_width="wrap_content"
@@ -43,9 +44,10 @@
                     android:padding="@dimen/card_margin_small"
                     android:textColor="?attr/lightTextColor"
                     android:textStyle="bold"
+                    app:emojiCompatEnabled="false"
                     tools:text="👤 Creator" />
 
-                <TextView
+                <com.mikepenz.iconics.view.IconicsTextView
                     android:id="@+id/time"
                     style="@style/SmallText"
                     android:layout_width="wrap_content"
@@ -55,7 +57,8 @@
                     android:gravity="right"
                     android:padding="@dimen/card_margin_small"
                     android:text="📅 Time"
-                    android:textColor="?attr/lightTextColor" />
+                    android:textColor="?attr/lightTextColor"
+                    app:emojiCompatEnabled="false" />
 
 
                 <View
