@@ -80,10 +80,13 @@ public final class GameFeaturesRepository {
                 JSONObject json = new JSONObject(body.string());
                 for (Iterator<String> it = json.keys(); it.hasNext(); ) {
                     String gameIdStr = it.next();
-                    int gameId = Integer.parseInt(gameIdStr);
-                    int cardCount = json.getJSONObject(gameIdStr).getInt("cards");
-                    data.putIfAbsent(gameId, new GameFeatures());
-                    data.get(gameId).setCards(cardCount);
+                    JSONObject obj = json.getJSONObject(gameIdStr);
+                    if (obj.getBoolean("marketable")) {
+                        int gameId = Integer.parseInt(gameIdStr);
+                        int cardCount = obj.getInt("cards");
+                        data.putIfAbsent(gameId, new GameFeatures());
+                        data.get(gameId).setCards(cardCount);
+                    }
                 }
                 Log.d(TAG, "Loaded Cards");
             } catch (Exception e) {
