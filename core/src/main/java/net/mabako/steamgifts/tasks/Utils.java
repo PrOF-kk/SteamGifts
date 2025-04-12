@@ -133,9 +133,14 @@ public final class Utils {
 
         if (comment instanceof TradeComment tradeComment && !comment.isDeleted()) {
             try {
-                tradeComment.setTradeScorePositive(Utils.parseInt(element.expectFirst(".is_positive").text()));
-                tradeComment.setTradeScoreNegative(-Utils.parseInt(element.expectFirst(".is_negative").text()));
                 tradeComment.setSteamID64(Long.parseLong(Uri.parse(element.select(".author_name").attr("href")).getPathSegments().get(1)));
+
+                Element pScoreEl = element.selectFirst(".author_small > .is_positive");
+                Element nScoreEl = element.selectFirst(".author_small > .is_negative");
+                String pScoreTxt = pScoreEl != null ? pScoreEl.text() : "0";
+                String nScoreTxt = nScoreEl != null ? nScoreEl.text() : "0";
+                tradeComment.setTradeScorePositive(Utils.parseInt(pScoreTxt));
+                tradeComment.setTradeScoreNegative(-Utils.parseInt(nScoreTxt));
             } catch (Exception e) {
                 Log.v(TAG, "Unable to parse feedback", e);
             }
