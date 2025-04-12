@@ -488,7 +488,7 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
 
         @Override
         public void showProfile(long steamID64) {
-            Intent intent = UrlHandlingActivity.getIntentForUri(getContext(), Uri.parse("https://www.steamgifts.com/user/id/" + steamID64));
+            Intent intent = UrlHandlingActivity.getIntentForUri(getContext(), Uri.parse("https://www.steamgifts.com/go/user/" + steamID64));
             getActivity().startActivity(intent);
         }
 
