@@ -65,20 +65,17 @@ public class UrlHandlingActivity extends CommonActivity {
                     }
                 } else if ("user".equals(pathSegments.get(0))) {
                     String user = pathSegments.get(1);
-                    if("id".equals(user)) {
-                        // Follow a redirect from /user/id/012435
+                    Intent intent = new Intent(context, DetailActivity.class);
+                    intent.putExtra(UserDetailFragment.ARG_USER, user);
+                    return intent;
+                } else if ("go".equals(pathSegments.get(0))) {
+                    // Follow a redirect
+                    String to = pathSegments.get(1);
+                    if ("comment".equals(to) || "user".equals(to)) {
                         Intent intent = new Intent(context, WebViewActivity.class);
                         intent.putExtra(WebViewActivity.ARG_URL, uri.toString());
                         return intent;
-                    } else {
-                        Intent intent = new Intent(context, DetailActivity.class);
-                        intent.putExtra(UserDetailFragment.ARG_USER, user);
-                        return intent;
                     }
-                } else if ("go".equals(pathSegments.get(0)) && "comment".equals(pathSegments.get(1)) && pathSegments.size() == 3) {
-                    Intent intent = new Intent(context, WebViewActivity.class);
-                    intent.putExtra(WebViewActivity.ARG_URL, uri.toString());
-                    return intent;
                 }
             }
         } else {
