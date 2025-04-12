@@ -16,7 +16,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:tooltipText="Whitelist"
-            android:visibility="gone"
+            android:visibility="invisible"
             app:iiv_icon="@string/faw_heart"
             tools:src="@android:color/holo_blue_dark"
             tools:visibility="visible" />
@@ -27,7 +27,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:tooltipText="Blacklist"
-            android:visibility="gone"
+            android:visibility="invisible"
             app:iiv_icon="@string/faw_ban"
             tools:src="@android:color/holo_red_dark"
             tools:visibility="visible" />
