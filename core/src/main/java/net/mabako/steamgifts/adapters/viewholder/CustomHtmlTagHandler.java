@@ -30,7 +30,8 @@ import net.mabako.steamgifts.core.R;
 
 import org.xml.sax.XMLReader;
 
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class CustomHtmlTagHandler implements Html.TagHandler {
     private final Context context;
@@ -39,12 +40,12 @@ public class CustomHtmlTagHandler implements Html.TagHandler {
      * Keeps track of lists (ol, ul). On bottom of Stack is the outermost list
      * and on top of Stack is the most nested list
      */
-    Stack<String> lists = new Stack<>();
+    Deque<String> lists = new ArrayDeque<>();
     /**
      * Tracks indexes of ordered lists so that after a nested list ends
      * we can continue with correct index of outer list
      */
-    Stack<Integer> olNextIndex = new Stack<>();
+    Deque<Integer> olNextIndex = new ArrayDeque<>();
     /**
      * List indentation in pixels. Nested lists use multiple of this.
      */
