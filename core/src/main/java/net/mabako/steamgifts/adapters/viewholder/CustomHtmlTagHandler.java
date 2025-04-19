@@ -8,7 +8,6 @@ import android.graphics.Paint;
 import android.text.Editable;
 import android.text.Html;
 import android.text.Layout;
-import android.text.Spannable;
 import android.text.Spanned;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.BulletSpan;
@@ -32,6 +31,7 @@ import org.xml.sax.XMLReader;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Locale;
 
 public class CustomHtmlTagHandler implements Html.TagHandler {
     private final Context context;
@@ -59,32 +59,29 @@ public class CustomHtmlTagHandler implements Html.TagHandler {
 
     @Override
     public void handleTag(boolean opening, String tag, Editable output, XMLReader xmlReader) {
-        if (tag.equalsIgnoreCase("del")) {
-            processStrike(opening, output);
-        } else if (tag.equalsIgnoreCase("ul")) {
-            if (opening) {
-                lists.push(tag);
-            } else {
-                lists.pop();
+        switch (tag.toLowerCase(Locale.ROOT)) {
+            case "del" -> processStrike(opening, output);
+            case "ul" -> {
+                if (opening) {
+                    lists.push(tag);
+                } else {
+                    lists.pop();
+                }
             }
-        } else if (tag.equalsIgnoreCase("ol")) {
-            if (opening) {
-                lists.push(tag);
-                olNextIndex.push(1);
-            } else {
-                lists.pop();
-                olNextIndex.pop();
+            case "ol" -> {
+                if (opening) {
+                    lists.push(tag);
+                    olNextIndex.push(1);
+                } else {
+                    lists.pop();
+                    olNextIndex.pop();
+                }
             }
-        } else if (tag.equalsIgnoreCase("li")) {
-            processListItem(opening, output);
-        } else if (tag.equalsIgnoreCase("span")) {
-            processSpoiler(opening, output);
-        } else if (tag.equalsIgnoreCase("custom_quote")) {
-            processQuoteTag(opening, output, R.color.colorBlockquoteStripe);
-        } else if (tag.equalsIgnoreCase("trade_want")) {
-            processQuoteTag(opening, output, R.color.tradeWantItems);
-        } else if (tag.equalsIgnoreCase("trade_have")) {
-            processQuoteTag(opening, output, R.color.tradeHaveItems);
+            case "li" -> processListItem(opening, output);
+            case "span" -> processSpoiler(opening, output);
+            case "custom_quote" -> processQuoteTag(opening, output, R.color.colorBlockquoteStripe);
+            case "trade_want" -> processQuoteTag(opening, output, R.color.tradeWantItems);
+            case "trade_have" -> processQuoteTag(opening, output, R.color.tradeHaveItems);
         }
     }
 
@@ -146,7 +143,7 @@ public class CustomHtmlTagHandler implements Html.TagHandler {
     private void processStrike(boolean opening, Editable output) {
         int len = output.length();
         if (opening) {
-            output.setSpan(new StrikethroughSpan(), len, len, Spannable.SPAN_MARK_MARK);
+            output.setSpan(new StrikethroughSpan(), len, len, Spanned.SPAN_MARK_MARK);
         } else {
             Object obj = getLast(output, StrikethroughSpan.class);
             int where = output.getSpanStart(obj);
@@ -154,7 +151,7 @@ public class CustomHtmlTagHandler implements Html.TagHandler {
             output.removeSpan(obj);
 
             if (where != len) {
-                output.setSpan(new StrikethroughSpan(), where, len, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                output.setSpan(new StrikethroughSpan(), where, len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
         }
     }
@@ -162,7 +159,7 @@ public class CustomHtmlTagHandler implements Html.TagHandler {
     private void processQuoteTag(boolean opening, Editable output, @ColorRes int colorRes) {
         int len = output.length();
         if (opening) {
-            output.setSpan(new CustomQuoteSpan(), len, len, Spannable.SPAN_MARK_MARK);
+            output.setSpan(new CustomQuoteSpan(), len, len, Spanned.SPAN_MARK_MARK);
         } else {
             Object obj = getLast(output, CustomQuoteSpan.class);
             int where = output.getSpanStart(obj);
@@ -171,7 +168,7 @@ public class CustomHtmlTagHandler implements Html.TagHandler {
 
             if (where != len) {
                 @ColorInt int color = context.getResources().getColor(colorRes);
-                output.setSpan(new CustomQuoteSpan(color), where, len, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                output.setSpan(new CustomQuoteSpan(color), where, len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
         }
     }
@@ -179,7 +176,7 @@ public class CustomHtmlTagHandler implements Html.TagHandler {
     private void processSpoiler(boolean opening, Editable output) {
         int len = output.length();
         if (opening) {
-            output.setSpan(new Spoiler(), len, len, Spannable.SPAN_MARK_MARK);
+            output.setSpan(new Spoiler(), len, len, Spanned.SPAN_MARK_MARK);
         } else {
             Object obj = getLast(output, Spoiler.class);
             int where = output.getSpanStart(obj);
@@ -201,8 +198,8 @@ public class CustomHtmlTagHandler implements Html.TagHandler {
                         dialog.show();
                     }
                 }, where, len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                output.setSpan(new ForegroundColorSpan(0xff666666), where, len, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                output.setSpan(new BackgroundColorSpan(0xff666666), where, len, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                output.setSpan(new ForegroundColorSpan(0xff666666), where, len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                output.setSpan(new BackgroundColorSpan(0xff666666), where, len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
         }
     }
