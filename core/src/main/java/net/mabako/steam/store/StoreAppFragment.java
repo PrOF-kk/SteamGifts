@@ -58,8 +58,9 @@ public class StoreAppFragment extends StoreFragment {
         @Override
         protected Void doInBackground(Void... params) {
             try {
+                String appId = requireArguments().getString("app");
                 Connection.Response response = Jsoup
-                        .connect("https://store.steampowered.com/app/" + requireArguments().getString("app"))
+                        .connect("https://store.steampowered.com/app/" + appId)
                         .userAgent(Constants.JSOUP_USER_AGENT)
                         .timeout(Constants.JSOUP_TIMEOUT)
                         // Bypass age check
@@ -73,75 +74,82 @@ public class StoreAppFragment extends StoreFragment {
                 Document document = response.parse();
 
                 Element errorBox = document.getElementById("error_box");
-                if (responseCode != 200 || errorBox != null
-                        // Redirected to homepage
-                        || response.url().getPath().equals("/")
-                        // Redirected to login page
-                        || response.url().getPath().equals("/login/")) {
-
-                    items.add(new Text("The Steam store page for this app is not available.", false));
-                    if (errorBox != null) {
-                        items.add(new Text(errorBox.expectFirst(".error").text(), false));
-                    } else if (responseCode != 200) {
-                        items.add(new Text(response.statusMessage(), false));
-                    }
-                    items.add(new Text("You can <a href='https://steamdb.info/app/" + requireArguments().getString("app") + "/'>visit its SteamDB page instead.</a>", true));
-                } else {
-                    // Game description
-                    Element description = document.getElementById("game_area_description");
-                    if (description != null)
-                        addDescription(description);
-
-                    // Space!
-                    items.add(new Space());
-
-                    // All reviews
-                    Element allReviewsDesc = document.selectFirst("[itemprop=aggregateRating] [itemprop=description]");
-                    if (allReviewsDesc != null) {
-                        // "All Reviews: (Negative/Positive/X reviews)"
-                        String line = "<strong>All Reviews:</strong> " + allReviewsDesc.ownText();
-
-                        Element allReviewsScore = allReviewsDesc.siblingElements().selectFirst(".responsive_reviewdesc");
-                        if (allReviewsScore != null) {
-                            String allReviewsScoreText = allReviewsScore.ownText();
-                            if (allReviewsScoreText.indexOf('%') != -1) {
-                                // "- X% of the Y user reviews for this game are positive."
-                                String score = allReviewsScoreText.substring(2, allReviewsScoreText.indexOf('%') + 1);
-                                // -> " (X% positive)"
-                                line += " (" + score + " positive)";
-                            }
-                            // else "- Need more user reviews to generate a score"
+                boolean redirectedToHome = response.url().getPath().equals("/");
+                boolean redirectedToLogin = response.url().getPath().equals("/login/");
+                if (responseCode != 200 || errorBox != null || redirectedToHome || redirectedToLogin) {
+                    if (redirectedToLogin) {
+                        items.add(new Text("""
+                                The store page for this app cannot be shown in the SG app.
+                                <a href='https://store.steampowered.com/app/""" + appId + "/'>Open in browser \uD83D\uDD17</a>", true)
+                        );
+                    } else {
+                        String errorDetails = "";
+                        if (errorBox != null) {
+                            errorDetails = errorBox.expectFirst(".error").text();
+                        } else if (responseCode != 200) {
+                            errorDetails = response.statusMessage();
                         }
-                        items.add(new Text(line, true));
+                        items.add(new Text("The store page for this app is not available.\n" + errorDetails, false));
+                        items.add(new Text("You can <a href='https://steamdb.info/app/" + appId + "/'>visit its SteamDB page instead \uD83D\uDD17</a>", true));
                     }
 
-                    // Release date
-                    Element releaseDate = document.getElementsByClass("date").first();
-                    if (releaseDate != null)
-                        items.add(new Text("<strong>Release Date:</strong> " + releaseDate.ownText(), true));
-
-                    // Developer
-                    Element developers = document.getElementById("developers_list");
-                    if (developers != null)
-                        items.add(new Text("<strong>Developer:</strong> " + developers.child(0).ownText(), true));
-
-                    // Tags
-                    Elements tags = document.getElementsByClass("app_tag");
-                    if (!tags.isEmpty()) {
-                        String tagString = tags.stream()
-                                .limit(5)
-                                .map(Element::ownText)
-                                .collect(Collectors.joining(", "));
-                        items.add(new Text("<strong>Tags:</strong> " + tagString, true));
-                    }
-
-                    // Space!
-                    items.add(new Space());
-
-                    // Screenshots
-                    Elements screenshots = document.getElementsByClass("highlight_screenshot_link");
-                    screenshots.forEach(a -> items.add(new Picture(a.attr("href").replace("1920x1080", "800x600"), false)));
+                    return null;
                 }
+
+                // Game description
+                Element description = document.getElementById("game_area_description");
+                if (description != null)
+                    addDescription(description);
+
+                // Space!
+                items.add(new Space());
+
+                // All reviews
+                Element allReviewsDesc = document.selectFirst("[itemprop=aggregateRating] [itemprop=description]");
+                if (allReviewsDesc != null) {
+                    // "All Reviews: (Negative/Positive/X reviews)"
+                    String line = "<strong>All Reviews:</strong> " + allReviewsDesc.ownText();
+
+                    Element allReviewsScore = allReviewsDesc.siblingElements().selectFirst(".responsive_reviewdesc");
+                    if (allReviewsScore != null) {
+                        String allReviewsScoreText = allReviewsScore.ownText();
+                        if (allReviewsScoreText.indexOf('%') != -1) {
+                            // "- X% of the Y user reviews for this game are positive."
+                            String score = allReviewsScoreText.substring(2, allReviewsScoreText.indexOf('%') + 1);
+                            // -> " (X% positive)"
+                            line += " (" + score + " positive)";
+                        }
+                        // else "- Need more user reviews to generate a score"
+                    }
+                    items.add(new Text(line, true));
+                }
+
+                // Release date
+                Element releaseDate = document.getElementsByClass("date").first();
+                if (releaseDate != null)
+                    items.add(new Text("<strong>Release Date:</strong> " + releaseDate.ownText(), true));
+
+                // Developer
+                Element developers = document.getElementById("developers_list");
+                if (developers != null)
+                    items.add(new Text("<strong>Developer:</strong> " + developers.child(0).ownText(), true));
+
+                // Tags
+                Elements tags = document.getElementsByClass("app_tag");
+                if (!tags.isEmpty()) {
+                    String tagString = tags.stream()
+                            .limit(5)
+                            .map(Element::ownText)
+                            .collect(Collectors.joining(", "));
+                    items.add(new Text("<strong>Tags:</strong> " + tagString, true));
+                }
+
+                // Space!
+                items.add(new Space());
+
+                // Screenshots
+                Elements screenshots = document.getElementsByClass("highlight_screenshot_link");
+                screenshots.forEach(a -> items.add(new Picture(a.attr("href").replace("1920x1080", "800x600"), false)));
 
                 return null;
             } catch (Exception e) {
