@@ -10,10 +10,12 @@ import android.view.View;
 import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
+import com.mikepenz.iconics.utils.IconicsMenuInflaterUtil;
 
 import net.mabako.steamgifts.activities.CommonActivity;
 import net.mabako.steamgifts.adapters.DiscussionAdapter;
@@ -27,11 +29,16 @@ import net.mabako.steamgifts.tasks.LoadDiscussionListTask;
  */
 public class DiscussionListFragment extends SearchableListFragment<DiscussionAdapter> implements IActivityTitle {
     private static final String SAVED_TYPE = "type";
+    private static final String SAVED_SORT = "sort";
 
     /**
      * Type of items to show.
      */
+    @NonNull
     private Type type = Type.ALL;
+
+    @NonNull
+    private Sort sort = Sort.LAST_POST;
 
     public static Fragment newInstance(Type type, String query) {
         DiscussionListFragment f = new DiscussionListFragment();
@@ -54,15 +61,17 @@ public class DiscussionListFragment extends SearchableListFragment<DiscussionAda
             type = (Type) getArguments().getSerializable(SAVED_TYPE);
         } else {
             type = (Type) savedInstanceState.getSerializable(SAVED_TYPE);
+            sort = (Sort) savedInstanceState.getSerializable(SAVED_SORT);
         }
 
-        adapter.setFragmentValues(this, getActivity());
+        adapter.setFragmentValues(this, requireActivity());
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable(SAVED_TYPE, type);
+        outState.putSerializable(SAVED_SORT, sort);
     }
 
     @NonNull
@@ -73,7 +82,7 @@ public class DiscussionListFragment extends SearchableListFragment<DiscussionAda
 
     @Override
     protected AsyncTask<Void, Void, ?> getFetchItemsTask(int page) {
-        return new LoadDiscussionListTask(this, page, type, getSearchQuery());
+        return new LoadDiscussionListTask(this, page, type, sort, getSearchQuery());
     }
 
     @Override
@@ -100,8 +109,12 @@ public class DiscussionListFragment extends SearchableListFragment<DiscussionAda
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+        IconicsMenuInflaterUtil.parseXmlAndSetIconicsDrawables(requireContext(), R.menu.main_menu, menu);
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        MenuItem sortMenu = menu.findItem(R.id.sort);
+        sortMenu.setVisible(true);
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
         if (!"full".equals(sharedPreferences.getString("preference_sidebar_discussion_list", "full"))) {
             MenuItem categoryMenu = menu.findItem(R.id.category);
             categoryMenu.setVisible(true);
@@ -132,8 +145,22 @@ public class DiscussionListFragment extends SearchableListFragment<DiscussionAda
             popupMenu.show();
 
             return true;
-        } else
-            return super.onOptionsItemSelected(item);
+        }
+        if (item.getItemId() == R.id.sort) {
+            new AlertDialog.Builder(requireContext())
+                    .setTitle(R.string.sort_by)
+                    .setSingleChoiceItems(R.array.sort_choice, this.sort.ordinal(), (dialog, which) -> {
+                        Sort newSort = Sort.values()[which];
+                        if (this.sort != newSort) {
+                            this.sort = newSort;
+                            this.refresh();
+                        }
+                        dialog.dismiss();
+                    })
+                    .show();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -172,5 +199,11 @@ public class DiscussionListFragment extends SearchableListFragment<DiscussionAda
         public FontAwesome.Icon getIcon() {
             return icon;
         }
+    }
+
+    // Order needs to match @array/sort_choice
+    public enum Sort {
+        LAST_POST,
+        NEW
     }
 }

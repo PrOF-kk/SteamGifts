@@ -249,6 +249,15 @@
     <string name="notification_won_games">You won %d games</string>
     <string name="notification_has_attached_image">Image</string>
 
+    <!-- Sorting -->
+    <string name="sort_by">Sort by</string>
+    <string name="sort_last_post">Last Post</string>
+    <string name="sort_new">New</string>
+    <string-array name="sort_choice">
+        <item>@string/sort_last_post</item>
+        <item>@string/sort_new</item>
+    </string-array>
+
     <!-- unsorted -->
     <string name="could_not_load_image">Could not load image.</string>
     <string name="share_image">Share Image</string>

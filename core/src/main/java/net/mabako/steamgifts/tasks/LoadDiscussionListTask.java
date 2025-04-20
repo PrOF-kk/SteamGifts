@@ -28,12 +28,14 @@ public class LoadDiscussionListTask extends AsyncTask<Void, Void, List<Discussio
     private final DiscussionListFragment fragment;
     private final int page;
     private final DiscussionListFragment.Type type;
+    private final DiscussionListFragment.Sort sort;
     private final String searchQuery;
 
-    public LoadDiscussionListTask(DiscussionListFragment fragment, int page, DiscussionListFragment.Type type, String searchQuery) {
+    public LoadDiscussionListTask(DiscussionListFragment fragment, int page, DiscussionListFragment.Type type, DiscussionListFragment.Sort sort, String searchQuery) {
         this.fragment = fragment;
         this.page = page;
         this.type = type;
+        this.sort = sort;
         this.searchQuery = searchQuery;
     }
 
@@ -53,6 +55,8 @@ public class LoadDiscussionListTask extends AsyncTask<Void, Void, List<Discussio
                     .timeout(Constants.JSOUP_TIMEOUT);
             jsoup.data("page", Integer.toString(page));
 
+            if (sort == DiscussionListFragment.Sort.NEW)
+                jsoup.data("sort", "new");
             if (searchQuery != null)
                 jsoup.data("q", searchQuery);
 

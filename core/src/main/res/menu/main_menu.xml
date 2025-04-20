@@ -21,6 +21,16 @@
         tools:visible="true" />
 
     <item
+        android:id="@+id/sort"
+        android:title="@string/sort_by"
+        android:visible="false"
+        app:ico_color="@android:color/white"
+        app:ico_icon="@string/faw_sort_amount_desc"
+        app:ico_size="@dimen/app_bar_icon_size"
+        app:showAsAction="ifRoom"
+        tools:visible="true" />
+
+    <item
         android:id="@+id/search"
         android:icon="@drawable/ic_magnify"
         android:title="@string/search"
