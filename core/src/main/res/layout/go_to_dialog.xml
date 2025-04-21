@@ -8,8 +8,10 @@
         android:id="@+id/edit_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:imeOptions="actionGo"
         android:inputType="text|textNoSuggestions"
         android:importantForAutofill="no"
+        android:maxLines="1"
         tools:ignore="LabelFor" />
     <!-- Label is set dynamically in CommonActivity#onKeyLongPress() -->
 </LinearLayout>

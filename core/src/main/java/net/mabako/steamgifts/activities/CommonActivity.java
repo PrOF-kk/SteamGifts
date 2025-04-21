@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.text.Editable;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -156,12 +157,20 @@ public class CommonActivity extends BaseActivity {
 
                     idInputDialog.dismiss();
                 });
+                // Handle the enter key
+                inputField.setOnEditorActionListener((v, actionId, enterEvent) -> {
+                    if (actionId == EditorInfo.IME_ACTION_GO || enterEvent != null) {
+                        okButton.performClick();
+                        return true;
+                    }
+                    return false;
+                });
 
                 // Giveaway and discussion ids can only be 5 chars long, allow entering longer text and then editing it down to 5
                 boolean isGiveawayOrDiscussionDialog = (dialogSelected == 0 || dialogSelected == 1);
                 if (isGiveawayOrDiscussionDialog) {
                     okButton.setEnabled(false);
-                    ((EditText) idInputDialog.findViewById(R.id.edit_text)).addTextChangedListener(new AbstractTextWatcher() {
+                    inputField.addTextChangedListener(new AbstractTextWatcher() {
                         @Override
                         public void afterTextChanged(Editable s) {
                             okButton.setEnabled(s.length() == 5);
