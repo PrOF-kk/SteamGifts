@@ -157,9 +157,9 @@ public class CommonActivity extends BaseActivity {
                     idInputDialog.dismiss();
                 });
 
-                // Discussion and giveaway ids can only be 5 chars long, allow entering longer text and then editing it down to 5
-                boolean isGiveawayOrUserDialog = (dialogSelected == 0 || dialogSelected == 1);
-                if (isGiveawayOrUserDialog) {
+                // Giveaway and discussion ids can only be 5 chars long, allow entering longer text and then editing it down to 5
+                boolean isGiveawayOrDiscussionDialog = (dialogSelected == 0 || dialogSelected == 1);
+                if (isGiveawayOrDiscussionDialog) {
                     okButton.setEnabled(false);
                     ((EditText) idInputDialog.findViewById(R.id.edit_text)).addTextChangedListener(new AbstractTextWatcher() {
                         @Override
