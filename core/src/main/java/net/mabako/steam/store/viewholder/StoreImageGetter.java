@@ -6,62 +6,50 @@ import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.text.Html;
 import android.util.Log;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 public class StoreImageGetter implements Html.ImageGetter {
     private static final String TAG = StoreImageGetter.class.getSimpleName();
     final Resources resources;
-    final Picasso picasso;
     final TextView textView;
 
-    public StoreImageGetter(final TextView textView, final Resources resources, final Picasso picasso) {
+    public StoreImageGetter(final TextView textView, final Resources resources) {
         this.textView = textView;
         this.resources = resources;
-        this.picasso = picasso;
     }
 
     @Override
     public Drawable getDrawable(final String source) {
         Uri uri = Uri.parse(source);
-        if (uri.getHost() == null || !uri.getHost().contains(".steamstatic.com"))
-        {
+        if (uri.getHost() == null || !uri.getHost().contains(".steamstatic.com")) {
             Log.w(TAG, "Not a Steam image: " + source);
             return null;
         }
 
         final BitmapDrawablePlaceHolder result = new BitmapDrawablePlaceHolder(resources);
 
-        new AsyncTask<Void, Void, Bitmap>() {
+        Picasso.get().load(source).into(new Target() {
             @Override
-            protected Bitmap doInBackground(final Void... meh) {
-                try {
-                    return picasso.load(uri).get();
-                } catch (Exception e) {
-                    return null;
-                }
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                final BitmapDrawable drawable = new BitmapDrawable(resources, bitmap);
+                drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+
+                result.setDrawable(drawable);
+                result.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+
+                textView.setText(textView.getText());
             }
 
             @Override
-            protected void onPostExecute(final Bitmap bitmap) {
-                try {
-                    final BitmapDrawable drawable = new BitmapDrawable(resources, bitmap);
-
-                    drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
-
-                    result.setDrawable(drawable);
-                    result.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
-
-                    textView.setText(textView.getText());
-                } catch (Exception e) {
-                }
-            }
-
-        }.execute((Void) null);
+            public void onBitmapFailed(Exception e, Drawable errorDrawable) {}
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) { }
+        });
 
         return result;
     }
@@ -84,6 +72,5 @@ public class StoreImageGetter implements Html.ImageGetter {
         public void setDrawable(Drawable drawable) {
             this.drawable = drawable;
         }
-
     }
 }
