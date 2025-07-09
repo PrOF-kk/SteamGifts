@@ -68,8 +68,6 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
     private final View indicatorDelisted;
     private final View indicatorLoading;
 
-    private static int measuredHeight = 0;
-
     public GiveawayListItemViewHolder(View v, Activity activity, EndlessAdapter adapter, Fragment fragment, SavedGiveaways savedGiveaways) {
         super(v);
         itemContainer = v.findViewById(R.id.list_item);
@@ -128,28 +126,31 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
 
         // giveaway_image
         if (giveaway.getGame().getId() != Game.NO_APP_ID && showImage && ((ApplicationTemplate) activity.getApplication()).allowGameImages()) {
-            Picasso.get().load(giveaway.getGame().getCdnUrl() + "/capsule_184x69.jpg").into(giveawayImage, new Callback() {
-                /**
-                 * We manually set the height of this image to fit the container.
-                 */
+            // Load capsule, fallback to header
+            class ResizeImageOnSuccess implements Callback {
                 @Override
                 public void onSuccess() {
-                    if (measuredHeight <= 0)
-                        measuredHeight = itemContainer.getMeasuredHeight();
-
+                    // We manually set the height of this image to fit the container.
                     ViewGroup.LayoutParams params = giveawayImage.getLayoutParams();
-                    params.height = measuredHeight;
-                }
+                    params.height = itemContainer.getMeasuredHeight();
 
+                    if (giveaway.getGame().getId() == 1361210) {
+                        Log.d(TAG, "Successfully loaded capsule image for game " + giveaway.getGame().getId() + " (" + giveaway.getGame().getName() + ")");
+                    }
+                }
+                @Override
+                public void onError(Exception e) { }
+            }
+            Picasso.get().load(giveaway.getGame().getCdnUrl() + "/capsule_184x69.jpg").into(giveawayImage, new ResizeImageOnSuccess() {
                 @Override
                 public void onError(Exception e) {
                     // HTTP 404 is expected for delisted games and most bundles
-                    // Picasso's ResponseException is not public
                     if (!"HTTP 404".equals(e.getMessage())) {
                         Log.e(TAG, "Failed to load capsule image for giveaway " + giveaway.getName() + " (game " + giveaway.getGame().getId() + ")", e);
+                        return;
                     }
-                    ViewGroup.LayoutParams params = giveawayImage.getLayoutParams();
-                    params.height = 0;
+                    // Fallback if capsule was 404
+                    Picasso.get().load(giveaway.getGame().getCdnUrl() + "/header.jpg").resize(184, 69).into(giveawayImage, new ResizeImageOnSuccess());
                 }
             });
         } else {
