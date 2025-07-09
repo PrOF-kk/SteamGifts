@@ -241,7 +241,7 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
         if (appBarLayout != null && ((ApplicationTemplate) getActivity().getApplication()).allowGameImages()) {
             ImageView toolbarImage = getActivity().findViewById(R.id.toolbar_image);
             if (toolbarImage != null) {
-                Picasso.get().load("https://cdn.akamai.steamstatic.com/steam/" + giveaway.getGame().getType().name().toLowerCase(Locale.ENGLISH) + "s/" + giveaway.getGame().getId() + "/header.jpg").into(toolbarImage, new Callback() {
+                Picasso.get().load(giveaway.getGame().getCdnUrl() + "/header.jpg").into(toolbarImage, new Callback() {
                     @Override
                     public void onSuccess() {
                         appBarLayout.setExpandedTitleTextAppearance(R.style.TransparentText);

@@ -5,6 +5,7 @@ import net.mabako.steamgifts.core.R;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Locale;
 
 public class Game implements Serializable, IEndlessAdaptable {
     @Serial
@@ -65,6 +66,10 @@ public class Game implements Serializable, IEndlessAdaptable {
 
     public void setInternalGameId(long internalGameId) {
         this.internalGameId = internalGameId;
+    }
+
+    public String getCdnUrl() {
+        return "https://cdn.akamai.steamstatic.com/steam/" + this.getType().name().toLowerCase(Locale.ENGLISH) + "s/" + this.getId();
     }
 
     @Override
