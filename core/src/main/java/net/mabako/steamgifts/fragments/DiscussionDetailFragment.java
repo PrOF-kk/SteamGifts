@@ -52,7 +52,7 @@ public class DiscussionDetailFragment extends DetailFragment implements IHasPoll
     /**
      * Content to show for the discussion details.
      */
-    private BasicDiscussion discussion;
+    private BasicDiscussion basicDiscussion;
     private DiscussionDetailsCard discussionCard;
 
     private EnterLeavePollTask enterLeavePollTask;
@@ -62,10 +62,10 @@ public class DiscussionDetailFragment extends DetailFragment implements IHasPoll
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState == null) {
-            discussion = (BasicDiscussion) getArguments().getSerializable(SAVED_DISCUSSION);
+            basicDiscussion = (BasicDiscussion) getArguments().getSerializable(SAVED_DISCUSSION);
             discussionCard = new DiscussionDetailsCard();
         } else {
-            discussion = (BasicDiscussion) savedInstanceState.getSerializable(SAVED_DISCUSSION);
+            basicDiscussion = (BasicDiscussion) savedInstanceState.getSerializable(SAVED_DISCUSSION);
             discussionCard = (DiscussionDetailsCard) savedInstanceState.getSerializable(SAVED_CARD);
         }
 
@@ -75,7 +75,7 @@ public class DiscussionDetailFragment extends DetailFragment implements IHasPoll
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(SAVED_DISCUSSION, discussion);
+        outState.putSerializable(SAVED_DISCUSSION, basicDiscussion);
         outState.putSerializable(SAVED_CARD, discussionCard);
     }
 
@@ -95,10 +95,10 @@ public class DiscussionDetailFragment extends DetailFragment implements IHasPoll
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = super.onCreateView(inflater, container, savedInstanceState);
 
-        if (discussion instanceof Discussion) {
-            onPostDiscussionLoaded((Discussion) discussion, true);
+        if (basicDiscussion instanceof Discussion discussion) {
+            onPostDiscussionLoaded(discussion, true);
         } else {
-            Log.d(TAG, "Loading activity for basic discussion " + discussion.getDiscussionId());
+            Log.d(TAG, "Loading activity for basic discussion " + basicDiscussion.getDiscussionId());
         }
 
         // Add the cardview for the Giveaway details
@@ -145,23 +145,23 @@ public class DiscussionDetailFragment extends DetailFragment implements IHasPoll
 
     @Override
     protected AsyncTask<Void, Void, ?> getFetchItemsTaskEx(int page) {
-        String url = discussion.getDiscussionId();
-        if (discussion instanceof Discussion)
-            url += "/" + ((Discussion) discussion).getName();
+        String url = basicDiscussion.getDiscussionId();
+        if (basicDiscussion instanceof Discussion discussion)
+            url += "/" + discussion.getName();
         else if (getCommentContext() != null)
             url += "/" + getCommentContext().getDetailName();
         else
             url += "/sgforandroid";
 
-        return new LoadDiscussionDetailsTask(this, url, page, !(discussion instanceof Discussion));
+        return new LoadDiscussionDetailsTask(this, url, page, !(basicDiscussion instanceof Discussion));
     }
 
     public void onPostDiscussionLoaded(Discussion discussion, boolean ignoreExisting) {
         // Called this twice, eh...
-        if (this.discussion instanceof Discussion && !ignoreExisting)
+        if (this.basicDiscussion instanceof Discussion && !ignoreExisting)
             return;
 
-        this.discussion = discussion;
+        this.basicDiscussion = discussion;
         discussionCard.setDiscussion(discussion);
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
@@ -182,9 +182,10 @@ public class DiscussionDetailFragment extends DetailFragment implements IHasPoll
         if (extras == null)
             return;
 
-        if (!(discussion instanceof Discussion))
+        if (!(basicDiscussion instanceof Discussion discussion)) {
             throw new IllegalStateException("#onPostDiscussionLoaded was probably not called");
-        ((Discussion) discussion).setPoll(extras.hasPoll());
+        }
+        discussion.setPoll(extras.hasPoll());
 
         discussionCard.setExtras(extras);
 
@@ -211,8 +212,8 @@ public class DiscussionDetailFragment extends DetailFragment implements IHasPoll
         inflater.inflate(R.menu.discussion_menu, menu);
 
         MenuItem commentMenu = menu.findItem(R.id.comment);
-        if (discussion instanceof Discussion) {
-            if (!((Discussion) discussion).isLocked()) {
+        if (basicDiscussion instanceof Discussion discussion) {
+            if (!discussion.isLocked()) {
                 commentMenu.setVisible(true);
                 commentMenu.setOnMenuItemClickListener(item -> {
                     requestComment(null);
@@ -230,7 +231,7 @@ public class DiscussionDetailFragment extends DetailFragment implements IHasPoll
 
 
             if (savedDiscussions != null) {
-                boolean isSaved = savedDiscussions.exists(discussion.getDiscussionId());
+                boolean isSaved = savedDiscussions.exists(basicDiscussion.getDiscussionId());
                 menu.findItem(R.id.add_saved_element).setVisible(!isSaved);
                 menu.findItem(R.id.remove_saved_element).setVisible(isSaved);
             }
@@ -241,12 +242,12 @@ public class DiscussionDetailFragment extends DetailFragment implements IHasPoll
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.add_saved_element) {
-            if (discussion instanceof Discussion && savedDiscussions.add((Discussion) discussion, discussion.getDiscussionId())) {
+            if (basicDiscussion instanceof Discussion discussion && savedDiscussions.add(discussion, basicDiscussion.getDiscussionId())) {
                 getActivity().invalidateOptionsMenu();
             }
             return true;
         } else if (itemId == R.id.remove_saved_element) {
-            if (discussion instanceof Discussion && savedDiscussions.remove(discussion.getDiscussionId())) {
+            if (basicDiscussion instanceof Discussion && savedDiscussions.remove(basicDiscussion.getDiscussionId())) {
                 getActivity().invalidateOptionsMenu();
             }
             return true;
@@ -270,21 +271,21 @@ public class DiscussionDetailFragment extends DetailFragment implements IHasPoll
     @NonNull
     @Override
     protected Serializable getDetailObject() {
-        return discussion;
+        return basicDiscussion;
     }
 
     @Nullable
     @Override
     protected String getDetailPath() {
-        if (discussion instanceof Discussion)
-            return "discussion/" + discussion.getDiscussionId() + "/" + ((Discussion) discussion).getName();
+        if (basicDiscussion instanceof Discussion discussion)
+            return "discussion/" + basicDiscussion.getDiscussionId() + "/" + discussion.getName();
 
         return null;
     }
 
     @Override
     protected String getTitle() {
-        return discussion instanceof Discussion ? ((Discussion) discussion).getTitle() : null;
+        return basicDiscussion instanceof Discussion discussion ? discussion.getTitle() : null;
     }
 
     @Override
