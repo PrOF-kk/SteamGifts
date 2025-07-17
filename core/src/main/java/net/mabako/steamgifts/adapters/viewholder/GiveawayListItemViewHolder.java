@@ -141,7 +141,10 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
                 @Override
                 public void onError(Exception e) { }
             }
-            Picasso.get().load(giveaway.getGame().getCdnUrl() + "/capsule_184x69.jpg").into(giveawayImage, new ResizeImageOnSuccess() {
+            Picasso.get()
+                    .load(giveaway.getGame().getCdnUrl() + "/capsule_184x69.jpg")
+                    .stableKey(giveaway.getGame().getId() + "_capsule")
+                    .into(giveawayImage, new ResizeImageOnSuccess() {
                 @Override
                 public void onError(Exception e) {
                     // HTTP 404 is expected for delisted games and most bundles
@@ -150,7 +153,10 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
                         return;
                     }
                     // Fallback if capsule was 404
-                    Picasso.get().load(giveaway.getGame().getCdnUrl() + "/header.jpg").resize(184, 69).into(giveawayImage, new ResizeImageOnSuccess());
+                    Picasso.get()
+                            .load(giveaway.getGame().getCdnUrl() + "/header.jpg")
+                            .stableKey(giveaway.getGame().getId() + "_capsule")
+                            .resize(184, 69).into(giveawayImage, new ResizeImageOnSuccess());
                 }
             });
         } else {
