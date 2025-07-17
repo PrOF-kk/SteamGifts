@@ -259,7 +259,12 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
             // Header
             menu.setHeaderTitle(giveaway.getTitle());
 
-            if (loggedIn && xsrfEvents && fragment instanceof IHasEnterableGiveaways) {
+            // Enter/Leave menu item, if quick enter button is disabled
+            if (loggedIn
+                    && xsrfEvents
+                    && fragment instanceof IHasEnterableGiveaways
+                    && !PreferenceManager.getDefaultSharedPreferences(fragment.getContext())
+                        .getBoolean("preference_giveaway_show_quick_enter", false)) {
                 // Text for Entering or Leaving the giveaway
                 String enterText = activity.getString(R.string.enter_giveaway);
                 String leaveText = activity.getString(R.string.leave_giveaway);
