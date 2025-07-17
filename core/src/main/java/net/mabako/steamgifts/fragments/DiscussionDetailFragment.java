@@ -31,6 +31,7 @@ import net.mabako.steamgifts.data.DiscussionExtras;
 import net.mabako.steamgifts.data.Poll;
 import net.mabako.steamgifts.fragments.interfaces.IHasPoll;
 import net.mabako.steamgifts.fragments.util.DiscussionDetailsCard;
+import net.mabako.steamgifts.intent.Intents;
 import net.mabako.steamgifts.persistentdata.SavedDiscussions;
 import net.mabako.steamgifts.tasks.EnterLeavePollTask;
 import net.mabako.steamgifts.tasks.LoadDiscussionDetailsTask;
@@ -211,15 +212,13 @@ public class DiscussionDetailFragment extends DetailFragment implements IHasPoll
     public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.discussion_menu, menu);
 
-        MenuItem commentMenu = menu.findItem(R.id.comment);
+        menu.findItem(R.id.share).setOnMenuItemClickListener(item -> {
+            startActivity(Intents.shareUrl("https://steamgifts.com/discussion/" + basicDiscussion.getDiscussionId() + "/"));
+            return true;
+        });
+
         if (basicDiscussion instanceof Discussion discussion) {
-            if (!discussion.isLocked()) {
-                commentMenu.setVisible(true);
-                commentMenu.setOnMenuItemClickListener(item -> {
-                    requestComment(null);
-                    return true;
-                });
-            } else {
+            if (discussion.isLocked()) {
                 MenuItem lockedMenu = menu.findItem(R.id.locked);
 
                 lockedMenu.setVisible(true);

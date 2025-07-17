@@ -260,5 +260,6 @@
 
     <!-- unsorted -->
     <string name="could_not_load_image">Could not load image.</string>
+    <string name="share">Share</string>
     <string name="share_image">Share Image</string>
 </resources>

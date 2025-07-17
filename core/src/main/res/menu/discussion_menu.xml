@@ -20,18 +20,15 @@
         tools:visible="true" />
 
     <item
-        android:id="@+id/comment"
-        android:icon="@drawable/ic_send"
-        android:title="@string/add_comment"
-        android:visible="false"
-        app:showAsAction="always"
-        tools:visible="true" />
-
-    <item
         android:id="@+id/locked"
         android:icon="@drawable/ic_lock"
         android:title="@string/discussion_locked"
         android:visible="false"
         app:showAsAction="always"
         tools:visible="true" />
+
+    <item
+        android:id="@+id/share"
+        android:title="@string/share"
+        app:showAsAction="never" />
 </menu>

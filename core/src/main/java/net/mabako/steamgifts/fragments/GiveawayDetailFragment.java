@@ -43,6 +43,7 @@ import net.mabako.steamgifts.fragments.interfaces.IHasEnterableGiveaways;
 import net.mabako.steamgifts.fragments.interfaces.IHasHideableGiveaways;
 import net.mabako.steamgifts.fragments.util.GiveawayDetailsCard;
 import net.mabako.steamgifts.fragments.util.GiveawayListFragmentStack;
+import net.mabako.steamgifts.intent.Intents;
 import net.mabako.steamgifts.persistentdata.SavedGiveaways;
 import net.mabako.steamgifts.tasks.EnterLeaveGiveawayTask;
 import net.mabako.steamgifts.tasks.LoadGiveawayDetailsTask;
@@ -290,6 +291,7 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         if (basicGiveaway instanceof Giveaway giveaway) {
             inflater.inflate(R.menu.giveaway_menu, menu);
+
             menu.findItem(R.id.open_steam_store).setVisible(giveaway.getGame().getId() > 0);
 
             boolean showHideUnhide = giveaway.getInternalGameId() > 0
@@ -304,6 +306,11 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
             }
 
             menu.findItem(R.id.more_like_this).setEnabled(giveaway.getTitle() != null);
+
+            menu.findItem(R.id.share).setOnMenuItemClickListener(item -> {
+                startActivity(Intents.shareUrl("https://steamgifts.com/giveaway/" + basicGiveaway.getGiveawayId() + "/"));
+                return true;
+            });
         }
     }
 

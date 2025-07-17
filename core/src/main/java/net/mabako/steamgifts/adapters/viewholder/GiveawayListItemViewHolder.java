@@ -34,6 +34,7 @@ import net.mabako.steamgifts.fragments.GiveawayDetailFragment;
 import net.mabako.steamgifts.fragments.GiveawayListFragment;
 import net.mabako.steamgifts.fragments.SavedGiveawaysFragment;
 import net.mabako.steamgifts.fragments.interfaces.IHasEnterableGiveaways;
+import net.mabako.steamgifts.intent.Intents;
 import net.mabako.steamgifts.persistentdata.SavedGiveaways;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
@@ -296,6 +297,9 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
             if (loggedIn && xsrfEvents && giveaway.getInternalGameId() > 0 && fragment instanceof GiveawayListFragment) {
                 menu.add(Menu.NONE, 3, Menu.NONE, R.string.hide_game).setOnMenuItemClickListener(this);
             }
+
+            // Share
+            menu.add(Menu.NONE, 6, Menu.NONE, R.string.share).setOnMenuItemClickListener(this);
         } else {
             Log.d(TAG, "Not showing context menu for giveaway. (xsrf-token: " + adapter.getXsrfToken() + ")");
         }
@@ -329,7 +333,11 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
                         ((SavedGiveawaysFragment) fragment).onRemoveSavedGiveaway(giveaway.getGiveawayId());
                 }
                 return true;
+            case 6:
+                fragment.startActivity(Intents.shareUrl("https://steamgifts.com/giveaway/" + giveaway.getGiveawayId() + "/"));
+                return true;
+            default:
+                return false;
         }
-        return false;
     }
 }

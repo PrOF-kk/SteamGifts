@@ -18,8 +18,8 @@ public class BasicDiscussion implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof BasicDiscussion && discussionId != null) {
-            return discussionId.equals(((BasicDiscussion) o).discussionId);
+        if (o instanceof BasicDiscussion basicDiscussion && discussionId != null) {
+            return discussionId.equals(basicDiscussion.discussionId);
         }
         return false;
 
