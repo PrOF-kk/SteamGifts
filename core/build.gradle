@@ -55,7 +55,7 @@ dependencies {
 
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view-androidx:3.10.0'
     implementation 'com.github.AppIntro:AppIntro:6.2.0'
-    implementation 'org.jsoup:jsoup:1.19.1'
+    implementation 'org.jsoup:jsoup:1.21.1'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.29'
 
     implementation('com.wefika:flowlayout:0.4.1') {
