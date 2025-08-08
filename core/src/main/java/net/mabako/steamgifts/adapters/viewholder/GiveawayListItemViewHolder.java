@@ -134,6 +134,7 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
                     // We manually set the height of this image to fit the container.
                     ViewGroup.LayoutParams params = giveawayImage.getLayoutParams();
                     params.height = itemContainer.getMeasuredHeight();
+                    giveawayImage.requestLayout();
 
                     if (giveaway.getGame().getId() == 1361210) {
                         Log.d(TAG, "Successfully loaded capsule image for game " + giveaway.getGame().getId() + " (" + giveaway.getGame().getName() + ")");
