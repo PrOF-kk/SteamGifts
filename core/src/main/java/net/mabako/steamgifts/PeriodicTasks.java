@@ -8,14 +8,14 @@ import android.content.Intent;
 
 import net.mabako.steamgifts.receivers.CheckForNewMessages;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 /**
  * Tasks to schedule for execution every now and then.
  */
 public class PeriodicTasks {
-    private static final Map<Task, TaskData> scheduledTasks = new HashMap<>();
+    private static final Map<Task, TaskData> scheduledTasks = new EnumMap<>(Task.class);
 
     private static void scheduleTask(Task task, Context context) {
         if (!scheduledTasks.containsKey(task)) {
