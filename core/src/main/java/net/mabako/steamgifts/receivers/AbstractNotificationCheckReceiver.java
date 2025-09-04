@@ -15,9 +15,9 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.preference.PreferenceManager;
 
+import net.mabako.common.Compat;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -49,7 +49,7 @@ public abstract class AbstractNotificationCheckReceiver extends BroadcastReceive
 
     public static void initNotificationChannels(Context context) {
         NotificationManagerCompat manager = NotificationManagerCompat.from(context);
-        Set<String> notificationChannelIds = new HashSet<>();
+        Set<String> notificationChannelIds = Compat.HashSet.newHashSet(NotificationId.values().length);
 
         for (NotificationId notificationId : NotificationId.values()) {
             NotificationChannelCompat channel =
