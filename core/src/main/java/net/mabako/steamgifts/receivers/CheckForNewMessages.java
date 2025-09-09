@@ -86,7 +86,12 @@ public class CheckForNewMessages extends AbstractNotificationCheckReceiver {
                 return;
             }
 
-            if (SteamGiftsUserData.getCurrent(context).getWonNotification() > 0) {
+            SteamGiftsUserData userData = SteamGiftsUserData.getCurrent(context);
+
+            // Check if we completely refilled our points.
+            context.sendBroadcast(new Intent(context, CheckForPointsFull.class));
+
+            if (userData.getWonNotification() > 0) {
                 // Do we have any won giveaways? If so, let's check if there's any new among them.
                 context.sendBroadcast(new Intent(context, CheckForWonGiveaways.class));
             }
@@ -142,7 +147,7 @@ public class CheckForNewMessages extends AbstractNotificationCheckReceiver {
                     for (Comment comment : mostRecentComments)
                         texts.add(formatComment(comment, true));
 
-                    showNotification(context, NOTIFICATION_ID, R.drawable.sgwhite, context.getString(R.string.notification_new_messages, SteamGiftsUserData.getCurrent(context).getMessageNotification()), texts, getViewMessagesIntent(), getDeleteIntent());
+                    showNotification(context, NOTIFICATION_ID, R.drawable.sgwhite, context.getString(R.string.notification_new_messages, userData.getMessageNotification()), texts, getViewMessagesIntent(), getDeleteIntent());
                 }
 
                 Log.d(TAG, "Shown " + mostRecentComments.size() + " messages as notification");

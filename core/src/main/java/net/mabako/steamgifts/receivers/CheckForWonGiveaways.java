@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Check for won newly won giveaways. This is, eventually, only triggered if {@link CheckForNewMessages} detects any won giveaways.
+ * Check for newly won giveaways. This is, eventually, only triggered if {@link CheckForNewMessages} detects any won giveaways.
  */
 public class CheckForWonGiveaways extends AbstractNotificationCheckReceiver {
     private static final NotificationId NOTIFICATION_ID = NotificationId.WON;

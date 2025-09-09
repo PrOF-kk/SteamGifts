@@ -37,6 +37,7 @@ public abstract class AbstractNotificationCheckReceiver extends BroadcastReceive
     public enum NotificationId {
         MESSAGES("Messages"),
         WON("Won Giveaways"),
+        POINTS_FULL("Points Full"),
         NO_TYPE("Other");
 
         private final String channelName;
