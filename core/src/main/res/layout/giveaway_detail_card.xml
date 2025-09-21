@@ -30,8 +30,9 @@
                 <TextView
                     android:id="@+id/giveaway_name"
                     style="@style/BigText"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     tools:text="Title" />
 
                 <com.mikepenz.iconics.view.IconicsImageView
