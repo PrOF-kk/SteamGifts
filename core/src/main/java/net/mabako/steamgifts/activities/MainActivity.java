@@ -84,6 +84,7 @@ public class MainActivity extends CommonActivity implements IPointUpdateNotifica
     /**
      * Triggered upon the user logging in or logging out.
      */
+    @Override
     public void onAccountChange() {
         // Reconfigure our navigation bar items.
         navbar.reconfigure();
