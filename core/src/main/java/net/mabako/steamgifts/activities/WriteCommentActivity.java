@@ -135,8 +135,8 @@ public class WriteCommentActivity extends BaseActivity implements DialogInterfac
                 @Override
                 protected void onSuccess() {
                     Intent data = new Intent();
-                    data.putExtra("parent", parentId);
-                    data.putExtra("entered", entered);
+                    data.putExtra(PARENT, parentId);
+                    data.putExtra(SAVED_ENTERED, entered);
                     setResult(COMMENT_SENT, data);
                     finish();
                 }
