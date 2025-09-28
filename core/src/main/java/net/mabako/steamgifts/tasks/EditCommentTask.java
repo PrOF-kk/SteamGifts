@@ -20,7 +20,7 @@ public abstract class EditCommentTask extends AjaxTask<Activity> {
     private final Comment comment;
     private final String newText;
 
-    public EditCommentTask(Activity activity, String xsrfToken, String newText, Comment comment) {
+    protected EditCommentTask(Activity activity, String xsrfToken, String newText, Comment comment) {
         super(activity, activity, xsrfToken, "comment_edit");
 
         this.newText = newText;

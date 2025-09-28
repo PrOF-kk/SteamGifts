@@ -24,7 +24,7 @@ public abstract class AjaxTask<FragmentType> extends AsyncTask<Void, Void, Conne
     private final Context context;
     private final FragmentType fragment;
 
-    public AjaxTask(FragmentType fragment, Context context, String xsrfToken, String what) {
+    protected AjaxTask(FragmentType fragment, Context context, String xsrfToken, String what) {
         this.fragment = fragment;
         this.context = context;
         this.xsrfToken = xsrfToken;

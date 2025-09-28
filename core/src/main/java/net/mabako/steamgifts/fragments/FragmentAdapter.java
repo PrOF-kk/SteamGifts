@@ -30,14 +30,14 @@ public abstract class FragmentAdapter extends FragmentStatePagerAdapter implemen
     private final List<Fragment> fragments = new ArrayList<>();
     private Fragment transientFragment;
 
-    public FragmentAdapter(AppCompatActivity activity, ViewPager viewPager, Fragment... fragments) {
+    protected FragmentAdapter(AppCompatActivity activity, ViewPager viewPager, Fragment... fragments) {
         super(activity.getSupportFragmentManager());
         this.activity = activity;
         this.viewPager = viewPager;
         this.fragments.addAll(Arrays.asList(fragments));
     }
 
-    public FragmentAdapter(FragmentManager fragmentManager, AppCompatActivity activity, ViewPager viewPager, Fragment... fragments) {
+    protected FragmentAdapter(FragmentManager fragmentManager, AppCompatActivity activity, ViewPager viewPager, Fragment... fragments) {
         super(fragmentManager);
         this.activity = activity;
         this.viewPager = viewPager;

@@ -31,7 +31,7 @@ public abstract class LoadGameListTask extends AsyncTask<Void, Void, List<IEndle
     private final String pathSegment;
     private String foundXsrfToken;
 
-    public LoadGameListTask(ILoadItemsListener listener, Context context, String pathSegment, int page, String searchQuery) {
+    protected LoadGameListTask(ILoadItemsListener listener, Context context, String pathSegment, int page, String searchQuery) {
         this.listener = listener;
         this.context = context;
         this.pathSegment = pathSegment;
