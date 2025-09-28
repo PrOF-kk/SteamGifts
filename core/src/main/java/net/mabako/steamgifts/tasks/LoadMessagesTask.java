@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LoadMessagesTask extends AsyncTask<Void, Void, List<IEndlessAdaptable>> {
-    private final static String TAG = LoadMessagesTask.class.getSimpleName();
+    private static final String TAG = LoadMessagesTask.class.getSimpleName();
 
     private final ILoadItemsListener listener;
     private Context context;

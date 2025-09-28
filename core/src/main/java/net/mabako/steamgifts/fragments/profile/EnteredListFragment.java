@@ -19,7 +19,7 @@ import net.mabako.steamgifts.tasks.EnterLeaveGiveawayTask;
 import java.io.Serializable;
 
 public class EnteredListFragment extends ListFragment<GiveawayAdapter> implements IHasEnterableGiveaways, IActivityTitle {
-    private final static String TAG = EnteredListFragment.class.getSimpleName();
+    private static final String TAG = EnteredListFragment.class.getSimpleName();
     private EnterLeaveGiveawayTask enterLeaveTask;
 
     @Override

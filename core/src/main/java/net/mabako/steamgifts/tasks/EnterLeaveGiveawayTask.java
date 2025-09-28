@@ -18,7 +18,7 @@ import org.jsoup.Connection;
  * Task to enter or leave giveaways.
  */
 public class EnterLeaveGiveawayTask extends AjaxTask<IHasEnterableGiveaways> {
-    private final static String TAG = EnterLeaveGiveawayTask.class.getSimpleName();
+    private static final String TAG = EnterLeaveGiveawayTask.class.getSimpleName();
     private final String giveawayId;
 
     public EnterLeaveGiveawayTask(IHasEnterableGiveaways fragment, Context context, String giveawayId, String xsrfToken, String what) {
