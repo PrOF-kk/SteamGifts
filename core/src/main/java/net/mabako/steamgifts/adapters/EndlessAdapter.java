@@ -15,7 +15,6 @@ import net.mabako.steamgifts.core.R;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -181,7 +180,7 @@ public abstract class EndlessAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         // Make sure we're not loading anymore...
         if (loading)
-            finishLoading(new ArrayList<IEndlessAdaptable>());
+            finishLoading(List.of());
 
         reachedTheEnd = true;
 
@@ -285,8 +284,8 @@ public abstract class EndlessAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     public void setStickyItems(List<IEndlessAdaptable> stickyItems) {
-        int oldSize = this.stickyItems.size(),
-                newSize = stickyItems.size();
+        int oldSize = this.stickyItems.size();
+        int newSize = stickyItems.size();
 
         this.stickyItems.clear();
         this.stickyItems.addAll(stickyItems);
@@ -309,7 +308,7 @@ public abstract class EndlessAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     public void setStickyItem(IEndlessAdaptable stickyItem) {
-        setStickyItems(Arrays.asList(stickyItem));
+        setStickyItems(List.of(stickyItem));
     }
 
     /**
