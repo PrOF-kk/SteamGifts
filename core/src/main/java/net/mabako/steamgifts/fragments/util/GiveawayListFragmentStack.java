@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class GiveawayListFragmentStack {
+    private GiveawayListFragmentStack() {}
     private static final List<Fragment> fragments = new ArrayList<>();
 
     public static void addFragment(Fragment fragment) {
