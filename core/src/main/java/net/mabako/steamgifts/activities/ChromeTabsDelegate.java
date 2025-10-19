@@ -108,15 +108,16 @@ public class ChromeTabsDelegate implements IntentDelegate {
                 List<ResolveInfo> handlers = pm.queryIntentActivities(
                         intent,
                         PackageManager.GET_RESOLVED_FILTER);
-                if (handlers == null || handlers.isEmpty()) {
+                if (handlers.isEmpty()) {
                     return false;
                 }
                 for (ResolveInfo resolveInfo : handlers) {
                     IntentFilter filter = resolveInfo.filter;
-                    if (filter == null) continue;
-                    if (filter.countDataAuthorities() == 0 || filter.countDataPaths() == 0)
+                    if (filter == null
+                            || filter.countDataAuthorities() == 0 || filter.countDataPaths() == 0
+                            || resolveInfo.activityInfo == null) {
                         continue;
-                    if (resolveInfo.activityInfo == null) continue;
+                    }
                     return true;
                 }
             } catch (RuntimeException e) {

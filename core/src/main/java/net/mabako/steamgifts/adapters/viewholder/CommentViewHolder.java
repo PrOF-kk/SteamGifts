@@ -78,7 +78,15 @@ public class CommentViewHolder extends RecyclerView.ViewHolder implements View.O
         StringUtils.setBackgroundDrawable(context, itemView, comment.isHighlighted());
 
         commentAuthor.setText(comment.getAuthor());
-        TextViewCompat.setTextAppearance(commentAuthor, comment.isHighlighted() ? R.style.SmallText : comment.isOp() ? R.style.SmallText_HighlightOp : R.style.SmallText_NormalUser);
+
+        int commentStyle = R.style.SmallText_NormalUser;
+        if (comment.isHighlighted()) {
+            commentStyle = R.style.SmallText;
+        } else if (comment.isOp()) {
+            commentStyle = R.style.SmallText_HighlightOp;
+        }
+        TextViewCompat.setTextAppearance(commentAuthor, commentStyle);
+
         StringUtils.setBackgroundDrawable(context, commentAuthor, comment.isOp() && !comment.isHighlighted(), R.attr.colorAccountHeader);
 
         // TODO this should eventually hold more information, such as white- and blacklisting icons.
@@ -97,8 +105,8 @@ public class CommentViewHolder extends RecyclerView.ViewHolder implements View.O
 
         Picasso.get().load(comment.getAvatar()).placeholder(R.drawable.default_avatar_mask).transform(new RoundedCornersTransformation(20, 0)).into(commentImage);
         View.OnClickListener viewProfileListener = comment.isDeleted() ? null : v -> {
-            if(comment instanceof TradeComment)
-                fragment.showProfile(((TradeComment) comment).getSteamID64());
+            if(comment instanceof TradeComment tradeComment)
+                fragment.showProfile(tradeComment.getSteamID64());
             else
                 fragment.showProfile(comment.getAuthor());
         };
@@ -116,13 +124,13 @@ public class CommentViewHolder extends RecyclerView.ViewHolder implements View.O
             deleteCommentListener = comment.getId() == 0 || !comment.isDeletable() ? null : v -> fragment.deleteComment(comment);
         }
 
-        if (comment instanceof TradeComment && !comment.isDeleted()) {
+        if (comment instanceof TradeComment tradeComment && !comment.isDeleted()) {
             tradeScoreDivider.setVisibility(View.VISIBLE);
             tradeScorePositive.setVisibility(View.VISIBLE);
             tradeScoreNegative.setVisibility(View.VISIBLE);
 
-            tradeScorePositive.setText(String.format(Locale.ENGLISH, "+%d", ((TradeComment) comment).getTradeScorePositive()));
-            tradeScoreNegative.setText(String.format(Locale.ENGLISH, "-%d", ((TradeComment) comment).getTradeScoreNegative()));
+            tradeScorePositive.setText(String.format(Locale.ENGLISH, "+%d", tradeComment.getTradeScorePositive()));
+            tradeScoreNegative.setText(String.format(Locale.ENGLISH, "-%d", tradeComment.getTradeScoreNegative()));
         } else {
             tradeScoreDivider.setVisibility(View.GONE);
             tradeScorePositive.setVisibility(View.GONE);

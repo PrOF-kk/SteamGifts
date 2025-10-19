@@ -55,8 +55,8 @@ public class CommonActivity extends BaseActivity {
             String fragmentTitle = getFragmentTitle(fragment);
             actionBar.setTitle(fragmentTitle);
 
-            if (fragment instanceof IActivityTitle) {
-                String extraTitle = ((IActivityTitle) fragment).getExtraTitle();
+            if (fragment instanceof IActivityTitle fWithActivityTitle) {
+                String extraTitle = fWithActivityTitle.getExtraTitle();
                 if (extraTitle != null && !extraTitle.equals(fragmentTitle)) {
                     actionBar.setSubtitle(extraTitle);
                 }
@@ -67,9 +67,9 @@ public class CommonActivity extends BaseActivity {
     @NonNull
     protected String getFragmentTitle(Fragment fragment) {
         String title = getString(R.string.app_name);
-        if (fragment instanceof IActivityTitle) {
-            int resource = ((IActivityTitle) fragment).getTitleResource();
-            String extraTitle = ((IActivityTitle) fragment).getExtraTitle();
+        if (fragment instanceof IActivityTitle fWithActivityTitle) {
+            int resource = fWithActivityTitle.getTitleResource();
+            String extraTitle = fWithActivityTitle.getExtraTitle();
 
             if (resource != 0) {
                 title = getString(resource);
@@ -87,8 +87,7 @@ public class CommonActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
-            case REQUEST_LOGIN:
-            case REQUEST_LOGIN_PASSIVE:
+            case REQUEST_LOGIN, REQUEST_LOGIN_PASSIVE:
                 // Do not show an explicit notification.
                 if (resultCode == RESPONSE_LOGIN_SUCCESSFUL && SteamGiftsUserData.getCurrent(this).isLoggedIn())
                     onAccountChange();

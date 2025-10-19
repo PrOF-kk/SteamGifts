@@ -182,8 +182,8 @@ public class DetailActivity extends CommonActivity {
     protected void onAccountChange() {
         super.onAccountChange();
 
-        if (getCurrentFragment() instanceof GiveawayDetailFragment)
-            ((GiveawayDetailFragment) getCurrentFragment()).reload();
+        if (getCurrentFragment() instanceof GiveawayDetailFragment giveawayDetailFragment)
+            giveawayDetailFragment.reload();
     }
 
     @Override
@@ -193,25 +193,27 @@ public class DetailActivity extends CommonActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == WriteCommentActivity.REQUEST_COMMENT) {
-            if (resultCode == WriteCommentActivity.COMMENT_SENT) {
-                Toast.makeText(this, R.string.comment_sent, Toast.LENGTH_SHORT).show();
-            }
+        if (requestCode == WriteCommentActivity.REQUEST_COMMENT && resultCode == WriteCommentActivity.COMMENT_SENT) {
+            Toast.makeText(this, R.string.comment_sent, Toast.LENGTH_SHORT).show();
         }
 
-        if (requestCode == WriteCommentActivity.REQUEST_COMMENT_EDIT && getCurrentFragment() instanceof DetailFragment fragment) {
 
-            if (resultCode == WriteCommentActivity.COMMENT_EDIT_SENT && data.hasExtra("edited-comment")) {
-                Comment comment = (Comment) data.getSerializableExtra("edited-comment");
-                fragment.onCommentEdited(comment.getId(), comment.getContent(), comment.getEditableContent());
+        if (requestCode == WriteCommentActivity.REQUEST_COMMENT_EDIT && resultCode == WriteCommentActivity.COMMENT_EDIT_SENT
+                && data.hasExtra("edited-comment")
+                && getCurrentFragment() instanceof DetailFragment fragment)
+        {
+            Comment comment = (Comment) data.getSerializableExtra("edited-comment");
+            fragment.onCommentEdited(comment.getId(), comment.getContent(), comment.getEditableContent());
 
-                Toast.makeText(this, R.string.comment_edited, Toast.LENGTH_SHORT).show();
-            }
+            Toast.makeText(this, R.string.comment_edited, Toast.LENGTH_SHORT).show();
         }
 
-        if (data != null && data.getBooleanExtra("entered", false) && getCurrentFragment() instanceof GiveawayDetailFragment) {
+
+        if (data != null && data.getBooleanExtra("entered", false)
+                && getCurrentFragment() instanceof GiveawayDetailFragment giveawayDetailFragment)
+        {
             Log.d(DetailActivity.class.getSimpleName(), "Comment's giveaway entered");
-            ((GiveawayDetailFragment) getCurrentFragment()).onEntered();
+            giveawayDetailFragment.onEntered();
         }
 
         if (data != null && data.hasExtra(CLOSE_NESTED) && getNestingStringForHomePressed().equals(data.getStringExtra(CLOSE_NESTED))) {
@@ -222,11 +224,11 @@ public class DetailActivity extends CommonActivity {
             finish();
         }
 
-        if (requestCode == REQUEST_SYNC && getCurrentFragment() instanceof GiveawayDetailFragment) {
-            if (resultCode == RESPONSE_SYNC_SUCCESSFUL) {
-                // let's reload
-                ((GiveawayDetailFragment) getCurrentFragment()).reload();
-            }
+        if (requestCode == REQUEST_SYNC && resultCode == RESPONSE_SYNC_SUCCESSFUL
+                && getCurrentFragment() instanceof GiveawayDetailFragment giveawayDetailFragment)
+        {
+            // let's reload
+            giveawayDetailFragment.reload();
         }
 
         super.onActivityResult(requestCode, resultCode, data);
@@ -234,8 +236,6 @@ public class DetailActivity extends CommonActivity {
 
     /**
      * Initialize the {@link ViewPager} adapter.
-     *
-     * @param fragments
      */
     private void loadPagedFragments(Fragment... fragments) {
         pager = findViewById(R.id.viewPager);

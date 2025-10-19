@@ -112,8 +112,8 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
         super.onAttach(context);
         savedGiveaways = new SavedGiveaways(context);
 
-        if (context instanceof Activity)
-            this.activity = (Activity) context;
+        if (context instanceof Activity activity)
+            this.activity = activity;
     }
 
     @Override
@@ -260,8 +260,10 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
         // Re-build the options menu, which may not be created if no giveaway was present.
         getActivity().invalidateOptionsMenu();
 
-        if (getActivity() instanceof DetailActivity && giveaway.getGame().getId() != Game.NO_APP_ID && !fragmentAdded) {
-            ((DetailActivity) getActivity()).addFragmentUnlessExists(giveaway.getGame().getType() == Game.Type.APP ? StoreAppFragment.newInstance(giveaway.getGame().getId(), false) : StoreSubFragment.newInstance(giveaway.getGame().getId()));
+        if (getActivity() instanceof DetailActivity detailActivity && giveaway.getGame().getId() != Game.NO_APP_ID && !fragmentAdded) {
+            detailActivity.addFragmentUnlessExists(giveaway.getGame().getType() == Game.Type.APP
+                    ? StoreAppFragment.newInstance(giveaway.getGame().getId(), false)
+                    : StoreSubFragment.newInstance(giveaway.getGame().getId()));
             fragmentAdded = true;
         }
 
@@ -328,7 +330,7 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
             new UpdateGiveawayFilterTask<>(this, giveawayCard.getExtras().getXsrfToken(), UpdateGiveawayFilterTask.HIDE, ((Giveaway) basicGiveaway).getInternalGameId(), ((Giveaway) basicGiveaway).getTitle()).execute();
             return true;
         } else if (itemId == R.id.add_saved_element) {
-            if (basicGiveaway instanceof Giveaway && savedGiveaways.add((Giveaway) basicGiveaway, basicGiveaway.getGiveawayId())) {
+            if (basicGiveaway instanceof Giveaway giveaway && savedGiveaways.add(giveaway, basicGiveaway.getGiveawayId())) {
                 getActivity().invalidateOptionsMenu();
             }
             return true;

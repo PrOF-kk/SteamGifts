@@ -40,10 +40,10 @@ public class MessageAdapter extends EndlessAdapter {
 
     @Override
     protected void onBindActualViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof MessageHeaderViewHolder) {
-            ((MessageHeaderViewHolder) holder).setFrom((MessageHeader) getItem(position));
-        } else if (holder instanceof MessageViewHolder) {
-            ((MessageViewHolder) holder).setFrom((Comment) getItem(position));
+        if (holder instanceof MessageHeaderViewHolder messageHeaderViewHolder) {
+            messageHeaderViewHolder.setFrom((MessageHeader) getItem(position));
+        } else if (holder instanceof MessageViewHolder messageViewHolder) {
+            messageViewHolder.setFrom((Comment) getItem(position));
         }
     }
 

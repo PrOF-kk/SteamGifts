@@ -25,25 +25,25 @@ public final class GiveawayListFragmentStack {
 
     public static void onHideGame(long internalGameId) {
         for (Fragment fragment : fragments)
-            if (fragment instanceof IHasHideableGiveaways)
-                ((IHasHideableGiveaways) fragment).onHideGame(internalGameId, false, null);
+            if (fragment instanceof IHasHideableGiveaways iHasHideableGiveaways)
+                iHasHideableGiveaways.onHideGame(internalGameId, false, null);
     }
 
     public static void onShowGame(long internalGameId) {
         for (Fragment fragment : fragments)
-            if (fragment instanceof GiveawayListFragment)
-                ((GiveawayListFragment) fragment).onShowGame(internalGameId, false);
+            if (fragment instanceof GiveawayListFragment giveawayListFragment)
+                giveawayListFragment.onShowGame(internalGameId, false);
     }
 
     public static void onEnterLeaveResult(String giveawayId, String what, Boolean success) {
         for (Fragment fragment : fragments)
-            if (fragment instanceof IHasEnterableGiveaways)
-                ((IHasEnterableGiveaways) fragment).onEnterLeaveResult(giveawayId, what, success, false);
+            if (fragment instanceof IHasEnterableGiveaways iHasEnterableGiveaways)
+                iHasEnterableGiveaways.onEnterLeaveResult(giveawayId, what, success, false);
     }
 
     public static void onRemoveSavedGiveaway(String giveawayId) {
         for (Fragment fragment : fragments)
-            if (fragment instanceof SavedGiveawaysFragment)
-                ((SavedGiveawaysFragment) fragment).onRemoveSavedGiveaway(giveawayId);
+            if (fragment instanceof SavedGiveawaysFragment savedGiveawaysFragment)
+                savedGiveawaysFragment.onRemoveSavedGiveaway(giveawayId);
     }
 }

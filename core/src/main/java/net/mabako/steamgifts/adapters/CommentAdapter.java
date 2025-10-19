@@ -81,30 +81,26 @@ public class CommentAdapter extends EndlessAdapter {
 
     @Override
     public void onBindActualViewHolder(RecyclerView.ViewHolder h, int position) {
-        if (h instanceof CommentViewHolder) {
-            CommentViewHolder holder = (CommentViewHolder) h;
+        if (h instanceof CommentViewHolder holder) {
             Comment comment = (Comment) getItem(position);
 
             holder.setFrom(comment);
-        } else if (h instanceof GiveawayCardViewHolder) {
-            GiveawayCardViewHolder holder = (GiveawayCardViewHolder) h;
+        } else if (h instanceof GiveawayCardViewHolder holder) {
             GiveawayDetailsCard card = (GiveawayDetailsCard) getItem(position);
 
             holder.setFrom(card);
-        } else if (h instanceof DiscussionCardViewHolder) {
-            DiscussionCardViewHolder holder = (DiscussionCardViewHolder) h;
+        } else if (h instanceof DiscussionCardViewHolder holder) {
             DiscussionDetailsCard card = (DiscussionDetailsCard) getItem(position);
 
             holder.setFrom(card);
-        } else if (h instanceof CommentContextViewHolder) {
-            CommentContextViewHolder holder = (CommentContextViewHolder) h;
+        } else if (h instanceof CommentContextViewHolder holder) {
             CommentContextViewHolder.SerializableHolder info = (CommentContextViewHolder.SerializableHolder) getItem(position);
 
             holder.setFrom(info);
-        } else if (h instanceof PollHeaderViewHolder) {
-            ((PollHeaderViewHolder) h).setFrom((Poll.Header) getItem(position));
-        } else if (h instanceof PollAnswerViewHolder && fragment instanceof IHasPoll) {
-            ((PollAnswerViewHolder) h).setFrom((Poll.Answer) getItem(position), (IHasPoll) fragment);
+        } else if (h instanceof PollHeaderViewHolder holder) {
+            holder.setFrom((Poll.Header) getItem(position));
+        } else if (h instanceof PollAnswerViewHolder holder && fragment instanceof IHasPoll pollFragment) {
+            holder.setFrom((Poll.Answer) getItem(position), pollFragment);
         }
     }
 
@@ -162,17 +158,16 @@ public class CommentAdapter extends EndlessAdapter {
         List<IEndlessAdaptable> items = getItems();
         for (int i = 0; i < items.size(); ++i) {
             IEndlessAdaptable item = items.get(i);
-            if (item instanceof Comment c) {
-                if (c.getId() == comment.getId()) {
-                    // update the found comment
-                    items.set(i, comment);
+            if (item instanceof Comment c && c.getId() == comment.getId()) {
+                // update the found comment
+                items.set(i, comment);
 
-                    // notify of update
-                    notifyItemChanged(comment);
+                // notify of update
+                notifyItemChanged(comment);
 
-                    return;
-                }
+                return;
             }
+
         }
 
         Log.w(CommentAdapter.class.getSimpleName(), "Comment with " + comment.getId() + " not found to update");

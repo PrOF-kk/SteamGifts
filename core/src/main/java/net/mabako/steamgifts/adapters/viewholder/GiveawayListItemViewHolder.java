@@ -329,9 +329,8 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
                 savedGiveaways.add(giveaway, giveaway.getGiveawayId());
                 return true;
             case 5:
-                if (savedGiveaways.remove(giveaway.getGiveawayId())) {
-                    if (fragment instanceof SavedGiveawaysFragment)
-                        ((SavedGiveawaysFragment) fragment).onRemoveSavedGiveaway(giveaway.getGiveawayId());
+                if (savedGiveaways.remove(giveaway.getGiveawayId()) && fragment instanceof SavedGiveawaysFragment savedGiveawaysFragment) {
+                    savedGiveawaysFragment.onRemoveSavedGiveaway(giveaway.getGiveawayId());
                 }
                 return true;
             case 6:

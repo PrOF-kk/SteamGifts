@@ -310,14 +310,17 @@ public abstract class ListFragment<AdapterType extends EndlessAdapter> extends F
             for (String key : setOne) {
                 valueOne = one.get(key);
                 valueTwo = two.get(key);
-                if (valueOne instanceof Bundle && valueTwo instanceof Bundle &&
-                        !equalBundles((Bundle) valueOne, (Bundle) valueTwo)) {
+                if (valueOne instanceof Bundle bundleOne && valueTwo instanceof Bundle bundleTwo
+                        && !equalBundles(bundleOne, bundleTwo))
+                {
                     return false;
                 } else if (valueOne == null) {
-                    if (valueTwo != null || !two.containsKey(key))
+                    if (valueTwo != null || !two.containsKey(key)) {
                         return false;
-                } else if (!valueOne.equals(valueTwo))
+                    }
+                } else if (!valueOne.equals(valueTwo)) {
                     return false;
+                }
             }
 
             return true;
