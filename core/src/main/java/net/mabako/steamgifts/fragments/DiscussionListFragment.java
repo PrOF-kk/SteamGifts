@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
+import com.mikepenz.iconics.typeface.IIcon;
 import com.mikepenz.iconics.utils.IconicsMenuInflaterUtil;
 
 import net.mabako.steamgifts.activities.CommonActivity;
@@ -180,7 +181,7 @@ public class DiscussionListFragment extends SearchableListFragment<DiscussionAda
 
         private final int titleResource;
         private final int navbarResource;
-        private final FontAwesome.Icon icon;
+        private final IIcon icon;
 
         Type(int navbarResource, int titleResource, FontAwesome.Icon icon) {
             this.navbarResource = navbarResource;
@@ -196,7 +197,7 @@ public class DiscussionListFragment extends SearchableListFragment<DiscussionAda
             return navbarResource;
         }
 
-        public FontAwesome.Icon getIcon() {
+        public IIcon getIcon() {
             return icon;
         }
     }
