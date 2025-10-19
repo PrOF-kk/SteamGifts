@@ -1,10 +1,12 @@
 package net.mabako.steamgifts.receivers;
 
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
+import net.mabako.steamgifts.activities.MainActivity;
 import net.mabako.steamgifts.core.R;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
@@ -26,7 +28,10 @@ public class CheckForPointsFull extends AbstractNotificationCheckReceiver {
         if (TextUtils.isEmpty(action) && lastPointsAmount <= 400 && currentPointsAmount >= 400) {
             // Points are full, and we haven't shown this notification yet.
             sharedPreferences.edit().putInt(PREF_KEY_LAST_POINTS_AMOUNT, currentPointsAmount).apply();
-            showNotification(context, NOTIFICATION_ID, R.drawable.sgwhite, "Your points are full", "You have " + currentPointsAmount + " points.", null, null);
+
+            Intent launchApp = new Intent(context, MainActivity.class);
+            PendingIntent launchAppIntent = PendingIntent.getActivity(context, 0, launchApp, PendingIntent.FLAG_IMMUTABLE);
+            showNotification(context, NOTIFICATION_ID, R.drawable.sgwhite, "Your points are full", "You have " + currentPointsAmount + " points.", launchAppIntent, null);
         }
     }
 }
