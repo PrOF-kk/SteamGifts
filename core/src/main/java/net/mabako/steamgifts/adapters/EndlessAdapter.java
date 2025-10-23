@@ -317,8 +317,12 @@ public abstract class EndlessAdapter extends RecyclerView.Adapter<RecyclerView.V
      * @param position position of the item
      * @return the layout if it's an actual item, {@link #PROGRESS_VIEW} or {@link #END_VIEW} if it's a progress spinner or the end.
      */
+    @Override
     public int getItemViewType(int position) {
-        return position < getItemCount() && getItem(position) != null ? getItem(position).getLayout() : reachedTheEnd ? END_VIEW : PROGRESS_VIEW;
+        if (position < getItemCount() && getItem(position) != null)
+            return getItem(position).getLayout();
+
+        return reachedTheEnd ? END_VIEW : PROGRESS_VIEW;
     }
 
     /**
