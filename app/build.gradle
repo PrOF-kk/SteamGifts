@@ -44,6 +44,10 @@ android {
         disable 'GoogleAppIndexingWarning', 'ExpiredTargetSdkVersion'
         warning 'InvalidPackage' // okio references java.nio, which is not part of android.
     }
+
+    buildFeatures {
+        buildConfig true
+    }
 }
 
 dependencies {
