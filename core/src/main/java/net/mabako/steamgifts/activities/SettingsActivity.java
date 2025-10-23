@@ -100,6 +100,11 @@ public class SettingsActivity extends BaseActivity {
         private boolean isDefaultApp() {
             PackageManager pm = getActivity().getPackageManager();
             ResolveInfo resolveInfo = pm.resolveActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.steamgifts.com/giveaway/xxxxx/")), PackageManager.MATCH_DEFAULT_ONLY);
+
+            // No app set as default for any urls
+            if (resolveInfo == null)
+                return false;
+
             ActivityInfo activityInfo = resolveInfo.activityInfo;
             if (activityInfo == null || !activityInfo.exported)
                 return false;
