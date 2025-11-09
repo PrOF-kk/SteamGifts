@@ -15,6 +15,8 @@ import net.mabako.steam.store.data.Text;
 import net.mabako.steamgifts.adapters.IEndlessAdaptable;
 import net.mabako.steamgifts.core.R;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -148,8 +150,14 @@ public class StoreAppFragment extends StoreFragment {
                 items.add(new Space());
 
                 // Screenshots
-                Elements screenshots = document.getElementsByClass("highlight_screenshot_link");
-                screenshots.forEach(a -> items.add(new Picture(a.attr("href").replace("1920x1080", "800x600"), false)));
+                String carouselPropsRaw = document.getElementsByClass("gamehighlight_desktopcarousel").attr("data-props");
+                if (!carouselPropsRaw.isEmpty()) {
+                    JSONObject carouselProps = new JSONObject(carouselPropsRaw);
+                    JSONArray screenshots = carouselProps.getJSONArray("screenshots");
+                    for (int i = 0; i < screenshots.length(); i++) {
+                        items.add(new Picture(screenshots.getJSONObject(i).getString("standard"), false));
+                    }
+                }
 
                 return null;
             } catch (Exception e) {
