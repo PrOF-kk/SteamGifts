@@ -15,6 +15,10 @@
             android:enabled="false"
             android:key="tools_preference_default_app"
             android:summary="@string/preference_default_app_summary"
-            android:title="@string/preference_default_app" />
+            android:title="@string/preference_default_app" >
+            <intent
+                android:action="android.settings.APP_OPEN_BY_DEFAULT_SETTINGS"
+                android:data="package:net.mabako.steamgifts" />
+        </Preference>
     </PreferenceCategory>
 </PreferenceScreen>

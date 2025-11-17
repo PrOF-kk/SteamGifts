@@ -5,7 +5,9 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 
 import androidx.appcompat.app.ActionBar;
@@ -84,11 +86,24 @@ public class SettingsActivity extends BaseActivity {
 
             }
 
+            Preference chromeTabsInfo = findPreference("tools_preference_default_app");
             if (!tabsSupported || isDefaultApp()) {
                 // Notification for default app isn't displayed if we -are- the default app.
-                // TODO if we're not the default app, maybe offer a selection to set this the default at least?
-                Preference chromeTabsInfo = findPreference("tools_preference_default_app");
                 ((PreferenceCategory) findPreference("preferences_other")).removePreference(chromeTabsInfo);
+            } else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    // Offer to take the user to the settings page directly
+                    chromeTabsInfo.setEnabled(true); // Clickable
+                    chromeTabsInfo.setOnPreferenceClickListener(preference -> {
+                        Intent intent = new Intent(Settings.ACTION_APP_OPEN_BY_DEFAULT_SETTINGS);
+                        intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
+                        startActivity(intent);
+                        return true;
+                    });
+                    chromeTabsInfo.setSummary(chromeTabsInfo.getSummary() + "\n\nTap here to go to the Android SG url settings page.");
+                } else {
+                    chromeTabsInfo.setSummary(chromeTabsInfo.getSummary() + "\n\nGo to SteamGifts in your browser and open any giveaway or discussion. When asked, select this app as default.");
+                }
             }
 
             if (!((ApplicationTemplate) getActivity().getApplication()).allowGameImages()) {
