@@ -31,6 +31,7 @@ import net.mabako.steamgifts.tasks.LoadDiscussionListTask;
 public class DiscussionListFragment extends SearchableListFragment<DiscussionAdapter> implements IActivityTitle {
     private static final String SAVED_TYPE = "type";
     private static final String SAVED_SORT = "sort";
+    private static final String PREFERENCE_SORT = "preference_sort_discussions";
 
     /**
      * Type of items to show.
@@ -60,6 +61,8 @@ public class DiscussionListFragment extends SearchableListFragment<DiscussionAda
 
         if (savedInstanceState == null) {
             type = (Type) getArguments().getSerializable(SAVED_TYPE);
+            sort = Sort.valueOf(PreferenceManager.getDefaultSharedPreferences(requireContext())
+                    .getString(PREFERENCE_SORT, Sort.LAST_POST.name()));
         } else {
             type = (Type) savedInstanceState.getSerializable(SAVED_TYPE);
             sort = (Sort) savedInstanceState.getSerializable(SAVED_SORT);
@@ -154,6 +157,10 @@ public class DiscussionListFragment extends SearchableListFragment<DiscussionAda
                         Sort newSort = Sort.values()[which];
                         if (this.sort != newSort) {
                             this.sort = newSort;
+                            PreferenceManager.getDefaultSharedPreferences(requireContext())
+                                    .edit()
+                                    .putString(PREFERENCE_SORT, newSort.name())
+                                    .apply();
                             this.refresh();
                         }
                         dialog.dismiss();
