@@ -20,7 +20,7 @@ An app to browse SteamGifts giveaways on your phone.
 - and more...
 
 # Installation
-[<img src="https://github.com/ImranR98/Obtainium/blob/main/assets/graphics/badge_obtainium.png"
+[<img src="https://github.com/user-attachments/assets/713d71c5-3dec-4ec4-a3f2-8d28d025a9c6"
     alt="Get it on Obtainium"
     height="80">](http://apps.obtainium.imranr.dev/redirect.html?r=obtainium://add/https://github.com/PrOF-kk/SteamGifts)
 [<img src="https://github.com/machiav3lli/oandbackupx/blob/034b226cea5c1b30eb4f6a6f313e4dadcbb0ece4/badge_github.png"
