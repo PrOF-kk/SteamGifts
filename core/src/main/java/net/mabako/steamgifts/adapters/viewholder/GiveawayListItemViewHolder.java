@@ -138,9 +138,7 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
                     // but it looks like it also helps make it actually work.
                     activity.runOnUiThread(itemContainer::requestLayout);
 
-                    if (giveaway.getGame().getId() == 1361210) {
-                        Log.d(TAG, "Successfully loaded capsule image for game " + giveaway.getGame().getId() + " (" + giveaway.getGame().getName() + ")");
-                    }
+                    Log.d(TAG, "Successfully loaded capsule image for game " + giveaway.getGame().getId() + " (" + giveaway.getGame().getName() + ")");
                 }
                 @Override
                 public void onError(Exception e) { }
