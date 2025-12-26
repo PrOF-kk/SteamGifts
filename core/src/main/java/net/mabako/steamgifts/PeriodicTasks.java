@@ -8,23 +8,23 @@ import android.content.Intent;
 
 import net.mabako.steamgifts.receivers.CheckForNewMessages;
 
-import java.util.EnumMap;
-import java.util.Map;
+import java.util.EnumSet;
+import java.util.Set;
 
 /**
  * Tasks to schedule for execution every now and then.
  */
 public class PeriodicTasks {
-    private static final Map<Task, TaskData> scheduledTasks = new EnumMap<>(Task.class);
+    private static final Set<Task> scheduledTasks = EnumSet.noneOf(Task.class);
 
     private static void scheduleTask(Task task, Context context) {
-        if (!scheduledTasks.containsKey(task)) {
+        if (!scheduledTasks.contains(task)) {
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, new Intent(context, task.taskClass), PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             alarmManager.setInexactRepeating(AlarmManager.RTC, System.currentTimeMillis(), task.interval, pendingIntent);
 
-            scheduledTasks.put(task, new TaskData(alarmManager, pendingIntent));
+            scheduledTasks.add(task);
         }
     }
 
@@ -51,13 +51,4 @@ public class PeriodicTasks {
         }
     }
 
-    private static final class TaskData {
-        private AlarmManager alarmManager;
-        private PendingIntent pendingIntent;
-
-        public TaskData(AlarmManager alarmManager, PendingIntent pendingIntent) {
-            this.alarmManager = alarmManager;
-            this.pendingIntent = pendingIntent;
-        }
-    }
 }
