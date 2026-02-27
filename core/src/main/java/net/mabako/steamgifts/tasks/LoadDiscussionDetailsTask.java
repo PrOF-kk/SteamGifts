@@ -16,13 +16,17 @@ import net.mabako.steamgifts.data.Poll;
 import net.mabako.steamgifts.fragments.DiscussionDetailFragment;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class LoadDiscussionDetailsTask extends AsyncTask<Void, Void, DiscussionExtras> {
     private static final String TAG = LoadDiscussionDetailsTask.class.getSimpleName();
@@ -44,10 +48,13 @@ public class LoadDiscussionDetailsTask extends AsyncTask<Void, Void, DiscussionE
 
     @Override
     protected DiscussionExtras doInBackground(Void... params) {
+        // This can be retried: handle closing the request manually
         try {
-            Connection.Response response = connect();
-            if (response.statusCode() == 200) {
-                Uri uri = Uri.parse(response.url().toURI().toString());
+            Response response;
+            Response initialResponse = connect();
+            if (initialResponse.code() == 200) {
+                response = initialResponse;
+                Uri uri = Uri.parse(response.request().url().toString());
                 Log.v(TAG, "Current URI -> " + uri);
                 if (uri.getPathSegments().size() < 2)
                     throw new Exception("Could actually not find the discussion, we're at URI " + uri.toString());
@@ -56,11 +63,14 @@ public class LoadDiscussionDetailsTask extends AsyncTask<Void, Void, DiscussionE
                 if (!"search".equals(uri.getLastPathSegment())) {
                     // Let's just try again.
                     discussionId = uri.getPathSegments().get(1) + "/" + uri.getPathSegments().get(2);
+
+                    initialResponse.close();
                     response = connect();
                 }
 
 
-                Document document = response.parse();
+                Document document = Jsoup.parse(response.body().string());
+                response.close();
 
                 // Update user details
                 SteamGiftsUserData.extract(fragment.getContext(), document);
@@ -91,7 +101,7 @@ public class LoadDiscussionDetailsTask extends AsyncTask<Void, Void, DiscussionE
         return null;
     }
 
-    private Connection.Response connect() throws IOException {
+    private Response connect() throws IOException {
 
         // As of 2023-12, pages after the last one return no comments instead of redirecting to the actual last page
         String url = (page != EndlessAdapter.LAST_PAGE)
@@ -99,15 +109,16 @@ public class LoadDiscussionDetailsTask extends AsyncTask<Void, Void, DiscussionE
                 : "https://www.steamgifts.com/discussion/" + discussionId + "/search?page=last";
 
         Log.v(TAG, "Fetching discussion details for " + url);
-        Connection connection = Jsoup.connect(url)
-                .userAgent(Constants.JSOUP_USER_AGENT)
-                .timeout(Constants.JSOUP_TIMEOUT)
-                .followRedirects(true);
+        OkHttpClient client = new OkHttpClient.Builder()
+                .callTimeout(Constants.JSOUP_TIMEOUT, TimeUnit.MILLISECONDS)
+                .followRedirects(true)
+                .build();
 
+        Request.Builder request = new Request.Builder().url(url);
         if (SteamGiftsUserData.getCurrent(fragment.getContext()).isLoggedIn())
-            connection.cookie("PHPSESSID", SteamGiftsUserData.getCurrent(fragment.getContext()).getSessionId());
+            request.header("Cookie", "PHPSESSID=" + SteamGiftsUserData.getCurrent(fragment.getContext()).getSessionId());
 
-        return connection.execute();
+        return client.newCall(request.build()).execute();
     }
 
     private Discussion loadDiscussion(Document document, Uri linkUri) {

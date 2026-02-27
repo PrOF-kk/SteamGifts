@@ -9,7 +9,6 @@ import net.mabako.steamgifts.data.Discussion;
 import net.mabako.steamgifts.fragments.DiscussionListFragment;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -18,6 +17,12 @@ import org.jsoup.select.Elements;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * Fetch a list of all discussions.
@@ -43,31 +48,43 @@ public class LoadDiscussionListTask extends AsyncTask<Void, Void, List<Discussio
     protected List<Discussion> doInBackground(Void... params) {
         try {
             // Fetch the Discussions page
-            String segment = "";
+
+            HttpUrl.Builder url = new HttpUrl.Builder()
+                    .scheme("https")
+                    .host("www.steamgifts.com")
+                    .addPathSegment("discussions");
+
             if (type != DiscussionListFragment.Type.ALL)
-                segment = type.name().replace("_", "-").toLowerCase(Locale.ENGLISH) + "/";
-            String url = "https://www.steamgifts.com/discussions/" + segment + "search";
+                url.addPathSegment(type.name().replace("_", "-").toLowerCase(Locale.ENGLISH));
+
+            url.addPathSegment("search");
 
             Log.d(TAG, "Fetching discussions for page " + page + " and URL " + url);
 
-            Connection jsoup = Jsoup.connect(url)
-                    .userAgent(Constants.JSOUP_USER_AGENT)
-                    .timeout(Constants.JSOUP_TIMEOUT);
-            jsoup.data("page", Integer.toString(page));
+            OkHttpClient.Builder client = new OkHttpClient.Builder()
+                    .callTimeout(Constants.JSOUP_TIMEOUT, TimeUnit.MILLISECONDS);
+            Request.Builder request = new Request.Builder();
+
+            url.addQueryParameter("page", Integer.toString(page));
 
             if (sort == DiscussionListFragment.Sort.NEW)
-                jsoup.data("sort", "new");
+                url.addQueryParameter("sort", "new");
             if (searchQuery != null)
-                jsoup.data("q", searchQuery);
+                url.addQueryParameter("q", searchQuery);
 
             // We do not want to follow redirects here, because SteamGifts redirects to the main (giveaways) page if we're not logged in.
             // For all other pages however, if we're not logged in, we're redirected once as well?
             if (type == DiscussionListFragment.Type.CREATED)
-                jsoup.followRedirects(false);
+                client.followRedirects(false);
 
-            if (SteamGiftsUserData.getCurrent(fragment.getContext()).isLoggedIn())
-                jsoup.cookie("PHPSESSID", SteamGiftsUserData.getCurrent(fragment.getContext()).getSessionId());
-            Document document = jsoup.get();
+            if (SteamGiftsUserData.getCurrent(fragment.getContext()).isLoggedIn()) {
+                request.header("Cookie", "PHPSESSID=" + SteamGiftsUserData.getCurrent(fragment.getContext()).getSessionId());
+            }
+
+            Document document;
+            try (Response response = client.build().newCall(request.url(url.build()).build()).execute()) {
+                document = Jsoup.parse(response.body().string());
+            }
 
             SteamGiftsUserData.extract(fragment.getContext(), document);
 

@@ -11,13 +11,18 @@ import net.mabako.steamgifts.data.ICommentHolder;
 import net.mabako.steamgifts.data.User;
 import net.mabako.steamgifts.fragments.UserDetailFragment;
 
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class LoadUserTradeFeedbackTask extends AsyncTask<Void, Void, List<Comment>> {
     private static final String TAG = "LoadUserTradeFeedbackTa";
@@ -43,11 +48,17 @@ public class LoadUserTradeFeedbackTask extends AsyncTask<Void, Void, List<Commen
 
         try {
             // Fetch the Giveaway page
-            Connection connection = Jsoup.connect("https://www.steamtrades.com/user/" + steamID64 + "/search")
-                    .userAgent(Constants.JSOUP_USER_AGENT)
-                    .timeout(Constants.JSOUP_TIMEOUT);
-            connection.data("page", Integer.toString(page));
-            connection.data("rating", rating);
+            OkHttpClient.Builder client = new OkHttpClient.Builder()
+                    .callTimeout(Constants.JSOUP_TIMEOUT, TimeUnit.MILLISECONDS);
+            Request.Builder request = new Request.Builder();
+            HttpUrl.Builder url = new HttpUrl.Builder()
+                    .scheme("https")
+                    .host("www.steamtrades.com")
+                    .addPathSegment("user")
+                    .addPathSegment(Long.toString(steamID64))
+                    .addPathSegment("search")
+                    .addQueryParameter("page", Integer.toString(page))
+                    .addQueryParameter("rating", rating);
 
             /* FIXME broken with the split of steamtrades & steamgifts
             if (SteamGiftsUserData.getCurrent(fragment.getContext()).isLoggedIn()) {
@@ -56,12 +67,14 @@ public class LoadUserTradeFeedbackTask extends AsyncTask<Void, Void, List<Commen
             }
             */
 
-            Connection.Response response = connection.execute();
-            Document document = response.parse();
+            Document document;
+            try (Response response = client.build().newCall(request.url(url.build()).build()).execute()) {
+                if (response.code() != 200) {
+                    Log.w(TAG, "Got status code " + response.code());
+                    return null;
+                }
 
-            if (response.statusCode() != 200) {
-                Log.w(TAG, "Got status code " + response.statusCode());
-                return null;
+                document = Jsoup.parse(response.body().string());
             }
 
             // FIXME SteamGiftsUserData.extract(fragment.getContext(), document);

@@ -4,7 +4,7 @@ import android.widget.Toast;
 
 import net.mabako.steamgifts.fragments.profile.MessageListFragment;
 
-import org.jsoup.Connection;
+import okhttp3.Response;
 
 /**
  * Mark all messages read.
@@ -16,13 +16,15 @@ public class MarkMessagesReadTask extends AjaxTask<MessageListFragment> {
     }
 
     @Override
-    protected void onPostExecute(Connection.Response response) {
+    protected void onPostExecute(Response response) {
         super.onPostExecute(response);
-        if (response != null && response.statusCode() == 301) {
-            getFragment().onMarkedMessagesRead();
-            Toast.makeText(getFragment().getContext(), "Marked all messages as read", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(getFragment().getContext(), "Error marking messages as read", Toast.LENGTH_SHORT).show();
+        try (response) {
+            if (response != null && response.code() == 301) {
+                getFragment().onMarkedMessagesRead();
+                Toast.makeText(getFragment().getContext(), "Marked all messages as read", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getFragment().getContext(), "Error marking messages as read", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

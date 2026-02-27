@@ -12,7 +12,11 @@ import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.jsoup.Connection;
+
+import java.io.IOException;
+
+import okhttp3.FormBody;
+import okhttp3.Response;
 
 /**
  * Task to enter or leave giveaways.
@@ -27,16 +31,17 @@ public class EnterLeaveGiveawayTask extends AjaxTask<IHasEnterableGiveaways> {
     }
 
     @Override
-    public void addExtraParameters(Connection connection) {
-        connection.data("code", giveawayId);
+    public void addExtraParameters(FormBody.Builder body) {
+        body.add("code", giveawayId);
     }
 
     @Override
-    protected void onPostExecute(Connection.Response response) {
-        if (response != null && response.statusCode() == 200) {
-            try {
-                Log.v(TAG, "Response to JSON request: " + response.body());
-                JSONObject root = new JSONObject(response.body());
+    protected void onPostExecute(Response response) {
+        try (response) {
+            if (response != null && response.code() == 200) {
+                String body = response.body().string();
+                Log.v(TAG, "Response to JSON request: " + body);
+                JSONObject root = new JSONObject(body);
 
                 boolean success = "success".equals(root.getString("type"));
                 int points = root.getInt("points");
@@ -54,9 +59,9 @@ public class EnterLeaveGiveawayTask extends AjaxTask<IHasEnterableGiveaways> {
                 }
 
                 return;
-            } catch (JSONException e) {
-                Log.e(TAG, "Failed to parse JSON object", e);
             }
+        } catch (IOException | JSONException e) {
+            Log.e(TAG, "Failed to parse JSON object", e);
         }
 
         getFragment().onEnterLeaveResult(giveawayId, getWhat(), false, false);

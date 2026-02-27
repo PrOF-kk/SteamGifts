@@ -6,7 +6,8 @@ import android.widget.Toast;
 
 import net.mabako.steamgifts.fragments.interfaces.IHasPoll;
 
-import org.jsoup.Connection;
+import okhttp3.FormBody;
+import okhttp3.Response;
 
 public class EnterLeavePollTask extends AjaxTask<IHasPoll> {
     private static final String TAG = EnterLeavePollTask.class.getSimpleName();
@@ -22,20 +23,22 @@ public class EnterLeavePollTask extends AjaxTask<IHasPoll> {
     }
 
     @Override
-    protected void addExtraParameters(Connection connection) {
-        connection.data("poll_answer_id", String.valueOf(answerId));
+    protected void addExtraParameters(FormBody.Builder body) {
+        body.add("poll_answer_id", String.valueOf(answerId));
     }
 
     @Override
-    protected void onPostExecute(Connection.Response response) {
+    protected void onPostExecute(Response response) {
         super.onPostExecute(response);
 
         Log.d(TAG, "Response: " + response);
-        if (response != null && response.statusCode() == 200) {
-            Log.d(TAG, getWhat() + " ~> " + answerId);
-            getFragment().onPollAnswerSelected(SELECT_ANSWER.equals(getWhat()) ? answerId : 0);
-        } else {
-            Toast.makeText(getContext(), "Unable to submit vote.", Toast.LENGTH_SHORT).show();
+        try (response) {
+            if (response != null && response.code() == 200) {
+                Log.d(TAG, getWhat() + " ~> " + answerId);
+                getFragment().onPollAnswerSelected(SELECT_ANSWER.equals(getWhat()) ? answerId : 0);
+            } else {
+                Toast.makeText(getContext(), "Unable to submit vote.", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

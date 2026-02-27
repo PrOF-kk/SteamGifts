@@ -8,8 +8,12 @@ import net.mabako.steamgifts.fragments.DetailFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
+
+import java.io.IOException;
+
+import okhttp3.FormBody;
+import okhttp3.Response;
 
 public class DeleteCommentTask extends AjaxTask<DetailFragment> {
     private static final String TAG = DeleteCommentTask.class.getSimpleName();
@@ -27,18 +31,19 @@ public class DeleteCommentTask extends AjaxTask<DetailFragment> {
     }
 
     @Override
-    protected void addExtraParameters(Connection connection) {
-        connection
-                .data("comment_id", String.valueOf(commentId))
-                .data("allow_replies", "1");
+    protected void addExtraParameters(FormBody.Builder body) {
+        body
+                .add("comment_id", String.valueOf(commentId))
+                .add("allow_replies", "1");
     }
 
     @Override
-    protected void onPostExecute(Connection.Response response) {
-        if (response != null && response.statusCode() == 200) {
-            try {
-                Log.v(TAG, "Response to JSON request: " + response.body());
-                JSONObject root = new JSONObject(response.body());
+    protected void onPostExecute(Response response) {
+        try (response) {
+            if (response != null && response.code() == 200) {
+                String body = response.body().string();
+                Log.v(TAG, "Response to JSON request: " + body);
+                JSONObject root = new JSONObject(body);
 
                 boolean success = "success".equals(root.getString("type"));
                 if (success) {
@@ -47,9 +52,9 @@ public class DeleteCommentTask extends AjaxTask<DetailFragment> {
                 } else {
                     Log.w(TAG, "Could not " + getWhat() + " comment " + commentId + "?");
                 }
-            } catch (JSONException e) {
-                Log.e(TAG, "Failed to parse JSON object", e);
             }
+        } catch (IOException | JSONException e) {
+            Log.e(TAG, "Failed to parse JSON object", e);
         }
     }
 }

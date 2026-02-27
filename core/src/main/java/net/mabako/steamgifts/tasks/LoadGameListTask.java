@@ -9,7 +9,6 @@ import net.mabako.steamgifts.adapters.IEndlessAdaptable;
 import net.mabako.steamgifts.fragments.interfaces.ILoadItemsListener;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -17,6 +16,12 @@ import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * Loads all games you have currently filtered.
@@ -44,17 +49,26 @@ public abstract class LoadGameListTask extends AsyncTask<Void, Void, List<IEndle
         try {
             // Fetch the Giveaway page
 
-            Connection jsoup = Jsoup.connect("https://www.steamgifts.com/" + pathSegment + "/search")
-                    .userAgent(Constants.JSOUP_USER_AGENT)
-                    .timeout(Constants.JSOUP_TIMEOUT);
-            jsoup.data("page", Integer.toString(page));
+            OkHttpClient.Builder client = new OkHttpClient.Builder()
+                    .callTimeout(Constants.JSOUP_TIMEOUT, TimeUnit.MILLISECONDS);
+
+            Request.Builder request = new Request.Builder();
+            HttpUrl.Builder url = new HttpUrl.Builder()
+                    .scheme("https")
+                    .host("www.steamgifts.com")
+                    .addPathSegments(pathSegment)
+                    .addPathSegment("search")
+                    .addQueryParameter("page", Integer.toString(page));
 
             if (searchQuery != null)
-                jsoup.data("q", searchQuery);
+                url.addQueryParameter("q", searchQuery);
 
-            jsoup.cookie("PHPSESSID", SteamGiftsUserData.getCurrent(context).getSessionId());
+            request.header("Cookie", "PHPSESSID=" + SteamGiftsUserData.getCurrent(context).getSessionId());
 
-            Document document = jsoup.get();
+            Document document;
+            try (Response response = client.build().newCall(request.url(url.build()).build()).execute()) {
+                document = Jsoup.parse(response.body().string());
+            }
 
             SteamGiftsUserData.extract(context, document);
 

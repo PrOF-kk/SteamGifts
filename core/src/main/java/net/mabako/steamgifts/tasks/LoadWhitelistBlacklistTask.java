@@ -9,7 +9,6 @@ import net.mabako.steamgifts.fragments.WhitelistBlacklistFragment;
 import net.mabako.steamgifts.fragments.interfaces.IHasWhitelistAndBlacklist;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -18,6 +17,12 @@ import org.jsoup.select.Elements;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class LoadWhitelistBlacklistTask extends AsyncTask<Void, Void, List<BasicUser>> {
     private static final String TAG = "LoadWhitelistBlacklistT";
@@ -40,21 +45,30 @@ public class LoadWhitelistBlacklistTask extends AsyncTask<Void, Void, List<Basic
     protected List<BasicUser> doInBackground(Void... params) {
         try {
             // Fetch the Giveaway page
-            String url = "https://www.steamgifts.com/account/manage/" + what.name().toLowerCase(Locale.ENGLISH) + "/search";
+            HttpUrl.Builder url = new HttpUrl.Builder()
+                    .scheme("https")
+                    .host("www.steamgifts.com")
+                    .addPathSegments("account/manage")
+                    .addPathSegment(what.name().toLowerCase(Locale.ENGLISH))
+                    .addPathSegment("search")
+                    .addQueryParameter("page", Integer.toString(page));
             Log.d(TAG, "Fetching URL " + url);
 
-            Connection jsoup = Jsoup.connect(url)
-                    .userAgent(Constants.JSOUP_USER_AGENT)
-                    .timeout(Constants.JSOUP_TIMEOUT)
+            OkHttpClient.Builder client = new OkHttpClient.Builder()
+                    .callTimeout(Constants.JSOUP_TIMEOUT, TimeUnit.MILLISECONDS)
                     .followRedirects(false);
-            jsoup.data("page", Integer.toString(page));
+            Request.Builder request = new Request.Builder();
 
-            if (searchQuery != null)
-                jsoup.data("q", searchQuery);
+            if (searchQuery != null) {
+                url.addQueryParameter("q", searchQuery);
+            }
 
-            jsoup.cookie("PHPSESSID", SteamGiftsUserData.getCurrent(fragment.getContext()).getSessionId());
+            request.header("Cookie", "PHPSESSID" + SteamGiftsUserData.getCurrent(fragment.getContext()).getSessionId());
 
-            Document document = jsoup.get();
+            Document document;
+            try (Response response = client.build().newCall(request.url(url.build()).build()).execute()) {
+                document = Jsoup.parse(response.body().string());
+            }
 
             SteamGiftsUserData.extract(fragment.getContext(), document);
 

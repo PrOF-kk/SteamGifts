@@ -9,7 +9,6 @@ import net.mabako.steamgifts.data.GiveawayGroup;
 import net.mabako.steamgifts.fragments.GiveawayGroupListFragment;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -18,6 +17,12 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 
 public class LoadGiveawayGroupsTask extends AsyncTask<Void, Void, List<GiveawayGroup>> {
@@ -40,14 +45,25 @@ public class LoadGiveawayGroupsTask extends AsyncTask<Void, Void, List<GiveawayG
         try {
             // Fetch the Giveaway page
 
-            Connection jsoup = Jsoup.connect("https://www.steamgifts.com/giveaway/" + path + "/groups/search")
-                    .userAgent(Constants.JSOUP_USER_AGENT)
-                    .timeout(Constants.JSOUP_TIMEOUT);
-            jsoup.data("page", Integer.toString(page));
+            OkHttpClient.Builder client = new OkHttpClient.Builder()
+                    .callTimeout(Constants.JSOUP_TIMEOUT, TimeUnit.MILLISECONDS);
+            Request.Builder request = new Request.Builder();
+            HttpUrl.Builder url = new HttpUrl.Builder()
+                    .scheme("https")
+                    .host("www.steamgifts.com")
+                    .addPathSegment("giveaway")
+                    .addPathSegments(path)
+                    .addPathSegments("groups/search")
+                    .addQueryParameter("page", Integer.toString(page));
 
-            if (SteamGiftsUserData.getCurrent(fragment.getContext()).isLoggedIn())
-                jsoup.cookie("PHPSESSID", SteamGiftsUserData.getCurrent(fragment.getContext()).getSessionId());
-            Document document = jsoup.get();
+            if (SteamGiftsUserData.getCurrent(fragment.getContext()).isLoggedIn()) {
+                request.header("Cookie", "PHPSESSID=" + SteamGiftsUserData.getCurrent(fragment.getContext()).getSessionId());
+            }
+
+            Document document;
+            try (Response response = client.build().newCall(request.url(url.build()).build()).execute()) {
+                document = Jsoup.parse(response.body().string());
+            }
 
             SteamGiftsUserData.extract(fragment.getContext(), document);
 
