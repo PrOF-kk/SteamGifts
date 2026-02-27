@@ -9,11 +9,16 @@ import net.mabako.steamgifts.data.User;
 import net.mabako.steamgifts.fragments.UserDetailFragment;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class LoadUserDetailsTask extends AsyncTask<Void, Void, List<Giveaway>> {
     private static final String TAG = LoadUserDetailsTask.class.getSimpleName();
@@ -37,30 +42,39 @@ public class LoadUserDetailsTask extends AsyncTask<Void, Void, List<Giveaway>> {
 
         try {
             // Fetch the Giveaway page
-            Connection connection = Jsoup.connect("https://www.steamgifts.com/user/" + path + "/search")
-                    .userAgent(Constants.JSOUP_USER_AGENT)
-                    .timeout(Constants.JSOUP_TIMEOUT);
-            connection.data("page", Integer.toString(page));
+
+            OkHttpClient.Builder client = new OkHttpClient.Builder()
+                    .callTimeout(Constants.JSOUP_TIMEOUT, TimeUnit.MILLISECONDS);
+            Request.Builder request = new Request.Builder();
+            HttpUrl.Builder url = new HttpUrl.Builder()
+                    .scheme("https")
+                    .host("www.steamgifts.com")
+                    .addPathSegment("user")
+                    .addPathSegments(path)
+                    .addPathSegment("search")
+                    .addQueryParameter("page", Integer.toString(page));
+
             if (SteamGiftsUserData.getCurrent(fragment.getContext()).isLoggedIn()) {
-                connection.cookie("PHPSESSID", SteamGiftsUserData.getCurrent(fragment.getContext()).getSessionId());
-                connection.followRedirects(false);
+                request.header("Cookie", "PHPSESSID=" + SteamGiftsUserData.getCurrent(fragment.getContext()).getSessionId());
+                client.followRedirects(false);
             }
 
-            Connection.Response response = connection.execute();
-            Document document = response.parse();
+            try (Response response = client.build().newCall(request.url(url.build()).build()).execute()) {
+                Document document = Jsoup.parse(response.body().string());
 
-            if (response.statusCode() == 200) {
+                if (response.code() == 200) {
 
-                SteamGiftsUserData.extract(fragment.getContext(), document);
+                    SteamGiftsUserData.extract(fragment.getContext(), document);
 
-                if (!user.isLoaded())
-                    foundXsrfToken = Utils.loadUserProfile(user, document);
+                    if (!user.isLoaded())
+                        foundXsrfToken = Utils.loadUserProfile(user, document);
 
-                // Parse all rows of giveaways
-                return Utils.loadGiveawaysFromList(document);
-            } else {
-                Log.w(TAG, "Got status code " + response.statusCode());
-                return null;
+                    // Parse all rows of giveaways
+                    return Utils.loadGiveawaysFromList(document);
+                } else {
+                    Log.w(TAG, "Got status code " + response.code());
+                    return null;
+                }
             }
         } catch (Exception e) {
             Log.e(TAG, "Error fetching URL", e);

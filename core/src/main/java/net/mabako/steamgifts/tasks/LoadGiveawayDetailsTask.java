@@ -15,13 +15,16 @@ import net.mabako.steamgifts.data.GiveawayExtras;
 import net.mabako.steamgifts.fragments.GiveawayDetailFragment;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import java.net.URISyntaxException;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class LoadGiveawayDetailsTask extends AsyncTask<Void, Void, GiveawayExtras> {
     private static final String TAG = LoadGiveawayDetailsTask.class.getSimpleName();
@@ -47,15 +50,23 @@ public class LoadGiveawayDetailsTask extends AsyncTask<Void, Void, GiveawayExtra
         String url = "https://www.steamgifts.com/giveaway/" + giveawayId + "/search?page=" + page;
         Log.d(TAG, "Fetching giveaway details for " + url);
 
-        try {
-            Connection connection = Jsoup.connect(url)
-                    .userAgent(Constants.JSOUP_USER_AGENT)
-                    .timeout(Constants.JSOUP_TIMEOUT);
-            if (SteamGiftsUserData.getCurrent(fragment.getContext()).isLoggedIn())
-                connection.cookie("PHPSESSID", SteamGiftsUserData.getCurrent(fragment.getContext()).getSessionId());
+        OkHttpClient.Builder client = new OkHttpClient.Builder()
+                .callTimeout(Constants.JSOUP_TIMEOUT, TimeUnit.MILLISECONDS);
 
-            Connection.Response response = connection.execute();
-            Document document = response.parse();
+
+
+        Request.Builder request = new Request.Builder().url(url);
+        if (SteamGiftsUserData.getCurrent(fragment.getContext()).isLoggedIn()) {
+            request.header("Cookie", "PHPSESSID=" + SteamGiftsUserData.getCurrent(fragment.getContext()).getSessionId());
+        }
+
+        try (Response response = client.build().newCall(request.build()).execute()) {
+            if (!response.isSuccessful()) {
+                error = "Error fetching URL: " + response.code();
+                return null;
+            }
+
+            Document document = Jsoup.parse(response.body().string());
 
             // Update user details
             SteamGiftsUserData.extract(fragment.getContext(), document);
@@ -75,8 +86,8 @@ public class LoadGiveawayDetailsTask extends AsyncTask<Void, Void, GiveawayExtra
             GiveawayExtras extras = loadExtras(document);
             if (loadDetails) {
                 try {
-                    loadedDetails = loadGiveaway(document, Uri.parse(response.url().toURI().toString()));
-                } catch (URISyntaxException e) {
+                    loadedDetails = loadGiveaway(document, Uri.parse(response.request().url().toString()));
+                } catch (Exception e) {
                     Log.w(TAG, "say what - invalid url???", e);
                 }
             }

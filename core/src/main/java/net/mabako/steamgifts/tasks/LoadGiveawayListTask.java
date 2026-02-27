@@ -12,13 +12,18 @@ import net.mabako.steamgifts.fragments.GiveawayListFragment;
 import net.mabako.steamgifts.persistentdata.FilterData;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class LoadGiveawayListTask extends AsyncTask<Void, Void, List<Giveaway>> {
     private static final String TAG = LoadGiveawayListTask.class.getSimpleName();
@@ -46,35 +51,48 @@ public class LoadGiveawayListTask extends AsyncTask<Void, Void, List<Giveaway>> 
         try {
             // Fetch the Giveaway page
 
-            Connection jsoup = Jsoup.connect("https://www.steamgifts.com/giveaways/search")
-                    .userAgent(Constants.JSOUP_USER_AGENT)
-                    .timeout(Constants.JSOUP_TIMEOUT);
-            jsoup.data("page", Integer.toString(page));
+            OkHttpClient.Builder client = new OkHttpClient.Builder()
+                    .callTimeout(Constants.JSOUP_TIMEOUT, TimeUnit.MILLISECONDS);
+            Request.Builder request = new Request.Builder();
+            HttpUrl.Builder url = new HttpUrl.Builder()
+                    .scheme("https")
+                    .host("www.steamgifts.com")
+                    .addPathSegment("giveaways")
+                    .addPathSegment("search")
+                    .addQueryParameter("page", Integer.toString(page));
 
-            if (searchQuery != null)
-                jsoup.data("q", searchQuery);
+            if (searchQuery != null) {
+                url.addQueryParameter("q", searchQuery);
+            }
 
             FilterData filterData = FilterData.getCurrent(fragment.getContext());
             if (!filterData.isEntriesPerCopy()) {
-                addFilterParameter(jsoup, "entry_max", filterData.getMaxEntries());
-                addFilterParameter(jsoup, "entry_min", filterData.getMinEntries());
+                addFilterParameter(url, "entry_max", filterData.getMaxEntries());
+                addFilterParameter(url, "entry_min", filterData.getMinEntries());
             }
             if (!filterData.isRestrictLevelOnlyOnPublicGiveaways()) {
-                addFilterParameter(jsoup, "level_min", filterData.getMinLevel());
-                addFilterParameter(jsoup, "level_max", filterData.getMaxLevel());
+                addFilterParameter(url, "level_min", filterData.getMinLevel());
+                addFilterParameter(url, "level_max", filterData.getMaxLevel());
             }
-            addFilterParameter(jsoup, "region_restricted", filterData.isRegionRestrictedOnly());
-            addFilterParameter(jsoup, "copy_min", filterData.getMinCopies());
-            addFilterParameter(jsoup, "copy_max", filterData.getMaxCopies());
-            addFilterParameter(jsoup, "point_min", filterData.getMinPoints());
-            addFilterParameter(jsoup, "point_max", filterData.getMaxPoints());
+            addFilterParameter(url, "region_restricted", filterData.isRegionRestrictedOnly());
+            addFilterParameter(url, "copy_min", filterData.getMinCopies());
+            addFilterParameter(url, "copy_max", filterData.getMaxCopies());
+            addFilterParameter(url, "point_min", filterData.getMinPoints());
+            addFilterParameter(url, "point_max", filterData.getMaxPoints());
 
-            if (type != GiveawayListFragment.Type.ALL)
-                jsoup.data("type", type.name().toLowerCase(Locale.ENGLISH));
+            if (type != GiveawayListFragment.Type.ALL) {
+                url.addQueryParameter("type", type.name().toLowerCase(Locale.ENGLISH));
+            }
 
-            if (SteamGiftsUserData.getCurrent(fragment.getContext()).isLoggedIn())
-                jsoup.cookie("PHPSESSID", SteamGiftsUserData.getCurrent(fragment.getContext()).getSessionId());
-            Document document = jsoup.get();
+            // Add PHPSESSID cookie
+            if (SteamGiftsUserData.getCurrent(fragment.getContext()).isLoggedIn()) {
+                request.header("Cookie", "PHPSESSID=" + SteamGiftsUserData.getCurrent(fragment.getContext()).getSessionId());
+            }
+
+            Document document;
+            try (Response response = client.build().newCall(request.url(url.build()).build()).execute()) {
+                document = Jsoup.parse(response.body().string());
+            }
 
             SteamGiftsUserData.extract(fragment.getContext(), document);
 
@@ -101,13 +119,15 @@ public class LoadGiveawayListTask extends AsyncTask<Void, Void, List<Giveaway>> 
         fragment.addItems(result, page == 1, foundXsrfToken);
     }
 
-    private void addFilterParameter(Connection jsoup, String parameterName, int value) {
-        if (value >= 0)
-            jsoup.data(parameterName, String.valueOf(value));
+    private void addFilterParameter(HttpUrl.Builder url, String parameterName, int value) {
+        if (value >= 0) {
+            url.addQueryParameter(parameterName, String.valueOf(value));
+        }
     }
 
-    private void addFilterParameter(Connection jsoup, String parameterName, boolean value) {
-        if (value)
-            jsoup.data(parameterName, "true");
+    private void addFilterParameter(HttpUrl.Builder url, String parameterName, boolean value) {
+        if (value) {
+            url.addQueryParameter(parameterName, "true");
+        }
     }
 }

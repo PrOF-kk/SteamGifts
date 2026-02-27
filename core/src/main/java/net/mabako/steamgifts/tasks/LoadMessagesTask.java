@@ -11,7 +11,6 @@ import net.mabako.steamgifts.data.MessageHeader;
 import net.mabako.steamgifts.fragments.interfaces.ILoadItemsListener;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -19,18 +18,24 @@ import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class LoadMessagesTask extends AsyncTask<Void, Void, List<IEndlessAdaptable>> {
     private static final String TAG = LoadMessagesTask.class.getSimpleName();
 
     private final ILoadItemsListener listener;
-    private Context context;
+    private final Context context;
     private final int page;
 
     private String foundXsrfToken = null;
 
     public LoadMessagesTask(ILoadItemsListener listener, Context context, int page) {
         this.listener = listener;
+        this.context = context;
         this.page = page;
     }
 
@@ -39,13 +44,16 @@ public class LoadMessagesTask extends AsyncTask<Void, Void, List<IEndlessAdaptab
         try {
             // Fetch the messages page
 
-            Connection jsoup = Jsoup.connect("https://www.steamgifts.com/messages/search")
-                    .userAgent(Constants.JSOUP_USER_AGENT)
-                    .timeout(Constants.JSOUP_TIMEOUT);
-            jsoup.data("page", Integer.toString(page));
-            jsoup.cookie("PHPSESSID", SteamGiftsUserData.getCurrent(context).getSessionId());
+            OkHttpClient.Builder client = new OkHttpClient.Builder()
+                    .callTimeout(Constants.JSOUP_TIMEOUT, TimeUnit.MILLISECONDS);
+            Request.Builder request = new Request.Builder()
+                    .url("https://www.steamgifts.com/messages/search?page=" + page)
+                    .header("Cookie", "PHPSESSID=" + SteamGiftsUserData.getCurrent(context).getSessionId());
 
-            Document document = jsoup.get();
+            Document document;
+            try (Response response = client.build().newCall(request.build()).execute()) {
+                document = Jsoup.parse(response.body().string());
+            }
 
             SteamGiftsUserData.extract(context, document);
 

@@ -1,7 +1,8 @@
 package net.mabako.common;
 
 /// Collection of compatibility classes
-public abstract class Compat {
+public final class Compat {
+    private Compat() {}
 
     public static class HashMap {
         private HashMap() {}
@@ -9,6 +10,13 @@ public abstract class Compat {
 
         public static int calculateHashMapCapacity(int numMappings) {
             return (int) Math.ceil(numMappings / (double) DEFAULT_LOAD_FACTOR);
+        }
+
+        public static <K, V> java.util.HashMap<K, V> newHashMap(int numMappings) {
+            if (numMappings < 0) {
+                throw new IllegalArgumentException("Negative number of mappings: " + numMappings);
+            }
+            return new java.util.HashMap<>(calculateHashMapCapacity(numMappings));
         }
     }
 

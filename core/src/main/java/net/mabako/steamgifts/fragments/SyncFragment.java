@@ -24,10 +24,16 @@ import net.mabako.steamgifts.tasks.AjaxTask;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class SyncFragment extends Fragment {
     private static final String SAVED_XSRF = "xsrf";
@@ -126,11 +132,16 @@ public class SyncFragment extends Fragment {
             try {
                 // Fetch the Giveaway page
 
-                Connection jsoup = Jsoup.connect("https://www.steamgifts.com/account/profile/sync")
-                        .userAgent(Constants.JSOUP_USER_AGENT)
-                        .timeout(Constants.JSOUP_TIMEOUT)
-                        .cookie("PHPSESSID", SteamGiftsUserData.getCurrent(fragment.getContext()).getSessionId());
-                Document document = jsoup.get();
+                OkHttpClient.Builder client = new OkHttpClient.Builder()
+                        .callTimeout(Constants.JSOUP_TIMEOUT, TimeUnit.MILLISECONDS);
+                Request.Builder request = new Request.Builder()
+                        .url("https://www.steamgifts.com/account/profile/sync")
+                        .header("Cookie", "PHPSESSID=" + SteamGiftsUserData.getCurrent(fragment.getContext()).getSessionId());
+
+                Document document;
+                try (Response response = client.build().newCall(request.build()).execute()) {
+                    document = Jsoup.parse(response.body().string());
+                }
 
                 SteamGiftsUserData.extract(fragment.getContext(), document);
 
@@ -167,11 +178,12 @@ public class SyncFragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(Connection.Response response) {
-            if (response != null && response.statusCode() == 200) {
-                try {
-                    Log.v(TAG, "Response to JSON request: " + response.body());
-                    JSONObject root = new JSONObject(response.body());
+        protected void onPostExecute(Response response) {
+            try (response) {
+                if (response != null && response.code() == 200) {
+                    String body = response.body().string();
+                    Log.v(TAG, "Response to JSON request: " + body);
+                    JSONObject root = new JSONObject(body);
 
                     if ("success".equals(root.getString("type"))) {
                         Activity activity = getFragment().getActivity();
@@ -185,10 +197,9 @@ public class SyncFragment extends Fragment {
                             return;
                         }
                     }
-
-                } catch (JSONException e) {
-                    Log.e(TAG, "Failed to parse JSON object", e);
                 }
+            } catch (IOException | JSONException e) {
+                Log.e(TAG, "Failed to parse JSON object", e);
             }
             Toast.makeText(getFragment().getContext(), "Could not sync.", Toast.LENGTH_SHORT).show();
         }

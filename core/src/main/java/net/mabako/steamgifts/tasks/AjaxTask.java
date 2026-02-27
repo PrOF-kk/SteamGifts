@@ -8,12 +8,15 @@ import android.util.Log;
 import net.mabako.Constants;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
-public abstract class AjaxTask<FragmentType> extends AsyncTask<Void, Void, Connection.Response> {
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+public abstract class AjaxTask<FragmentType> extends AsyncTask<Void, Void, Response> {
     private static final String TAG = AjaxTask.class.getSimpleName();
 
     private String url = "https://www.steamgifts.com/ajax.php";
@@ -38,23 +41,25 @@ public abstract class AjaxTask<FragmentType> extends AsyncTask<Void, Void, Conne
     }
 
     @Override
-    protected Connection.Response doInBackground(Void... params) {
+    protected Response doInBackground(Void... params) {
         try {
             Log.v(TAG, "Connecting to " + url);
-            Connection connection = Jsoup
-                    .connect(url)
-                    .userAgent(Constants.JSOUP_USER_AGENT)
-                    .timeout(Constants.JSOUP_TIMEOUT)
-                    .data("xsrf_token", xsrfToken)
-                    .data("do", what)
-                    .cookie("PHPSESSID", SteamGiftsUserData.getCurrent(context).getSessionId())
+            OkHttpClient.Builder client = new OkHttpClient.Builder()
+                    .callTimeout(Constants.JSOUP_TIMEOUT, TimeUnit.MILLISECONDS)
                     .followRedirects(false);
+            Request.Builder request = new Request.Builder()
+                    .url(url)
+                    .header("Cookie", "PHPSESSID=" + SteamGiftsUserData.getCurrent(context).getSessionId());
 
-            addExtraParameters(connection);
+            FormBody.Builder body = new FormBody.Builder()
+                    .add("xsrf_token", xsrfToken)
+                    .add("do", what);
 
-            Connection.Response response = connection.method(Connection.Method.POST).execute();
+            addExtraParameters(body);
 
-            Log.v(TAG, url + " returned Status Code " + response.statusCode() + " (" + response.statusMessage() + ")");
+            Response response = client.build().newCall(request.post(body.build()).build()).execute();
+
+            Log.v(TAG, url + " returned Status Code " + response.code() + " (" + response.message() + ")");
 
             return response;
         } catch (IOException e) {
@@ -63,7 +68,7 @@ public abstract class AjaxTask<FragmentType> extends AsyncTask<Void, Void, Conne
         }
     }
 
-    protected void addExtraParameters(Connection connection) { };
+    protected void addExtraParameters(FormBody.Builder body) { }
 
     protected FragmentType getFragment() {
         return fragment;
