@@ -63,7 +63,7 @@ public class LoadWhitelistBlacklistTask extends AsyncTask<Void, Void, List<Basic
                 url.addQueryParameter("q", searchQuery);
             }
 
-            request.header("Cookie", "PHPSESSID" + SteamGiftsUserData.getCurrent(fragment.getContext()).getSessionId());
+            request.header("Cookie", "PHPSESSID=" + SteamGiftsUserData.getCurrent(fragment.getContext()).getSessionId());
 
             Document document;
             try (Response response = client.build().newCall(request.url(url.build()).build()).execute()) {
