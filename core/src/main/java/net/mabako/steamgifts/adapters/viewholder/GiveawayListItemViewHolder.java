@@ -96,6 +96,8 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
         this.adapter = adapter;
         this.savedGiveaways = savedGiveaways;
 
+        v.findViewById(R.id.separator).setVisibility(View.GONE);
+
         v.setOnClickListener(this);
         v.setOnCreateContextMenuListener(this);
     }
