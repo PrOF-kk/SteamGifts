@@ -7,7 +7,6 @@ import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -152,9 +151,7 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
                         }
                     });
         } else {
-            giveawayImage.setImageResource(android.R.color.transparent);
-            ViewGroup.LayoutParams params = giveawayImage.getLayoutParams();
-            params.height = 0;
+            giveawayImage.setVisibility(View.GONE);
         }
 
         StringUtils.setBackgroundDrawable(activity, itemContainer, giveaway.isEntered());
