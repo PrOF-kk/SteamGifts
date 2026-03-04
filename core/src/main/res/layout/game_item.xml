@@ -51,9 +51,4 @@
             tools:text="x"
             tools:visibility="visible" />
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="?android:attr/listDivider" />
 </LinearLayout>
