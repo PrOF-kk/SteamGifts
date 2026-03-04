@@ -1,6 +1,5 @@
 package net.mabako.steamgifts.adapters.viewholder;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
@@ -73,7 +72,6 @@ public class GiveawayCardViewHolder extends RecyclerView.ViewHolder {
         indicator = v.findViewById(R.id.indicator);
     }
 
-    @SuppressLint("SetTextI18n")
     public void setFrom(final GiveawayDetailsCard card) {
         final Giveaway giveaway = card.getGiveaway();
         final GiveawayExtras extras = card.getExtras();

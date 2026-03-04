@@ -97,12 +97,12 @@ public abstract class SearchableListFragment<AdapterType extends EndlessAdapter>
         // Stop searching on clicking 'back'
         searchMenu.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
             @Override
-            public boolean onMenuItemActionExpand(MenuItem item) {
+            public boolean onMenuItemActionExpand(@NonNull MenuItem item) {
                 return true;
             }
 
             @Override
-            public boolean onMenuItemActionCollapse(MenuItem item) {
+            public boolean onMenuItemActionCollapse(@NonNull MenuItem item) {
                 stopSearch();
                 return true;
             }

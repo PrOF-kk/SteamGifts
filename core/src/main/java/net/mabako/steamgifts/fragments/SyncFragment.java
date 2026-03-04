@@ -189,19 +189,15 @@ public class SyncFragment extends Fragment {
                         Activity activity = getFragment().getActivity();
                         activity.setResult(CommonActivity.RESPONSE_SYNC_SUCCESSFUL);
                         activity.finish();
-                        return;
                     } else {
                         String message = root.getString("msg");
-                        if (message != null) {
-                            Toast.makeText(getFragment().getContext(), message, Toast.LENGTH_SHORT).show();
-                            return;
-                        }
+                        Toast.makeText(getFragment().getContext(), message, Toast.LENGTH_SHORT).show();
                     }
                 }
             } catch (IOException | JSONException e) {
                 Log.e(TAG, "Failed to parse JSON object", e);
+                Toast.makeText(getFragment().getContext(), "Could not sync.", Toast.LENGTH_SHORT).show();
             }
-            Toast.makeText(getFragment().getContext(), "Could not sync.", Toast.LENGTH_SHORT).show();
         }
     }
 }

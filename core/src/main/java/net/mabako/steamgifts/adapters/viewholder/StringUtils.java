@@ -139,10 +139,9 @@ public final class StringUtils {
     public static void setBackgroundDrawable(Context context, View view, boolean highlighted, @AttrRes int attr) {
         if (highlighted) {
             int[] attrs = new int[]{attr};
-            TypedArray ta = context.getTheme().obtainStyledAttributes(attrs);
-
-            view.setBackground(ta.getDrawable(0));
-            ta.recycle();
+            try (TypedArray ta = context.getTheme().obtainStyledAttributes(attrs)) {
+                view.setBackground(ta.getDrawable(0));
+            }
         } else {
             view.setBackgroundResource(R.color.colorTransparent);
         }

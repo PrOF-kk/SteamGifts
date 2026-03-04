@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -294,7 +295,7 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
     }
 
     @Override
-    public boolean onMenuItemClick(MenuItem item) {
+    public boolean onMenuItemClick(@NonNull MenuItem item) {
         Giveaway giveaway = (Giveaway) adapter.getItem(getAdapterPosition());
         if (giveaway == null) {
             Toast.makeText(fragment.getContext(), "Error, please try again.", Toast.LENGTH_SHORT).show();

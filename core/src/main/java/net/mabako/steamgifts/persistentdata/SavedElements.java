@@ -28,9 +28,9 @@ public abstract class SavedElements<T> implements Comparator<T> {
     private static final String KEY_ID = "id";
     private static final String KEY_VALUE = "value";
 
-    protected final GiveawayOpenHelper<T> helper;
+    private final GiveawayOpenHelper<T> helper;
 
-    public SavedElements(Context context, String table) {
+    protected SavedElements(Context context, String table) {
         helper = new GiveawayOpenHelper<>(context, this);
 
         this.context = context;

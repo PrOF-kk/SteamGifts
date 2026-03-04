@@ -93,7 +93,7 @@ public abstract class EndlessAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     private RecyclerView.OnScrollListener scrollListener = new ScrollListener();
 
-    public EndlessAdapter() {
+    protected EndlessAdapter() {
 
     }
 
@@ -354,7 +354,7 @@ public abstract class EndlessAdapter extends RecyclerView.Adapter<RecyclerView.V
      * @param position position of the item
      */
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (holder != null && !(holder instanceof EmptyViewHolder)) {
+        if (!(holder instanceof EmptyViewHolder)) {
             onBindActualViewHolder(holder, position);
         }
     }

@@ -47,7 +47,8 @@ public class GameViewHolder extends RecyclerView.ViewHolder {
             itemView.setOnClickListener(v -> storeSubFragment.showDetails(game.getId()));
         }
 
-        // giveaway_image
+        // game_image
+        // TODO: check if game images are enabled
         if (game.getId() != Game.NO_APP_ID) {
             // Load capsule, fallback to header
             Picasso.get()

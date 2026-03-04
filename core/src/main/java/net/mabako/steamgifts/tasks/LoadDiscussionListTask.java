@@ -4,6 +4,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
 import net.mabako.Constants;
 import net.mabako.steamgifts.data.Discussion;
 import net.mabako.steamgifts.fragments.DiscussionListFragment;
@@ -44,6 +46,7 @@ public class LoadDiscussionListTask extends AsyncTask<Void, Void, List<Discussio
         this.searchQuery = searchQuery;
     }
 
+    @Nullable
     @Override
     protected List<Discussion> doInBackground(Void... params) {
         try {
@@ -128,7 +131,7 @@ public class LoadDiscussionListTask extends AsyncTask<Void, Void, List<Discussio
     }
 
     @Override
-    protected void onPostExecute(List<Discussion> result) {
+    protected void onPostExecute(@Nullable List<Discussion> result) {
         super.onPostExecute(result);
         fragment.addItems(result, page == 1);
     }

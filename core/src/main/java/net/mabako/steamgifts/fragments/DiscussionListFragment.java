@@ -99,6 +99,7 @@ public class DiscussionListFragment extends SearchableListFragment<DiscussionAda
         return null;
     }
 
+    @NonNull
     @Override
     public Type getType() {
         return type;
