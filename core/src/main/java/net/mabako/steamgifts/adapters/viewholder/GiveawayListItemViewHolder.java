@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Request;
 
 import net.mabako.steamgifts.ApplicationTemplate;
 import net.mabako.steamgifts.activities.DetailActivity;
@@ -130,6 +131,10 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
         // giveaway_image
         if (giveaway.getGame().getId() != Game.NO_APP_ID && showImage && ((ApplicationTemplate) activity.getApplication()).allowGameImages()) {
             // Load capsule, fallback to header
+
+            // Some transformations change the final cache key, avoid them to make our
+            // "use the same cache key to skip the fallback next time" trick work
+            /// @see com.squareup.picasso.Utils#createKey(Request, StringBuilder)
             Picasso.get()
                     .load(giveaway.getGame().getCdnUrl() + "/capsule_184x69.jpg")
                     .stableKey(giveaway.getGame().getId() + "_capsule")
@@ -146,8 +151,8 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
                             Picasso.get()
                                     .load(giveaway.getGame().getCdnUrl() + "/header.jpg")
                                     .stableKey(giveaway.getGame().getId() + "_capsule")
-                                    .resize(184, 69)
                                     .placeholder(R.drawable.giveaway_list_item_placeholder)
+                                    .fit()
                                     .into(giveawayImage);
                         }
                     });

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Request;
 
 import net.mabako.steam.store.StoreSubFragment;
 import net.mabako.steamgifts.core.R;
@@ -51,6 +52,10 @@ public class GameViewHolder extends RecyclerView.ViewHolder {
         // TODO: check if game images are enabled
         if (game.getId() != Game.NO_APP_ID) {
             // Load capsule, fallback to header
+
+            // Some transformations except fit() change the final cache key, avoid them to make our
+            // "use the same cache key to skip the fallback next time" trick work
+            /// @see com.squareup.picasso.Utils#createKey(Request, StringBuilder)
             Picasso.get()
                     .load(game.getCdnUrl() + "/capsule_184x69.jpg")
                     .stableKey(game.getId() + "_capsule")
@@ -67,8 +72,8 @@ public class GameViewHolder extends RecyclerView.ViewHolder {
                             Picasso.get()
                                     .load(game.getCdnUrl() + "/header.jpg")
                                     .stableKey(game.getId() + "_capsule")
-                                    .resize(184, 69)
                                     .placeholder(R.drawable.giveaway_list_item_placeholder)
+                                    .fit()
                                     .into(image);
                         }
                     });
