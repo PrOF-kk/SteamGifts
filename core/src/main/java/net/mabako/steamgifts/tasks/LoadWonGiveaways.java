@@ -10,8 +10,8 @@ import net.mabako.steamgifts.fragments.interfaces.ILoadItemsListener;
 
 import org.jsoup.nodes.Element;
 
-public class LoadWonGameListTask extends LoadGameListTask {
-    public LoadWonGameListTask(ILoadItemsListener listener, Context context, int page) {
+public class LoadWonGiveaways extends LoadEndlessItemsTask {
+    public LoadWonGiveaways(ILoadItemsListener listener, Context context, int page) {
         super(listener, context, "giveaways/won", page, null);
     }
 

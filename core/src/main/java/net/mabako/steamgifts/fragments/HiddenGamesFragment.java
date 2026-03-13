@@ -17,7 +17,7 @@ import net.mabako.steamgifts.data.Game;
 import net.mabako.steamgifts.fragments.interfaces.IActivityTitle;
 import net.mabako.steamgifts.fragments.interfaces.IHasHideableGiveaways;
 import net.mabako.steamgifts.fragments.interfaces.ILoadItemsListener;
-import net.mabako.steamgifts.tasks.LoadGameListTask;
+import net.mabako.steamgifts.tasks.LoadEndlessItemsTask;
 import net.mabako.steamgifts.tasks.UpdateGiveawayFilterTask;
 
 import org.jsoup.nodes.Element;
@@ -112,7 +112,7 @@ public class HiddenGamesFragment extends SearchableListFragment<HiddenGamesAdapt
         return null;
     }
 
-    private static class LoadHiddenGamesTask extends LoadGameListTask {
+    private static class LoadHiddenGamesTask extends LoadEndlessItemsTask {
 
         public LoadHiddenGamesTask(ILoadItemsListener listener, Context context, int page, String query) {
             super(listener, context, "account/settings/giveaways/filters", page, query);

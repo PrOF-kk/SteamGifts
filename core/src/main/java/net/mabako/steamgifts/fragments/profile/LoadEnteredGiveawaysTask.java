@@ -5,15 +5,15 @@ import android.net.Uri;
 import net.mabako.steamgifts.adapters.IEndlessAdaptable;
 import net.mabako.steamgifts.data.Game;
 import net.mabako.steamgifts.fragments.ListFragment;
-import net.mabako.steamgifts.tasks.LoadGameListTask;
+import net.mabako.steamgifts.tasks.LoadEndlessItemsTask;
 import net.mabako.steamgifts.tasks.Utils;
 
 import org.jsoup.nodes.Element;
 
-public class LoadEnteredGameListTask extends LoadGameListTask {
+public class LoadEnteredGiveawaysTask extends LoadEndlessItemsTask {
     public static final int ENTRIES_PER_PAGE = 50;
 
-    public LoadEnteredGameListTask(ListFragment listFragment, int page) {
+    public LoadEnteredGiveawaysTask(ListFragment listFragment, int page) {
         super(listFragment, listFragment.getContext(), "giveaways/entered", page, null);
     }
 

@@ -23,11 +23,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-/**
- * Loads all games you have currently filtered.
- */
-public abstract class LoadGameListTask extends AsyncTask<Void, Void, List<IEndlessAdaptable>> {
-    private static final String TAG = LoadGiveawayListTask.class.getSimpleName();
+public abstract class LoadEndlessItemsTask extends AsyncTask<Void, Void, List<IEndlessAdaptable>> {
+    private static final String TAG = LoadGiveawaysTask.class.getSimpleName();
 
     private final ILoadItemsListener listener;
     private final Context context;
@@ -36,7 +33,7 @@ public abstract class LoadGameListTask extends AsyncTask<Void, Void, List<IEndle
     private final String pathSegment;
     private String foundXsrfToken;
 
-    protected LoadGameListTask(ILoadItemsListener listener, Context context, String pathSegment, int page, String searchQuery) {
+    protected LoadEndlessItemsTask(ILoadItemsListener listener, Context context, String pathSegment, int page, String searchQuery) {
         this.listener = listener;
         this.context = context;
         this.pathSegment = pathSegment;
@@ -47,7 +44,7 @@ public abstract class LoadGameListTask extends AsyncTask<Void, Void, List<IEndle
     @Override
     protected List<IEndlessAdaptable> doInBackground(Void... params) {
         try {
-            // Fetch the Giveaway page
+            // Fetch the page
 
             OkHttpClient.Builder client = new OkHttpClient.Builder()
                     .callTimeout(Constants.JSOUP_TIMEOUT, TimeUnit.MILLISECONDS);

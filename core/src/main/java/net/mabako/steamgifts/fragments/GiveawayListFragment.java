@@ -42,7 +42,7 @@ import net.mabako.steamgifts.persistentdata.FilterData;
 import net.mabako.steamgifts.persistentdata.SavedGiveaways;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 import net.mabako.steamgifts.tasks.EnterLeaveGiveawayTask;
-import net.mabako.steamgifts.tasks.LoadGiveawayListTask;
+import net.mabako.steamgifts.tasks.LoadGiveawaysTask;
 import net.mabako.steamgifts.tasks.UpdateGiveawayFilterTask;
 
 import java.io.Serial;
@@ -158,7 +158,7 @@ public class GiveawayListFragment extends SearchableListFragment<GiveawayAdapter
 
     @Override
     protected AsyncTask<Void, Void, ?> getFetchItemsTask(int page) {
-        return new LoadGiveawayListTask(this, page, type, getSearchQuery(), PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("preference_giveaway_show_pinned", false));
+        return new LoadGiveawaysTask(this, page, type, getSearchQuery(), PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("preference_giveaway_show_pinned", false));
     }
 
     /**

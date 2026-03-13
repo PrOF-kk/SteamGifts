@@ -25,8 +25,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class LoadGiveawayListTask extends AsyncTask<Void, Void, List<Giveaway>> {
-    private static final String TAG = LoadGiveawayListTask.class.getSimpleName();
+public class LoadGiveawaysTask extends AsyncTask<Void, Void, List<Giveaway>> {
+    private static final String TAG = LoadGiveawaysTask.class.getSimpleName();
 
     private final GiveawayListFragment fragment;
     private final int page;
@@ -36,7 +36,7 @@ public class LoadGiveawayListTask extends AsyncTask<Void, Void, List<Giveaway>> 
 
     private String foundXsrfToken = null;
 
-    public LoadGiveawayListTask(GiveawayListFragment activity, int page, GiveawayListFragment.Type type, @Nullable String searchQuery, boolean showPinnedGiveaways) {
+    public LoadGiveawaysTask(GiveawayListFragment activity, int page, GiveawayListFragment.Type type, @Nullable String searchQuery, boolean showPinnedGiveaways) {
         this.fragment = activity;
         this.page = page;
         this.type = type;

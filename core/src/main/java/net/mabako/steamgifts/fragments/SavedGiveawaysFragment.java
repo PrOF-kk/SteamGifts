@@ -26,7 +26,7 @@ import net.mabako.steamgifts.core.R;
 import net.mabako.steamgifts.data.Giveaway;
 import net.mabako.steamgifts.fragments.interfaces.IActivityTitle;
 import net.mabako.steamgifts.fragments.interfaces.IHasEnterableGiveaways;
-import net.mabako.steamgifts.fragments.profile.LoadEnteredGameListTask;
+import net.mabako.steamgifts.fragments.profile.LoadEnteredGiveawaysTask;
 import net.mabako.steamgifts.fragments.profile.ProfileGiveaway;
 import net.mabako.steamgifts.fragments.util.GiveawayListFragmentStack;
 import net.mabako.steamgifts.persistentdata.SavedGiveaways;
@@ -46,7 +46,7 @@ public class SavedGiveawaysFragment extends ListFragment<SavedGiveawaysFragment.
 
     private SavedGiveaways savedGiveaways;
 
-    private LoadEnteredGameListTask enteredGameListTask;
+    private LoadEnteredGiveawaysTask enteredGameListTask;
     private EnterLeaveGiveawayTask enterLeaveTask;
 
     @Override
@@ -162,7 +162,7 @@ public class SavedGiveawaysFragment extends ListFragment<SavedGiveawaysFragment.
             enteredGameListTask.cancel(true);
 
         if (SteamGiftsUserData.getCurrent(getContext()).isLoggedIn()) {
-            enteredGameListTask = new LoadEnteredGameListTask(this, 1);
+            enteredGameListTask = new LoadEnteredGiveawaysTask(this, 1);
             enteredGameListTask.execute();
         }
     }
@@ -209,8 +209,8 @@ public class SavedGiveawaysFragment extends ListFragment<SavedGiveawaysFragment.
             activity.invalidateOptionsMenu();
 
         // Load next page until we loaded all entered giveaways
-        if (items.size() >= LoadEnteredGameListTask.ENTRIES_PER_PAGE) {
-            enteredGameListTask = new LoadEnteredGameListTask(this, enteredGameListTask.getPage() + 1);
+        if (items.size() >= LoadEnteredGiveawaysTask.ENTRIES_PER_PAGE) {
+            enteredGameListTask = new LoadEnteredGiveawaysTask(this, enteredGameListTask.getPage() + 1);
             enteredGameListTask.execute();
         }
     }

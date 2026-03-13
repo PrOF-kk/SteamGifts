@@ -15,7 +15,7 @@ import net.mabako.steamgifts.core.R;
 import net.mabako.steamgifts.data.Giveaway;
 import net.mabako.steamgifts.fragments.interfaces.ILoadItemsListener;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
-import net.mabako.steamgifts.tasks.LoadWonGameListTask;
+import net.mabako.steamgifts.tasks.LoadWonGiveaways;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -47,7 +47,7 @@ public class CheckForWonGiveaways extends AbstractNotificationCheckReceiver {
         if (TextUtils.isEmpty(action)) {
             Log.v(TAG, "Checking for newly won giveaways...");
             if (shouldRunNetworkTask(TAG, context)) {
-                new LoadWonGameListTask(new Check(context), context, 1).execute();
+                new LoadWonGiveaways(new Check(context), context, 1).execute();
             }
         } else if (ACTION_DELETE.equals(action)) {
             // If we explicitly dismiss this notification, we want to stop this message from re-appearing ever.

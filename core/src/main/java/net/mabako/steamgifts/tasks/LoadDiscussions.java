@@ -29,8 +29,8 @@ import okhttp3.Response;
 /**
  * Fetch a list of all discussions.
  */
-public class LoadDiscussionListTask extends AsyncTask<Void, Void, List<Discussion>> {
-    private static final String TAG = LoadGiveawayListTask.class.getSimpleName();
+public class LoadDiscussions extends AsyncTask<Void, Void, List<Discussion>> {
+    private static final String TAG = LoadGiveawaysTask.class.getSimpleName();
 
     private final DiscussionListFragment fragment;
     private final int page;
@@ -38,7 +38,7 @@ public class LoadDiscussionListTask extends AsyncTask<Void, Void, List<Discussio
     private final DiscussionListFragment.Sort sort;
     private final String searchQuery;
 
-    public LoadDiscussionListTask(DiscussionListFragment fragment, int page, DiscussionListFragment.Type type, DiscussionListFragment.Sort sort, String searchQuery) {
+    public LoadDiscussions(DiscussionListFragment fragment, int page, DiscussionListFragment.Type type, DiscussionListFragment.Sort sort, String searchQuery) {
         this.fragment = fragment;
         this.page = page;
         this.type = type;

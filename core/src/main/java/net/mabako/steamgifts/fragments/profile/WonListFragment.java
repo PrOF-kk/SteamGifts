@@ -14,7 +14,7 @@ import net.mabako.steamgifts.data.Giveaway;
 import net.mabako.steamgifts.fragments.ListFragment;
 import net.mabako.steamgifts.fragments.interfaces.IActivityTitle;
 import net.mabako.steamgifts.receivers.CheckForWonGiveaways;
-import net.mabako.steamgifts.tasks.LoadWonGameListTask;
+import net.mabako.steamgifts.tasks.LoadWonGiveaways;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -59,7 +59,7 @@ public class WonListFragment extends ListFragment<GiveawayAdapter> implements IA
 
     @Override
     protected AsyncTask<Void, Void, ?> getFetchItemsTask(int page) {
-        return new LoadWonGameListTask(this, getContext(), page);
+        return new LoadWonGiveaways(this, getContext(), page);
     }
 
     @Override

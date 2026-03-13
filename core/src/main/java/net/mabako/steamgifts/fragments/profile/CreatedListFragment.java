@@ -13,7 +13,7 @@ import net.mabako.steamgifts.core.R;
 import net.mabako.steamgifts.data.Game;
 import net.mabako.steamgifts.fragments.ListFragment;
 import net.mabako.steamgifts.fragments.interfaces.IActivityTitle;
-import net.mabako.steamgifts.tasks.LoadGameListTask;
+import net.mabako.steamgifts.tasks.LoadEndlessItemsTask;
 import net.mabako.steamgifts.tasks.Utils;
 
 import org.jsoup.nodes.Element;
@@ -46,7 +46,7 @@ public class CreatedListFragment extends ListFragment<GiveawayAdapter> implement
 
     @Override
     protected AsyncTask<Void, Void, ?> getFetchItemsTask(int page) {
-        return new LoadGameListTask(this, getContext(), "giveaways/created", page, null) {
+        return new LoadEndlessItemsTask(this, getContext(), "giveaways/created", page, null) {
             @Override
             protected IEndlessAdaptable load(Element element) {
                 Element firstColumn = element.expectFirst(".table__column--width-fill");

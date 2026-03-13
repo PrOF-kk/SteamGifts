@@ -41,12 +41,12 @@ public class EnteredListFragment extends ListFragment<GiveawayAdapter> implement
     @NonNull
     @Override
     protected GiveawayAdapter createAdapter() {
-        return new GiveawayAdapter(LoadEnteredGameListTask.ENTRIES_PER_PAGE, PreferenceManager.getDefaultSharedPreferences(getContext()));
+        return new GiveawayAdapter(LoadEnteredGiveawaysTask.ENTRIES_PER_PAGE, PreferenceManager.getDefaultSharedPreferences(getContext()));
     }
 
     @Override
     protected AsyncTask<Void, Void, ?> getFetchItemsTask(int page) {
-        return new LoadEnteredGameListTask(this, page);
+        return new LoadEnteredGiveawaysTask(this, page);
     }
 
     @Override

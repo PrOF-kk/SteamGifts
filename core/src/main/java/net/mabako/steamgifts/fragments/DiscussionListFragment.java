@@ -23,7 +23,7 @@ import net.mabako.steamgifts.adapters.DiscussionAdapter;
 import net.mabako.steamgifts.core.R;
 import net.mabako.steamgifts.fragments.interfaces.IActivityTitle;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
-import net.mabako.steamgifts.tasks.LoadDiscussionListTask;
+import net.mabako.steamgifts.tasks.LoadDiscussions;
 
 /**
  * List of all discussions.
@@ -86,7 +86,7 @@ public class DiscussionListFragment extends SearchableListFragment<DiscussionAda
 
     @Override
     protected AsyncTask<Void, Void, ?> getFetchItemsTask(int page) {
-        return new LoadDiscussionListTask(this, page, type, sort, getSearchQuery());
+        return new LoadDiscussions(this, page, type, sort, getSearchQuery());
     }
 
     @Override
