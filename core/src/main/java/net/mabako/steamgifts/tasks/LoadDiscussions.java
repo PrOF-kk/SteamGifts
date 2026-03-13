@@ -65,7 +65,7 @@ public class LoadDiscussions extends AsyncTask<Void, Void, List<Discussion>> {
             Log.d(TAG, "Fetching discussions for page " + page + " and URL " + url);
 
             OkHttpClient.Builder client = new OkHttpClient.Builder()
-                    .callTimeout(Constants.JSOUP_TIMEOUT, TimeUnit.MILLISECONDS);
+                    .callTimeout(Constants.HTTP_TIMEOUT, TimeUnit.MILLISECONDS);
             Request.Builder request = new Request.Builder();
 
             url.addQueryParameter("page", Integer.toString(page));

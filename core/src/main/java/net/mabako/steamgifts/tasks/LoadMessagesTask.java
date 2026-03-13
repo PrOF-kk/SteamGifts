@@ -45,7 +45,7 @@ public class LoadMessagesTask extends AsyncTask<Void, Void, List<IEndlessAdaptab
             // Fetch the messages page
 
             OkHttpClient.Builder client = new OkHttpClient.Builder()
-                    .callTimeout(Constants.JSOUP_TIMEOUT, TimeUnit.MILLISECONDS);
+                    .callTimeout(Constants.HTTP_TIMEOUT, TimeUnit.MILLISECONDS);
             Request.Builder request = new Request.Builder()
                     .url("https://www.steamgifts.com/messages/search?page=" + page)
                     .header("Cookie", "PHPSESSID=" + SteamGiftsUserData.getCurrent(context).getSessionId());

@@ -49,7 +49,7 @@ public class StoreSubFragment extends StoreFragment {
             return Jsoup
                     .connect("https://store.steampowered.com/api/packagedetails/")
                     .userAgent(Constants.JSOUP_USER_AGENT)
-                    .timeout(Constants.JSOUP_TIMEOUT)
+                    .timeout(Constants.HTTP_TIMEOUT)
                     .data("packageids", requireArguments().getString("sub"))
                     .data("l", "en");
         }

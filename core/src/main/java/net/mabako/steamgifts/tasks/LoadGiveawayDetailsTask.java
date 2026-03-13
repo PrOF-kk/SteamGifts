@@ -51,7 +51,7 @@ public class LoadGiveawayDetailsTask extends AsyncTask<Void, Void, GiveawayExtra
         Log.d(TAG, "Fetching giveaway details for " + url);
 
         OkHttpClient.Builder client = new OkHttpClient.Builder()
-                .callTimeout(Constants.JSOUP_TIMEOUT, TimeUnit.MILLISECONDS);
+                .callTimeout(Constants.HTTP_TIMEOUT, TimeUnit.MILLISECONDS);
 
 
 

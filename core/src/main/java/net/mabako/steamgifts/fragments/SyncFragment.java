@@ -133,7 +133,7 @@ public class SyncFragment extends Fragment {
                 // Fetch the Giveaway page
 
                 OkHttpClient.Builder client = new OkHttpClient.Builder()
-                        .callTimeout(Constants.JSOUP_TIMEOUT, TimeUnit.MILLISECONDS);
+                        .callTimeout(Constants.HTTP_TIMEOUT, TimeUnit.MILLISECONDS);
                 Request.Builder request = new Request.Builder()
                         .url("https://www.steamgifts.com/account/profile/sync")
                         .header("Cookie", "PHPSESSID=" + SteamGiftsUserData.getCurrent(fragment.getContext()).getSessionId());

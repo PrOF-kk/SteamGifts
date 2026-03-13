@@ -110,7 +110,7 @@ public class LoadDiscussionDetailsTask extends AsyncTask<Void, Void, DiscussionE
 
         Log.v(TAG, "Fetching discussion details for " + url);
         OkHttpClient client = new OkHttpClient.Builder()
-                .callTimeout(Constants.JSOUP_TIMEOUT, TimeUnit.MILLISECONDS)
+                .callTimeout(Constants.HTTP_TIMEOUT, TimeUnit.MILLISECONDS)
                 .followRedirects(true)
                 .build();
 

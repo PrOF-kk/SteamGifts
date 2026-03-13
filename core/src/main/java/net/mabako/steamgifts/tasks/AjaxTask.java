@@ -45,7 +45,7 @@ public abstract class AjaxTask<FragmentType> extends AsyncTask<Void, Void, Respo
         try {
             Log.v(TAG, "Connecting to " + url);
             OkHttpClient.Builder client = new OkHttpClient.Builder()
-                    .callTimeout(Constants.JSOUP_TIMEOUT, TimeUnit.MILLISECONDS)
+                    .callTimeout(Constants.HTTP_TIMEOUT, TimeUnit.MILLISECONDS)
                     .followRedirects(false);
             Request.Builder request = new Request.Builder()
                     .url(url)

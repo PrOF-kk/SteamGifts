@@ -64,7 +64,7 @@ public class StoreAppFragment extends StoreFragment {
                 Connection.Response response = Jsoup
                         .connect("https://store.steampowered.com/app/" + appId)
                         .userAgent(Constants.JSOUP_USER_AGENT)
-                        .timeout(Constants.JSOUP_TIMEOUT)
+                        .timeout(Constants.HTTP_TIMEOUT)
                         // Bypass age check
                         .cookie("birthtime", "0")
                         // Age-restricted games always redirect

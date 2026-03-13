@@ -49,7 +49,7 @@ public class LoadUserTradeFeedbackTask extends AsyncTask<Void, Void, List<Commen
         try {
             // Fetch the Giveaway page
             OkHttpClient.Builder client = new OkHttpClient.Builder()
-                    .callTimeout(Constants.JSOUP_TIMEOUT, TimeUnit.MILLISECONDS);
+                    .callTimeout(Constants.HTTP_TIMEOUT, TimeUnit.MILLISECONDS);
             Request.Builder request = new Request.Builder();
             HttpUrl.Builder url = new HttpUrl.Builder()
                     .scheme("https")

@@ -47,7 +47,7 @@ public abstract class LoadEndlessItemsTask extends AsyncTask<Void, Void, List<IE
             // Fetch the page
 
             OkHttpClient.Builder client = new OkHttpClient.Builder()
-                    .callTimeout(Constants.JSOUP_TIMEOUT, TimeUnit.MILLISECONDS);
+                    .callTimeout(Constants.HTTP_TIMEOUT, TimeUnit.MILLISECONDS);
 
             Request.Builder request = new Request.Builder();
             HttpUrl.Builder url = new HttpUrl.Builder()
