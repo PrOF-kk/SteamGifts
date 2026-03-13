@@ -103,7 +103,7 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
         v.setOnCreateContextMenuListener(this);
     }
 
-    public void setFrom(Giveaway giveaway, boolean showImage) {
+    public void setFrom(@NonNull Giveaway giveaway, boolean showImage) {
         giveawayName.setText(giveaway.getTitle());
 
         if (giveaway.getEndTime() != null) {
@@ -129,33 +129,35 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
         giveawayDetails.setText(sj.toString());
 
         // giveaway_image
-        if (giveaway.getGame().getId() != Game.NO_APP_ID && showImage && ((ApplicationTemplate) activity.getApplication()).allowGameImages()) {
-            // Load capsule, fallback to header
+        if (showImage && ((ApplicationTemplate) activity.getApplication()).allowGameImages()) {
+            if (giveaway.getGame().getId() != Game.NO_APP_ID) {
+                // Load capsule, fallback to header
 
-            // Some transformations change the final cache key, avoid them to make our
-            // "use the same cache key to skip the fallback next time" trick work
-            /// @see com.squareup.picasso.Utils#createKey(Request, StringBuilder)
-            Picasso.get()
-                    .load(giveaway.getGame().getCdnUrl() + "/capsule_184x69.jpg")
-                    .stableKey(giveaway.getGame().getId() + "_capsule")
-                    .placeholder(R.drawable.giveaway_list_item_placeholder)
-                    .into(giveawayImage, new Callback.EmptyCallback() {
-                        @Override
-                        public void onError(Exception e) {
-                            // HTTP 404 is expected for delisted games and most bundles
-                            if (!"HTTP 404".equals(e.getMessage())) {
-                                Log.e(TAG, "Failed to load capsule image for giveaway " + giveaway.getName() + " (game " + giveaway.getGame().getId() + ")", e);
-                                return;
+                // Some transformations change the final cache key, avoid them to make our
+                // "use the same cache key to skip the fallback next time" trick work
+                /// @see com.squareup.picasso.Utils#createKey(Request, StringBuilder)
+                Picasso.get()
+                        .load(giveaway.getGame().getCdnUrl() + "/capsule_184x69.jpg")
+                        .stableKey(giveaway.getGame().getId() + "_capsule")
+                        .placeholder(R.drawable.giveaway_list_item_placeholder)
+                        .into(giveawayImage, new Callback.EmptyCallback() {
+                            @Override
+                            public void onError(Exception e) {
+                                // HTTP 404 is expected for delisted games and most bundles
+                                if (!"HTTP 404".equals(e.getMessage())) {
+                                    Log.e(TAG, "Failed to load capsule image for giveaway " + giveaway.getName() + " (game " + giveaway.getGame().getId() + ")", e);
+                                    return;
+                                }
+                                // Fallback if capsule was 404
+                                Picasso.get()
+                                        .load(giveaway.getGame().getCdnUrl() + "/header.jpg")
+                                        .stableKey(giveaway.getGame().getId() + "_capsule")
+                                        .placeholder(R.drawable.giveaway_list_item_placeholder)
+                                        .fit()
+                                        .into(giveawayImage);
                             }
-                            // Fallback if capsule was 404
-                            Picasso.get()
-                                    .load(giveaway.getGame().getCdnUrl() + "/header.jpg")
-                                    .stableKey(giveaway.getGame().getId() + "_capsule")
-                                    .placeholder(R.drawable.giveaway_list_item_placeholder)
-                                    .fit()
-                                    .into(giveawayImage);
-                        }
-                    });
+                        });
+            }
         } else {
             giveawayImage.setVisibility(View.GONE);
         }
