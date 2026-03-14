@@ -91,7 +91,7 @@ public final class GameFeaturesRepository {
                 Log.d(TAG, "Loaded Cards");
             } catch (Exception e) {
                 // ignore
-                Log.e(TAG, e.getMessage());
+                Log.e(TAG, "Failed loading card appids", e);
             }
             return null;
         });
@@ -120,7 +120,7 @@ public final class GameFeaturesRepository {
                 Log.d(TAG, "Loaded DLC");
             } catch (Exception e) {
                 // ignore
-                Log.e(TAG, e.getMessage());
+                Log.e(TAG, "Failed loading DLC appids", e);
             }
             return null;
         });
@@ -147,7 +147,7 @@ public final class GameFeaturesRepository {
                 Log.d(TAG, "Loaded Limited");
             } catch (Exception e) {
                 // ignore
-                Log.e(TAG, e.getMessage());
+                Log.e(TAG, "Failed loading limited appids", e);
             }
             return null;
         });
@@ -173,7 +173,7 @@ public final class GameFeaturesRepository {
                   ]
                 }
                  */
-                Log.d(TAG, "Delisted: " + response.toString());
+                Log.d(TAG, "Delisted: " + response);
                 JSONArray json = new JSONObject(body.string()).getJSONArray("removed_apps");
                 for (int i = 0; i < json.length(); i++) {
                     int gameId = json.getJSONObject(i).getInt("appid");
@@ -183,7 +183,7 @@ public final class GameFeaturesRepository {
                 Log.d(TAG, "Loaded Delisted");
             } catch (Exception e) {
                 // ignore
-                Log.e(TAG, e.getMessage());
+                Log.e(TAG, "Failed loading delisted appids", e);
             }
             return null;
         });
