@@ -214,7 +214,7 @@ public final class GameFeaturesRepository {
             }
             return null;
         });
-        client.newCall(new Request.Builder().url("https://steam-tracker.com/api?action=GetAppListV3").build())
+        client.newCall(new Request.Builder().url("https://steam-tracker.com/api?action=GetAppList").build())
                 .enqueue(delistedFuture);
 
         CompletableFuture.allOf(cardsFuture, dlcFuture, limitedFuture, delistedFuture).join();
