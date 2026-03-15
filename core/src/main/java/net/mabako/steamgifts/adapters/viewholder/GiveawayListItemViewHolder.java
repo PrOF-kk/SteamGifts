@@ -28,7 +28,6 @@ import net.mabako.steamgifts.adapters.EndlessAdapter;
 import net.mabako.steamgifts.core.R;
 import net.mabako.steamgifts.data.BasicGiveaway;
 import net.mabako.steamgifts.data.Game;
-import net.mabako.steamgifts.data.GameFeatures;
 import net.mabako.steamgifts.data.GameFeaturesRepository;
 import net.mabako.steamgifts.data.Giveaway;
 import net.mabako.steamgifts.fragments.GiveawayDetailFragment;
@@ -174,16 +173,15 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
 
         indicatorLoading.setVisibility(View.VISIBLE);
         Stream.of(indicatorCards, indicatorDLC, indicatorLimited, indicatorDelisted).forEach(v -> v.setVisibility(View.GONE));
-        GameFeaturesRepository.waitForGameFeaturesDownload().thenAccept(gameFeaturesRepository -> {
-            GameFeatures gameFeatures = gameFeaturesRepository.getGameFeatures(giveaway.getGame().getId());
-            activity.runOnUiThread(() -> {
-                indicatorLoading.setVisibility(View.GONE);
-                indicatorCards.setVisibility(gameFeatures.getCards() > 0 ? View.VISIBLE : View.GONE);
-                indicatorDLC.setVisibility(gameFeatures.isDlc() ? View.VISIBLE : View.GONE);
-                indicatorLimited.setVisibility(gameFeatures.isLimited() ? View.VISIBLE : View.GONE);
-                indicatorDelisted.setVisibility(gameFeatures.isDelisted() ? View.VISIBLE : View.GONE);
-            });
-        });
+        GameFeaturesRepository.getGameFeaturesAsync(giveaway.getGame().getId()).thenAccept(gameFeatures ->
+                activity.runOnUiThread(() -> {
+                    indicatorLoading.setVisibility(View.GONE);
+                    indicatorCards.setVisibility(gameFeatures.getCards() > 0 ? View.VISIBLE : View.GONE);
+                    indicatorDLC.setVisibility(gameFeatures.isDlc() ? View.VISIBLE : View.GONE);
+                    indicatorLimited.setVisibility(gameFeatures.isLimited() ? View.VISIBLE : View.GONE);
+                    indicatorDelisted.setVisibility(gameFeatures.isDelisted() ? View.VISIBLE : View.GONE);
+                })
+        );
 
         // Initialize the enter button
         // Check if logged or the quick enter button setting is enabled

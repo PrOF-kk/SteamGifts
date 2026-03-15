@@ -16,6 +16,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
@@ -25,39 +26,65 @@ import okhttp3.ResponseBody;
 public final class GameFeaturesRepository {
     public static final String TAG = GameFeaturesRepository.class.getSimpleName();
 
-    // NB: do not use static initialization, it hangs OkHttp when waiting on the futures
+    // Do not use static initialization, it hangs OkHttp when waiting on the futures
     private static GameFeaturesRepository instance;
 
     private static File cacheDir;
     private static boolean loadGameFeatures;
-    private static boolean initDone = false;
+    private static boolean firstInitDone = false;
 
     private static CompletableFuture<GameFeaturesRepository> downloadGameFeatures;
 
     private final Map<Integer, GameFeatures> data;
 
+    /// Load initial state from shared preferences, on user preference change call setLoadGameFeatures directly
+    /// to avoid needing to pass the Context around or keep a reference
+    public static void firstInit(Context context) {
+        cacheDir = context.getCacheDir();
+        loadGameFeatures = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("preference_giveaway_show_game_features", true);
+        firstInitDone = true;
+    }
+
+    public static void setLoadGameFeatures(boolean load) {
+        loadGameFeatures = load;
+        instance = null;
+        downloadGameFeatures = null;
+    }
+
+    public static @NonNull CompletableFuture<GameFeatures> getGameFeaturesAsync(int gameId) {
+        return downloadGameFeaturesAsync().thenApply(gameFeaturesRepository -> gameFeaturesRepository.data.getOrDefault(gameId, new GameFeatures()));
+    }
+
+    /// This future and futures chained to it shouldn't be saved to a variable outside of this class:
+    /// CompletableFutures run at most once and after that just return the completion value,
+    /// so it would return null once the user changes the preference.
+    private static CompletableFuture<GameFeaturesRepository> downloadGameFeaturesAsync() {
+        if (downloadGameFeatures == null) {
+            downloadGameFeatures = CompletableFuture.supplyAsync(() -> {
+                instance = new GameFeaturesRepository();
+                return instance;
+            });
+        }
+        return downloadGameFeatures;
+    }
+
+
     private GameFeaturesRepository() {
-        if (!initDone) {
+        if (!firstInitDone) {
             throw new IllegalStateException("GameFeaturesRepository must be initialized before use");
         }
         data = new ConcurrentHashMap<>();
         if (loadGameFeatures) {
-            initMapFromNetwork();
+            downloadAppFeatures();
         }
     }
 
-    public static void init(Context context) {
-        cacheDir = context.getCacheDir();
-        loadGameFeatures = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("preference_giveaway_show_game_features", true);
-        initDone = true;
-    }
-
-    private void initMapFromNetwork() {
+    private void downloadAppFeatures() {
         Log.d(TAG, "Initializing GameFeaturesRepository");
 
         // Data sources are the same used by SteamWebIntegration
         OkHttpClient client = new OkHttpClient.Builder()
-                .connectTimeout(5, java.util.concurrent.TimeUnit.SECONDS)
+                .connectTimeout(5, TimeUnit.SECONDS)
                 .cache(new Cache(
                         new File(cacheDir, "http_cache"),
                         10 * 1024 * 1024
@@ -193,33 +220,6 @@ public final class GameFeaturesRepository {
         CompletableFuture.allOf(cardsFuture, dlcFuture, limitedFuture, delistedFuture).join();
 
         Log.d(TAG, "Loaded " + data.size() + " game features");
-    }
-
-    private static GameFeaturesRepository getInstance() {
-        if (instance == null) {
-            instance = new GameFeaturesRepository();
-        }
-        return instance;
-    }
-
-    public @NonNull GameFeatures getGameFeatures(int gameId) {
-        return data.getOrDefault(gameId, new GameFeatures());
-    }
-
-    public static void setLoadGameFeatures(boolean load) {
-        loadGameFeatures = load;
-        instance = null;
-        downloadGameFeatures = null;
-    }
-
-    /**
-     * Don't save this future to a variable, it gets recreated when the user changes settings
-     */
-    public static CompletableFuture<GameFeaturesRepository> waitForGameFeaturesDownload() {
-        if (downloadGameFeatures == null) {
-            downloadGameFeatures = CompletableFuture.supplyAsync(GameFeaturesRepository::getInstance);
-        }
-        return downloadGameFeatures;
     }
 }
 

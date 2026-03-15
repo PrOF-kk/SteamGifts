@@ -15,7 +15,7 @@ public abstract class ApplicationTemplate extends Application {
         // Needed as long as AjaxTask returns a Connection.Response, accessing its body in the UI thread is a NetworkOnMainThreadException violation
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitNetwork().build());
         AbstractNotificationCheckReceiver.initNotificationChannels(getBaseContext());
-        GameFeaturesRepository.init(getBaseContext());
+        GameFeaturesRepository.firstInit(getBaseContext());
         PeriodicTasks.scheduleAllTasks(getBaseContext());
     }
 
