@@ -24,7 +24,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public abstract class LoadEndlessItemsTask extends AsyncTask<Void, Void, List<IEndlessAdaptable>> {
-    private static final String TAG = LoadGiveawaysTask.class.getSimpleName();
+    private static final String TAG = LoadEndlessItemsTask.class.getSimpleName();
 
     private final ILoadItemsListener listener;
     private final Context context;

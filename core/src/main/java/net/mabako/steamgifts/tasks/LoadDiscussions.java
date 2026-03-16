@@ -30,7 +30,7 @@ import okhttp3.Response;
  * Fetch a list of all discussions.
  */
 public class LoadDiscussions extends AsyncTask<Void, Void, List<Discussion>> {
-    private static final String TAG = LoadGiveawaysTask.class.getSimpleName();
+    private static final String TAG = LoadDiscussions.class.getSimpleName();
 
     private final DiscussionListFragment fragment;
     private final int page;

@@ -308,7 +308,7 @@ public class ImageFragment extends Fragment {
                 // Read the image into a byte array
                 return Okio.buffer(Okio.source(response.body().byteStream())).readByteArray();
             } catch (Exception e) {
-                Log.d(ImageFragment.class.getSimpleName(), "Error fetching image", e);
+                Log.d(TAG, "Error fetching image", e);
                 return null;
             }
         }

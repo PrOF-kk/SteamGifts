@@ -124,12 +124,12 @@ public abstract class ListFragment<AdapterType extends EndlessAdapter> extends F
 
     protected void showSnack(String message, int length) {
         if (getView() == null)
-            Log.e(ListFragment.class.getSimpleName(), "List not loaded yet...");
+            Log.e(TAG, "List not loaded yet...");
 
         try {
             Snackbar.make(swipeContainer != null ? swipeContainer : getView(), message, length).show();
         } catch (NullPointerException e) {
-            Log.w(ListFragment.class.getSimpleName(), "Could not show snack for " + message);
+            Log.w(TAG, "Could not show snack for " + message);
         }
     }
 
