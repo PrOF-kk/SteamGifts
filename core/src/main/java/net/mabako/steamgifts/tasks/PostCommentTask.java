@@ -9,7 +9,7 @@ public abstract class PostCommentTask extends AjaxTask<Activity> {
     private final String description;
     private final long parentId;
 
-    public PostCommentTask(Activity activity, String path, String xsrfToken, String description, long parentId) {
+    protected PostCommentTask(Activity activity, String path, String xsrfToken, String description, long parentId) {
         super(activity, activity, xsrfToken, "comment_new");
 
         setUrl("https://www.steamgifts.com/" + path);
@@ -26,7 +26,7 @@ public abstract class PostCommentTask extends AjaxTask<Activity> {
     @Override
     protected void onPostExecute(Response response) {
         try (response) {
-            if (response != null && response.code() == 301) {
+            if (response != null && response.isRedirect()) {
                 onSuccess();
             } else {
                 onFail();
