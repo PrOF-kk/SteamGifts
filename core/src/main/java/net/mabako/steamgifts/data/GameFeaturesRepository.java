@@ -29,6 +29,7 @@ import okhttp3.ResponseBody;
 public final class GameFeaturesRepository {
     private static final String TAG = GameFeaturesRepository.class.getSimpleName();
     private static final CompletableFuture<Map<Integer, GameFeatures>> GET_EMPTY_MAP = CompletableFuture.completedFuture(Collections.emptyMap());
+    private static final CompletableFuture<GameFeatures> GET_EMPTY_FEATURES = CompletableFuture.completedFuture(new GameFeatures());
 
     // Do not use static initialization, it hangs OkHttp when waiting on the futures
     private static GameFeaturesRepository instance;
@@ -74,8 +75,11 @@ public final class GameFeaturesRepository {
         loadGameFeatures = load;
     }
 
-    public @NonNull CompletableFuture<GameFeatures> getGameFeaturesAsync(int gameId) {
-        return fetchAppGameFeaturesAsync().thenApply(map -> map.getOrDefault(gameId, new GameFeatures()));
+    public @NonNull CompletableFuture<GameFeatures> getGameFeaturesAsync(Game game) {
+        if (game.getType() == Game.Type.APP) {
+            return fetchAppGameFeaturesAsync().thenApply(map -> map.getOrDefault(game.getId(), new GameFeatures()));
+        }
+        return GET_EMPTY_FEATURES;
     }
 
     private @NonNull CompletableFuture<Map<Integer, GameFeatures>> fetchAppGameFeaturesAsync() {

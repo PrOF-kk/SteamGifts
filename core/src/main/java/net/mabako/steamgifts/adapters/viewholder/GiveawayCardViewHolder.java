@@ -200,7 +200,7 @@ public class GiveawayCardViewHolder extends RecyclerView.ViewHolder {
         if (giveaway.getLevel() > 0)
             sj.add("L" + giveaway.getLevel());
 
-        GameFeatures gameFeatures = GameFeaturesRepository.getInstance().getGameFeaturesAsync(giveaway.getGame().getId()).join();
+        GameFeatures gameFeatures = GameFeaturesRepository.getInstance().getGameFeaturesAsync(giveaway.getGame()).join();
         if (gameFeatures.getCards() > 0)
             sj.add("{faw-ticket}");
         if (gameFeatures.isDlc())
