@@ -103,7 +103,7 @@ public final class GameFeaturesRepository {
                   ...
                 }
                  */
-                Log.d(TAG, "Cards: " + response);
+                Log.d(TAG, "Cards: " + response + (response.cacheResponse() != null ? " (from cache)" : ""));
                 JSONObject json = new JSONObject(body.string());
                 for (Iterator<String> it = json.keys(); it.hasNext(); ) {
                     String gameIdStr = it.next();
@@ -136,7 +136,7 @@ public final class GameFeaturesRepository {
                   ...
                 }
                  */
-                Log.d(TAG, "DLC: " + response);
+                Log.d(TAG, "DLC: " + response + (response.cacheResponse() != null ? " (from cache)" : ""));
                 JSONObject json = new JSONObject(body.string());
                 for (Iterator<String> it = json.keys(); it.hasNext(); ) {
                     String gameIdStr = it.next();
@@ -163,7 +163,7 @@ public final class GameFeaturesRepository {
                 },
                 ...
                  */
-                Log.d(TAG, "Limited: " + response);
+                Log.d(TAG, "Limited: " + response + (response.cacheResponse() != null ? " (from cache)" : ""));
                 JSONObject json = new JSONObject(body.string());
                 for (Iterator<String> it = json.keys(); it.hasNext(); ) {
                     String gameIdStr = it.next();
@@ -200,7 +200,7 @@ public final class GameFeaturesRepository {
                   ]
                 }
                  */
-                Log.d(TAG, "Delisted: " + response);
+                Log.d(TAG, "Delisted: " + response + (response.cacheResponse() != null ? " (from cache)" : ""));
                 JSONArray json = new JSONObject(body.string()).getJSONArray("removed_apps");
                 for (int i = 0; i < json.length(); i++) {
                     int gameId = json.getJSONObject(i).getInt("appid");
