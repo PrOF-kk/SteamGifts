@@ -6,12 +6,15 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceManager;
 
+import net.mabako.Constants;
 import net.mabako.common.OkHttpFutureCallback;
+import net.mabako.steamgifts.ApplicationTemplate;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -24,72 +27,71 @@ import okhttp3.Request;
 import okhttp3.ResponseBody;
 
 public final class GameFeaturesRepository {
-    public static final String TAG = GameFeaturesRepository.class.getSimpleName();
+    private static final String TAG = GameFeaturesRepository.class.getSimpleName();
+    private static final CompletableFuture<Map<Integer, GameFeatures>> GET_EMPTY_MAP = CompletableFuture.completedFuture(Collections.emptyMap());
 
     // Do not use static initialization, it hangs OkHttp when waiting on the futures
     private static GameFeaturesRepository instance;
 
-    private static File cacheDir;
-    private static boolean loadGameFeatures;
-    private static boolean firstInitDone = false;
+    private final OkHttpClient client;
+    private final Map<Integer, GameFeatures> appGameFeatures = new ConcurrentHashMap<>();
 
-    private static CompletableFuture<GameFeaturesRepository> downloadGameFeatures;
-
-    private final Map<Integer, GameFeatures> data;
+    private boolean loadGameFeatures;
+    private CompletableFuture<Map<Integer, GameFeatures>> downloadAppGameFeatures;
 
     /// Load initial state from shared preferences, on user preference change call setLoadGameFeatures directly
     /// to avoid needing to pass the Context around or keep a reference
     public static void firstInit(Context context) {
-        cacheDir = context.getCacheDir();
-        loadGameFeatures = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("preference_giveaway_show_game_features", true);
-        firstInitDone = true;
+        instance = new GameFeaturesRepository(context);
+        Log.d(TAG, "Initialized GameFeaturesRepository");
     }
 
-    public static void setLoadGameFeatures(boolean load) {
-        loadGameFeatures = load;
-        instance = null;
-        downloadGameFeatures = null;
-    }
-
-    public static @NonNull CompletableFuture<GameFeatures> getGameFeaturesAsync(int gameId) {
-        return downloadGameFeaturesAsync().thenApply(gameFeaturesRepository -> gameFeaturesRepository.data.getOrDefault(gameId, new GameFeatures()));
-    }
-
-    /// This future and futures chained to it shouldn't be saved to a variable outside of this class:
-    /// CompletableFutures run at most once and after that just return the completion value,
-    /// so it would return null once the user changes the preference.
-    private static CompletableFuture<GameFeaturesRepository> downloadGameFeaturesAsync() {
-        if (downloadGameFeatures == null) {
-            downloadGameFeatures = CompletableFuture.supplyAsync(() -> {
-                instance = new GameFeaturesRepository();
-                return instance;
-            });
-        }
-        return downloadGameFeatures;
-    }
-
-
-    private GameFeaturesRepository() {
-        if (!firstInitDone) {
+    public static GameFeaturesRepository getInstance() {
+        if (instance == null) {
             throw new IllegalStateException("GameFeaturesRepository must be initialized before use");
         }
-        data = new ConcurrentHashMap<>();
-        if (loadGameFeatures) {
-            downloadAppFeatures();
-        }
+        return instance;
     }
 
-    private void downloadAppFeatures() {
-        Log.d(TAG, "Initializing GameFeaturesRepository");
-
-        // Data sources are the same used by SteamWebIntegration
-        OkHttpClient client = new OkHttpClient.Builder()
-                .connectTimeout(5, TimeUnit.SECONDS)
+    private GameFeaturesRepository(Context context) {
+        loadGameFeatures = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("preference_giveaway_show_game_features", true);
+        client = new OkHttpClient.Builder()
+                .connectTimeout(Constants.HTTP_TIMEOUT, TimeUnit.MILLISECONDS)
                 .cache(new Cache(
-                        new File(cacheDir, "http_cache"),
+                        new File(context.getCacheDir(), "http_cache"),
                         10 * 1024 * 1024
                 ))
                 .build();
+
+        // Start downloading immediately if enabled
+        // Don't for chocolate: the unhandled exception handler causes 2 processes to start, avoid double fetch
+        if (loadGameFeatures && !((ApplicationTemplate) context.getApplicationContext()).getFlavor().equals("chocolate")) {
+            fetchAppGameFeaturesAsync();
+        }
+    }
+
+    public void setLoadGameFeatures(boolean load) {
+        loadGameFeatures = load;
+    }
+
+    public @NonNull CompletableFuture<GameFeatures> getGameFeaturesAsync(int gameId) {
+        return fetchAppGameFeaturesAsync().thenApply(map -> map.getOrDefault(gameId, new GameFeatures()));
+    }
+
+    private @NonNull CompletableFuture<Map<Integer, GameFeatures>> fetchAppGameFeaturesAsync() {
+        if (!loadGameFeatures) {
+            return GET_EMPTY_MAP;
+        }
+        if (downloadAppGameFeatures == null) {
+            downloadAppGameFeatures = CompletableFuture.supplyAsync(this::fetchAppFeatures);
+        }
+        return downloadAppGameFeatures;
+    }
+
+    private Map<Integer, GameFeatures> fetchAppFeatures() {
+        Log.d(TAG, "Fetching APP game features");
+
+        // Data sources are the same used by SteamWebIntegration
 
         var cardsFuture = new OkHttpFutureCallback<Void>((call, response) -> {
             try (ResponseBody body = response.body()) {
@@ -106,13 +108,13 @@ public final class GameFeaturesRepository {
                 Log.d(TAG, "Cards: " + response + (response.cacheResponse() != null ? " (from cache)" : ""));
                 JSONObject json = new JSONObject(body.string());
                 for (Iterator<String> it = json.keys(); it.hasNext(); ) {
-                    String gameIdStr = it.next();
-                    JSONObject obj = json.getJSONObject(gameIdStr);
+                    String appIdStr = it.next();
+                    JSONObject obj = json.getJSONObject(appIdStr);
                     if (obj.getBoolean("marketable")) {
-                        int gameId = Integer.parseInt(gameIdStr);
+                        int appId = Integer.parseInt(appIdStr);
                         int cardCount = obj.getInt("cards");
-                        data.putIfAbsent(gameId, new GameFeatures());
-                        data.get(gameId).setCards(cardCount);
+                        appGameFeatures.putIfAbsent(appId, new GameFeatures());
+                        appGameFeatures.get(appId).setCards(cardCount);
                     }
                 }
                 Log.d(TAG, "Loaded Cards");
@@ -139,10 +141,10 @@ public final class GameFeaturesRepository {
                 Log.d(TAG, "DLC: " + response + (response.cacheResponse() != null ? " (from cache)" : ""));
                 JSONObject json = new JSONObject(body.string());
                 for (Iterator<String> it = json.keys(); it.hasNext(); ) {
-                    String gameIdStr = it.next();
-                    int gameId = Integer.parseInt(gameIdStr);
-                    data.putIfAbsent(gameId, new GameFeatures());
-                    data.get(gameId).setDlc(true);
+                    String appIdStr = it.next();
+                    int appId = Integer.parseInt(appIdStr);
+                    appGameFeatures.putIfAbsent(appId, new GameFeatures());
+                    appGameFeatures.get(appId).setDlc(true);
                 }
                 Log.d(TAG, "Loaded DLC");
             } catch (Exception e) {
@@ -166,10 +168,10 @@ public final class GameFeaturesRepository {
                 Log.d(TAG, "Limited: " + response + (response.cacheResponse() != null ? " (from cache)" : ""));
                 JSONObject json = new JSONObject(body.string());
                 for (Iterator<String> it = json.keys(); it.hasNext(); ) {
-                    String gameIdStr = it.next();
-                    int gameId = Integer.parseInt(gameIdStr);
-                    data.putIfAbsent(gameId, new GameFeatures());
-                    data.get(gameId).setLimited(true);
+                    String appIdStr = it.next();
+                    int appId = Integer.parseInt(appIdStr);
+                    appGameFeatures.putIfAbsent(appId, new GameFeatures());
+                    appGameFeatures.get(appId).setLimited(true);
                 }
                 Log.d(TAG, "Loaded Limited");
             } catch (Exception e) {
@@ -203,9 +205,9 @@ public final class GameFeaturesRepository {
                 Log.d(TAG, "Delisted: " + response + (response.cacheResponse() != null ? " (from cache)" : ""));
                 JSONArray json = new JSONObject(body.string()).getJSONArray("removed_apps");
                 for (int i = 0; i < json.length(); i++) {
-                    int gameId = json.getJSONObject(i).getInt("appid");
-                    data.putIfAbsent(gameId, new GameFeatures());
-                    data.get(gameId).setDelisted(true);
+                    int appId = json.getJSONObject(i).getInt("appid");
+                    appGameFeatures.putIfAbsent(appId, new GameFeatures());
+                    appGameFeatures.get(appId).setDelisted(true);
                 }
                 Log.d(TAG, "Loaded Delisted");
             } catch (Exception e) {
@@ -219,7 +221,7 @@ public final class GameFeaturesRepository {
 
         CompletableFuture.allOf(cardsFuture, dlcFuture, limitedFuture, delistedFuture).join();
 
-        Log.d(TAG, "Loaded " + data.size() + " game features");
+        Log.d(TAG, "Loaded " + appGameFeatures.size() + " game features");
+        return appGameFeatures;
     }
 }
-

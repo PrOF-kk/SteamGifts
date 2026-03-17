@@ -173,7 +173,7 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
 
         indicatorLoading.setVisibility(View.VISIBLE);
         Stream.of(indicatorCards, indicatorDLC, indicatorLimited, indicatorDelisted).forEach(v -> v.setVisibility(View.GONE));
-        GameFeaturesRepository.getGameFeaturesAsync(giveaway.getGame().getId()).thenAccept(gameFeatures ->
+        GameFeaturesRepository.getInstance().getGameFeaturesAsync(giveaway.getGame().getId()).thenAccept(gameFeatures ->
                 activity.runOnUiThread(() -> {
                     indicatorLoading.setVisibility(View.GONE);
                     indicatorCards.setVisibility(gameFeatures.getCards() > 0 ? View.VISIBLE : View.GONE);

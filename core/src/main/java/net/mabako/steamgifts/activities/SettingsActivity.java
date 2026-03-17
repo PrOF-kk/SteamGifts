@@ -30,7 +30,7 @@ public class SettingsActivity extends BaseActivity {
             addPreferencesFromResource(R.xml.preferences_app);
 
             findPreference("preference_giveaway_show_game_features").setOnPreferenceChangeListener((preference, newValue) -> {
-                GameFeaturesRepository.setLoadGameFeatures((boolean) newValue);
+                GameFeaturesRepository.getInstance().setLoadGameFeatures((boolean) newValue);
                 return true;
             });
 
