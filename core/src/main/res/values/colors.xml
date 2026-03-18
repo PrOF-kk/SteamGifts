@@ -18,6 +18,7 @@
     <color name="gameFeaturesColorDLC">@color/md_purple_600</color>
     <color name="gameFeaturesColorLimited">@color/md_grey_500</color>
     <color name="gameFeaturesColorDelisted">@color/md_grey_500</color>
+    <color name="gameFeaturesColorBundle">@color/md_amber_600</color>
 
     <color name="tradeHaveItems">#e1868c</color>
     <color name="tradeWantItems">#6bbfdb</color>

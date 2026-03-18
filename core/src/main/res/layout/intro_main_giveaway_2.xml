@@ -272,6 +272,27 @@
                     android:textAppearance="?android:textAppearance"
                     android:textSize="16sp" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.mikepenz.iconics.view.IconicsImageView
+                    android:id="@+id/giveaway_list_indicator_bundle"
+                    style="@style/GameFeaturesIcon"
+                    app:iiv_color="@color/gameFeaturesColorBundle"
+                    app:iiv_icon="@string/faw_th_list"
+                    tools:src="@drawable/circle_indicator_blank"
+                    tools:tint="@color/gameFeaturesColorBundle" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:text="@string/intro_giveaway_indicators_bundle"
+                    android:textAppearance="?android:textAppearance"
+                    android:textSize="16sp" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

@@ -67,6 +67,7 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
     private final View indicatorDLC;
     private final View indicatorLimited;
     private final View indicatorDelisted;
+    private final View indicatorBundle;
     private final View indicatorLoading;
 
     public GiveawayListItemViewHolder(View v, Activity activity, EndlessAdapter adapter, Fragment fragment, SavedGiveaways savedGiveaways) {
@@ -89,6 +90,7 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
         indicatorDLC = v.findViewById(R.id.giveaway_list_indicator_dlc);
         indicatorLimited = v.findViewById(R.id.giveaway_list_indicator_limited);
         indicatorDelisted = v.findViewById(R.id.giveaway_list_indicator_delisted);
+        indicatorBundle = v.findViewById(R.id.giveaway_list_indicator_bundle);
         indicatorLoading = v.findViewById(R.id.giveaway_list_indicator_loading);
 
         this.activity = activity;
@@ -172,7 +174,7 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
         indicatorRegionRestricted.setVisibility(giveaway.isRegionRestricted() ? View.VISIBLE : View.GONE);
 
         indicatorLoading.setVisibility(View.VISIBLE);
-        Stream.of(indicatorCards, indicatorDLC, indicatorLimited, indicatorDelisted).forEach(v -> v.setVisibility(View.GONE));
+        Stream.of(indicatorCards, indicatorDLC, indicatorLimited, indicatorDelisted, indicatorBundle).forEach(v -> v.setVisibility(View.GONE));
         GameFeaturesRepository.getInstance().getGameFeaturesAsync(giveaway.getGame()).thenAccept(gameFeatures ->
                 activity.runOnUiThread(() -> {
                     indicatorLoading.setVisibility(View.GONE);
@@ -180,6 +182,7 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
                     indicatorDLC.setVisibility(gameFeatures.isDlc() ? View.VISIBLE : View.GONE);
                     indicatorLimited.setVisibility(gameFeatures.isLimited() ? View.VISIBLE : View.GONE);
                     indicatorDelisted.setVisibility(gameFeatures.isDelisted() ? View.VISIBLE : View.GONE);
+                    indicatorBundle.setVisibility(gameFeatures.isBundle() ? View.VISIBLE : View.GONE);
                 })
         );
 

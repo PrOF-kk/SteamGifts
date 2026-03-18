@@ -90,6 +90,14 @@
                         tools:tint="@color/gameFeaturesColorDelisted" />
 
                     <com.mikepenz.iconics.view.IconicsImageView
+                        android:id="@+id/giveaway_list_indicator_bundle"
+                        style="@style/GameFeaturesIcon"
+                        app:iiv_color="@color/gameFeaturesColorBundle"
+                        app:iiv_icon="@string/faw_th_list"
+                        tools:src="@drawable/circle_indicator_blank"
+                        tools:tint="@color/gameFeaturesColorBundle" />
+
+                    <com.mikepenz.iconics.view.IconicsImageView
                         android:id="@+id/giveaway_list_indicator_loading"
                         style="@style/GameFeaturesIcon"
                         android:visibility="gone"

@@ -7,6 +7,7 @@ public class GameFeatures implements Serializable {
     private boolean dlc;
     private boolean limited;
     private boolean delisted;
+    private boolean bundle;
 
     public int getCards() {
         return cards;
@@ -38,5 +39,13 @@ public class GameFeatures implements Serializable {
 
     public void setDelisted(boolean delisted) {
         this.delisted = delisted;
+    }
+
+    public boolean isBundle() {
+        return bundle;
+    }
+
+    public void setBundle(boolean bundle) {
+        this.bundle = bundle;
     }
 }

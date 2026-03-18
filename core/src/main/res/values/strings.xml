@@ -187,9 +187,10 @@
     <string name="intro_giveaway_indicators_region_restricted">Region Restricted</string>
     <string name="intro_giveaway_indicators_game_features_header">Game Indicators</string>
     <string name="intro_giveaway_indicators_cards">Trading Cards</string>
-    <string name="intro_giveaway_indicators_dlc">Is a DLC</string>
+    <string name="intro_giveaway_indicators_dlc">Is or includes DLC</string>
     <string name="intro_giveaway_indicators_limited">Profile Features Limited</string>
     <string name="intro_giveaway_indicators_delisted">Delisted from Steam</string>
+    <string name="intro_giveaway_indicators_bundle">Is a Steam Bundle</string>
     <string name="intro_giveaway_store_info_header">Steam Store Info</string>
     <string name="intro_giveaway_store_info">Swipe Right for a quick overview of the Steam Store entry.</string>
     <string name="intro_giveaway_welcome">Press \"Next\" for a few quick hints.</string>
