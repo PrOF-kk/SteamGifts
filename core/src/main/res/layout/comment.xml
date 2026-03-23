@@ -18,26 +18,19 @@
         android:layout_height="match_parent"
         android:visibility="gone" />
 
-    <android.widget.Space
-        android:layout_width="8dp"
-        android:layout_height="wrap_content" />
-
     <ImageView
         android:id="@+id/author_avatar"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginVertical="6dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="16dp"
         android:elevation="2dp"
         tools:src="@drawable/default_avatar" />
-
-    <android.widget.Space
-        android:layout_width="4dp"
-        android:layout_height="wrap_content" />
 
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
         android:layout_weight="1">
 
         <com.wefika.flowlayout.FlowLayout
