@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="4dp"
-    android:paddingTop="4dp">
+    android:paddingVertical="4dp">
 
     <!-- show depth of the parent -->
     <View
@@ -27,9 +26,8 @@
         android:id="@+id/author_avatar"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginBottom="6dp"
+        android:layout_marginVertical="6dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="6dp"
         android:elevation="2dp"
         tools:src="@drawable/default_avatar" />
 
@@ -53,11 +51,10 @@
                 style="@style/SmallText.NormalUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="-4dp"
                 android:layout_marginTop="@dimen/card_margin_small"
+                android:layout_marginBottom="-4dp"
+                android:paddingHorizontal="@dimen/card_margin_small"
                 android:paddingBottom="4dp"
-                android:paddingLeft="@dimen/card_margin_small"
-                android:paddingRight="@dimen/card_margin_small"
                 android:text="@string/placeholder_comment_author" />
 
             <TextView
@@ -102,8 +99,7 @@
                 style="@style/SmallText.Light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/card_margin_small"
-                android:paddingRight="@dimen/card_margin_small"
+                android:paddingHorizontal="@dimen/card_margin_small"
                 android:paddingTop="@dimen/card_margin_small"
                 android:visibility="gone"
                 app:emojiCompatEnabled="false"
@@ -115,8 +111,7 @@
                 style="@style/SmallText.Light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/card_margin_small"
-                android:paddingRight="@dimen/card_margin_small"
+                android:paddingHorizontal="@dimen/card_margin_small"
                 android:paddingTop="@dimen/card_margin_small"
                 android:text="@string/placeholder_comment_time" />
         </com.wefika.flowlayout.FlowLayout>
@@ -127,9 +122,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/comment_header"
+            android:paddingHorizontal="4dp"
             android:paddingBottom="4dp"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
             android:text="@string/placeholder_comment_text" />
     </RelativeLayout>
 
