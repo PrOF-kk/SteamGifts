@@ -30,7 +30,6 @@ import okhttp3.ResponseBody;
 
 public final class GameFeaturesRepository {
     private static final String TAG = GameFeaturesRepository.class.getSimpleName();
-    private static final CompletableFuture<Map<Integer, GameFeatures>> GET_EMPTY_MAP = CompletableFuture.completedFuture(Collections.emptyMap());
     private static final CompletableFuture<GameFeatures> GET_EMPTY_FEATURES = CompletableFuture.completedFuture(new GameFeatures());
 
     // Do not use static initialization, it hangs OkHttp when waiting on the futures
@@ -106,7 +105,7 @@ public final class GameFeaturesRepository {
                           ...
                         }
                          */
-                        Log.d(TAG, "Cards: " + response + (response.cacheResponse() != null ? " (from cache)" : ""));
+                        Log.d(TAG, "Cards: " + response + (response.networkResponse() == null ? " (from cache)" : ""));
                         JSONObject json = new JSONObject(body.string());
                         for (Iterator<String> it = json.keys(); it.hasNext(); ) {
                             String currentAppIdStr = it.next();
@@ -139,7 +138,7 @@ public final class GameFeaturesRepository {
                           ...
                         }
                          */
-                        Log.d(TAG, "DLC: " + response + (response.cacheResponse() != null ? " (from cache)" : ""));
+                        Log.d(TAG, "DLC: " + response + (response.networkResponse() == null ? " (from cache)" : ""));
                         JSONObject json = new JSONObject(body.string());
                         for (Iterator<String> it = json.keys(); it.hasNext(); ) {
                             String currentAppIdStr = it.next();
@@ -166,7 +165,7 @@ public final class GameFeaturesRepository {
                         },
                         ...
                          */
-                        Log.d(TAG, "Limited: " + response + (response.cacheResponse() != null ? " (from cache)" : ""));
+                        Log.d(TAG, "Limited: " + response + (response.networkResponse() == null ? " (from cache)" : ""));
                         JSONObject json = new JSONObject(body.string());
                         for (Iterator<String> it = json.keys(); it.hasNext(); ) {
                             String currentAppIdStr = it.next();
@@ -203,7 +202,7 @@ public final class GameFeaturesRepository {
                           ]
                         }
                          */
-                        Log.d(TAG, "Delisted: " + response + (response.cacheResponse() != null ? " (from cache)" : ""));
+                        Log.d(TAG, "Delisted: " + response + (response.networkResponse() == null ? " (from cache)" : ""));
                         JSONArray json = new JSONObject(body.string()).getJSONArray("removed_apps");
                         for (int i = 0; i < json.length(); i++) {
                             int currentAppId = json.getJSONObject(i).getInt("appid");
