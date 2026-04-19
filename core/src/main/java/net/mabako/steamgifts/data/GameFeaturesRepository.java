@@ -278,6 +278,12 @@ public final class GameFeaturesRepository {
         client.newCall(new Request.Builder().url("https://store.steampowered.com/api/packagedetails?packageids=" + subId).build())
                 .enqueue(containedAppIdsFuture);
 
+        if (downloadAppGameFeatures == null) {
+            // First item in the list is a SUB _and_ we're the chocolate flavor
+            // It would be better if we could avoid this
+            fetchAppGameFeaturesAsync(Game.NO_APP_ID);
+        }
+
         return downloadAppGameFeatures.thenCombine(containedAppIdsFuture, (map, appIds) -> {
             GameFeatures combinedGameFeatures = new GameFeatures();
 
