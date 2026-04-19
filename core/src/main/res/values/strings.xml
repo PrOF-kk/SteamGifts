@@ -210,6 +210,7 @@
     <string name="filter_whitelist_or_group_checkbox">Show group and whitelist giveaways regardless of level</string>
     <string name="filter_entries_per_copy">Show entries per copy (instead of total entries)</string>
     <string name="filter_region_restricted_checkbox">Only region restricted Giveaways</string>
+    <string name="filter_dlc_checkbox">Only DLC</string>
 
     <!-- Saving Giveaways -->
     <string name="navigation_saved_elements">Bookmarks</string>

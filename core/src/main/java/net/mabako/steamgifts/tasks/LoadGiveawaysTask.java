@@ -75,6 +75,7 @@ public class LoadGiveawaysTask extends AsyncTask<Void, Void, List<Giveaway>> {
                 addFilterParameter(url, "level_max", filterData.getMaxLevel());
             }
             addFilterParameter(url, "region_restricted", filterData.isRegionRestrictedOnly());
+            addFilterParameter(url, "dlc", filterData.isDlcOnly());
             addFilterParameter(url, "copy_min", filterData.getMinCopies());
             addFilterParameter(url, "copy_max", filterData.getMaxCopies());
             addFilterParameter(url, "point_min", filterData.getMinPoints());

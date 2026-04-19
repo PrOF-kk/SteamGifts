@@ -33,6 +33,7 @@ public class FilterData implements Serializable {
     private boolean restrictLevelOnlyOnPublicGiveaways;
     private boolean entriesPerCopy;
     private boolean regionRestrictedOnly;
+    private boolean dlcOnly;
 
     public static synchronized FilterData getCurrent(Context context) {
         if (current == null) {
@@ -151,7 +152,25 @@ public class FilterData implements Serializable {
         this.regionRestrictedOnly = regionRestrictedOnly;
     }
 
+    public boolean isDlcOnly() {
+        return dlcOnly;
+    }
+
+    public void setDlcOnly(boolean dlcOnly) {
+        this.dlcOnly = dlcOnly;
+    }
+
     public boolean isAnyActive() {
-        return minEntries > -1 || maxEntries > -1 || minPoints > -1 || maxPoints > -1 || minLevel > -1 || maxLevel > -1 || minCopies > -1 || maxCopies > -1 || hideEntered || regionRestrictedOnly;
+        return minEntries > -1
+                || maxEntries > -1
+                || minPoints > -1
+                || maxPoints > -1
+                || minLevel > -1
+                || maxLevel > -1
+                || minCopies > -1
+                || maxCopies > -1
+                || hideEntered
+                || regionRestrictedOnly
+                || dlcOnly;
     }
 }
