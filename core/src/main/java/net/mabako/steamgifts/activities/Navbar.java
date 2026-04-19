@@ -264,9 +264,9 @@ public class Navbar {
         // If we're logged in, we can look at group and wishlist giveaways.
         if (account.isLoggedIn()) {
             drawer.addItems(
-                    new PrimaryDrawerItem().withName(R.string.navigation_giveaways_group).withIdentifier(R.string.navigation_giveaways_group).withIcon(FontAwesome.Icon.faw_users),
                     new PrimaryDrawerItem().withName(R.string.navigation_giveaways_wishlist).withIdentifier(R.string.navigation_giveaways_wishlist).withIcon(FontAwesome.Icon.faw_heart),
-                    new PrimaryDrawerItem().withName(R.string.navigation_giveaways_recommended).withIdentifier(R.string.navigation_giveaways_recommended).withIcon(FontAwesome.Icon.faw_thumbs_up));
+                    new PrimaryDrawerItem().withName(R.string.navigation_giveaways_recommended).withIdentifier(R.string.navigation_giveaways_recommended).withIcon(FontAwesome.Icon.faw_thumbs_up),
+                    new PrimaryDrawerItem().withName(R.string.navigation_giveaways_group).withIdentifier(R.string.navigation_giveaways_group).withIcon(FontAwesome.Icon.faw_users));
         }
         drawer.addItems(new PrimaryDrawerItem().withName(R.string.navigation_giveaways_new).withIdentifier(R.string.navigation_giveaways_new).withIcon(FontAwesome.Icon.faw_refresh));
     }

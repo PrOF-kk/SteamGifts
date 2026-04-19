@@ -319,33 +319,21 @@ public class GiveawayListFragment extends SearchableListFragment<GiveawayAdapter
         new ItemTouchHelper(new GiveawaySwipeHelper()).attachToRecyclerView(getListView());
     }
 
-    /**
-     * Different types of Giveaway lists.
-     */
+    /// Different types of Giveaway lists.
     public enum Type {
-        /**
-         * All giveaways.
-         */
+        /// All giveaways.
         ALL(R.string.navigation_giveaways_all, R.string.navigation_giveaways_all_title),
 
-        /**
-         * Group giveaways.
-         */
-        GROUP(R.string.navigation_giveaways_group, R.string.navigation_giveaways_group_title),
-
-        /**
-         * Giveaways with games from your wishlist.
-         */
+        /// Giveaways with games from your wishlist.
         WISHLIST(R.string.navigation_giveaways_wishlist, R.string.navigation_giveaways_wishlist_title),
 
-        /**
-         * Recommended Giveaways.
-         */
+        /// Recommended Giveaways.
         RECOMMENDED(R.string.navigation_giveaways_recommended, R.string.navigation_giveaways_recommended_title),
 
-        /**
-         * New giveaways.
-         */
+        /// Group giveaways.
+        GROUP(R.string.navigation_giveaways_group, R.string.navigation_giveaways_group_title),
+
+        /// New giveaways.
         NEW(R.string.navigation_giveaways_new, R.string.navigation_giveaways_new_title);
 
         private final int titleResource;
