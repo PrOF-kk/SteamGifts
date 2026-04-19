@@ -228,8 +228,11 @@ public final class GameFeaturesRepository {
         return downloadAppGameFeatures.thenApply(map -> map.getOrDefault(appId, new GameFeatures()));
     }
 
-    private CompletableFuture<GameFeatures> fetchSubGameFeaturesAsync(int subId) {
+    private @NonNull CompletableFuture<GameFeatures> fetchSubGameFeaturesAsync(int subId) {
 
+        if (!loadGameFeatures) {
+            return GET_EMPTY_FEATURES;
+        }
         if (subGameFeatures.containsKey(subId)) {
             return CompletableFuture.completedFuture(subGameFeatures.get(subId));
         }
