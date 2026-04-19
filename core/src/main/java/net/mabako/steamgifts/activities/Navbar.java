@@ -259,16 +259,20 @@ public class Navbar {
         // All different giveaway views
         drawer.addItems(
                 new SectionDrawerItem().withName(R.string.navigation_giveaways).withDivider(!account.isLoggedIn()),
-                new PrimaryDrawerItem().withName(R.string.navigation_giveaways_all).withIdentifier(R.string.navigation_giveaways_all).withIcon(FontAwesome.Icon.faw_gift));
+                new PrimaryDrawerItem().withName(R.string.navigation_giveaways_all).withIdentifier(R.string.navigation_giveaways_all).withIcon(FontAwesome.Icon.faw_gift),
+                new PrimaryDrawerItem().withName(R.string.navigation_giveaways_recommended).withIdentifier(R.string.navigation_giveaways_recommended).withIcon(FontAwesome.Icon.faw_thumbs_up),
+                new PrimaryDrawerItem().withName(R.string.navigation_giveaways_new).withIdentifier(R.string.navigation_giveaways_new).withIcon(FontAwesome.Icon.faw_refresh));
 
         // If we're logged in, we can look at group and wishlist giveaways.
         if (account.isLoggedIn()) {
-            drawer.addItems(
+            // Set position to match website
+            drawer.addItemAtPosition(
                     new PrimaryDrawerItem().withName(R.string.navigation_giveaways_wishlist).withIdentifier(R.string.navigation_giveaways_wishlist).withIcon(FontAwesome.Icon.faw_heart),
-                    new PrimaryDrawerItem().withName(R.string.navigation_giveaways_recommended).withIdentifier(R.string.navigation_giveaways_recommended).withIcon(FontAwesome.Icon.faw_thumbs_up),
-                    new PrimaryDrawerItem().withName(R.string.navigation_giveaways_group).withIdentifier(R.string.navigation_giveaways_group).withIcon(FontAwesome.Icon.faw_users));
+                    3);
+            drawer.addItemAtPosition(
+                    new PrimaryDrawerItem().withName(R.string.navigation_giveaways_group).withIdentifier(R.string.navigation_giveaways_group).withIcon(FontAwesome.Icon.faw_users),
+                    5);
         }
-        drawer.addItems(new PrimaryDrawerItem().withName(R.string.navigation_giveaways_new).withIdentifier(R.string.navigation_giveaways_new).withIcon(FontAwesome.Icon.faw_refresh));
     }
 
     /**
