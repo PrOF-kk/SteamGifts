@@ -104,7 +104,7 @@ public class LoadGiveawaysTask extends AsyncTask<Void, Void, List<Giveaway>> {
 
             // Do away with pinned giveaways.
             if (!showPinnedGiveaways)
-                document.select(".pinned-giveaways__outer-wrap").html("");
+                document.select(".pinned-giveaways").html("");
 
             // Parse all rows of giveaways
             return Utils.loadGiveawaysFromList(document);

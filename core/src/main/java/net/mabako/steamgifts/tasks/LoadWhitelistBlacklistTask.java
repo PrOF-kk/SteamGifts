@@ -78,7 +78,7 @@ public class LoadWhitelistBlacklistTask extends AsyncTask<Void, Void, List<Basic
                 foundXsrfToken = xsrfToken.attr("value");
 
             // Do away with pinned giveaways.
-            document.select(".pinned-giveaways__outer-wrap").html("");
+            document.select(".pinned-giveaways").html("");
 
             // Parse all rows of giveaways
             return loadAll(document);

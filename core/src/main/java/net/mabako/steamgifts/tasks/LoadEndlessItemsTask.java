@@ -75,7 +75,7 @@ public abstract class LoadEndlessItemsTask extends AsyncTask<Void, Void, List<IE
                 foundXsrfToken = xsrfToken.attr("value");
 
             // Do away with pinned giveaways.
-            document.select(".pinned-giveaways__outer-wrap").html("");
+            document.select(".pinned-giveaways").html("");
 
             // Parse all rows of giveaways
             return loadAll(document);
