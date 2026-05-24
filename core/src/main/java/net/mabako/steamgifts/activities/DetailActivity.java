@@ -9,6 +9,7 @@ import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.IntentCompat;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 import androidx.viewpager.widget.ViewPager;
@@ -71,25 +72,25 @@ public class DetailActivity extends CommonActivity {
     }
 
     private void initLayout(Bundle savedInstanceState) {
-        DetailFragment.CommentContextInfo commentContext = (DetailFragment.CommentContextInfo) getIntent().getSerializableExtra(DetailFragment.ARG_COMMENT_CONTEXT);
+        var commentContext = IntentCompat.getSerializableExtra(getIntent(), DetailFragment.ARG_COMMENT_CONTEXT, DetailFragment.CommentContextInfo.class);
 
         // Were we requested to mark this comment as read? This is the case if we click on a notification for a single comment.
         if (commentContext != null && getIntent().hasExtra(ARG_MARK_CONTEXT_READ))
             CheckForNewMessages.setLastDismissedCommentId(this, commentContext.getCommentId());
 
-        Serializable serializable = getIntent().getSerializableExtra(GiveawayDetailFragment.ARG_GIVEAWAY);
-        if (serializable != null) {
+        var giveaway = IntentCompat.getSerializableExtra(getIntent(), GiveawayDetailFragment.ARG_GIVEAWAY, BasicGiveaway.class);
+        if (giveaway != null) {
             String pref = PreferenceManager.getDefaultSharedPreferences(this).getString("preference_giveaway_load_images", "details;list");
             setContentView(pref.contains("details") && ((ApplicationTemplate) getApplication()).allowGameImages() ? R.layout.activity_giveaway_detail : R.layout.activity_paged_fragments_no_tabs);
-            loadPagedFragments(GiveawayDetailFragment.newInstance((BasicGiveaway) serializable, commentContext));
+            loadPagedFragments(GiveawayDetailFragment.newInstance(giveaway, commentContext));
             return;
         }
 
-        serializable = getIntent().getSerializableExtra(DiscussionDetailFragment.ARG_DISCUSSION);
-        if (serializable != null) {
+        var discussion = IntentCompat.getSerializableExtra(getIntent(), DiscussionDetailFragment.ARG_DISCUSSION, BasicDiscussion.class);
+        if (discussion != null) {
             setContentView(R.layout.activity_one_fragment);
             if (savedInstanceState == null)
-                loadFragment(DiscussionDetailFragment.newInstance((BasicDiscussion) serializable, commentContext));
+                loadFragment(DiscussionDetailFragment.newInstance(discussion, commentContext));
             return;
         }
 
@@ -101,21 +102,21 @@ public class DetailActivity extends CommonActivity {
             return;
         }
 
-        serializable = getIntent().getSerializableExtra(WhitelistBlacklistFragment.ARG_TYPE);
-        if (serializable != null) {
+        var whitelistBlacklistFragmentType = IntentCompat.getSerializableExtra(getIntent(), WhitelistBlacklistFragment.ARG_TYPE, WhitelistBlacklistFragment.What.class);
+        if (whitelistBlacklistFragmentType != null) {
             setContentView(R.layout.activity_one_fragment);
             if (savedInstanceState == null)
-                loadFragment(WhitelistBlacklistFragment.newInstance((WhitelistBlacklistFragment.What) serializable, null));
+                loadFragment(WhitelistBlacklistFragment.newInstance(whitelistBlacklistFragmentType, null));
             return;
         }
 
-        serializable = getIntent().getSerializableExtra(ARG_NOTIFICATIONS);
-        if (serializable != null) {
+        var notificationId = IntentCompat.getSerializableExtra(getIntent(), ARG_NOTIFICATIONS, AbstractNotificationCheckReceiver.NotificationId.class);
+        if (notificationId != null) {
             setContentView(R.layout.activity_paged_fragments);
             if (savedInstanceState == null) {
                 loadPagedFragments(new MessageListFragment(), new WonListFragment(), new EnteredListFragment(), new CreatedListFragment());
 
-                if (serializable == AbstractNotificationCheckReceiver.NotificationId.NO_TYPE) {
+                if (notificationId == AbstractNotificationCheckReceiver.NotificationId.NO_TYPE) {
                     // Depending on what notifications are currently shown, bring the relevant tab up first.
                     SteamGiftsUserData u = SteamGiftsUserData.getCurrent(this);
                     if (u.getWonNotification() > 0)
@@ -124,9 +125,9 @@ public class DetailActivity extends CommonActivity {
                         pager.setCurrentItem(0);
                     else if (u.getCreatedNotification() > 0)
                         pager.setCurrentItem(3);
-                } else if (serializable == AbstractNotificationCheckReceiver.NotificationId.WON) {
+                } else if (notificationId == AbstractNotificationCheckReceiver.NotificationId.WON) {
                     pager.setCurrentItem(1);
-                } else if (serializable == AbstractNotificationCheckReceiver.NotificationId.MESSAGES) {
+                } else if (notificationId == AbstractNotificationCheckReceiver.NotificationId.MESSAGES) {
                     pager.setCurrentItem(0);
                 }
             }
@@ -146,16 +147,16 @@ public class DetailActivity extends CommonActivity {
             return;
         }
 
-        GiveawayDetails details = (GiveawayDetails) getIntent().getSerializableExtra(ARG_GIVEAWAY_DETAILS);
-        if (details != null) {
-            if (details.getType() == GiveawayDetails.Type.WINNERS) {
+        var giveawayDetails = IntentCompat.getSerializableExtra(getIntent(), ARG_GIVEAWAY_DETAILS, GiveawayDetails.class);
+        if (giveawayDetails != null) {
+            if (giveawayDetails.getType() == GiveawayDetails.Type.WINNERS) {
                 setContentView(R.layout.activity_one_fragment);
                 if (savedInstanceState == null)
-                    loadFragment(GiveawayWinnerListFragment.newInstance(details.getGiveawayTitle(), details.getPath()));
-            } else if (details.getType() == GiveawayDetails.Type.GROUPS) {
+                    loadFragment(GiveawayWinnerListFragment.newInstance(giveawayDetails.getGiveawayTitle(), giveawayDetails.getPath()));
+            } else if (giveawayDetails.getType() == GiveawayDetails.Type.GROUPS) {
                 setContentView(R.layout.activity_one_fragment);
                 if (savedInstanceState == null)
-                    loadFragment(GiveawayGroupListFragment.newInstance(details.getGiveawayTitle(), details.getPath()));
+                    loadFragment(GiveawayGroupListFragment.newInstance(giveawayDetails.getGiveawayTitle(), giveawayDetails.getPath()));
             }
             return;
         }
