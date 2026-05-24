@@ -116,19 +116,20 @@ public class DetailActivity extends CommonActivity {
             if (savedInstanceState == null) {
                 loadPagedFragments(new MessageListFragment(), new WonListFragment(), new EnteredListFragment(), new CreatedListFragment());
 
-                if (notificationId == AbstractNotificationCheckReceiver.NotificationId.NO_TYPE) {
-                    // Depending on what notifications are currently shown, bring the relevant tab up first.
-                    SteamGiftsUserData u = SteamGiftsUserData.getCurrent(this);
-                    if (u.getWonNotification() > 0)
-                        pager.setCurrentItem(1);
-                    else if (u.getMessageNotification() > 0)
-                        pager.setCurrentItem(0);
-                    else if (u.getCreatedNotification() > 0)
-                        pager.setCurrentItem(3);
-                } else if (notificationId == AbstractNotificationCheckReceiver.NotificationId.WON) {
-                    pager.setCurrentItem(1);
-                } else if (notificationId == AbstractNotificationCheckReceiver.NotificationId.MESSAGES) {
-                    pager.setCurrentItem(0);
+                switch (notificationId) {
+                    case NO_TYPE -> {
+                        // Depending on what notifications are currently shown, bring the relevant tab up first.
+                        SteamGiftsUserData u = SteamGiftsUserData.getCurrent(this);
+                        if (u.getWonNotification() > 0)
+                            pager.setCurrentItem(1);
+                        else if (u.getMessageNotification() > 0)
+                            pager.setCurrentItem(0);
+                        else if (u.getCreatedNotification() > 0)
+                            pager.setCurrentItem(3);
+                    }
+                    case WON -> pager.setCurrentItem(1);
+                    case MESSAGES -> pager.setCurrentItem(0);
+                    case POINTS_FULL -> { /* Not handled by DetailActivity */ }
                 }
             }
 
@@ -149,14 +150,12 @@ public class DetailActivity extends CommonActivity {
 
         var giveawayDetails = IntentCompat.getSerializableExtra(getIntent(), ARG_GIVEAWAY_DETAILS, GiveawayDetails.class);
         if (giveawayDetails != null) {
-            if (giveawayDetails.getType() == GiveawayDetails.Type.WINNERS) {
-                setContentView(R.layout.activity_one_fragment);
-                if (savedInstanceState == null)
-                    loadFragment(GiveawayWinnerListFragment.newInstance(giveawayDetails.getGiveawayTitle(), giveawayDetails.getPath()));
-            } else if (giveawayDetails.getType() == GiveawayDetails.Type.GROUPS) {
-                setContentView(R.layout.activity_one_fragment);
-                if (savedInstanceState == null)
-                    loadFragment(GiveawayGroupListFragment.newInstance(giveawayDetails.getGiveawayTitle(), giveawayDetails.getPath()));
+            setContentView(R.layout.activity_one_fragment);
+            if (savedInstanceState == null) {
+                switch (giveawayDetails.getType()) {
+                    case WINNERS -> loadFragment(GiveawayWinnerListFragment.newInstance(giveawayDetails.getGiveawayTitle(), giveawayDetails.getPath()));
+                    case GROUPS -> loadFragment(GiveawayGroupListFragment.newInstance(giveawayDetails.getGiveawayTitle(), giveawayDetails.getPath()));
+                }
             }
             return;
         }
