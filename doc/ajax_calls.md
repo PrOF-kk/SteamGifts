@@ -52,6 +52,8 @@
 
 # Removing a comment
 
+## Request
+
     POST https://www.steamgifts.com/ajax.php
 
     xsrf_token: 123456789abcdef
@@ -66,4 +68,22 @@
 
       # Rendered HTML for the comment
       "comment":"<div ....>"
+    }
+
+# Fetching a giveaway description
+
+## Request
+
+    POST https://www.steamgifts.com/ajax.php
+
+    do: giveaway_description
+    code: abcde # giveaway id
+
+## Response (success, JSON)
+
+    {
+      "type":"success",
+
+      # Rendered HTML for the description
+      "html":"<div ....>"
     }
