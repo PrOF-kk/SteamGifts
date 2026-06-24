@@ -70,6 +70,8 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
     private final View indicatorBundle;
     private final View indicatorLoading;
 
+    private String lastBoundGiveawayId = "";
+
     public GiveawayListItemViewHolder(View v, Activity activity, EndlessAdapter adapter, Fragment fragment, SavedGiveaways savedGiveaways) {
         super(v);
         itemContainer = v.findViewById(R.id.list_item);
@@ -105,7 +107,6 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
     }
 
     public void setFrom(@NonNull Giveaway giveaway, boolean showImage) {
-        giveawayName.setText(giveaway.getTitle());
 
         if (giveaway.getEndTime() != null) {
             giveawayTime.setText(giveaway.getRelativeEndTime(activity));
@@ -113,78 +114,9 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
             giveawayTime.setVisibility(View.GONE);
         }
 
-        // Unicode "Bullet"
-        StringJoiner sj = new StringJoiner(" • ");
-        if (giveaway.getCopies() > 1)
-            sj.add(activity.getResources().getQuantityString(R.plurals.copies, giveaway.getCopies(), giveaway.getCopies()));
-
-        if (giveaway.getPoints() >= 0)
-            sj.add(giveaway.getPoints() + "P");
-
-        if (giveaway.getLevel() > 0)
-            sj.add("L" + giveaway.getLevel());
-
-        if (giveaway.getEntries() >= 0)
-            sj.add(activity.getResources().getQuantityString(R.plurals.entries, giveaway.getEntries(), giveaway.getEntries()));
-
-        giveawayDetails.setText(sj.toString());
-
-        // giveaway_image
-        if (showImage && ((ApplicationTemplate) activity.getApplication()).allowGameImages()) {
-            if (giveaway.getGame().getId() != Game.NO_APP_ID) {
-                // Load capsule, fallback to header
-
-                // Some transformations change the final cache key, avoid them to make our
-                // "use the same cache key to skip the fallback next time" trick work
-                /// @see com.squareup.picasso.Utils#createKey(Request, StringBuilder)
-                Picasso.get()
-                        .load(giveaway.getGame().getCdnUrl() + "/capsule_184x69.jpg")
-                        .stableKey(giveaway.getGame().getId() + "_capsule")
-                        .placeholder(R.drawable.giveaway_list_item_placeholder)
-                        .into(giveawayImage, new Callback.EmptyCallback() {
-                            @Override
-                            public void onError(Exception e) {
-                                // HTTP 404 is expected for delisted games and most bundles
-                                if (!"HTTP 404".equals(e.getMessage())) {
-                                    Log.e(TAG, "Failed to load capsule image for giveaway " + giveaway.getName() + " (game " + giveaway.getGame().getId() + ")", e);
-                                    return;
-                                }
-                                // Fallback if capsule was 404
-                                Picasso.get()
-                                        .load(giveaway.getGame().getCdnUrl() + "/header.jpg")
-                                        .stableKey(giveaway.getGame().getId() + "_capsule")
-                                        .placeholder(R.drawable.giveaway_list_item_placeholder)
-                                        .fit()
-                                        .into(giveawayImage);
-                            }
-                        });
-            }
-        } else {
-            giveawayImage.setVisibility(View.GONE);
-        }
+        giveawayDetails.setText(getGiveawayDetails(giveaway));
 
         StringUtils.setBackgroundDrawable(activity, itemContainer, giveaway.isEntered());
-
-        // Check all the indicators
-        indicatorWhitelist.setVisibility(giveaway.isWhitelist() ? View.VISIBLE : View.GONE);
-        indicatorGroup.setVisibility(giveaway.isGroup() ? View.VISIBLE : View.GONE);
-        indicatorLevelPositive.setVisibility(giveaway.isLevelPositive() ? View.VISIBLE : View.GONE);
-        indicatorLevelNegative.setVisibility(giveaway.isLevelNegative() ? View.VISIBLE : View.GONE);
-        indicatorPrivate.setVisibility(giveaway.isPrivate() ? View.VISIBLE : View.GONE);
-        indicatorRegionRestricted.setVisibility(giveaway.isRegionRestricted() ? View.VISIBLE : View.GONE);
-
-        indicatorLoading.setVisibility(View.VISIBLE);
-        Stream.of(indicatorCards, indicatorDLC, indicatorLimited, indicatorDelisted, indicatorBundle).forEach(v -> v.setVisibility(View.GONE));
-        GameFeaturesRepository.getInstance().getGameFeaturesAsync(giveaway.getGame()).thenAccept(gameFeatures ->
-                activity.runOnUiThread(() -> {
-                    indicatorLoading.setVisibility(View.GONE);
-                    indicatorCards.setVisibility(gameFeatures.getCards() > 0 ? View.VISIBLE : View.GONE);
-                    indicatorDLC.setVisibility(gameFeatures.isDlc() ? View.VISIBLE : View.GONE);
-                    indicatorLimited.setVisibility(gameFeatures.isLimited() ? View.VISIBLE : View.GONE);
-                    indicatorDelisted.setVisibility(gameFeatures.isDelisted() ? View.VISIBLE : View.GONE);
-                    indicatorBundle.setVisibility(gameFeatures.isBundle() ? View.VISIBLE : View.GONE);
-                })
-        );
 
         // Initialize the enter button
         // Check if logged or the quick enter button setting is enabled
@@ -219,6 +151,84 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
                 }
             });
         }
+
+        // Skip rebinding some things for simple refreshes or giveaway enter/leave
+        if (!lastBoundGiveawayId.equals(giveaway.getGiveawayId())) {
+
+            giveawayName.setText(giveaway.getTitle());
+
+            // giveaway_image
+            if (showImage && ((ApplicationTemplate) activity.getApplication()).allowGameImages()) {
+                if (giveaway.getGame().getId() != Game.NO_APP_ID) {
+                    // Load capsule, fallback to header
+
+                    // Some transformations change the final cache key, avoid them to make our
+                    // "use the same cache key to skip the fallback next time" trick work
+                    /// @see com.squareup.picasso.Utils#createKey(Request, StringBuilder)
+                    Picasso.get()
+                            .load(giveaway.getGame().getCdnUrl() + "/capsule_184x69.jpg")
+                            .stableKey(giveaway.getGame().getId() + "_capsule")
+                            .placeholder(R.drawable.giveaway_list_item_placeholder)
+                            .into(giveawayImage, new Callback.EmptyCallback() {
+                                @Override
+                                public void onError(Exception e) {
+                                    // HTTP 404 is expected for delisted games and most bundles
+                                    if (!"HTTP 404".equals(e.getMessage())) {
+                                        Log.e(TAG, "Failed to load capsule image for giveaway " + giveaway.getName() + " (game " + giveaway.getGame().getId() + ")", e);
+                                        return;
+                                    }
+                                    // Fallback if capsule was 404
+                                    Picasso.get()
+                                            .load(giveaway.getGame().getCdnUrl() + "/header.jpg")
+                                            .stableKey(giveaway.getGame().getId() + "_capsule")
+                                            .placeholder(R.drawable.giveaway_list_item_placeholder)
+                                            .fit()
+                                            .into(giveawayImage);
+                                }
+                            });
+                }
+            } else {
+                giveawayImage.setVisibility(View.GONE);
+            }
+
+            // Check all the indicators
+            indicatorWhitelist.setVisibility(giveaway.isWhitelist() ? View.VISIBLE : View.GONE);
+            indicatorGroup.setVisibility(giveaway.isGroup() ? View.VISIBLE : View.GONE);
+            indicatorLevelPositive.setVisibility(giveaway.isLevelPositive() ? View.VISIBLE : View.GONE);
+            indicatorLevelNegative.setVisibility(giveaway.isLevelNegative() ? View.VISIBLE : View.GONE);
+            indicatorPrivate.setVisibility(giveaway.isPrivate() ? View.VISIBLE : View.GONE);
+            indicatorRegionRestricted.setVisibility(giveaway.isRegionRestricted() ? View.VISIBLE : View.GONE);
+
+            indicatorLoading.setVisibility(View.VISIBLE);
+            Stream.of(indicatorCards, indicatorDLC, indicatorLimited, indicatorDelisted, indicatorBundle).forEach(v -> v.setVisibility(View.GONE));
+            GameFeaturesRepository.getInstance().getGameFeaturesAsync(giveaway.getGame()).thenAccept(gameFeatures ->
+                    activity.runOnUiThread(() -> {
+                        indicatorLoading.setVisibility(View.GONE);
+                        indicatorCards.setVisibility(gameFeatures.getCards() > 0 ? View.VISIBLE : View.GONE);
+                        indicatorDLC.setVisibility(gameFeatures.isDlc() ? View.VISIBLE : View.GONE);
+                        indicatorLimited.setVisibility(gameFeatures.isLimited() ? View.VISIBLE : View.GONE);
+                        indicatorDelisted.setVisibility(gameFeatures.isDelisted() ? View.VISIBLE : View.GONE);
+                        indicatorBundle.setVisibility(gameFeatures.isBundle() ? View.VISIBLE : View.GONE);
+                    })
+            );
+        }
+
+        lastBoundGiveawayId = giveaway.getGiveawayId();
+    }
+
+    @NonNull
+    private String getGiveawayDetails(@NonNull Giveaway giveaway) {
+        StringJoiner sj = new StringJoiner(" • ");
+        if (giveaway.getCopies() > 1)
+            sj.add(activity.getResources().getQuantityString(R.plurals.copies, giveaway.getCopies(), giveaway.getCopies()));
+        if (giveaway.getPoints() >= 0)
+            sj.add(giveaway.getPoints() + "P");
+        if (giveaway.getLevel() > 0)
+            sj.add("L" + giveaway.getLevel());
+        if (giveaway.getEntries() >= 0)
+            sj.add(activity.getResources().getQuantityString(R.plurals.entries, giveaway.getEntries(), giveaway.getEntries()));
+
+        return sj.toString();
     }
 
     @Override
