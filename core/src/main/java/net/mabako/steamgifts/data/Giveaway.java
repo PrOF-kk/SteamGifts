@@ -67,6 +67,8 @@ public class Giveaway extends BasicGiveaway implements IEndlessAdaptable {
      */
     private long internalGameId;
 
+    private boolean hasDescription = false;
+
     public Giveaway() {
         this(null);
     }
@@ -259,5 +261,13 @@ public class Giveaway extends BasicGiveaway implements IEndlessAdaptable {
 
     public @NonNull Game getGame() {
         return game;
+    }
+
+    public boolean hasDescription() {
+        return hasDescription;
+    }
+
+    public void setHasDescription(boolean hasDescription) {
+        this.hasDescription = hasDescription;
     }
 }

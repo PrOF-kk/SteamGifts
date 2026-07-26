@@ -257,6 +257,7 @@ public final class Utils {
 
             giveaway.setTitle(link.text());
             giveaway.setCreator(element.select(".giveaway__username").text());
+            giveaway.setHasDescription(element.selectFirst(".giveaway__quick-entry-btn--description") != null);
 
             // Entries, would usually have comment count too... but we don't display that anywhere.
             Elements links = element.select(".giveaway__links a span");
