@@ -57,7 +57,7 @@ dependencies {
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view-androidx:3.10.0'
     implementation 'com.github.AppIntro:AppIntro:6.2.0'
     implementation 'org.jsoup:jsoup:1.22.2'
-    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.29'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.32'
 
     implementation('com.wefika:flowlayout:0.4.1') {
         exclude group: 'com.intellij', module: 'annotations'
