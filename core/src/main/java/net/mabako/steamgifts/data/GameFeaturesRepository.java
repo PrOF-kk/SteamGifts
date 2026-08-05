@@ -261,8 +261,14 @@ public final class GameFeaturesRepository {
                 }
                  */
                 Log.d(TAG, "Packagedetails: " + response);
-                JSONArray apps = new JSONObject(body.string())
-                        .getJSONObject(Integer.toString(subId))
+                JSONObject subData = new JSONObject(body.string())
+                        .getJSONObject(Integer.toString(subId));
+                if (!subData.getBoolean("success")) {
+                    // Delisted sub
+                    return Collections.emptyList();
+                }
+
+                JSONArray apps = subData
                         .getJSONObject("data")
                         .getJSONArray("apps");
                 appIds = new ArrayList<>(apps.length());
