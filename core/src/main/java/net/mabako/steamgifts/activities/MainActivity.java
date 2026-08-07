@@ -54,16 +54,16 @@ public class MainActivity extends CommonActivity implements IPointUpdateNotifica
             String query = getIntent().getStringExtra(ARG_QUERY);
 
 
-            if (type instanceof GiveawayListFragment.Type) {
-                loadFragment(GiveawayListFragment.newInstance((GiveawayListFragment.Type) type, query, navbar == null));
+            if (type instanceof GiveawayListFragment.Type giveawayListFragmentType) {
+                loadFragment(GiveawayListFragment.newInstance(giveawayListFragmentType, query, navbar == null));
 
                 if (navbar != null)
-                    navbar.setSelection(((GiveawayListFragment.Type) type).getNavbarResource());
-            } else if (type instanceof DiscussionListFragment.Type) {
-                loadFragment(DiscussionListFragment.newInstance((DiscussionListFragment.Type) type, null));
+                    navbar.setSelection(giveawayListFragmentType.getNavbarResource());
+            } else if (type instanceof DiscussionListFragment.Type discussionListFragmentType) {
+                loadFragment(DiscussionListFragment.newInstance(discussionListFragmentType, null));
 
                 if (navbar != null)
-                    navbar.setSelection(((DiscussionListFragment.Type) type).getNavbarResource());
+                    navbar.setSelection(discussionListFragmentType.getNavbarResource());
             }
         } else {
             Fragment fragment = getCurrentFragment();
@@ -81,9 +81,7 @@ public class MainActivity extends CommonActivity implements IPointUpdateNotifica
         SteamGiftsUserData.removeUpdateHandler(this);
     }
 
-    /**
-     * Triggered upon the user logging in or logging out.
-     */
+    /// Triggered upon the user logging in or logging out.
     @Override
     public void onAccountChange() {
         // Reconfigure our navigation bar items.
@@ -106,15 +104,15 @@ public class MainActivity extends CommonActivity implements IPointUpdateNotifica
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
-            case REQUEST_LOGIN:
-                if (resultCode == CommonActivity.RESPONSE_LOGIN_SUCCESSFUL) {
+            case REQUEST_LOGIN -> {
+                if (resultCode == RESPONSE_LOGIN_SUCCESSFUL) {
                     onAccountChange();
                     Snackbar.make(findViewById(R.id.swipeContainer), "Welcome, " + SteamGiftsUserData.getCurrent(this).getName() + "!", Snackbar.LENGTH_LONG).show();
-                } else
+                } else {
                     Snackbar.make(findViewById(R.id.swipeContainer), "Login failed", Snackbar.LENGTH_LONG).show();
-                break;
-
-            case REQUEST_SETTINGS:
+                }
+            }
+            case REQUEST_SETTINGS -> {
                 if (resultCode == RESPONSE_LOGOUT) {
                     new LogoutTask(MainActivity.this, SteamGiftsUserData.getCurrent(this).getSessionId()).execute();
 
@@ -127,19 +125,17 @@ public class MainActivity extends CommonActivity implements IPointUpdateNotifica
                         navbar.reconfigure();
 
                     // force an entire fragment reload if this is something giveaway reloaded
-                    if (fragment instanceof GiveawayListFragment) {
-                        loadFragment(GiveawayListFragment.newInstance(((GiveawayListFragment) fragment).getType(), null, false));
+                    if (fragment instanceof GiveawayListFragment giveawayListFragment) {
+                        loadFragment(GiveawayListFragment.newInstance(giveawayListFragment.getType(), null, false));
 
                         if (navbar != null)
-                            navbar.setSelection(((GiveawayListFragment) fragment).getType().getNavbarResource());
+                            navbar.setSelection(giveawayListFragment.getType().getNavbarResource());
                     } else if (fragment instanceof SavedFragment) {
                         loadFragment(new SavedFragment());
                     }
                 }
-                break;
-
-            default:
-                super.onActivityResult(requestCode, resultCode, data);
+            }
+            default -> super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
@@ -149,7 +145,7 @@ public class MainActivity extends CommonActivity implements IPointUpdateNotifica
         if (actionBar != null) {
             Fragment currentFragment = getCurrentFragment();
             if (SteamGiftsUserData.getCurrent(this).isLoggedIn() && (currentFragment instanceof GiveawayListFragment || currentFragment instanceof SavedFragment)) {
-                actionBar.setSubtitle(String.format("%dP", newPoints));
+                actionBar.setSubtitle(newPoints + "P");
             } else {
                 actionBar.setSubtitle(null);
             }
