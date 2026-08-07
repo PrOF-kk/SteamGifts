@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content">
 
                 <com.mikepenz.iconics.view.IconicsImageView
-                    app:iiv_icon="@string/faw_heart"
+                    app:iiv_icon="faw-heart"
                     app:iiv_color="@color/giveawayIndicatorColorWhitelist"
                     style="@style/GiveawayIndicatorIcon"
                     tools:tint="@color/giveawayIndicatorColorWhitelist"
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content">
 
                 <com.mikepenz.iconics.view.IconicsImageView
-                    app:iiv_icon="@string/faw_users"
+                    app:iiv_icon="faw-users"
                     app:iiv_color="@color/giveawayIndicatorColorGroup"
                     style="@style/GiveawayIndicatorIcon"
                     tools:tint="@color/giveawayIndicatorColorGroup"
@@ -102,7 +102,7 @@
                 android:layout_height="wrap_content">
 
                 <com.mikepenz.iconics.view.IconicsImageView
-                    app:iiv_icon="@string/faw_lock"
+                    app:iiv_icon="faw-lock"
                     app:iiv_color="@color/giveawayIndicatorColorPrivate"
                     style="@style/GiveawayIndicatorIcon"
                     tools:tint="@color/giveawayIndicatorColorPrivate"
@@ -122,7 +122,7 @@
                 android:layout_height="wrap_content">
 
                 <com.mikepenz.iconics.view.IconicsImageView
-                    app:iiv_icon="@string/faw_arrow_down"
+                    app:iiv_icon="faw-arrow-down"
                     app:iiv_color="@color/giveawayIndicatorColorLevelOkay"
                     style="@style/GiveawayIndicatorIcon"
                     tools:tint="@color/giveawayIndicatorColorLevelOkay"
@@ -142,7 +142,7 @@
                 android:layout_height="wrap_content">
 
                 <com.mikepenz.iconics.view.IconicsImageView
-                    app:iiv_icon="@string/faw_arrow_up"
+                    app:iiv_icon="faw-arrow-up"
                     app:iiv_color="@color/giveawayIndicatorColorLevelTooHigh"
                     style="@style/GiveawayIndicatorIcon"
                     tools:tint="@color/giveawayIndicatorColorLevelTooHigh"
@@ -162,7 +162,7 @@
                 android:layout_height="wrap_content">
 
                 <com.mikepenz.iconics.view.IconicsImageView
-                    app:iiv_icon="@string/faw_globe"
+                    app:iiv_icon="faw-globe"
                     app:iiv_color="@color/giveawayIndicatorColorRegionRestricted"
                     style="@style/GiveawayIndicatorIcon"
                     tools:tint="@color/giveawayIndicatorColorRegionRestricted"
@@ -197,7 +197,7 @@
                     android:id="@+id/giveaway_list_indicator_cards"
                     style="@style/GameFeaturesIcon"
                     app:iiv_color="@color/gameFeaturesColorCards"
-                    app:iiv_icon="@string/faw_ticket"
+                    app:iiv_icon="faw-ticket-alt"
                     tools:src="@drawable/circle_indicator_blank"
                     tools:tint="@color/gameFeaturesColorCards" />
 
@@ -218,7 +218,7 @@
                     android:id="@+id/giveaway_list_indicator_dlc"
                     style="@style/GameFeaturesIcon"
                     app:iiv_color="@color/gameFeaturesColorDLC"
-                    app:iiv_icon="@string/faw_download"
+                    app:iiv_icon="faw-download"
                     tools:src="@drawable/circle_indicator_blank"
                     tools:tint="@color/gameFeaturesColorDLC" />
 
@@ -239,7 +239,7 @@
                     android:id="@+id/giveaway_list_indicator_limited"
                     style="@style/GameFeaturesIcon"
                     app:iiv_color="@color/gameFeaturesColorLimited"
-                    app:iiv_icon="@string/faw_asterisk"
+                    app:iiv_icon="faw-asterisk"
                     tools:src="@drawable/circle_indicator_blank"
                     tools:tint="@color/gameFeaturesColorLimited" />
 
@@ -260,7 +260,7 @@
                     android:id="@+id/giveaway_list_indicator_delisted"
                     style="@style/GameFeaturesIcon"
                     app:iiv_color="@color/gameFeaturesColorDelisted"
-                    app:iiv_icon="@string/faw_trash"
+                    app:iiv_icon="faw-trash"
                     tools:src="@drawable/circle_indicator_blank"
                     tools:tint="@color/gameFeaturesColorDelisted" />
 
@@ -281,7 +281,7 @@
                     android:id="@+id/giveaway_list_indicator_bundle"
                     style="@style/GameFeaturesIcon"
                     app:iiv_color="@color/gameFeaturesColorBundle"
-                    app:iiv_icon="@string/faw_th_list"
+                    app:iiv_icon="faw-th-list"
                     tools:src="@drawable/circle_indicator_blank"
                     tools:tint="@color/gameFeaturesColorBundle" />
 

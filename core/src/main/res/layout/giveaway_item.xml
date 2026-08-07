@@ -61,7 +61,7 @@
                         android:id="@+id/giveaway_list_indicator_cards"
                         style="@style/GameFeaturesIcon"
                         app:iiv_color="@color/gameFeaturesColorCards"
-                        app:iiv_icon="@string/faw_ticket"
+                        app:iiv_icon="faw-ticket-alt"
                         tools:src="@drawable/circle_indicator_blank"
                         tools:tint="@color/gameFeaturesColorCards" />
 
@@ -69,7 +69,7 @@
                         android:id="@+id/giveaway_list_indicator_dlc"
                         style="@style/GameFeaturesIcon"
                         app:iiv_color="@color/gameFeaturesColorDLC"
-                        app:iiv_icon="@string/faw_download"
+                        app:iiv_icon="faw-download"
                         tools:src="@drawable/circle_indicator_blank"
                         tools:tint="@color/gameFeaturesColorDLC" />
 
@@ -77,7 +77,7 @@
                         android:id="@+id/giveaway_list_indicator_limited"
                         style="@style/GameFeaturesIcon"
                         app:iiv_color="@color/gameFeaturesColorLimited"
-                        app:iiv_icon="@string/faw_asterisk"
+                        app:iiv_icon="faw-asterisk"
                         tools:src="@drawable/circle_indicator_blank"
                         tools:tint="@color/gameFeaturesColorLimited" />
 
@@ -85,7 +85,7 @@
                         android:id="@+id/giveaway_list_indicator_delisted"
                         style="@style/GameFeaturesIcon"
                         app:iiv_color="@color/gameFeaturesColorDelisted"
-                        app:iiv_icon="@string/faw_trash"
+                        app:iiv_icon="faw-trash"
                         tools:src="@drawable/circle_indicator_blank"
                         tools:tint="@color/gameFeaturesColorDelisted" />
 
@@ -93,7 +93,7 @@
                         android:id="@+id/giveaway_list_indicator_bundle"
                         style="@style/GameFeaturesIcon"
                         app:iiv_color="@color/gameFeaturesColorBundle"
-                        app:iiv_icon="@string/faw_th_list"
+                        app:iiv_icon="faw-th-list"
                         tools:src="@drawable/circle_indicator_blank"
                         tools:tint="@color/gameFeaturesColorBundle" />
 
@@ -102,7 +102,7 @@
                         style="@style/GameFeaturesIcon"
                         android:visibility="gone"
                         app:iiv_color="@color/gameFeaturesColorDelisted"
-                        app:iiv_icon="@string/faw_ellipsis_h"
+                        app:iiv_icon="faw-ellipsis-h"
                         app:iiv_animations="blink_alpha" />
 
                 </LinearLayout>
@@ -117,7 +117,7 @@
                     android:id="@+id/giveaway_list_indicator_whitelist"
                     style="@style/GiveawayIndicatorIcon"
                     app:iiv_color="@color/giveawayIndicatorColorWhitelist"
-                    app:iiv_icon="@string/faw_heart"
+                    app:iiv_icon="faw-heart"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@id/giveaway_list_indicator_group"
@@ -129,7 +129,7 @@
                     android:id="@+id/giveaway_list_indicator_group"
                     style="@style/GiveawayIndicatorIcon"
                     app:iiv_color="@color/giveawayIndicatorColorGroup"
-                    app:iiv_icon="@string/faw_users"
+                    app:iiv_icon="faw-users"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@+id/giveaway_list_indicator_whitelist"
                     app:layout_constraintRight_toLeftOf="@id/giveaway_list_indicator_level_positive"
@@ -141,7 +141,7 @@
                     android:id="@+id/giveaway_list_indicator_level_positive"
                     style="@style/GiveawayIndicatorIcon"
                     app:iiv_color="@color/giveawayIndicatorColorLevelOkay"
-                    app:iiv_icon="@string/faw_arrow_down"
+                    app:iiv_icon="faw-arrow-down"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@id/giveaway_list_indicator_group"
                     app:layout_constraintRight_toLeftOf="@id/giveaway_list_indicator_level_negative"
@@ -154,7 +154,7 @@
                     style="@style/GiveawayIndicatorIcon"
                     android:layout_marginRight="2dp"
                     app:iiv_color="@color/giveawayIndicatorColorLevelTooHigh"
-                    app:iiv_icon="@string/faw_arrow_up"
+                    app:iiv_icon="faw-arrow-up"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@id/giveaway_list_indicator_level_positive"
                     app:layout_constraintRight_toLeftOf="@id/giveaway_list_indicator_private"
@@ -168,7 +168,7 @@
                     android:layout_marginEnd="2dp"
                     android:layout_marginRight="2dp"
                     app:iiv_color="@color/giveawayIndicatorColorPrivate"
-                    app:iiv_icon="@string/faw_lock"
+                    app:iiv_icon="faw-lock"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@id/giveaway_list_indicator_level_negative"
                     app:layout_constraintRight_toLeftOf="@id/giveaway_list_indicator_region_restricted"
@@ -181,7 +181,7 @@
                     style="@style/GiveawayIndicatorIcon"
                     android:layout_marginRight="2dp"
                     app:iiv_color="@color/giveawayIndicatorColorRegionRestricted"
-                    app:iiv_icon="@string/faw_globe"
+                    app:iiv_icon="faw-globe"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@+id/giveaway_list_indicator_private"
                     app:layout_constraintRight_toLeftOf="@id/giveaway_details"

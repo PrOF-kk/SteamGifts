@@ -66,7 +66,7 @@ public class DiscussionCardViewHolder extends RecyclerView.ViewHolder {
 
             user.setText("{faw-user} " + discussion.getCreator());
             user.setOnClickListener(v -> fragment.showProfile(discussion.getCreator()));
-            discussionTime.setText("{faw-calendar-o} " + discussion.getRelativeCreatedTime(context));
+            discussionTime.setText("{faw-calendar} " + discussion.getRelativeCreatedTime(context));
 
             if (extras == null) {
                 // Still loading...

@@ -14,8 +14,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
-import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.iconics.typeface.IIcon;
+import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome;
 import com.mikepenz.iconics.utils.IconicsMenuInflaterUtil;
 
 import net.mabako.steamgifts.activities.CommonActivity;
@@ -179,7 +179,7 @@ public class DiscussionListFragment extends SearchableListFragment<DiscussionAda
         ALL(R.string.navigation_discussions_all, R.string.navigation_discussions_all_title, FontAwesome.Icon.faw_comments),
         ANNOUNCEMENTS(R.string.navigation_discussions_announcements, R.string.navigation_discussions_announcements_title, FontAwesome.Icon.faw_bullhorn),
         // BUGS_SUGGESTIONS(R.string.navigation_discussions_bugs_suggestions, R.string.navigation_discussions_bugs_suggestions_title),
-        DEALS(R.string.navigation_discussions_deals, R.string.navigation_discussions_deals_title, FontAwesome.Icon.faw_usd),
+        DEALS(R.string.navigation_discussions_deals, R.string.navigation_discussions_deals_title, FontAwesome.Icon.faw_dollar_sign),
         GENERAL(R.string.navigation_discussions_general, R.string.navigation_discussions_general_title, FontAwesome.Icon.faw_comments),
         GROUP_RECRUITMENT(R.string.navigation_discussions_group_recruitment, R.string.navigation_discussions_group_recruitment_title, FontAwesome.Icon.faw_users),
         LETS_PLAY_TOGETHER(R.string.navigation_discussions_lets_play_together, R.string.navigation_discussions_lets_play_together_title, FontAwesome.Icon.faw_play_circle),

@@ -131,7 +131,7 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
                 giveawayEnterButton.setText("{faw-times}");
                 giveawayEnterButton.setEnabled(true);
             } else {
-                giveawayEnterButton.setText("{faw-sign-in}");
+                giveawayEnterButton.setText("{faw-sign-in-alt}");
                 // Check if the user have enough points, that the giveaway is not from him and that he have the required level
                 giveawayEnterButton.setEnabled(giveaway.userCanEnter());
             }

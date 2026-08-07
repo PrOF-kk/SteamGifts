@@ -17,7 +17,7 @@
             android:layout_height="40dp"
             android:tooltipText="Whitelist"
             android:visibility="gone"
-            app:iiv_icon="@string/faw_heart"
+            app:iiv_icon="faw-heart"
             tools:src="@android:color/holo_blue_dark"
             tools:visibility="visible" />
 
@@ -28,7 +28,7 @@
             android:layout_height="40dp"
             android:tooltipText="Blacklist"
             android:visibility="gone"
-            app:iiv_icon="@string/faw_ban"
+            app:iiv_icon="faw-ban"
             tools:src="@android:color/holo_red_dark"
             tools:visibility="visible" />
     </LinearLayout>

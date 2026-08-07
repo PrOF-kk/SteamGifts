@@ -43,7 +43,7 @@
                     android:baselineAlignBottom="true"
                     android:visibility="gone"
                     app:iiv_color="@color/md_red_500"
-                    app:iiv_icon="@string/faw_eye_slash"
+                    app:iiv_icon="faw-eye-slash"
                     tools:src="@drawable/circle_indicator_blank"
                     tools:tint="@color/md_red_500"
                     tools:visibility="visible" />

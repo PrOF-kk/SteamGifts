@@ -93,10 +93,10 @@ public class GiveawayCardViewHolder extends RecyclerView.ViewHolder {
             gameHiddenIndicator.setVisibility(extras.isGameHidden() ? View.VISIBLE : View.GONE);
 
             if (giveaway.getEndTime() != null) {
-                timeRemaining.setText("{faw-clock-o} " + giveaway.getRelativeEndTime(fragment.getContext()));
+                timeRemaining.setText("{faw-clock} " + giveaway.getRelativeEndTime(fragment.getContext()));
 
                 if (giveaway.getCreatedTime() != null)
-                    timeCreated.setText("{faw-calendar-o} " + giveaway.getRelativeCreatedTime(fragment.getContext()));
+                    timeCreated.setText("{faw-calendar} " + giveaway.getRelativeCreatedTime(fragment.getContext()));
                 else
                     timeCreated.setVisibility(View.GONE);
             } else {
@@ -202,7 +202,7 @@ public class GiveawayCardViewHolder extends RecyclerView.ViewHolder {
 
         GameFeatures gameFeatures = GameFeaturesRepository.getInstance().getGameFeaturesAsync(giveaway.getGame()).join();
         if (gameFeatures.getCards() > 0)
-            sj.add("{faw-ticket}");
+            sj.add("{faw-ticket-alt}");
         if (gameFeatures.isDlc())
             sj.add("{faw-download}");
         if (gameFeatures.isLimited())

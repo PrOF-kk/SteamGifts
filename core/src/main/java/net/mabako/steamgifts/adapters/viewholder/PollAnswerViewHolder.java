@@ -52,7 +52,7 @@ public class PollAnswerViewHolder extends RecyclerView.ViewHolder {
             buttonSpace.setVisibility(View.VISIBLE);
         } else {
             button.setVisibility(View.VISIBLE);
-            button.setText(votedThis ? "{faw-check-circle}" : "{faw-circle-o}");
+            button.setText(votedThis ? "{faw-check-circle}" : "{far-circle}");
             buttonSpace.setVisibility(View.GONE);
         }
     }

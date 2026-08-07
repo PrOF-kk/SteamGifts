@@ -33,7 +33,7 @@ public final class AttachedImageUtils {
             Button button = itemView.findViewById(R.id.image_link_holder);
             button.setVisibility(View.VISIBLE);
 
-            String text = "{faw-picture-o}";
+            String text = "{faw-image}";
             if (images.size() > 1)
                 text += " " + images.size();
             button.setText(text);

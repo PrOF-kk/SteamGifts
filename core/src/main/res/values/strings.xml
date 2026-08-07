@@ -235,7 +235,7 @@
     <!-- Placeholders, mostly used for intro text localization -->
     <string name="placeholder_giveaway_creator">{faw-user} Creator</string>
     <string name="placeholder_giveaway_start">{faw-calendar} Start</string>
-    <string name="placeholder_giveaway_end">{faw-clock-o} End</string>
+    <string name="placeholder_giveaway_end">{faw-clock} End</string>
     <string name="placeholder_giveaway_description">Description of the Giveaway you\'re about to enter</string>
     <string name="placeholder_giveaway_entries">{faw-users} Entries</string>
     <string name="placeholder_giveaway_copies">{faw-clone} Copies</string>
