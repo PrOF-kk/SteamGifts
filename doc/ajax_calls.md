@@ -87,3 +87,20 @@
       # Rendered HTML for the description
       "html":"<div ....>"
     }
+
+# Mark giveaway as received
+
+## Request
+    
+    POST https://www.steamgifts.com/ajax.php
+
+    xsrf_token: 123456789abcdef
+    do: received_feedback
+    action: 1 # 1=received, empty=remove feedback
+    winner_id: #41587307 # id of the winner
+
+## Response
+
+    {
+        "success": 1
+    }
