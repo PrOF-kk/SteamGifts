@@ -46,7 +46,6 @@ public class DiscussionDetailFragment extends DetailFragment implements IHasPoll
     private static final String TAG = DiscussionDetailFragment.class.getSimpleName();
 
     private static final String SAVED_DISCUSSION = ARG_DISCUSSION;
-    private static final String SAVED_CARD = "discussion-card";
 
     private SavedDiscussions savedDiscussions;
 
@@ -65,9 +64,12 @@ public class DiscussionDetailFragment extends DetailFragment implements IHasPoll
         if (savedInstanceState == null) {
             basicDiscussion = (BasicDiscussion) getArguments().getSerializable(SAVED_DISCUSSION);
             discussionCard = new DiscussionDetailsCard();
+
+            // Add the cardview for the Discussion details
+            adapter.setStickyItem(discussionCard);
         } else {
             basicDiscussion = (BasicDiscussion) savedInstanceState.getSerializable(SAVED_DISCUSSION);
-            discussionCard = (DiscussionDetailsCard) savedInstanceState.getSerializable(SAVED_CARD);
+            discussionCard = (DiscussionDetailsCard) adapter.getStickyItem();
         }
 
         adapter.setFragmentValues(this);
@@ -77,7 +79,6 @@ public class DiscussionDetailFragment extends DetailFragment implements IHasPoll
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable(SAVED_DISCUSSION, basicDiscussion);
-        outState.putSerializable(SAVED_CARD, discussionCard);
     }
 
     public static Fragment newInstance(@NonNull BasicDiscussion discussion, @Nullable CommentContextInfo context) {
@@ -102,20 +103,25 @@ public class DiscussionDetailFragment extends DetailFragment implements IHasPoll
             Log.d(TAG, "Loading activity for basic discussion " + basicDiscussion.getDiscussionId());
         }
 
-        // Add the cardview for the Giveaway details
-        adapter.setStickyItem(discussionCard);
-
-        // To reverse or not to reverse?
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        if (prefs.getBoolean("preference_discussion_comments_reversed", false) && getCommentContext() == null) {
-            adapter.setViewInReverse();
-            fetchItems(EndlessAdapter.LAST_PAGE);
-        } else {
-            fetchItems(EndlessAdapter.FIRST_PAGE);
-        }
         setHasOptionsMenu(true);
 
         return layout;
+    }
+
+    @Override
+    protected void initializeListView() {
+        if (adapter.isEmpty()) {
+            // To reverse or not to reverse?
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+            if (prefs.getBoolean("preference_discussion_comments_reversed", false) && getCommentContext() == null) {
+                adapter.setViewInReverse();
+                fetchItems(EndlessAdapter.LAST_PAGE);
+            } else {
+                fetchItems(EndlessAdapter.FIRST_PAGE);
+            }
+        } else {
+            super.initializeListView();
+        }
     }
 
     @Override
