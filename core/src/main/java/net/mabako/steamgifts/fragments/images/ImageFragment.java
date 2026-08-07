@@ -16,8 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
@@ -27,6 +25,9 @@ import com.davemorrissey.labs.subscaleview.decoder.ImageRegionDecoder;
 import com.squareup.picasso.OkHttp3Downloader;
 
 import net.mabako.steamgifts.core.R;
+
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import java.io.IOException;
 
@@ -43,9 +44,6 @@ import pl.droidsonroids.gif.GifImageView;
 public class ImageFragment extends Fragment {
     private static final String TAG = ImageFragment.class.getSimpleName();
     private static final String ARG_URL = "image-url";
-
-    private static final String SAVED_STATE = "image-state";
-    private static final String SAVED_IMAGE_BYTES = "image-bytes";
 
     /**
      * URL of the image to display.
@@ -94,18 +92,6 @@ public class ImageFragment extends Fragment {
         url = requireArguments().getString(ARG_URL);
         if (TextUtils.isEmpty(url))
             throw new IllegalStateException("No URL passed");
-
-        if (savedInstanceState != null) {
-            state = (State) savedInstanceState.getSerializable(SAVED_STATE);
-            imageBytes = savedInstanceState.getByteArray(SAVED_IMAGE_BYTES);
-        }
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putSerializable(SAVED_STATE, state);
-        outState.putByteArray(SAVED_IMAGE_BYTES, imageBytes);
     }
 
     @Nullable
@@ -154,11 +140,7 @@ public class ImageFragment extends Fragment {
         super.onDestroy();
     }
 
-    /**
-     * Create an image from a byte array.
-     *
-     * @param imageBytes the image's byte array
-     */
+    /// Create an image from a byte array
     private void createImage(byte[] imageBytes) {
         View view = getView();
         if (view == null) {
@@ -196,7 +178,7 @@ public class ImageFragment extends Fragment {
      * @see #createImage(byte[])
      * @see #onCreateView(LayoutInflater, ViewGroup, Bundle)
      */
-    private void createBitmap(@NonNull final View fragmentRootView) {
+    private void createBitmap(@NonNull View fragmentRootView) {
         Log.v(TAG, "Creating bitmap for " + url);
 
         // Hide the progress bar
@@ -259,7 +241,7 @@ public class ImageFragment extends Fragment {
     }
 
     /**
-     * Setup the container for a GIF file.
+     * Set up the container for a GIF file.
      *
      * @param fragmentRootView the root view of the current fragment
      * @see #createImage(byte[])
@@ -293,7 +275,6 @@ public class ImageFragment extends Fragment {
         fragmentRootView.findViewById(R.id.open_browser).setOnClickListener(v -> {
             getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
         });
-
     }
 
     /**
@@ -319,28 +300,18 @@ public class ImageFragment extends Fragment {
         }
     }
 
-    /**
-     * Current state of the fragment.
-     */
+    /// Current state of the fragment
     private enum State {
-        /**
-         * No image loaded yet.
-         */
+        /// No image loaded yet
         NONE,
 
-        /**
-         * An error while loading image.
-         */
+        /// An error while loading image
         UNABLE_TO_LOAD,
 
-        /**
-         * Non-animated image such as a PNG or JPG file.
-         */
+        /// Non-animated image such as a PNG or JPG file
         BITMAP,
 
-        /**
-         * GIF file
-         */
+        /// GIF file
         GIF,
     }
 }
