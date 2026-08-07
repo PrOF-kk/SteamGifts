@@ -62,4 +62,8 @@ dependencies {
         exclude group: 'com.intellij', module: 'annotations'
     }
 
+    testImplementation platform("org.junit:junit-bom:6.1.2")
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.junit.platform:junit-platform-launcher'
+    testImplementation 'org.assertj:assertj-core:3.27.7'
 }
