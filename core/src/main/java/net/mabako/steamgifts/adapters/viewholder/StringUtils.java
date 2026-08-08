@@ -25,9 +25,7 @@ import java.util.regex.Pattern;
 public final class StringUtils {
     private static final String TAG = StringUtils.class.getSimpleName();
 
-    /**
-     * Base path to resolve relative URLs.
-     */
+    /// Base path to resolve relative URLs.
     private static final Uri BASE_URI = Uri.parse("https://www.steamgifts.com");
 
     private static final Pattern tdPattern = Pattern.compile("</td>(\\s+)<td");
@@ -37,7 +35,7 @@ public final class StringUtils {
         return fromHtml(context, source, true, null);
     }
 
-    public static CharSequence fromHtml(@NonNull Context context, String source, boolean useCustomViewHandler, @Nullable Html.ImageGetter imageGetter) {
+    public static CharSequence fromHtml(@NonNull Context context, String source, boolean useCustomTagHandler, @Nullable Html.ImageGetter imageGetter) {
         if (TextUtils.isEmpty(source))
             return source;
 
@@ -46,7 +44,7 @@ public final class StringUtils {
                 .replace("</tr>", "</tr><br/>");
         source = thPattern.matcher(tdPattern.matcher(source).replaceAll(" | </td><td")).replaceAll(" | </th><th");
 
-        if (useCustomViewHandler) {
+        if (useCustomTagHandler) {
             try {
                 CharSequence cs = fromHtml(source, imageGetter, new CustomHtmlTagHandler(context));
                 cs = trim(cs, 0, cs.length());
