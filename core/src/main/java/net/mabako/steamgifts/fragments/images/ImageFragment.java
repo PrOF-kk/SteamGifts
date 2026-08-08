@@ -33,7 +33,6 @@ import java.io.IOException;
 
 import okhttp3.Request;
 import okhttp3.Response;
-import okio.Okio;
 import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifIOException;
 import pl.droidsonroids.gif.GifImageView;
@@ -280,7 +279,7 @@ public class ImageFragment extends Fragment {
             OkHttp3Downloader downloader = new OkHttp3Downloader(getContext());
             try (Response response = downloader.load(new Request.Builder().url(url).build())) {
                 // Read the image into a byte array
-                return Okio.buffer(Okio.source(response.body().byteStream())).readByteArray();
+                return response.body().bytes();
             } catch (Exception e) {
                 Log.d(TAG, "Error fetching image", e);
                 return null;
