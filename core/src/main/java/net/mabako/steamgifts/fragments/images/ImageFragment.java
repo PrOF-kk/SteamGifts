@@ -91,6 +91,9 @@ public class ImageFragment extends Fragment {
         url = requireArguments().getString(ARG_URL);
         if (TextUtils.isEmpty(url))
             throw new IllegalStateException("No URL passed");
+
+        // Force HTTPS
+        url = url.replace("http://", "https://");
     }
 
     @Nullable
@@ -178,7 +181,7 @@ public class ImageFragment extends Fragment {
 
         imageView = fragmentRootView.findViewById(R.id.image);
         imageView.setBitmapDecoderFactory(() -> (context, uri) -> BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length));
-        imageView.setRegionDecoderFactory(new DecoderFactory<ImageRegionDecoder>() {
+        imageView.setRegionDecoderFactory(new DecoderFactory<>() {
 
             /**
              * Since it is downright foolish to load the entire bitmap in memory (I've tried, to no avail), use this decoder to keep it to a minimum.
@@ -208,10 +211,8 @@ public class ImageFragment extends Fragment {
                             if (bitmap == null) {
                                 imageView.setVisibility(View.GONE);
                                 showOpenInBrowserLink(fragmentRootView);
-                                return null;
-                            } else {
-                                return bitmap;
                             }
+                            return bitmap;
                         }
                     }
 
