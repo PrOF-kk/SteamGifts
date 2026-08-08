@@ -77,26 +77,23 @@ public class ImagePagerFragment extends Fragment {
 
         ViewPager.OnPageChangeListener listener = new ViewPager.SimpleOnPageChangeListener() {
             @Override
-            public void onPageScrollStateChanged(int state) {
-                if (state == ViewPager.SCROLL_STATE_IDLE) {
-                    // Fetch the current item.
-                    int currentPosition = pager.getCurrentItem();
-                    Image image = images.get(currentPosition);
+            public void onPageSelected(int position) {
+                // Fetch the current item.
+                Image image = images.get(position);
 
-                    // Show the current image, out of the number of images
-                    String indexAndTitle = (currentPosition + 1) + " / " + images.size();
+                // Show the current image, out of the number of images
+                String indexAndTitle = (position + 1) + " / " + images.size();
 
-                    // Append an optional title.
-                    if (!TextUtils.isEmpty(image.getTitle()))
-                        indexAndTitle += ": " + image.getTitle();
+                // Append an optional title.
+                if (!TextUtils.isEmpty(image.getTitle()))
+                    indexAndTitle += ": " + image.getTitle();
 
-                    ((TextView) view.findViewById(R.id.image_number)).setText(indexAndTitle);
-                    ((TextView) view.findViewById(R.id.image_url)).setText(image.getUrl());
-                }
+                ((TextView) view.findViewById(R.id.image_number)).setText(indexAndTitle);
+                ((TextView) view.findViewById(R.id.image_url)).setText(image.getUrl());
             }
         };
         pager.addOnPageChangeListener(listener);
-        listener.onPageScrollStateChanged(ViewPager.SCROLL_STATE_IDLE);
+        listener.onPageSelected(pager.getCurrentItem());
 
         return view;
     }
