@@ -34,6 +34,7 @@ import java.util.Deque;
 import java.util.Locale;
 
 public class CustomHtmlTagHandler implements Html.TagHandler {
+    private static final String TAG = CustomHtmlTagHandler.class.getSimpleName();
     private final Context context;
 
     /**
@@ -78,7 +79,7 @@ public class CustomHtmlTagHandler implements Html.TagHandler {
                 }
             }
             case "li" -> processListItem(opening, output);
-            case "span" -> processSpoiler(opening, output);
+            case "custom_spoiler" -> processSpoiler(opening, output);
             case "custom_quote" -> processQuoteTag(opening, output, R.color.colorBlockquoteStripe);
             case "trade_want" -> processQuoteTag(opening, output, R.color.tradeWantItems);
             case "trade_have" -> processQuoteTag(opening, output, R.color.tradeHaveItems);
@@ -205,7 +206,7 @@ public class CustomHtmlTagHandler implements Html.TagHandler {
     }
 
     /**
-     * @see android.text.Html
+     * @see Html
      */
     private static void start(Editable text, Object mark) {
         int len = text.length();
@@ -213,7 +214,7 @@ public class CustomHtmlTagHandler implements Html.TagHandler {
     }
 
     /**
-     * Modified from {@link android.text.Html}
+     * Modified from {@link Html}
      */
     private static void end(Editable text, Class<?> kind, Object... replaces) {
         int len = text.length();
@@ -228,7 +229,7 @@ public class CustomHtmlTagHandler implements Html.TagHandler {
     }
 
     /**
-     * @see android.text.Html
+     * @see Html
      */
     private static Object getLast(Spanned text, Class<?> kind) {
         /*

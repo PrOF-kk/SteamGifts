@@ -156,6 +156,7 @@ public class LoadDiscussionDetailsTask extends AsyncTask<Void, Void, DiscussionE
         if (description != null) {
             // This will be null if no description is given.
             description.select("blockquote").tagName("custom_quote");
+            description.getElementsByClass("spoiler").tagName("custom_spoiler");
             extras.setDescription(Utils.loadAttachedImages(extras, description));
         }
 

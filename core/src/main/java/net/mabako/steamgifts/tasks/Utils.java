@@ -114,6 +114,7 @@ public final class Utils {
 
         Element desc = element.expectFirst(type == Comment.Type.COMMENT ? ".comment__description" : ".review_description");
         desc.select("blockquote").tagName("custom_quote");
+        desc.getElementsByClass("spoiler").tagName("custom_spoiler");
         String content = loadAttachedImages(comment, desc);
         comment.setContent(content);
 
