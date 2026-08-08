@@ -6,6 +6,8 @@
     <attr name="colorBehindCardBackground" format="color" />
     <attr name="colorLightSeparatorBackground" format="color" />
     <attr name="colorLighterSeparatorBackground" format="color" />
+    <attr name="colorPre" format="color" />
+    <attr name="colorOnPre" format="color" />
     <attr name="lightTextColor" format="color" />
 
     <attr name="colorTradeScorePositive" format="color"/>

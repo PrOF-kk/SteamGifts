@@ -13,6 +13,8 @@
         <item name="colorAccountHeader">@color/colorPrimary</item>
         <item name="colorHighlightBackground">@color/md_blue_100</item>
         <item name="lightTextColor">#424242</item>
+        <item name="colorPre">#e8eef6</item>
+        <item name="colorOnPre">#5c7397</item>
         <item name="colorTradeScorePositive">@color/md_green_600</item>
         <item name="colorTradeScoreNegative">@color/md_red_600</item>
 
@@ -51,6 +53,8 @@
         <item name="colorAccountHeader">#000000</item>
         <item name="colorHighlightBackground">@color/md_blue_grey_700</item>
         <item name="lightTextColor">#777777</item>
+        <item name="colorPre">#222220</item>
+        <item name="colorOnPre">#b7b776</item>
         <item name="colorTradeScorePositive">@color/md_green_600</item>
         <item name="colorTradeScoreNegative">@color/md_red_600</item>
 

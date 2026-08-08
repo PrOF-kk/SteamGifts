@@ -3,6 +3,7 @@ package net.mabako.steamgifts.adapters.viewholder;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.text.Editable;
@@ -26,6 +27,7 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 
+import net.mabako.steamgifts.backport.style.LineBackgroundSpanStandard;
 import net.mabako.steamgifts.core.R;
 
 import org.xml.sax.XMLReader;
@@ -64,6 +66,7 @@ public class CustomHtmlTagHandler implements Html.TagHandler {
         switch (tag.toLowerCase(Locale.ROOT)) {
             case "code" -> processCode(opening, output);
             case "del" -> processStrike(opening, output);
+            case "pre" -> processPre(opening, output);
             case "ul" -> {
                 if (opening) {
                     lists.push(tag);
@@ -174,6 +177,30 @@ public class CustomHtmlTagHandler implements Html.TagHandler {
         }
     }
 
+    private void processPre(boolean opening, Editable output) {
+        int len = output.length();
+        if (opening) {
+            output.setSpan(new Pre(), len, len, Spanned.SPAN_MARK_MARK);
+        } else {
+            Object obj = getLast(output, Pre.class);
+            int where = output.getSpanStart(obj);
+            output.removeSpan(obj);
+
+            // "PARAGRAPH span must end at paragraph boundary"
+            if (output.charAt(output.length()-1) != '\n') {
+                output.append('\n');
+                len++;
+            }
+
+            if (where != len) {
+                try (TypedArray ta = context.obtainStyledAttributes(new int[]{R.attr.colorPre, R.attr.colorOnPre})) {
+                    output.setSpan(new LineBackgroundSpanStandard(ta.getColor(0, 0xffffff)), where, len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    output.setSpan(new ForegroundColorSpan(ta.getColor(1, 0x000000)), where, len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
+            }
+        }
+    }
+
     private void processQuoteTag(boolean opening, Editable output, @ColorRes int colorRes) {
         int len = output.length();
         if (opening) {
@@ -267,6 +294,9 @@ public class CustomHtmlTagHandler implements Html.TagHandler {
     }
 
     private static class Spoiler {
+    }
+
+    private static class Pre {
     }
 
     private static class CustomQuoteSpan implements LeadingMarginSpan {

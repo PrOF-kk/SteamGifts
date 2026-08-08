@@ -20,6 +20,7 @@ import androidx.annotation.Nullable;
 import net.mabako.steamgifts.activities.UrlHandlingActivity;
 import net.mabako.steamgifts.core.R;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public final class StringUtils {
@@ -30,6 +31,7 @@ public final class StringUtils {
 
     private static final Pattern tdPattern = Pattern.compile("</td>(\\s+)<td");
     private static final Pattern thPattern = Pattern.compile("</th>(\\s+)<th");
+    private static final Pattern prePattern = Pattern.compile("<pre>(.*?)</pre>", Pattern.DOTALL);
 
     public static CharSequence fromHtml(@NonNull Context context, String source) {
         return fromHtml(context, source, true, null);
@@ -46,7 +48,8 @@ public final class StringUtils {
 
         if (useCustomTagHandler) {
             try {
-                CharSequence cs = fromHtml(source, imageGetter, new CustomHtmlTagHandler(context));
+                String preparedSource = preparePreTags(source);
+                CharSequence cs = fromHtml(preparedSource, imageGetter, new CustomHtmlTagHandler(context));
                 cs = trim(cs, 0, cs.length());
                 return addProperLinks(context, cs);
             } catch (Exception e) {
@@ -57,6 +60,30 @@ public final class StringUtils {
         CharSequence cs = fromHtml(source, imageGetter, null);
         cs = trim(cs, 0, cs.length());
         return addProperLinks(context, cs);
+    }
+
+    /// Replace newlines with `<br>` and prevent spaces collapsing inside `<pre>` tags
+    public static String preparePreTags(String html) {
+        Matcher matcher = prePattern.matcher(html);
+        StringBuilder sb = new StringBuilder();
+        int endOfLastMatch = 0;
+
+        while (matcher.find()) {
+            sb.append(html, endOfLastMatch, matcher.start());
+            endOfLastMatch = matcher.end();
+
+            String preContent = matcher.group(1)
+                    .replace("\n", "<br>")
+                    // Prevent leading spaces from being eaten by the TextView
+                    .replace("<code> ", "<code>&nbsp;")
+                    .replace("<br> ", "<br>&nbsp;")
+                    // Replace spaces in pairs to still allow line breaks
+                    .replace("  ", " &nbsp;");
+
+            sb.append("<pre>").append(preContent).append("</pre>");
+        }
+        sb.append(html, endOfLastMatch, html.length());
+        return sb.toString();
     }
 
     /**
@@ -80,10 +107,6 @@ public final class StringUtils {
 
     /**
      * Convert all {@link URLSpan} (which uses the default browser) to use our custom {@link ClickableSpan} instead.
-     *
-     * @param context
-     * @param charSequence
-     * @return
      */
     private static CharSequence addProperLinks(@NonNull final Context context, CharSequence charSequence) {
         if (TextUtils.isEmpty(charSequence))
