@@ -41,13 +41,11 @@ public class LoadUserTradeFeedbackTask extends AsyncTask<Void, Void, List<Commen
         this.user = user;
     }
 
-
     @Override
     protected @Nullable List<Comment> doInBackground(Void... params) {
-        Log.d(TAG, "Fetching giveaways for user " + steamID64 + " (" + rating + ") on page " + page);
+        Log.d(TAG, "Fetching reputation for user " + steamID64 + " (" + rating + ") on page " + page);
 
         try {
-            // Fetch the Giveaway page
             OkHttpClient.Builder client = new OkHttpClient.Builder()
                     .callTimeout(Constants.HTTP_TIMEOUT, TimeUnit.MILLISECONDS);
             Request.Builder request = new Request.Builder();
@@ -89,7 +87,7 @@ public class LoadUserTradeFeedbackTask extends AsyncTask<Void, Void, List<Commen
             if (rootCommentNode == null) {
                 return List.of();
             }
-            // Parse all rows of giveaways
+            // Parse all rep comments
             ICommentHolder holder = new ICommentHolder() {
                 private final List<Comment> list = new ArrayList<>(rootCommentNode.childrenSize());
 
