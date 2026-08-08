@@ -15,6 +15,7 @@ import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.LeadingMarginSpan;
 import android.text.style.StrikethroughSpan;
+import android.text.style.TypefaceSpan;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
@@ -61,6 +62,7 @@ public class CustomHtmlTagHandler implements Html.TagHandler {
     @Override
     public void handleTag(boolean opening, String tag, Editable output, XMLReader xmlReader) {
         switch (tag.toLowerCase(Locale.ROOT)) {
+            case "code" -> processCode(opening, output);
             case "del" -> processStrike(opening, output);
             case "ul" -> {
                 if (opening) {
@@ -153,6 +155,21 @@ public class CustomHtmlTagHandler implements Html.TagHandler {
 
             if (where != len) {
                 output.setSpan(new StrikethroughSpan(), where, len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+        }
+    }
+
+    private void processCode(boolean opening, Editable output) {
+        int len = output.length();
+        if (opening) {
+            output.setSpan(new TypefaceSpan((String) null), len, len, Spanned.SPAN_MARK_MARK);
+        } else {
+            Object obj = getLast(output, TypefaceSpan.class);
+            int where = output.getSpanStart(obj);
+            output.removeSpan(obj);
+
+            if (where != len) {
+                output.setSpan(new TypefaceSpan("monospace"), where, len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
         }
     }
