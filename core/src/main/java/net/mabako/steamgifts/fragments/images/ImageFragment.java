@@ -100,27 +100,20 @@ public class ImageFragment extends Fragment {
         final View view = inflater.inflate(R.layout.image_page_item, container, false);
 
         switch (state) {
-            case NONE:
+            case NONE -> {
                 fetchImageTask = new FetchImageTask();
                 fetchImageTask.execute();
-                break;
-
-            case UNABLE_TO_LOAD:
-                showOpenInBrowserLink(view);
-                break;
-
-            case GIF:
+            }
+            case UNABLE_TO_LOAD -> showOpenInBrowserLink(view);
+            case GIF -> {
                 try {
                     createGif(view);
                 } catch (Exception e) {
                     Log.e(TAG, "Unable to restore bytes");
                     showOpenInBrowserLink(view);
                 }
-                break;
-
-            case BITMAP:
-                createBitmap(view);
-                break;
+            }
+            case BITMAP -> createBitmap(view);
         }
 
         return view;
@@ -273,7 +266,7 @@ public class ImageFragment extends Fragment {
         fragmentRootView.findViewById(R.id.progressBar).setVisibility(View.GONE);
         fragmentRootView.findViewById(R.id.image_not_loaded).setVisibility(View.VISIBLE);
         fragmentRootView.findViewById(R.id.open_browser).setOnClickListener(v -> {
-            getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+            requireContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
         });
     }
 

@@ -22,7 +22,6 @@ import net.mabako.steamgifts.data.Image;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class ImagePagerFragment extends Fragment {
     private static final String TAG = ImagePagerFragment.class.getSimpleName();
@@ -45,7 +44,7 @@ public class ImagePagerFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        images = (List<Image>) getArguments().getSerializable(ARG_IMAGES);
+        images = (List<Image>) requireArguments().getSerializable(ARG_IMAGES);
     }
 
     @Nullable
@@ -76,15 +75,7 @@ public class ImagePagerFragment extends Fragment {
             }
         });
 
-        ViewPager.OnPageChangeListener listener = new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-            }
-
+        ViewPager.OnPageChangeListener listener = new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageScrollStateChanged(int state) {
                 if (state == ViewPager.SCROLL_STATE_IDLE) {
@@ -93,13 +84,13 @@ public class ImagePagerFragment extends Fragment {
                     Image image = images.get(currentPosition);
 
                     // Show the current image, out of the number of images
-                    String index_and_title = String.format(Locale.getDefault(), "%d / %d", currentPosition + 1, images.size());
+                    String indexAndTitle = (currentPosition + 1) + " / " + images.size();
 
                     // Append an optional title.
                     if (!TextUtils.isEmpty(image.getTitle()))
-                        index_and_title = String.format("%s: %s", index_and_title, image.getTitle());
+                        indexAndTitle += ": " + image.getTitle();
 
-                    ((TextView) view.findViewById(R.id.image_number)).setText(index_and_title);
+                    ((TextView) view.findViewById(R.id.image_number)).setText(indexAndTitle);
                     ((TextView) view.findViewById(R.id.image_url)).setText(image.getUrl());
                 }
             }
