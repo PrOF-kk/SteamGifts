@@ -32,16 +32,16 @@ public class LoadGiveawaysTask extends AsyncTask<Void, Void, List<Giveaway>> {
     private final int page;
     private final GiveawayListFragment.Type type;
     private final @Nullable String searchQuery;
-    private final boolean showPinnedGiveaways;
+    private final boolean showFeaturedGiveawaysFirst;
 
     private String foundXsrfToken = null;
 
-    public LoadGiveawaysTask(GiveawayListFragment activity, int page, GiveawayListFragment.Type type, @Nullable String searchQuery, boolean showPinnedGiveaways) {
+    public LoadGiveawaysTask(GiveawayListFragment activity, int page, GiveawayListFragment.Type type, @Nullable String searchQuery, boolean showFeaturedGiveawaysFirst) {
         this.fragment = activity;
         this.page = page;
         this.type = type;
         this.searchQuery = searchQuery;
-        this.showPinnedGiveaways = showPinnedGiveaways && type == GiveawayListFragment.Type.ALL && TextUtils.isEmpty(searchQuery);
+        this.showFeaturedGiveawaysFirst = showFeaturedGiveawaysFirst && type == GiveawayListFragment.Type.ALL && TextUtils.isEmpty(searchQuery);
     }
 
     @Override
@@ -102,8 +102,8 @@ public class LoadGiveawaysTask extends AsyncTask<Void, Void, List<Giveaway>> {
             if (xsrfToken != null)
                 foundXsrfToken = xsrfToken.attr("value");
 
-            // Do away with pinned giveaways.
-            if (!showPinnedGiveaways)
+            // Do away with featured giveaways. They're also present in the normal list
+            if (!showFeaturedGiveawaysFirst)
                 document.select(".pinned-giveaways").html("");
 
             // Parse all rows of giveaways
