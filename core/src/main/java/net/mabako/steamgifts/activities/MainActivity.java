@@ -31,14 +31,14 @@ public class MainActivity extends CommonActivity implements IPointUpdateNotifica
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_one_fragment);
+        boolean noDrawer = getIntent().getBooleanExtra(ARG_NO_DRAWER, false);
+        setContentView(noDrawer ? R.layout.activity_one_fragment : R.layout.activity_main);
 
         setSupportActionBar(findViewById(R.id.toolbar));
 
         SteamGiftsUserData.addUpdateHandler(this);
         onUpdatePoints(SteamGiftsUserData.getCurrent(this).getPoints());
 
-        boolean noDrawer = getIntent().getBooleanExtra(ARG_NO_DRAWER, false);
         if (!noDrawer)
             navbar = new Navbar(this);
 
