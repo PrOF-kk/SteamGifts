@@ -143,11 +143,21 @@ public class Navbar {
             return true;
         });
 
-        // Refresh header when opened/closed
+        // Refresh header when opened
         drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+            private boolean isOpen = false;
             @Override
             public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
-                if (drawerView != drawer) return;
+                if (drawerView != drawer) {
+                    return;
+                }
+                if (isOpen) {
+                    if (slideOffset == 0f) {
+                        isOpen = false;
+                    }
+                    return;
+                }
+                isOpen = true;
 
                 TextView notifications = accountHeader.findViewById(R.id.material_drawer_account_header_notifications);
 
