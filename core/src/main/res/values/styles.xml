@@ -1,20 +1,20 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme.Light" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
         <item name="colorDefaultBackground">@color/colorPrimary</item>
-        <item name="colorCardBackground">#ffffff</item>
+        <item name="colorCardBackground">@color/colorCardBackground</item>
         <item name="colorBehindCardBackground">@color/colorTransparent</item>
-        <item name="colorLightSeparatorBackground">#d8d8d8</item>
-        <item name="colorLighterSeparatorBackground">#cccccc</item>
-        <item name="colorAccountHeader">@color/colorPrimary</item>
-        <item name="colorHighlightBackground">@color/md_blue_100</item>
-        <item name="lightTextColor">#424242</item>
-        <item name="colorPre">#e8eef6</item>
-        <item name="colorOnPre">#5c7397</item>
+        <item name="colorLightSeparatorBackground">@color/colorLightSeparatorBackground</item>
+        <item name="colorLighterSeparatorBackground">@color/colorLighterSeparatorBackground</item>
+        <item name="colorAccountHeader">@color/colorAccountHeader</item>
+        <item name="colorHighlightBackground">@color/colorHighlightBackground</item>
+        <item name="lightTextColor">@color/lightTextColor</item>
+        <item name="colorPre">@color/colorPre</item>
+        <item name="colorOnPre">@color/colorOnPre</item>
         <item name="colorTradeScorePositive">@color/md_green_600</item>
         <item name="colorTradeScoreNegative">@color/md_red_600</item>
 
@@ -27,53 +27,13 @@
         <item name="materialDrawerBackground">?android:attr/windowBackground</item>
 
         <!-- Material 3 mapping for AppCompat -->
-        <item name="colorSurface">?android:attr/windowBackground</item>
+        <item name="colorSurface">@color/colorCardBackground</item>
         <item name="colorOnSurface">?android:attr/textColorPrimary</item>
-        <item name="colorSurfaceVariant">#eeeeee</item>
+        <item name="colorSurfaceVariant">@color/colorSurfaceVariant</item>
         <item name="colorOnSurfaceVariant">?android:attr/textColorSecondary</item>
-        <item name="colorSecondaryContainer">?attr/colorControlHighlight</item>
-        <item name="colorOnSecondaryContainer">?android:attr/textColorPrimary</item>
-        <item name="colorOutline">#79747E</item>
-
-        <!-- Fallback for possible AppCompat quirks -->
-        <item name="materialDrawerHeaderSelectionText">@color/md_white_1000</item>
-        <item name="materialDrawerHeaderSelectionSubtext">@color/md_white_1000</item>
-    </style>
-
-    <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
-        <item name="colorPrimary">@color/dark.colorPrimary</item>
-        <item name="colorPrimaryDark">#000000</item>
-        <item name="colorAccent">@color/colorAccent</item>
-
-        <item name="colorDefaultBackground">@color/dark.colorPrimary</item>
-        <item name="colorCardBackground">@color/dark.colorPrimary</item>
-        <item name="colorBehindCardBackground">@color/colorTransparent</item>
-        <item name="colorLightSeparatorBackground">#666666</item>
-        <item name="colorLighterSeparatorBackground">#333333</item>
-        <item name="colorAccountHeader">#000000</item>
-        <item name="colorHighlightBackground">@color/md_blue_grey_700</item>
-        <item name="lightTextColor">#777777</item>
-        <item name="colorPre">#222220</item>
-        <item name="colorOnPre">#b7b776</item>
-        <item name="colorTradeScorePositive">@color/md_green_600</item>
-        <item name="colorTradeScoreNegative">@color/md_red_600</item>
-
-        <item name="android:textAllCaps">false</item>
-
-        <!-- MaterialDrawer -->
-        <item name="materialDrawerStyle">@style/Widget.MaterialDrawerStyle</item>
-        <item name="materialDrawerHeaderStyle">@style/AppTheme.MaterialDrawerHeaderStyle</item>
-        <item name="materialDrawerInsetForeground">#00000000</item>
-        <item name="materialDrawerBackground">?android:attr/windowBackground</item>
-
-        <!-- Material 3 mapping for AppCompat -->
-        <item name="colorSurface">@color/dark.colorPrimary</item>
-        <item name="colorOnSurface">#ffffff</item>
-        <item name="colorSurfaceVariant">#444444</item>
-        <item name="colorOnSurfaceVariant">#cccccc</item>
-        <item name="colorSecondaryContainer">#333333</item>
-        <item name="colorOnSecondaryContainer">#ffffff</item>
-        <item name="colorOutline">#938F99</item>
+        <item name="colorSecondaryContainer">@color/colorSecondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/colorOnSecondaryContainer</item>
+        <item name="colorOutline">@color/colorOutline</item>
 
         <!-- Fallback for possible AppCompat quirks -->
         <item name="materialDrawerHeaderSelectionText">@color/md_white_1000</item>

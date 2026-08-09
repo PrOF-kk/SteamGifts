@@ -1,10 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorTransparent">#00000000</color>
-
+    <!-- Light theme -->
     <color name="colorPrimary">#2196F3</color>
     <color name="colorPrimaryDark">#1976D2</color>
+    <color name="colorCardBackground">#ffffff</color>
+    <color name="colorLightSeparatorBackground">#d8d8d8</color>
+    <color name="colorLighterSeparatorBackground">#cccccc</color>
+    <color name="colorAccountHeader">@color/colorPrimary</color>
+    <color name="colorHighlightBackground">@color/md_blue_100</color>
+    <color name="lightTextColor">#424242</color>
+    <color name="colorPre">#e8eef6</color>
+    <color name="colorOnPre">#5c7397</color>
+
+    <color name="colorSurfaceVariant">#eeeeee</color>
+    <color name="colorOutline">#79747E</color>
+    <color name="colorSecondaryContainer">#d8d8d8</color>
+    <color name="colorOnSecondaryContainer">#424242</color>
+
+    <color name="material_drawer_primary">@color/colorPrimary</color>
+
+    <!-- Common -->
     <color name="colorAccent">#03A9F4</color>
+    <color name="colorTransparent">#00000000</color>
     <color name="colorBlockquoteStripe">@color/md_grey_600</color>
 
     <color name="giveawayIndicatorColorGroup">@color/md_amber_600</color>
@@ -23,8 +40,6 @@
     <color name="tradeHaveItems">#e1868c</color>
     <color name="tradeWantItems">#6bbfdb</color>
 
-    <color name="dark.colorPrimary">#222222</color>
-
     <!-- Material Colors -->
     <color name="md_white_1000">#ffffff</color>
     <color name="md_grey_600">#757575</color>
@@ -38,7 +53,6 @@
     <color name="md_red_500">#F44336</color>
     <color name="md_blue_grey_700">#455A64</color>
     <color name="md_green_700">#388E3C</color>
-    <color name="material_drawer_primary">@color/colorPrimary</color>
     <color name="material_drawer_dark_header_selection_text">#ffffff</color>
     <color name="material_drawer_header_selection_subtext">#ffffff</color>
 </resources>

@@ -1,38 +1,17 @@
 package net.mabako.steamgifts.activities;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.preference.PreferenceManager;
 
-import net.mabako.steamgifts.core.R;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
 public class BaseActivity extends AppCompatActivity {
     public static final String CLOSE_NESTED = "close-nested";
-
-    private boolean nightMode = false;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        setTheme();
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (setTheme()) {
-            finish();
-            startActivity(getIntent());
-        }
-    }
 
     protected void loadFragment(int id, Fragment fragment, String tag) {
         FragmentManager fm = getSupportFragmentManager();
@@ -50,18 +29,6 @@ public class BaseActivity extends AppCompatActivity {
     protected void onAccountChange() {
         // Persist all relevant data.
         SteamGiftsUserData.getCurrent(this).save(this);
-    }
-
-    private boolean setTheme() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean nightMode = prefs.getBoolean("preference_theme_nightmode", true);
-        if (nightMode != this.nightMode) {
-            this.nightMode = nightMode;
-            setTheme(nightMode ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
-            return true;
-        } else {
-            return false;
-        }
     }
 
     /**

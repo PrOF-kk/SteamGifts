@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#222222</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorCardBackground">#222222</color>
+    <color name="colorLightSeparatorBackground">#666666</color>
+    <color name="colorLighterSeparatorBackground">#333333</color>
+    <color name="colorAccountHeader">#000000</color>
+    <color name="colorHighlightBackground">@color/md_blue_grey_700</color>
+    <color name="lightTextColor">#777777</color>
+    <color name="colorPre">#222220</color>
+    <color name="colorOnPre">#b7b776</color>
+
+    <color name="colorSurfaceVariant">#444444</color>
+    <color name="colorOutline">#938F99</color>
+    <color name="colorSecondaryContainer">#333333</color>
+    <color name="colorOnSecondaryContainer">#ffffff</color>
+
+    <color name="material_drawer_primary">@color/colorPrimary</color>
+</resources>

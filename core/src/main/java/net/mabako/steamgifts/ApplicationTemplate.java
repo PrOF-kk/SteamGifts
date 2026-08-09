@@ -1,17 +1,38 @@
 package net.mabako.steamgifts;
 
 import android.app.Application;
+import android.content.SharedPreferences;
 import android.os.StrictMode;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.preference.PreferenceManager;
 
 import net.mabako.steamgifts.data.GameFeaturesRepository;
 import net.mabako.steamgifts.receivers.AbstractNotificationCheckReceiver;
 
 public abstract class ApplicationTemplate extends Application {
+
+    /// @see SharedPreferences#registerOnSharedPreferenceChangeListener
+    @SuppressWarnings("FieldCanBeLocal")
+    private SharedPreferences.OnSharedPreferenceChangeListener themeListener;
+
     @Override
     public void onCreate() {
         super.onCreate();
+        // Set light/dark theme
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean nightMode = prefs.getBoolean("preference_theme_nightmode", true);
+        AppCompatDelegate.setDefaultNightMode(nightMode ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+
+        themeListener = (p, key) -> {
+            if ("preference_theme_nightmode".equals(key)) {
+                boolean nm = p.getBoolean(key, true);
+                AppCompatDelegate.setDefaultNightMode(nm ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+            }
+        };
+        prefs.registerOnSharedPreferenceChangeListener(themeListener);
+
         // Needed as long as AjaxTask returns a Connection.Response, accessing its body in the UI thread is a NetworkOnMainThreadException violation
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitNetwork().build());
         AbstractNotificationCheckReceiver.initNotificationChannels(getBaseContext());

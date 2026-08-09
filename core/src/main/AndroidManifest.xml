@@ -19,11 +19,10 @@
         android:allowBackup="false"
         android:label="@string/app_name"
         android:supportsRtl="false"
-        android:theme="@style/AppTheme.Light">
+        android:theme="@style/AppTheme">
         <activity
             android:name="net.mabako.steamgifts.activities.LoginActivity"
-            android:exported="false"
-            android:theme="@style/AppTheme.Dark" />
+            android:exported="false" />
 
         <activity
             android:name="net.mabako.steamgifts.activities.MainActivity"
@@ -48,8 +47,7 @@
             android:name="net.mabako.steamgifts.activities.AboutActivity"
             android:exported="false"
             android:parentActivityName="net.mabako.steamgifts.activities.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Dark">
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="net.mabako.steamgifts.activities.MainActivity" />
@@ -61,8 +59,7 @@
         <activity
             android:name="net.mabako.steamgifts.activities.SyncActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Dark" />
+            android:screenOrientation="portrait" />
 
         <!-- handle all urls... or at least some -->
         <activity
@@ -112,8 +109,7 @@
         <!-- intro -->
         <activity
             android:name="net.mabako.steamgifts.intro.IntroActivity"
-            android:exported="false"
-            android:theme="@style/AppTheme.Light" />
+            android:exported="false" />
 
         <!-- start new message checking on boot -->
         <receiver
