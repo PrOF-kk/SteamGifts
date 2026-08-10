@@ -51,9 +51,8 @@ public class LoadGiveawayDetailsTask extends AsyncTask<Void, Void, GiveawayExtra
         Log.d(TAG, "Fetching giveaway details for " + url);
 
         OkHttpClient.Builder client = new OkHttpClient.Builder()
+                .followRedirects(false)
                 .callTimeout(Constants.HTTP_TIMEOUT, TimeUnit.MILLISECONDS);
-
-
 
         Request.Builder request = new Request.Builder().url(url);
         if (SteamGiftsUserData.getCurrent(fragment.getContext()).isLoggedIn()) {
@@ -62,7 +61,11 @@ public class LoadGiveawayDetailsTask extends AsyncTask<Void, Void, GiveawayExtra
 
         try (Response response = client.build().newCall(request.build()).execute()) {
             if (!response.isSuccessful()) {
-                error = "Error fetching URL: " + response.code();
+                if (response.isRedirect()) {
+                    error = "Giveaway does not exist or could not be loaded.";
+                } else {
+                    error = "Error fetching URL: " + response.code();
+                }
                 return null;
             }
 
