@@ -2,6 +2,7 @@ package net.mabako.steamgifts.adapters.viewholder;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -12,7 +13,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -50,6 +53,9 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
     private final TextView giveawayTime;
     private final ImageView giveawayImage;
     private final Button giveawayEnterButton;
+    private final ColorStateList giveawayEnterButtonDefaultColor;
+    private final ColorStateList giveawayEnterButtonEnterColor;
+    private final @ColorInt int giveawayEnterButtonLeaveColor;
 
     private final EndlessAdapter adapter;
     private final Activity activity;
@@ -80,6 +86,9 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
         giveawayTime = v.findViewById(R.id.time);
         giveawayImage = v.findViewById(R.id.giveaway_image);
         giveawayEnterButton = v.findViewById(R.id.giveaway_enter_button);
+        giveawayEnterButtonDefaultColor = giveawayEnterButton.getTextColors();
+        giveawayEnterButtonEnterColor = ContextCompat.getColorStateList(giveawayEnterButton.getContext(), R.color.giveaway_enter_button_enter);
+        giveawayEnterButtonLeaveColor = ContextCompat.getColor(giveawayEnterButton.getContext(), R.color.colorGiveawayEnterButtonLeave);
 
         indicatorWhitelist = v.findViewById(R.id.giveaway_list_indicator_whitelist);
         indicatorGroup = v.findViewById(R.id.giveaway_list_indicator_group);
@@ -126,14 +135,17 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
         } else {
             giveawayEnterButton.setVisibility(View.VISIBLE);
 
-            // Set the correct text based on the giveaway is already entered or not
+            // Configure enter/leave button
             if (giveaway.isEntered()) {
-                giveawayEnterButton.setText("{faw-times}");
                 giveawayEnterButton.setEnabled(true);
+                giveawayEnterButton.setTextColor(giveawayEnterButtonLeaveColor);
+                giveawayEnterButton.setText("{faw-minus-circle}");
             } else {
-                giveawayEnterButton.setText("{faw-sign-in-alt}");
-                // Check if the user have enough points, that the giveaway is not from him and that he have the required level
-                giveawayEnterButton.setEnabled(giveaway.userCanEnter());
+                // Check if the user has enough points, they're not the giveaway creator, and they have the required level
+                boolean canEnter = giveaway.userCanEnter();
+                giveawayEnterButton.setEnabled(canEnter);
+                giveawayEnterButton.setTextColor(giveawayEnterButtonEnterColor);
+                giveawayEnterButton.setText("{faw-plus-circle}");
             }
 
             // Set the event
@@ -141,10 +153,9 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
                 public void onClick(View v) {
                     Giveaway giveaway = (Giveaway) adapter.getItem(getAdapterPosition());
 
-                    // When clicking this too quickly after another, you can essentially click on a giveaway that is null.
-                    // There's probably no need to show a notification or anything, since there is visual feedback for whether or not you entered a giveaway.
                     if (giveaway != null) {
                         giveawayEnterButton.setEnabled(false);
+                        giveawayEnterButton.setTextColor(giveawayEnterButtonDefaultColor);
                         giveawayEnterButton.setText("{faw-ellipsis-h}");
                         ((IHasEnterableGiveaways) fragment).requestEnterLeave(giveaway.getGiveawayId(), giveaway.isEntered() ? GiveawayDetailFragment.ENTRY_DELETE : GiveawayDetailFragment.ENTRY_INSERT, adapter.getXsrfToken());
                     }

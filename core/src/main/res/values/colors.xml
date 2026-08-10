@@ -17,6 +17,9 @@
     <color name="colorSecondaryContainer">#d8d8d8</color>
     <color name="colorOnSecondaryContainer">#424242</color>
 
+    <color name="colorGiveawayEnterButtonEnter">#008a49</color>
+    <color name="colorGiveawayEnterButtonLeave">#8a8a00</color>
+
     <color name="material_drawer_primary">@color/colorPrimary</color>
 
     <!-- Common -->
