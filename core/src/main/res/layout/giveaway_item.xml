@@ -218,10 +218,9 @@
         <com.mikepenz.iconics.view.IconicsButton
             android:id="@+id/giveaway_enter_button"
             style="@style/MediumButton"
-            android:layout_width="wrap_content"
+            android:layout_width="42dp"
             android:layout_height="0dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
+            android:gravity="center"
             android:text="{faw-times}"
             android:visibility="gone"
             app:emojiCompatEnabled="false"
