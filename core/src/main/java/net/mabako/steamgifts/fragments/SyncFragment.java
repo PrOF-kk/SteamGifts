@@ -135,7 +135,7 @@ public class SyncFragment extends Fragment {
                 OkHttpClient.Builder client = new OkHttpClient.Builder()
                         .callTimeout(Constants.HTTP_TIMEOUT, TimeUnit.MILLISECONDS);
                 Request.Builder request = new Request.Builder()
-                        .url("https://www.steamgifts.com/account/profile/sync")
+                        .url("https://www.steamgifts.com/account/settings/profile")
                         .header("Cookie", "PHPSESSID=" + SteamGiftsUserData.getCurrent(fragment.getContext()).getSessionId());
 
                 Document document;
