@@ -6,9 +6,9 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import net.mabako.Constants;
 import net.mabako.steamgifts.data.Discussion;
 import net.mabako.steamgifts.fragments.DiscussionListFragment;
+import net.mabako.steamgifts.http.OkHttp;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
 import org.jsoup.Jsoup;
@@ -19,10 +19,8 @@ import org.jsoup.select.Elements;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
@@ -64,8 +62,7 @@ public class LoadDiscussions extends AsyncTask<Void, Void, List<Discussion>> {
 
             Log.d(TAG, "Fetching discussions for page " + page + " and URL " + url);
 
-            OkHttpClient.Builder client = new OkHttpClient.Builder()
-                    .callTimeout(Constants.HTTP_TIMEOUT, TimeUnit.MILLISECONDS);
+            var client = OkHttp.client();
             Request.Builder request = new Request.Builder();
 
             url.addQueryParameter("page", Integer.toString(page));
@@ -75,17 +72,12 @@ public class LoadDiscussions extends AsyncTask<Void, Void, List<Discussion>> {
             if (searchQuery != null)
                 url.addQueryParameter("q", searchQuery);
 
-            // We do not want to follow redirects here, because SteamGifts redirects to the main (giveaways) page if we're not logged in.
-            // For all other pages however, if we're not logged in, we're redirected once as well?
-            if (type == DiscussionListFragment.Type.CREATED)
-                client.followRedirects(false);
-
             if (SteamGiftsUserData.getCurrent(fragment.getContext()).isLoggedIn()) {
                 request.header("Cookie", "PHPSESSID=" + SteamGiftsUserData.getCurrent(fragment.getContext()).getSessionId());
             }
 
             Document document;
-            try (Response response = client.build().newCall(request.url(url.build()).build()).execute()) {
+            try (Response response = client.newCall(request.url(url.build()).build()).execute()) {
                 document = Jsoup.parse(response.body().string());
             }
 

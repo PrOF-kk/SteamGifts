@@ -6,14 +6,13 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceManager;
 
-import net.mabako.Constants;
 import net.mabako.common.OkHttpFutureCallback;
 import net.mabako.steamgifts.ApplicationTemplate;
+import net.mabako.steamgifts.http.OkHttp;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -21,10 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.TimeUnit;
 
-import okhttp3.Cache;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.ResponseBody;
 
@@ -35,7 +31,6 @@ public final class GameFeaturesRepository {
     // Do not use static initialization, it hangs OkHttp when waiting on the futures
     private static GameFeaturesRepository instance;
 
-    private final OkHttpClient client;
     private final Map<Integer, GameFeatures> appGameFeatures = new ConcurrentHashMap<>();
     private final Map<Integer, GameFeatures> subGameFeatures = new ConcurrentHashMap<>();
 
@@ -58,13 +53,6 @@ public final class GameFeaturesRepository {
 
     private GameFeaturesRepository(Context context) {
         loadGameFeatures = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("preference_giveaway_show_game_features", true);
-        client = new OkHttpClient.Builder()
-                .connectTimeout(Constants.HTTP_TIMEOUT, TimeUnit.MILLISECONDS)
-                .cache(new Cache(
-                        new File(context.getCacheDir(), "http_cache"),
-                        10 * 1024 * 1024
-                ))
-                .build();
 
         // Start downloading immediately if enabled
         // Don't for chocolate: the unhandled exception handler causes 2 processes to start, avoid double fetch
@@ -92,6 +80,7 @@ public final class GameFeaturesRepository {
                 Log.d(TAG, "Fetching APP game features");
 
                 // Data sources are the same used by SteamWebIntegration
+                var client = OkHttp.client();
 
                 var cardsFuture = new OkHttpFutureCallback<Void>((call, response) -> {
                     try (ResponseBody body = response.body()) {
@@ -238,6 +227,8 @@ public final class GameFeaturesRepository {
         }
 
         Log.d(TAG, "Fetching SUB game features for " + subId);
+
+        var client = OkHttp.client();
         OkHttpFutureCallback<List<Integer>> containedAppIdsFuture = new OkHttpFutureCallback<>((call, response) -> {
             List<Integer> appIds;
 

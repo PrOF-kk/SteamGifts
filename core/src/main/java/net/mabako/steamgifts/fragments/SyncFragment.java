@@ -15,10 +15,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import net.mabako.Constants;
 import net.mabako.steamgifts.activities.CommonActivity;
 import net.mabako.steamgifts.activities.UrlHandlingActivity;
 import net.mabako.steamgifts.core.R;
+import net.mabako.steamgifts.http.OkHttp;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 import net.mabako.steamgifts.tasks.AjaxTask;
 
@@ -29,9 +29,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
@@ -130,16 +128,13 @@ public class SyncFragment extends Fragment {
             Log.d(TAG, "Fetching sync details");
 
             try {
-                // Fetch the Giveaway page
-
-                OkHttpClient.Builder client = new OkHttpClient.Builder()
-                        .callTimeout(Constants.HTTP_TIMEOUT, TimeUnit.MILLISECONDS);
+                var client = OkHttp.client();
                 Request.Builder request = new Request.Builder()
                         .url("https://www.steamgifts.com/account/settings/profile")
                         .header("Cookie", "PHPSESSID=" + SteamGiftsUserData.getCurrent(fragment.getContext()).getSessionId());
 
                 Document document;
-                try (Response response = client.build().newCall(request.build()).execute()) {
+                try (Response response = client.newCall(request.build()).execute()) {
                     document = Jsoup.parse(response.body().string());
                 }
 

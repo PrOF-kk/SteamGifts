@@ -5,11 +5,11 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import net.mabako.Constants;
 import net.mabako.steamgifts.data.Comment;
 import net.mabako.steamgifts.data.ICommentHolder;
 import net.mabako.steamgifts.data.User;
 import net.mabako.steamgifts.fragments.UserDetailFragment;
+import net.mabako.steamgifts.http.OkHttp;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -17,10 +17,8 @@ import org.jsoup.nodes.Element;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
@@ -46,8 +44,7 @@ public class LoadUserTradeFeedbackTask extends AsyncTask<Void, Void, List<Commen
         Log.d(TAG, "Fetching reputation for user " + steamID64 + " (" + rating + ") on page " + page);
 
         try {
-            OkHttpClient.Builder client = new OkHttpClient.Builder()
-                    .callTimeout(Constants.HTTP_TIMEOUT, TimeUnit.MILLISECONDS);
+            var client = OkHttp.client();
             Request.Builder request = new Request.Builder();
             HttpUrl.Builder url = new HttpUrl.Builder()
                     .scheme("https")
@@ -66,7 +63,7 @@ public class LoadUserTradeFeedbackTask extends AsyncTask<Void, Void, List<Commen
             */
 
             Document document;
-            try (Response response = client.build().newCall(request.url(url.build()).build()).execute()) {
+            try (Response response = client.newCall(request.url(url.build()).build()).execute()) {
                 if (response.code() != 200) {
                     Log.w(TAG, "Got status code " + response.code());
                     return null;

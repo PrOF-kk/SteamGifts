@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.PreferenceManager;
 
 import net.mabako.steamgifts.data.GameFeaturesRepository;
+import net.mabako.steamgifts.http.OkHttp;
 import net.mabako.steamgifts.receivers.AbstractNotificationCheckReceiver;
 
 public abstract class ApplicationTemplate extends Application {
@@ -36,6 +37,7 @@ public abstract class ApplicationTemplate extends Application {
         // Needed as long as AjaxTask returns a Connection.Response, accessing its body in the UI thread is a NetworkOnMainThreadException violation
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitNetwork().build());
         AbstractNotificationCheckReceiver.initNotificationChannels(getBaseContext());
+        OkHttp.init(getApplicationContext());
         GameFeaturesRepository.firstInit(getBaseContext());
         PeriodicTasks.scheduleAllTasks(getBaseContext());
     }

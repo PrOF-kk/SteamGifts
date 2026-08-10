@@ -4,9 +4,9 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import net.mabako.Constants;
 import net.mabako.steamgifts.data.GiveawayGroup;
 import net.mabako.steamgifts.fragments.GiveawayGroupListFragment;
+import net.mabako.steamgifts.http.OkHttp;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
 import org.jsoup.Jsoup;
@@ -17,10 +17,8 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
@@ -43,10 +41,7 @@ public class LoadGiveawayGroupsTask extends AsyncTask<Void, Void, List<GiveawayG
         Log.d(TAG, "Fetching giveaway groups for page " + page);
 
         try {
-            // Fetch the Giveaway page
-
-            OkHttpClient.Builder client = new OkHttpClient.Builder()
-                    .callTimeout(Constants.HTTP_TIMEOUT, TimeUnit.MILLISECONDS);
+            var client = OkHttp.client();
             Request.Builder request = new Request.Builder();
             HttpUrl.Builder url = new HttpUrl.Builder()
                     .scheme("https")
@@ -61,7 +56,7 @@ public class LoadGiveawayGroupsTask extends AsyncTask<Void, Void, List<GiveawayG
             }
 
             Document document;
-            try (Response response = client.build().newCall(request.url(url.build()).build()).execute()) {
+            try (Response response = client.newCall(request.url(url.build()).build()).execute()) {
                 document = Jsoup.parse(response.body().string());
             }
 

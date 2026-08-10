@@ -7,13 +7,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import net.mabako.Constants;
 import net.mabako.steamgifts.adapters.EndlessAdapter;
 import net.mabako.steamgifts.data.Comment;
 import net.mabako.steamgifts.data.Discussion;
 import net.mabako.steamgifts.data.DiscussionExtras;
 import net.mabako.steamgifts.data.Poll;
 import net.mabako.steamgifts.fragments.DiscussionDetailFragment;
+import net.mabako.steamgifts.http.OkHttp;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
 import org.jsoup.Jsoup;
@@ -22,9 +22,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
@@ -109,10 +107,8 @@ public class LoadDiscussionDetailsTask extends AsyncTask<Void, Void, DiscussionE
                 : "https://www.steamgifts.com/discussion/" + discussionId + "/search?page=last";
 
         Log.v(TAG, "Fetching discussion details for " + url);
-        OkHttpClient client = new OkHttpClient.Builder()
-                .callTimeout(Constants.HTTP_TIMEOUT, TimeUnit.MILLISECONDS)
-                .followRedirects(true)
-                .build();
+        // Need to follow redirects for /search?page=last -> /search?page=...
+        var client = OkHttp.client().newBuilder().followRedirects(true).build();
 
         Request.Builder request = new Request.Builder().url(url);
         if (SteamGiftsUserData.getCurrent(fragment.getContext()).isLoggedIn())

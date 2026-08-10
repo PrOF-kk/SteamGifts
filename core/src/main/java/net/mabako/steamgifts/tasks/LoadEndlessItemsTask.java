@@ -4,9 +4,9 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import net.mabako.Constants;
 import net.mabako.steamgifts.adapters.IEndlessAdaptable;
 import net.mabako.steamgifts.fragments.interfaces.ILoadItemsListener;
+import net.mabako.steamgifts.http.OkHttp;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
 import org.jsoup.Jsoup;
@@ -16,10 +16,8 @@ import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
@@ -46,8 +44,7 @@ public abstract class LoadEndlessItemsTask extends AsyncTask<Void, Void, List<IE
         try {
             // Fetch the page
 
-            OkHttpClient.Builder client = new OkHttpClient.Builder()
-                    .callTimeout(Constants.HTTP_TIMEOUT, TimeUnit.MILLISECONDS);
+            var client = OkHttp.client();
 
             Request.Builder request = new Request.Builder();
             HttpUrl.Builder url = new HttpUrl.Builder()
@@ -63,7 +60,7 @@ public abstract class LoadEndlessItemsTask extends AsyncTask<Void, Void, List<IE
             request.header("Cookie", "PHPSESSID=" + SteamGiftsUserData.getCurrent(context).getSessionId());
 
             Document document;
-            try (Response response = client.build().newCall(request.url(url.build()).build()).execute()) {
+            try (Response response = client.newCall(request.url(url.build()).build()).execute()) {
                 document = Jsoup.parse(response.body().string());
             }
 

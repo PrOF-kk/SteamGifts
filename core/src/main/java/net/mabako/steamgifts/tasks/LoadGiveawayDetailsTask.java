@@ -8,11 +8,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import net.mabako.Constants;
 import net.mabako.steamgifts.data.Comment;
 import net.mabako.steamgifts.data.Giveaway;
 import net.mabako.steamgifts.data.GiveawayExtras;
 import net.mabako.steamgifts.fragments.GiveawayDetailFragment;
+import net.mabako.steamgifts.http.OkHttp;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
 import org.jsoup.Jsoup;
@@ -20,9 +20,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
@@ -50,22 +48,21 @@ public class LoadGiveawayDetailsTask extends AsyncTask<Void, Void, GiveawayExtra
         String url = "https://www.steamgifts.com/giveaway/" + giveawayId + "/search?page=" + page;
         Log.d(TAG, "Fetching giveaway details for " + url);
 
-        OkHttpClient.Builder client = new OkHttpClient.Builder()
-                .followRedirects(false)
-                .callTimeout(Constants.HTTP_TIMEOUT, TimeUnit.MILLISECONDS);
+        // Need to follow redirects for /giveaway/xxxxx -> /giveaway/xxxxx/gameName
+        var client = OkHttp.client().newBuilder().followRedirects(true).build();
 
         Request.Builder request = new Request.Builder().url(url);
         if (SteamGiftsUserData.getCurrent(fragment.getContext()).isLoggedIn()) {
             request.header("Cookie", "PHPSESSID=" + SteamGiftsUserData.getCurrent(fragment.getContext()).getSessionId());
         }
 
-        try (Response response = client.build().newCall(request.build()).execute()) {
+        try (Response response = client.newCall(request.build()).execute()) {
             if (!response.isSuccessful()) {
-                if (response.isRedirect()) {
-                    error = "Giveaway does not exist or could not be loaded.";
-                } else {
-                    error = "Error fetching URL: " + response.code();
-                }
+                error = "Error fetching URL: " + response.code();
+                return null;
+            }
+            if (OkHttp.wasRedirectedHome(response)) {
+                error = "Giveaway does not exist or could not be loaded.";
                 return null;
             }
 
