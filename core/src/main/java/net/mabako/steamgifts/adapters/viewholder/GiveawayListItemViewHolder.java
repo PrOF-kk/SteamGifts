@@ -144,8 +144,14 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
                 // Check if the user has enough points, they're not the giveaway creator, and they have the required level
                 boolean canEnter = giveaway.userCanEnter();
                 giveawayEnterButton.setEnabled(canEnter);
-                giveawayEnterButton.setTextColor(giveawayEnterButtonEnterColor);
-                giveawayEnterButton.setText("{faw-plus-circle}");
+
+                if (giveaway.hasDescription()) {
+                    giveawayEnterButton.setTextColor(giveawayEnterButtonDefaultColor);
+                    giveawayEnterButton.setText("{faw-align-left}");
+                } else {
+                    giveawayEnterButton.setTextColor(giveawayEnterButtonEnterColor);
+                    giveawayEnterButton.setText("{faw-plus-circle}");
+                }
             }
 
             // Set the event
