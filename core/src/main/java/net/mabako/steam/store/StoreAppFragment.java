@@ -78,23 +78,24 @@ public class StoreAppFragment extends StoreFragment {
                 Element errorBox = document.getElementById("error_box");
                 boolean redirectedToHome = response.url().getPath().equals("/");
                 boolean redirectedToLogin = response.url().getPath().equals("/login/");
-                if (responseCode != 200 || errorBox != null || redirectedToHome || redirectedToLogin) {
-                    if (redirectedToLogin) {
-                        items.add(new Text("""
-                                The store page for this app cannot be shown in the SG app.
-                                <a href='https://store.steampowered.com/app/""" + appId + "/'>Open in browser \uD83D\uDD17</a>", true)
-                        );
-                    } else {
-                        String errorDetails = "";
-                        if (errorBox != null) {
-                            errorDetails = errorBox.expectFirst(".error").text();
-                        } else if (responseCode != 200) {
-                            errorDetails = response.statusMessage();
-                        }
-                        items.add(new Text("The store page for this app is not available.\n" + errorDetails, false));
-                        items.add(new Text("You can <a href='https://steamdb.info/app/" + appId + "/'>visit its SteamDB page instead \uD83D\uDD17</a>", true));
+                // \uD83D\uDD17: 🔗
+                if (redirectedToLogin) {
+                    items.add(new Text("""
+                            The store page for this app cannot be shown in the SG app.
+                            <a href='https://store.steampowered.com/app/""" + appId + "/'>Open in browser \uD83D\uDD17</a>", true)
+                    );
+                }
+                if (redirectedToHome) {
+                    String errorDetails = "";
+                    if (errorBox != null) {
+                        errorDetails = errorBox.expectFirst(".error").text();
+                    } else if (responseCode != 200) {
+                        errorDetails = response.statusMessage();
                     }
-
+                    items.add(new Text("The store page for this app is not available.\n" + errorDetails, false));
+                    items.add(new Text("You can <a href='https://steamdb.info/app/" + appId + "/'>visit its SteamDB page instead \uD83D\uDD17</a>", true));
+                }
+                if (responseCode != 200 || errorBox != null) {
                     return null;
                 }
 
