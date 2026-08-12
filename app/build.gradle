@@ -4,6 +4,8 @@ android {
     namespace 'net.mabako.steamgifts'
 
     compileOptions {
+        coreLibraryDesugaringEnabled true
+
         sourceCompatibility JavaVersion.VERSION_21
         targetCompatibility JavaVersion.VERSION_21
     }
@@ -51,6 +53,8 @@ android {
 }
 
 dependencies {
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
+
     implementation project(':core')
     // Uncaught exception handler
     chocolateImplementation 'com.github.haroldadmin:WhatTheStack:1.0.0-alpha04'
