@@ -162,8 +162,8 @@ public class StoreAppFragment extends StoreFragment {
 
                 return null;
             } catch (Exception e) {
-                Log.e(TAG, "Exception during loading store app", e);
-                responseCode = 0;
+                Log.e(TAG, "Exception while loading store app", e);
+                responseCode = 500;
                 return null;
             }
         }
