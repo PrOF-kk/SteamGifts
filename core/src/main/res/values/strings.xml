@@ -161,6 +161,7 @@
 
     <string name="preferences_sg_header">SteamGifts Account</string>
     <string name="preference_notifications">Show Notifications</string>
+    <string name="preference_notification_settings_shortcut">Notification Settings</string>
     <string name="preference_sg_sync">Sync Account</string>
     <string name="preference_sg_whitelist">Whitelisted Users</string>
     <string name="preference_sg_blacklist">Blacklisted Users</string>

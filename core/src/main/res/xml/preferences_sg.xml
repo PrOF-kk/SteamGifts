@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory
         android:key="preferences_sg_header"
         android:title="@string/preferences_sg_header">
@@ -8,6 +9,11 @@
             android:defaultValue="true"
             android:key="preference_notifications"
             android:title="@string/preference_notifications" />
+
+        <Preference
+            android:key="preference_notification_settings_shortcut"
+            android:title="@string/preference_notification_settings_shortcut"
+            app:isPreferenceVisible="false" />
 
         <Preference
             android:key="preference_sg_sync"

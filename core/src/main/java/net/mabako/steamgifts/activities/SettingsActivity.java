@@ -37,6 +37,17 @@ public class SettingsActivity extends BaseActivity {
             if (SteamGiftsUserData.getCurrent(getActivity()).isLoggedIn()) {
                 addPreferencesFromResource(R.xml.preferences_sg);
 
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    Preference preferenceNotificationSettingsLink = findPreference("preference_notification_settings_shortcut");
+                    preferenceNotificationSettingsLink.setVisible(true);
+                    preferenceNotificationSettingsLink.setOnPreferenceClickListener(p -> {
+                        Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+                        intent.putExtra(Settings.EXTRA_APP_PACKAGE, getContext().getPackageName());
+                        startActivity(intent);
+                        return true;
+                    });
+                }
+
                 findPreference("preference_sg_sync").setOnPreferenceClickListener(preference -> {
                     getActivity().startActivity(new Intent(getActivity(), SyncActivity.class));
                     return true;
