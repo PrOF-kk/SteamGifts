@@ -113,7 +113,10 @@ public final class GameFeaturesRepository {
                     }
                     return null;
                 });
-                client.newCall(new Request.Builder().url("https://bartervg.com/browse/cards/json/").build())
+                client.newCall(new Request.Builder()
+                                .url("https://bartervg.com/browse/cards/json/")
+                                .tag(OkHttp.CacheFor.class, OkHttp.CacheFor.days(7))
+                                .build())
                         .enqueue(cardsFuture);
 
                 var dlcFuture = new OkHttpFutureCallback<Void>((call, response) -> {
@@ -142,7 +145,10 @@ public final class GameFeaturesRepository {
                     }
                     return null;
                 });
-                client.newCall(new Request.Builder().url("https://bartervg.com/browse/dlc/json/").build())
+                client.newCall(new Request.Builder()
+                                .url("https://bartervg.com/browse/dlc/json/")
+                                .tag(OkHttp.CacheFor.class, OkHttp.CacheFor.days(7))
+                                .build())
                         .enqueue(dlcFuture);
 
                 var limitedFuture = new OkHttpFutureCallback<Void>((call, response) -> {
@@ -169,7 +175,10 @@ public final class GameFeaturesRepository {
                     }
                     return null;
                 });
-                client.newCall(new Request.Builder().url("https://bartervg.com/browse/tag/481/json").build())
+                client.newCall(new Request.Builder()
+                                .url("https://bartervg.com/browse/tag/481/json")
+                                .tag(OkHttp.CacheFor.class, OkHttp.CacheFor.days(7))
+                                .build())
                         .enqueue(limitedFuture);
 
                 var delistedFuture = new OkHttpFutureCallback<Void>((call, response) -> {
@@ -205,7 +214,10 @@ public final class GameFeaturesRepository {
                     }
                     return null;
                 });
-                client.newCall(new Request.Builder().url("https://steam-tracker.com/api?action=GetAppList").build())
+                client.newCall(new Request.Builder()
+                                .url("https://steam-tracker.com/api?action=GetAppList")
+                                .tag(OkHttp.CacheFor.class, OkHttp.CacheFor.days(7))
+                                .build())
                         .enqueue(delistedFuture);
 
                 CompletableFuture.allOf(cardsFuture, dlcFuture, limitedFuture, delistedFuture).join();
@@ -275,7 +287,10 @@ public final class GameFeaturesRepository {
             return appIds;
         });
 
-        client.newCall(new Request.Builder().url("https://store.steampowered.com/api/packagedetails?packageids=" + subId).build())
+        client.newCall(new Request.Builder()
+                        .url("https://store.steampowered.com/api/packagedetails?packageids=" + subId)
+                        .tag(OkHttp.CacheFor.class, OkHttp.CacheFor.days(7))
+                        .build())
                 .enqueue(containedAppIdsFuture);
 
         if (downloadAppGameFeatures == null) {
