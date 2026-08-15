@@ -262,7 +262,9 @@ public final class Utils {
 
             // Entries, would usually have comment count too... but we don't display that anywhere.
             Elements links = element.select(".giveaway__links a span");
-            giveaway.setEntries(parseInt(links.first().text().split(" ")[0]));
+            // "1,234 entries"
+            String linkText = links.first().text();
+            giveaway.setEntries(parseInt(linkText.substring(0, linkText.indexOf(' ', 1))));
 
             giveaway.setEntered(element.hasClass("is-faded"));
 
