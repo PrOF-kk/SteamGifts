@@ -9,7 +9,6 @@ import net.mabako.steamgifts.fragments.interfaces.ILoadItemsListener;
 import net.mabako.steamgifts.http.OkHttp;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -61,7 +60,7 @@ public abstract class LoadEndlessItemsTask extends AsyncTask<Void, Void, List<IE
 
             Document document;
             try (Response response = client.newCall(request.url(url.build()).build()).execute()) {
-                document = Jsoup.parse(response.body().string());
+                document = OkHttp.parseJsoup(response);
             }
 
             SteamGiftsUserData.extract(context, document);

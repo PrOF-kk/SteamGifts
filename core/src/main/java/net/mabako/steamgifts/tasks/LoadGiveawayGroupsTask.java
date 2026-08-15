@@ -9,7 +9,6 @@ import net.mabako.steamgifts.fragments.GiveawayGroupListFragment;
 import net.mabako.steamgifts.http.OkHttp;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -57,7 +56,7 @@ public class LoadGiveawayGroupsTask extends AsyncTask<Void, Void, List<GiveawayG
 
             Document document;
             try (Response response = client.newCall(request.url(url.build()).build()).execute()) {
-                document = Jsoup.parse(response.body().string());
+                document = OkHttp.parseJsoup(response);
             }
 
             SteamGiftsUserData.extract(fragment.getContext(), document);

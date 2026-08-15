@@ -4,14 +4,18 @@ import android.content.Context;
 
 import net.mabako.Constants;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.jspecify.annotations.NullMarked;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
@@ -43,6 +47,14 @@ public final class OkHttp {
 
     public static boolean wasRedirectedHome(Response response) {
         return response.request().url().encodedPath().equals("/");
+    }
+
+    /// Parse a Response using jsoup. [Response#body()]'s stream will get closed.
+    public static Document parseJsoup(Response response) throws IOException {
+        MediaType contentType = response.body().contentType();
+        Charset charset = contentType == null ? null : contentType.charset();
+        String charsetName = charset == null ? null : charset.name();
+        return Jsoup.parse(response.body().byteStream(), charsetName, "");
     }
 
     public static class CacheFor {

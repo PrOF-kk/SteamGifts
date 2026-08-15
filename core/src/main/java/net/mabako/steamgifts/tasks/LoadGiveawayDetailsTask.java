@@ -15,7 +15,6 @@ import net.mabako.steamgifts.fragments.GiveawayDetailFragment;
 import net.mabako.steamgifts.http.OkHttp;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
@@ -66,7 +65,7 @@ public class LoadGiveawayDetailsTask extends AsyncTask<Void, Void, GiveawayExtra
                 return null;
             }
 
-            Document document = Jsoup.parse(response.body().string());
+            Document document = OkHttp.parseJsoup(response);
 
             // Update user details
             SteamGiftsUserData.extract(fragment.getContext(), document);

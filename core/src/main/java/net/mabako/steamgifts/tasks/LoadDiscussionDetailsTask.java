@@ -16,7 +16,6 @@ import net.mabako.steamgifts.fragments.DiscussionDetailFragment;
 import net.mabako.steamgifts.http.OkHttp;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -66,9 +65,7 @@ public class LoadDiscussionDetailsTask extends AsyncTask<Void, Void, DiscussionE
                     response = connect();
                 }
 
-
-                Document document = Jsoup.parse(response.body().string());
-                response.close();
+                Document document = OkHttp.parseJsoup(response);
 
                 // Update user details
                 SteamGiftsUserData.extract(fragment.getContext(), document);

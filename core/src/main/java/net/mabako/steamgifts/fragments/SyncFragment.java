@@ -24,7 +24,6 @@ import net.mabako.steamgifts.tasks.AjaxTask;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
@@ -135,7 +134,7 @@ public class SyncFragment extends Fragment {
 
                 Document document;
                 try (Response response = client.newCall(request.build()).execute()) {
-                    document = Jsoup.parse(response.body().string());
+                    document = OkHttp.parseJsoup(response);
                 }
 
                 SteamGiftsUserData.extract(fragment.getContext(), document);

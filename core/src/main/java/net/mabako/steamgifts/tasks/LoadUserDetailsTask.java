@@ -9,7 +9,6 @@ import net.mabako.steamgifts.fragments.UserDetailFragment;
 import net.mabako.steamgifts.http.OkHttp;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.util.List;
@@ -54,7 +53,7 @@ public class LoadUserDetailsTask extends AsyncTask<Void, Void, List<Giveaway>> {
             }
 
             try (Response response = client.newCall(request.url(url.build()).build()).execute()) {
-                Document document = Jsoup.parse(response.body().string());
+                Document document = OkHttp.parseJsoup(response);
 
                 if (response.code() == 200) {
 

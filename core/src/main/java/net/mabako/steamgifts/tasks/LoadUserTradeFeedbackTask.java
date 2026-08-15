@@ -11,7 +11,6 @@ import net.mabako.steamgifts.data.User;
 import net.mabako.steamgifts.fragments.UserDetailFragment;
 import net.mabako.steamgifts.http.OkHttp;
 
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
@@ -69,7 +68,7 @@ public class LoadUserTradeFeedbackTask extends AsyncTask<Void, Void, List<Commen
                     return null;
                 }
 
-                document = Jsoup.parse(response.body().string());
+                document = OkHttp.parseJsoup(response);
             }
 
             // FIXME SteamGiftsUserData.extract(fragment.getContext(), document);
