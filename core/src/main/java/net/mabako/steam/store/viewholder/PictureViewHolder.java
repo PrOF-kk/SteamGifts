@@ -1,6 +1,5 @@
 package net.mabako.steam.store.viewholder;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -12,11 +11,9 @@ import net.mabako.steam.store.data.Picture;
 import net.mabako.steamgifts.core.R;
 
 public class PictureViewHolder extends RecyclerView.ViewHolder {
-    private final Context context;
 
-    public PictureViewHolder(View itemView, Context context) {
+    public PictureViewHolder(View itemView) {
         super(itemView);
-        this.context = context;
     }
 
     public void setFrom(Picture picture) {
