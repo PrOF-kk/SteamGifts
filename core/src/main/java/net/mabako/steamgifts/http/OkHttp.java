@@ -54,7 +54,7 @@ public final class OkHttp {
         MediaType contentType = response.body().contentType();
         Charset charset = contentType == null ? null : contentType.charset();
         String charsetName = charset == null ? null : charset.name();
-        return Jsoup.parse(response.body().byteStream(), charsetName, "");
+        return Jsoup.parse(response.body().byteStream(), charsetName, response.request().url().toString());
     }
 
     public static class CacheFor {
