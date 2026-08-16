@@ -20,6 +20,6 @@ public class PictureViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setFrom(Picture picture) {
-        Picasso.get().load(picture.getUrl()).into((ImageView) itemView.findViewById(R.id.image));
+        Picasso.get().load(picture.url()).into((ImageView) itemView.findViewById(R.id.image));
     }
 }

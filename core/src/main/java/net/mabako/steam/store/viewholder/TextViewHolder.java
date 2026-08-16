@@ -25,12 +25,13 @@ public class TextViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setFrom(Text text) {
-        if (TextUtils.isEmpty(text.getText()))
+        if (TextUtils.isEmpty(text.text())) {
             textView.setText(null);
-        else if (text.isHtml()) {
-            textView.setText(StringUtils.fromHtml(context, text.getText(), true, new StoreImageGetter(textView, context.getResources())));
+        } else if (text.html()) {
+            textView.setText(StringUtils.fromHtml(context, text.text(), true, new StoreImageGetter(textView, context.getResources())));
             textView.setMovementMethod(LinkMovementMethod.getInstance());
-        } else
-            textView.setText(text.getText());
+        } else {
+            textView.setText(text.text());
+        }
     }
 }

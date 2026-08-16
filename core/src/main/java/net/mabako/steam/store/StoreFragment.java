@@ -64,8 +64,7 @@ public abstract class StoreFragment extends ListFragment<StoreFragment.Adapter> 
                 throw new IllegalStateException("no fragment");
 
             if (viewType == Space.VIEW_LAYOUT) {
-                return new RecyclerView.ViewHolder(view) {
-                };
+                return new RecyclerView.ViewHolder(view) {};
             } else if (viewType == Game.VIEW_LAYOUT) {
                 return new GameViewHolder(view, fragment);
             } else if (viewType == Picture.VIEW_LAYOUT_WIDE || viewType == Picture.VIEW_LAYOUT_INLINE) {
