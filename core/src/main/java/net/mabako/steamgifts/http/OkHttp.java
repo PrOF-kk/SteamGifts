@@ -57,11 +57,7 @@ public final class OkHttp {
         return Jsoup.parse(response.body().byteStream(), charsetName, response.request().url().toString());
     }
 
-    public static class CacheFor {
-        int seconds;
-        public CacheFor(int seconds) {
-            this.seconds = seconds;
-        }
+    public record CacheFor(int seconds) {
         public static CacheFor days(int days) {
             return new CacheFor(days * 24 * 60 * 60);
         }
