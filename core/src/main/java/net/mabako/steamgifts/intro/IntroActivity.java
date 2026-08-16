@@ -46,10 +46,10 @@ public class IntroActivity extends AppIntro2 {
                 setSkipButtonEnabled(false);
                 setWizardMode(true);
 
-                addSlide(Slide.newInstance(SubView.MAIN_WELCOME));
-                addSlide(Slide.newInstance(SubView.MAIN_GIVEAWAY_1));
-                addSlide(Slide.newInstance(SubView.MAIN_GIVEAWAY_2));
-                addSlide(Slide.newInstance(SubView.MAIN_GIVEAWAY_3));
+                addSlide(Slide.newInstance(SubView.WELCOME));
+                addSlide(Slide.newInstance(SubView.CONTEXT_MENUS));
+                addSlide(Slide.newInstance(SubView.INDICATORS));
+                addSlide(Slide.newInstance(SubView.STORE));
                 break;
         }
     }

@@ -43,10 +43,10 @@ public class Slide extends Fragment {
 
     public void onCreateSubView(View view) {
         switch (subview) {
-            case MAIN_WELCOME:
-                ((TextView) view.getRootView().findViewById(R.id.welcome_text)).setText(getString(R.string.intro_giveaway_welcome_header, getText(R.string.app_name)));
-                break;
-            case MAIN_GIVEAWAY_1:
+            case WELCOME -> ((TextView) view.getRootView()
+                    .findViewById(R.id.welcome_text))
+                    .setText(getString(R.string.intro_giveaway_welcome_header, getText(R.string.app_name)));
+            case CONTEXT_MENUS -> {
                 // Giveaway
                 View giveawayView = view.findViewById(R.id.giveaway);
                 // Hide all indicators
@@ -61,17 +61,13 @@ public class Slide extends Fragment {
                 View commentView = view.findViewById(R.id.comment);
                 Picasso.get().load(R.drawable.default_avatar).placeholder(R.drawable.default_avatar_mask).transform(new RoundedCornersTransformation(20, 0)).into((ImageView) (commentView.findViewById(R.id.author_avatar)));
                 commentView.findViewById(R.id.comment_indent).getLayoutParams().width = 0;
-                break;
-
-            case MAIN_GIVEAWAY_2:
-                view.findViewById(R.id.separator).setVisibility(View.GONE);
-                break;
-
-            case MAIN_GIVEAWAY_3:
+            }
+            case INDICATORS -> view.findViewById(R.id.separator).setVisibility(View.GONE);
+            case STORE -> {
                 view.findViewById(R.id.enter).setVisibility(View.VISIBLE);
                 view.findViewById(R.id.login).setVisibility(View.GONE);
                 view.findViewById(R.id.comment).setVisibility(View.VISIBLE);
-                break;
+            }
         }
     }
 }

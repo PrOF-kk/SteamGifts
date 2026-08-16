@@ -6,10 +6,10 @@ import net.mabako.steamgifts.core.R;
  * Created by mabako on 14.01.2016.
  */
 public enum SubView {
-    MAIN_WELCOME(R.layout.intro_main_welcome),
-    MAIN_GIVEAWAY_1(R.layout.intro_main_giveaway_1),
-    MAIN_GIVEAWAY_2(R.layout.intro_main_giveaway_2),
-    MAIN_GIVEAWAY_3(R.layout.intro_main_giveaway_3);
+    WELCOME(R.layout.intro_0_welcome),
+    CONTEXT_MENUS(R.layout.intro_1_context_menus),
+    INDICATORS(R.layout.intro_2_indicators),
+    STORE(R.layout.intro_3_store);
 
     private final int layout;
 
