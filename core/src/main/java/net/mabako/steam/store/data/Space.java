@@ -6,7 +6,7 @@ import net.mabako.steamgifts.core.R;
 import java.io.Serializable;
 
 public record Space() implements IEndlessAdaptable, Serializable {
-    public static int VIEW_LAYOUT = R.layout.endless_spacer;
+    public static final int VIEW_LAYOUT = R.layout.endless_spacer;
 
     @Override
     public int getLayout() {
