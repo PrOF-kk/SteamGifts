@@ -151,7 +151,7 @@ public final class Utils {
     }
 
     public static String extractAvatar(String style) {
-        return style.replace("background-image:url(", "").replace(");", "").replace("_medium", "_full");
+        return style.substring(style.indexOf("https://"), style.indexOf(");")).replace("_medium", "_full");
     }
 
     /**

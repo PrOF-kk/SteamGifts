@@ -182,16 +182,12 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
                     }
                 }
             }
-
             @Override
             public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-
+                Log.e(TAG, "Failed to load user avatar for " + user.getName(), e);
             }
-
             @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-            }
+            public void onPrepareLoad(Drawable placeHolderDrawable) {}
         });
 
         if (user.getId() != 0) {
