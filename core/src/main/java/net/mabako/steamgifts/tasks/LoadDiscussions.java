@@ -35,6 +35,8 @@ public class LoadDiscussions extends AsyncTask<Void, Void, List<Discussion>> {
     private final DiscussionListFragment.Sort sort;
     private final String searchQuery;
 
+    private String errorMessage = "Failed to fetch discussions";
+
     public LoadDiscussions(DiscussionListFragment fragment, int page, DiscussionListFragment.Type type, DiscussionListFragment.Sort sort, String searchQuery) {
         this.fragment = fragment;
         this.page = page;
@@ -77,6 +79,14 @@ public class LoadDiscussions extends AsyncTask<Void, Void, List<Discussion>> {
 
             Document document;
             try (Response response = client.newCall(request.url(url.build()).build()).execute()) {
+                if (OkHttp.blockedByCloudflare(response)) {
+                    Log.w(TAG, "Blocked by Cloudflare");
+                    errorMessage += ": blocked by Cloudflare";
+                    if (!SteamGiftsUserData.getCurrent(fragment.getContext()).isLoggedIn()) {
+                        errorMessage += ". Please retry after logging in";
+                    }
+                    return null;
+                }
                 document = OkHttp.parseJsoup(response);
             }
 
@@ -123,7 +133,9 @@ public class LoadDiscussions extends AsyncTask<Void, Void, List<Discussion>> {
 
     @Override
     protected void onPostExecute(@Nullable List<Discussion> result) {
-        super.onPostExecute(result);
         fragment.addItems(result, page == 1);
+        if (result == null) {
+            fragment.showSnack(errorMessage, android.R.string.ok, v -> {});
+        }
     }
 }

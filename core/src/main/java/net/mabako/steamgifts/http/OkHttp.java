@@ -10,6 +10,7 @@ import org.jspecify.annotations.NullMarked;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.nio.charset.Charset;
 import java.util.concurrent.TimeUnit;
 
@@ -47,6 +48,12 @@ public final class OkHttp {
 
     public static boolean wasRedirectedHome(Response response) {
         return response.request().url().encodedPath().equals("/");
+    }
+
+    public static boolean blockedByCloudflare(Response response) {
+        return response.code() == HttpURLConnection.HTTP_FORBIDDEN
+                && "cloudflare".equalsIgnoreCase(response.header("Server"))
+                && response.header("cf-ray") != null;
     }
 
     /// Parse a Response using jsoup. [Response#body()]'s stream will get closed.

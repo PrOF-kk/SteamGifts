@@ -30,6 +30,8 @@ public class LoadUserTradeFeedbackTask extends AsyncTask<Void, Void, List<Commen
     private final int page;
     private final User user;
 
+    private String errorMessage = "Failed to fetch user trade reputation";
+
     public LoadUserTradeFeedbackTask(UserDetailFragment.UserTradeFeedbackListFragment fragment, long steamID64, String rating, int page, User user) {
         this.fragment = fragment;
         this.steamID64 = steamID64;
@@ -63,8 +65,14 @@ public class LoadUserTradeFeedbackTask extends AsyncTask<Void, Void, List<Commen
 
             Document document;
             try (Response response = client.newCall(request.url(url.build()).build()).execute()) {
-                if (response.code() != 200) {
+                if (OkHttp.blockedByCloudflare(response)) {
+                    Log.w(TAG, "Blocked by Cloudflare");
+                    errorMessage += ": blocked by Cloudflare";
+                    return null;
+                }
+                if (!response.isSuccessful()) {
                     Log.w(TAG, "Got status code " + response.code());
+                    errorMessage += ". " + response.code();
                     return null;
                 }
 
@@ -106,12 +114,15 @@ public class LoadUserTradeFeedbackTask extends AsyncTask<Void, Void, List<Commen
     }
 
     @Override
-    protected void onPostExecute(List<Comment> result) {
+    protected void onPostExecute(@Nullable List<Comment> result) {
         if (!user.isFeedbackLoaded() && result != null) {
             user.setFeedbackLoaded(true);
             fragment.onUserUpdated(user);
         }
 
         fragment.addItems(result, page == 1, null);
+        if (result == null) {
+            fragment.showSnack(errorMessage, android.R.string.ok, v -> {});
+        }
     }
 }

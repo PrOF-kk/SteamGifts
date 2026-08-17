@@ -32,6 +32,7 @@ public class LoadGiveawaysTask extends AsyncTask<Void, Void, List<Giveaway>> {
     private final boolean showFeaturedGiveawaysFirst;
 
     private String foundXsrfToken = null;
+    private String errorMessage = "Failed to fetch giveaways";
 
     public LoadGiveawaysTask(GiveawayListFragment activity, int page, GiveawayListFragment.Type type, @Nullable String searchQuery, boolean showFeaturedGiveawaysFirst) {
         this.fragment = activity;
@@ -42,7 +43,7 @@ public class LoadGiveawaysTask extends AsyncTask<Void, Void, List<Giveaway>> {
     }
 
     @Override
-    protected List<Giveaway> doInBackground(Void... params) {
+    protected @Nullable List<Giveaway> doInBackground(Void... params) {
         Log.d(TAG, "Fetching giveaways for page " + page);
 
         try {
@@ -87,6 +88,14 @@ public class LoadGiveawaysTask extends AsyncTask<Void, Void, List<Giveaway>> {
 
             Document document;
             try (Response response = client.newCall(request.url(url.build()).build()).execute()) {
+                if (OkHttp.blockedByCloudflare(response)) {
+                    Log.w(TAG, "Blocked by Cloudflare");
+                    errorMessage += ": blocked by Cloudflare";
+                    if (!SteamGiftsUserData.getCurrent(fragment.getContext()).isLoggedIn()) {
+                        errorMessage += ". Please retry after logging in";
+                    }
+                    return null;
+                }
                 document = OkHttp.parseJsoup(response);
             }
 
@@ -110,9 +119,11 @@ public class LoadGiveawaysTask extends AsyncTask<Void, Void, List<Giveaway>> {
     }
 
     @Override
-    protected void onPostExecute(List<Giveaway> result) {
-        super.onPostExecute(result);
+    protected void onPostExecute(@Nullable List<Giveaway> result) {
         fragment.addItems(result, page == 1, foundXsrfToken);
+        if (result == null) {
+            fragment.showSnack(errorMessage, android.R.string.ok, v -> {});
+        }
     }
 
     private void addFilterParameter(HttpUrl.Builder url, String parameterName, int value) {

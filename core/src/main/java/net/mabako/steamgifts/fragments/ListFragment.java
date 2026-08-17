@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -122,15 +123,23 @@ public abstract class ListFragment<AdapterType extends EndlessAdapter> extends F
         outState.putSerializable(SAVED_ADAPTER, adapter);
     }
 
-    protected void showSnack(String message, int length) {
-        if (getView() == null)
-            Log.e(TAG, "List not loaded yet...");
-
-        try {
-            Snackbar.make(swipeContainer != null ? swipeContainer : getView(), message, length).show();
-        } catch (NullPointerException e) {
-            Log.w(TAG, "Could not show snack for " + message);
+    public void showSnack(String message, int length) {
+        if (getView() == null && swipeContainer == null) {
+            Log.e(TAG, "Can't find container for new snackbar");
+            return;
         }
+        Snackbar.make(swipeContainer != null ? swipeContainer : getView(), message, length).show();
+    }
+
+    /// Show snack with action button. Pass empty listener to dismiss the snackbar
+    public void showSnack(String message, @StringRes int actionText, View.OnClickListener action) {
+        if (getView() == null && swipeContainer == null) {
+            Log.e(TAG, "Can't find container for new snackbar");
+            return;
+        }
+        Snackbar.make(swipeContainer != null ? swipeContainer : getView(), message, Snackbar.LENGTH_INDEFINITE)
+                .setAction(actionText, action)
+                .show();
     }
 
     public void addItems(@Nullable List<? extends IEndlessAdaptable> items, boolean clearExistingItems) {

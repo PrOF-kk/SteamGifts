@@ -48,7 +48,7 @@ public class SteamGiftsUserData {
         pointUpdateHandlers.remove(handler);
     }
 
-    public static synchronized SteamGiftsUserData getCurrent(@Nullable Context context) {
+    public static synchronized @NonNull SteamGiftsUserData getCurrent(@Nullable Context context) {
         if (current == null) {
             if (context == null) {
                 // do not keep the data, though, so anything here is pretty much a no-op
@@ -71,9 +71,6 @@ public class SteamGiftsUserData {
     }
 
     public static void extract(@Nullable Context context, @Nullable Document document) {
-        if (getCurrent(context) == null)
-            return;
-
         if (document == null)
             return;
 
