@@ -17,6 +17,7 @@ import java.io.Serializable;
 public class BasicGiveaway implements Serializable {
     @Serial
     private static final long serialVersionUID = 8330168808371401692L;
+    /// `null` for invite-only giveaways in lists
     private @Nullable String giveawayId;
 
     public BasicGiveaway(@Nullable String giveawayId) {
