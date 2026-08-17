@@ -41,6 +41,7 @@ import net.mabako.steamgifts.intent.Intents;
 import net.mabako.steamgifts.persistentdata.SavedGiveaways;
 import net.mabako.steamgifts.persistentdata.SteamGiftsUserData;
 
+import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.stream.Stream;
 
@@ -230,7 +231,7 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
             );
         }
 
-        lastBoundGiveawayId = giveaway.getGiveawayId();
+        lastBoundGiveawayId = Objects.requireNonNullElse(giveaway.getGiveawayId(), "");
     }
 
     @NonNull
