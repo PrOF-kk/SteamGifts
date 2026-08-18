@@ -19,8 +19,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -33,6 +35,7 @@ import net.mabako.steamgifts.activities.DetailActivity;
 import net.mabako.steamgifts.activities.MainActivity;
 import net.mabako.steamgifts.activities.UrlHandlingActivity;
 import net.mabako.steamgifts.activities.WriteCommentActivity;
+import net.mabako.steamgifts.behavior.LockableAppBarLayoutBehavior;
 import net.mabako.steamgifts.core.R;
 import net.mabako.steamgifts.data.BasicGiveaway;
 import net.mabako.steamgifts.data.Comment;
@@ -238,18 +241,22 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
         giveawayCard.setGiveaway(giveaway);
 
         updateTitle();
-        final CollapsingToolbarLayout appBarLayout = getActivity().findViewById(R.id.toolbar_layout);
-        if (appBarLayout != null && ((ApplicationTemplate) getActivity().getApplication()).allowGameImages()) {
+        AppBarLayout appBarLayout = getActivity().findViewById(R.id.app_bar);
+        CollapsingToolbarLayout collapsingToolbarLayout = getActivity().findViewById(R.id.toolbar_layout);
+        if (collapsingToolbarLayout != null && ((ApplicationTemplate) getActivity().getApplication()).allowGameImages()) {
             ImageView toolbarImage = getActivity().findViewById(R.id.toolbar_image);
             if (toolbarImage != null) {
                 Picasso.get().load(giveaway.getGame().getCdnUrl() + "/header.jpg").into(toolbarImage, new Callback() {
                     @Override
-                    public void onSuccess() {
-                        appBarLayout.setExpandedTitleTextAppearance(R.style.TransparentText);
-                    }
+                    public void onSuccess() {}
 
                     @Override
                     public void onError(Exception e) {
+                        // Collapse toolbar and lock it
+                        appBarLayout.setExpanded(false, false);
+                        var behavior = (LockableAppBarLayoutBehavior) ((CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams()).getBehavior();
+                        behavior.setLocked(true);
+
                         // HTTP 404 is expected for delisted games and most bundles
                         if (!"HTTP 404".equals(e.getMessage())) {
                             Log.e(TAG, "Failed to load giveaway detail game image for giveaway "
