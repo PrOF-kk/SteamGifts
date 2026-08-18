@@ -69,7 +69,7 @@ public class Game implements Serializable, IEndlessAdaptable {
     }
 
     public String getCdnUrl() {
-        return "https://cdn.akamai.steamstatic.com/steam/" + this.getType().name().toLowerCase(Locale.ENGLISH) + "s/" + this.getId();
+        return "https://cdn.akamai.steamstatic.com/steam/" + this.getType().name().toLowerCase(Locale.ROOT) + "s/" + this.getId();
     }
 
     @Override
