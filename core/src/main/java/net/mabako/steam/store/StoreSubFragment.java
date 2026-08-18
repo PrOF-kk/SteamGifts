@@ -23,11 +23,11 @@ import okhttp3.Request;
 public class StoreSubFragment extends StoreFragment {
     private static final String TAG = StoreSubFragment.class.getSimpleName();
 
-    public static StoreSubFragment newInstance(int appId) {
+    public static StoreSubFragment newInstance(int subId) {
         StoreSubFragment fragment = new StoreSubFragment();
 
         Bundle args = new Bundle();
-        args.putString("sub", String.valueOf(appId));
+        args.putString("sub", String.valueOf(subId));
         fragment.setArguments(args);
 
         return fragment;
