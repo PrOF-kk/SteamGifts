@@ -250,7 +250,11 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
 
                     @Override
                     public void onError(Exception e) {
-
+                        // HTTP 404 is expected for delisted games and most bundles
+                        if (!"HTTP 404".equals(e.getMessage())) {
+                            Log.e(TAG, "Failed to load giveaway detail game image for giveaway "
+                                    + giveaway.getGiveawayId() + " url " + giveaway.getGame().getCdnUrl(), e);
+                        }
                     }
                 });
             }
