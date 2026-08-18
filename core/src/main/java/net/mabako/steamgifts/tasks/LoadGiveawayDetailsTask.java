@@ -130,9 +130,9 @@ public class LoadGiveawayDetailsTask extends AsyncTask<Void, Void, GiveawayExtra
 
         // More details
         Element icon = element.expectFirst(".global__image-outer-wrap--game-large");
-        Uri uriIcon = icon.hasClass("global__image-outer-wrap--missing-image") ? null : Uri.parse(icon.attr("href"));
+        Uri steamUri = icon.hasAttr("href") ? Uri.parse(icon.attr("href")) : null;
 
-        Utils.loadGiveaway(giveaway, element, "featured", "featured__heading__small", uriIcon);
+        Utils.loadGiveaway(giveaway, element, "featured", "featured__heading__small", steamUri);
         return giveaway;
     }
 
