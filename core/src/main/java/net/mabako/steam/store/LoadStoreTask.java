@@ -3,16 +3,20 @@ package net.mabako.steam.store;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import net.mabako.steamgifts.http.OkHttp;
+
 import org.json.JSONObject;
-import org.jsoup.Connection;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 abstract class LoadStoreTask extends AsyncTask<Void, Void, JSONObject> {
     @Override
     protected JSONObject doInBackground(Void... params) {
-        try {
-            Connection.Response response = getConnection().ignoreContentType(true).method(Connection.Method.GET).execute();
-            if (response.statusCode() == 200)
-                return new JSONObject(response.body());
+        try (Response response = getClient().newCall(getRequest()).execute()) {
+            if (response.isSuccessful())
+                return new JSONObject(response.body().string());
 
             return null;
         } catch (Exception e) {
@@ -21,5 +25,9 @@ abstract class LoadStoreTask extends AsyncTask<Void, Void, JSONObject> {
         }
     }
 
-    protected abstract Connection getConnection();
+    protected OkHttpClient getClient() {
+        return OkHttp.client();
+    }
+
+    protected abstract Request getRequest();
 }
