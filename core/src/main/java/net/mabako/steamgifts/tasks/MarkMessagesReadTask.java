@@ -19,7 +19,7 @@ public class MarkMessagesReadTask extends AjaxTask<MessageListFragment> {
     protected void onPostExecute(Response response) {
         super.onPostExecute(response);
         try (response) {
-            if (response != null && response.code() == 301) {
+            if (response != null && response.isRedirect()) {
                 getFragment().onMarkedMessagesRead();
                 Toast.makeText(getFragment().getContext(), "Marked all messages as read", Toast.LENGTH_SHORT).show();
             } else {
