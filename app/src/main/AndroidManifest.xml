@@ -4,6 +4,7 @@
     <!-- We kinda just pull everything from the library's manifest -->
     <application
         android:name=".Application"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round">
     </application>
 </manifest>
