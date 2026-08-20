@@ -15,12 +15,11 @@ import com.squareup.picasso.Target;
 
 public class StoreImageGetter implements Html.ImageGetter {
     private static final String TAG = StoreImageGetter.class.getSimpleName();
-    final Resources resources;
+
     final TextView textView;
 
-    public StoreImageGetter(final TextView textView, final Resources resources) {
+    public StoreImageGetter(final TextView textView) {
         this.textView = textView;
-        this.resources = resources;
     }
 
     @Override
@@ -31,6 +30,7 @@ public class StoreImageGetter implements Html.ImageGetter {
             return null;
         }
 
+        var resources = textView.getResources();
         int maxWidth = textView.getWidth() > 0 ? textView.getWidth() : resources.getDisplayMetrics().widthPixels;
         BitmapDrawablePlaceHolder result = new BitmapDrawablePlaceHolder(resources);
 

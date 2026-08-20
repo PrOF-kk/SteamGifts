@@ -26,7 +26,7 @@ public class TextViewHolder extends RecyclerView.ViewHolder {
             textView.setText(null);
         } else if (text.html()) {
             var context = textView.getContext();
-            textView.setText(StringUtils.fromHtml(context, text.text(), true, new StoreImageGetter(textView, context.getResources())));
+            textView.setText(StringUtils.fromHtml(context, text.text(), true, new StoreImageGetter(textView)));
             textView.setMovementMethod(LinkMovementMethod.getInstance());
         } else {
             textView.setText(text.text());
