@@ -31,16 +31,26 @@ public class StoreImageGetter implements Html.ImageGetter {
             return null;
         }
 
-        final BitmapDrawablePlaceHolder result = new BitmapDrawablePlaceHolder(resources);
+        int maxWidth = textView.getWidth() > 0 ? textView.getWidth() : resources.getDisplayMetrics().widthPixels;
+        BitmapDrawablePlaceHolder result = new BitmapDrawablePlaceHolder(resources);
 
         Picasso.get().load(source).into(new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                final BitmapDrawable drawable = new BitmapDrawable(resources, bitmap);
-                drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+                int originalWidth = bitmap.getWidth();
+                int originalHeight = bitmap.getHeight();
+                int finalWidth = originalWidth;
+                int finalHeight = originalHeight;
+                if (originalWidth > maxWidth) {
+                    finalWidth = maxWidth;
+                    finalHeight = (int) (originalHeight * ((float) maxWidth / originalWidth));
+                }
+
+                BitmapDrawable drawable = new BitmapDrawable(resources, bitmap);
+                drawable.setBounds(0, 0, finalWidth, finalHeight);
 
                 result.setDrawable(drawable);
-                result.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+                result.setBounds(0, 0, finalWidth, finalHeight);
 
                 textView.setText(textView.getText());
             }
