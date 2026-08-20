@@ -195,15 +195,13 @@ public class StoreAppFragment extends StoreFragment {
                     // Normal image
                     flushText(currentText);
                     items.add(new Picture(element.attr("src"), true));
+                } else if (!element.getElementsByTag("img").isEmpty()) {
+                    // Image inside <a>, most likely
+                    flushText(currentText);
+                    items.add(new Text(element.outerHtml(), true));
                 } else {
-                    if (!element.getElementsByTag("img").isEmpty()) {
-                        // Image inside <a>, most likely
-                        flushText(currentText);
-                        items.add(new Text(element.outerHtml(), true));
-                    } else {
-                        // Other element
-                        currentText.append(element.outerHtml());
-                    }
+                    // Other element
+                    currentText.append(element.outerHtml());
                 }
             }
 
