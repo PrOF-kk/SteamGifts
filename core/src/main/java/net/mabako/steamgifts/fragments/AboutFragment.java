@@ -28,20 +28,21 @@ public class AboutFragment extends Fragment {
             Toast.makeText(getContext(), String.format("Build %d", ((ApplicationTemplate) getActivity().getApplication()).getAppVersionCode()), Toast.LENGTH_SHORT).show();
         });
 
-        layout.findViewById(R.id.issues).setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse("https://github.com/PrOF-kk/SteamGifts/issues"));
-
-            startActivity(intent);
-        });
-
-        layout.findViewById(R.id.source).setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse("https://github.com/PrOF-kk/SteamGifts"));
-
-            startActivity(intent);
-        });
+        layout.findViewById(R.id.issues).setOnClickListener(v -> open("https://github.com/PrOF-kk/SteamGifts/issues"));
+        layout.findViewById(R.id.source).setOnClickListener(v -> open("https://github.com/PrOF-kk/SteamGifts"));
+        layout.findViewById(R.id.faq).setOnClickListener(v -> open("https://www.steamgifts.com/about/faq"));
+        layout.findViewById(R.id.guidelines).setOnClickListener(v -> open("https://www.steamgifts.com/about/guidelines"));
+        layout.findViewById(R.id.comment_formatting).setOnClickListener(v -> open("https://www.steamgifts.com/about/comment-formatting"));
+        layout.findViewById(R.id.privacy_policy).setOnClickListener(v -> open("https://www.steamgifts.com/legal/privacy-policy"));
+        layout.findViewById(R.id.cookie_policy).setOnClickListener(v -> open("https://www.steamgifts.com/legal/cookie-policy"));
+        layout.findViewById(R.id.terms_of_service).setOnClickListener(v -> open("https://www.steamgifts.com/legal/terms-of-service"));
 
         return layout;
+    }
+
+    private void open(String url) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        startActivity(intent);
     }
 }

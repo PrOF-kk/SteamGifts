@@ -57,6 +57,15 @@
     <string name="about_made_with_love">made with {faw-heart} by kt\nmaintained with {faw-heart} by PrOF</string>
     <string name="about_issues">Report an Issue</string>
     <string name="about_source_code">Source Code</string>
+    <string name="useful_links">SteamGifts</string>
+    <string name="help">{faw-question-circle} Help</string>
+    <string name="faq">FAQ</string>
+    <string name="guidelines">Guidelines</string>
+    <string name="comment_formatting">Comment Formatting</string>
+    <string name="legal">{faw-balance-scale} Legal</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="cookie_policy">Cookie Policy</string>
+    <string name="terms_of_service">Terms of Service</string>
 
     <!-- Details: Enter/Leave/Comment -->
     <string name="enter_giveaway">Enter</string>

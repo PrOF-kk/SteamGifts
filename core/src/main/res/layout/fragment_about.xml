@@ -79,6 +79,91 @@
                     android:layout_height="wrap_content"
                     android:text="@string/about_source_code" />
             </com.wefika.flowlayout.FlowLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="24sp"
+                android:layout_marginTop="14sp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:paddingBottom="4dp"
+                android:text="@string/useful_links"
+                android:textSize="24sp" />
+
+            <com.mikepenz.iconics.view.IconicsTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:paddingBottom="4dp"
+                android:text="@string/help"
+                android:textColor="?attr/lightTextColor"
+                app:emojiCompatEnabled="false" />
+
+            <com.wefika.flowlayout.FlowLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
+
+                <Button
+                    android:id="@+id/faq"
+                    style="@style/MediumButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/faq" />
+                <Button
+                    android:id="@+id/guidelines"
+                    style="@style/MediumButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/guidelines" />
+                <Button
+                    android:id="@+id/comment_formatting"
+                    style="@style/MediumButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/comment_formatting" />
+
+            </com.wefika.flowlayout.FlowLayout>
+
+            <com.mikepenz.iconics.view.IconicsTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:paddingBottom="4dp"
+                android:text="@string/legal"
+                android:textColor="?attr/lightTextColor"
+                app:emojiCompatEnabled="false" />
+
+            <com.wefika.flowlayout.FlowLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
+
+                <Button
+                    android:id="@+id/privacy_policy"
+                    style="@style/MediumButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/privacy_policy" />
+                <Button
+                    android:id="@+id/cookie_policy"
+                    style="@style/MediumButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cookie_policy" />
+                <Button
+                    android:id="@+id/terms_of_service"
+                    style="@style/MediumButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/terms_of_service" />
+
+            </com.wefika.flowlayout.FlowLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>
