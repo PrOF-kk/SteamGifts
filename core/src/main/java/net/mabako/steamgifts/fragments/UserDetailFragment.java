@@ -127,7 +127,8 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
         fragmentNegativeFeedback.setiUserNotification(this);
 
         viewPager = layout.findViewById(R.id.viewPager);
-        viewPagerAdapter = new CustomPagerAdapter((AppCompatActivity) getActivity(), viewPager, fragmentSent, fragmentWon, fragmentPositiveFeedback, fragmentNegativeFeedback);
+        // SteamTrades tabs temporarily disabled until we get unblocked or can bypass Cloudflare
+        viewPagerAdapter = new CustomPagerAdapter((AppCompatActivity) getActivity(), viewPager, fragmentSent, fragmentWon/*, fragmentPositiveFeedback, fragmentNegativeFeedback*/);
         viewPager.setAdapter(viewPagerAdapter);
 
         tabLayout = layout.findViewById(R.id.tabLayout);
