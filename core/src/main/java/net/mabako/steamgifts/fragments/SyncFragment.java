@@ -56,9 +56,8 @@ public class SyncFragment extends Fragment {
         outState.putSerializable(SAVED_XSRF, xsrfToken);
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public @Nullable View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sync, container, false);
 
         if (!SteamGiftsUserData.getCurrent(getContext()).isLoggedIn()) {

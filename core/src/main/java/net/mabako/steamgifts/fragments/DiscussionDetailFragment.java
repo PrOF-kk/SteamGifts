@@ -92,9 +92,8 @@ public class DiscussionDetailFragment extends DetailFragment implements IHasPoll
         return d;
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public @Nullable View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = super.onCreateView(inflater, container, savedInstanceState);
 
         if (basicDiscussion instanceof Discussion discussion) {
@@ -273,15 +272,13 @@ public class DiscussionDetailFragment extends DetailFragment implements IHasPoll
         throw new UnsupportedOperationException("Fetching user details by steamID64");
     }
 
-    @NonNull
     @Override
-    protected Serializable getDetailObject() {
+    protected @NonNull Serializable getDetailObject() {
         return basicDiscussion;
     }
 
-    @Nullable
     @Override
-    protected String getDetailPath() {
+    protected @Nullable String getDetailPath() {
         if (basicDiscussion instanceof Discussion discussion)
             return "discussion/" + basicDiscussion.getDiscussionId() + "/" + discussion.getName();
 

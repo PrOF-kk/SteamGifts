@@ -60,9 +60,8 @@ public abstract class DetailFragment extends ListFragment<CommentAdapter> implem
         outState.putSerializable(SAVED_COMMENT_CONTEXT, commentContext);
     }
 
-    @NonNull
     @Override
-    protected final CommentAdapter createAdapter() {
+    protected final @NonNull CommentAdapter createAdapter() {
         return new CommentAdapter();
     }
 
@@ -182,11 +181,9 @@ public abstract class DetailFragment extends ListFragment<CommentAdapter> implem
         }
     }
 
-    @NonNull
-    protected abstract Serializable getDetailObject();
+    protected abstract @NonNull Serializable getDetailObject();
 
-    @Nullable
-    protected abstract String getDetailPath();
+    protected abstract @Nullable String getDetailPath();
 
     protected abstract String getTitle();
 

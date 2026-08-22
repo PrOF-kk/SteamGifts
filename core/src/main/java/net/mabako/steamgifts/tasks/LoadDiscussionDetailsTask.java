@@ -140,8 +140,7 @@ public class LoadDiscussionDetailsTask extends AsyncTask<Void, Void, DiscussionE
         return discussion;
     }
 
-    @NonNull
-    private DiscussionExtras loadExtras(Document document) {
+    private @NonNull DiscussionExtras loadExtras(Document document) {
         DiscussionExtras extras = new DiscussionExtras();
 
         // Load the description

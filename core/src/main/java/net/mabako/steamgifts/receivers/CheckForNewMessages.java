@@ -161,8 +161,7 @@ public class CheckForNewMessages extends AbstractNotificationCheckReceiver {
          * @param includeName whether or not to include the author's name
          * @return text to display in the notification
          */
-        @NonNull
-        private CharSequence formatComment(Comment comment, boolean includeName) {
+        private @NonNull CharSequence formatComment(Comment comment, boolean includeName) {
             String content = StringUtils.fromHtml(context, comment.getContent()).toString();
             if (TextUtils.isEmpty(content) && comment.getAttachedImages() != null && !comment.getAttachedImages().isEmpty()) {
                 content = context.getString(R.string.notification_has_attached_image);

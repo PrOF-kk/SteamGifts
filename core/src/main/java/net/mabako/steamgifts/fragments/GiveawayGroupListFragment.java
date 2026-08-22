@@ -57,9 +57,8 @@ public class GiveawayGroupListFragment extends ListFragment<GiveawayGroupAdapter
         adapter.setFragmentValues(this, getContext());
     }
 
-    @NonNull
     @Override
-    protected GiveawayGroupAdapter createAdapter() {
+    protected @NonNull GiveawayGroupAdapter createAdapter() {
         return new GiveawayGroupAdapter();
     }
 

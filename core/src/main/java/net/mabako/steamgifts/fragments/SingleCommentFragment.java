@@ -20,9 +20,8 @@ import net.mabako.steamgifts.data.Comment;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 public class SingleCommentFragment extends Fragment {
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public @Nullable View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.comment, container, false);
 
         Comment comment = (Comment) getActivity().getIntent().getSerializableExtra(WriteCommentActivity.PARENT);

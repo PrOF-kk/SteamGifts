@@ -17,9 +17,8 @@ import net.mabako.steamgifts.ApplicationTemplate;
 import net.mabako.steamgifts.core.R;
 
 public class AboutFragment extends Fragment {
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public @Nullable View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.fragment_about, container, false);
 
         TextView versionText = layout.findViewById(R.id.version);

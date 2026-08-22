@@ -234,8 +234,7 @@ public class GiveawayListItemViewHolder extends RecyclerView.ViewHolder implemen
         lastBoundGiveawayId = Objects.requireNonNullElse(giveaway.getGiveawayId(), "");
     }
 
-    @NonNull
-    private String getGiveawayDetails(@NonNull Giveaway giveaway) {
+    private @NonNull String getGiveawayDetails(@NonNull Giveaway giveaway) {
         StringJoiner sj = new StringJoiner(" • ");
         if (giveaway.getCopies() > 1)
             sj.add(activity.getResources().getQuantityString(R.plurals.copies, giveaway.getCopies(), giveaway.getCopies()));

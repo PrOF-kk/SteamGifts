@@ -24,8 +24,7 @@ import java.util.List;
 public class ChromeTabsDelegate implements IntentDelegate {
     private static final String TAG = ChromeTabsDelegate.class.getSimpleName();
 
-    @NonNull
-    private final Uri uri;
+    private final @NonNull Uri uri;
 
     public ChromeTabsDelegate(@NonNull Uri uri) {
         this.uri = uri;

@@ -79,8 +79,7 @@ public final class Utils {
      * @param includeTradeScore whether or not to include +/- elements of the trading score, only visible in the trades section
      * @return the new comment
      */
-    @NonNull
-    public static Comment loadComment(Element element, long commentId, int depth, boolean includeTradeScore, Comment.Type type) {
+    public static @NonNull Comment loadComment(Element element, long commentId, int depth, boolean includeTradeScore, Comment.Type type) {
         // TODO Since we're not passing any session information to Steam Trades, we can't edit. This is NOT feature complete for both trading & normal use
 
         // Save the content of the edit state for a bit & remove the edit state from being rendered.
@@ -157,8 +156,7 @@ public final class Utils {
     /**
      * Extracts game info from thumbnails found in "list" pages (Won, Entered, Created, etc.)
      */
-    @Nullable
-    public static Game extractGameFromThumbnail(@NonNull Element thumbnail) {
+    public static @Nullable Game extractGameFromThumbnail(@NonNull Element thumbnail) {
         Uri thumbUri = Uri.parse(Utils.extractAvatar(thumbnail.attr("style")));
         List<String> pathSegments = thumbUri.getPathSegments();
         // Thumbnail uris are usually like

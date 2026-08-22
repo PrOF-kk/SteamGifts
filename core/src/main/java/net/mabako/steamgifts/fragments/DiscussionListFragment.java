@@ -36,11 +36,9 @@ public class DiscussionListFragment extends SearchableListFragment<DiscussionAda
     /**
      * Type of items to show.
      */
-    @NonNull
-    private Type type = Type.ALL;
+    private @NonNull Type type = Type.ALL;
 
-    @NonNull
-    private Sort sort = Sort.LAST_POST;
+    private @NonNull Sort sort = Sort.LAST_POST;
 
     public static Fragment newInstance(Type type, String query) {
         DiscussionListFragment f = new DiscussionListFragment();
@@ -78,9 +76,8 @@ public class DiscussionListFragment extends SearchableListFragment<DiscussionAda
         outState.putSerializable(SAVED_SORT, sort);
     }
 
-    @NonNull
     @Override
-    protected DiscussionAdapter createAdapter() {
+    protected @NonNull DiscussionAdapter createAdapter() {
         return new DiscussionAdapter();
     }
 
@@ -99,9 +96,8 @@ public class DiscussionListFragment extends SearchableListFragment<DiscussionAda
         return null;
     }
 
-    @NonNull
     @Override
-    public Type getType() {
+    public @NonNull Type getType() {
         return type;
     }
 

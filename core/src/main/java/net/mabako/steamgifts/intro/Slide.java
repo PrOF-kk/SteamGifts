@@ -29,9 +29,8 @@ public class Slide extends Fragment {
         return fragment;
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public @Nullable View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         subview = (SubView) getArguments().getSerializable("subview");
         if (subview == null)
             throw new IllegalStateException("Not a slide given?");

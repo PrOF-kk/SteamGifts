@@ -96,9 +96,8 @@ public class ImageFragment extends Fragment {
         url = url.replace("http://", "https://");
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public @Nullable View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.image_page_item, container, false);
 
         switch (state) {
@@ -186,23 +185,20 @@ public class ImageFragment extends Fragment {
             /**
              * Since it is downright foolish to load the entire bitmap in memory (I've tried, to no avail), use this decoder to keep it to a minimum.
              */
-            @NonNull
             @Override
-            public ImageRegionDecoder make() {
+            public @NonNull ImageRegionDecoder make() {
                 return new ImageRegionDecoder() {
                     private final Object decoderLock = new Object();
                     private BitmapRegionDecoder decoder;
 
-                    @NonNull
                     @Override
-                    public Point init(Context context, @NonNull Uri uri) throws Exception {
+                    public @NonNull Point init(Context context, @NonNull Uri uri) throws Exception {
                         decoder = BitmapRegionDecoder.newInstance(imageBytes, 0, imageBytes.length, true);
                         return new Point(decoder.getWidth(), decoder.getHeight());
                     }
 
-                    @NonNull
                     @Override
-                    public Bitmap decodeRegion(@NonNull Rect rect, int sampleSize) {
+                    public @NonNull Bitmap decodeRegion(@NonNull Rect rect, int sampleSize) {
                         synchronized (this.decoderLock) {
                             BitmapFactory.Options options = new BitmapFactory.Options();
                             options.inSampleSize = sampleSize;

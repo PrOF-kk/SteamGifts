@@ -57,9 +57,8 @@ public class GiveawayWinnerListFragment extends ListFragment<UserAdapter> implem
         adapter.setFragmentValues(this);
     }
 
-    @NonNull
     @Override
-    protected UserAdapter createAdapter() {
+    protected @NonNull UserAdapter createAdapter() {
         return new UserAdapter();
     }
 

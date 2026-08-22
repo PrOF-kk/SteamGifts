@@ -133,9 +133,8 @@ public class SavedGiveawaysFragment extends ListFragment<SavedGiveawaysFragment.
         }
     }
 
-    @NonNull
     @Override
-    protected SavedGiveawaysAdapter createAdapter() {
+    protected @NonNull SavedGiveawaysAdapter createAdapter() {
         return new SavedGiveawaysAdapter(-1, false, PreferenceManager.getDefaultSharedPreferences(getContext()));
     }
 

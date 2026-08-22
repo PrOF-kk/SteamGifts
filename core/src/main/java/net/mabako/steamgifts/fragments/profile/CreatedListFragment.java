@@ -31,9 +31,8 @@ public class CreatedListFragment extends ListFragment<GiveawayAdapter> implement
         adapter.setFragmentValues(getActivity(), this, null);
     }
 
-    @NonNull
     @Override
-    protected GiveawayAdapter createAdapter() {
+    protected @NonNull GiveawayAdapter createAdapter() {
         return new GiveawayAdapter(50, PreferenceManager.getDefaultSharedPreferences(getContext()));
     }
 

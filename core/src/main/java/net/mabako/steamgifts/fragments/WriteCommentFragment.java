@@ -72,9 +72,8 @@ public class WriteCommentFragment extends DialogFragment {
         outState.putSerializable(SAVED_GIVEAWAY_ID, giveawayId);
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public @Nullable View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_write_comment, container, false);
 
         setHasOptionsMenu(true);

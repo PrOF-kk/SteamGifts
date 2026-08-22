@@ -129,9 +129,8 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
         }
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public @Nullable View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = super.onCreateView(inflater, container, savedInstanceState);
 
         if (basicGiveaway instanceof Giveaway giveaway) {
@@ -379,15 +378,13 @@ public class GiveawayDetailFragment extends DetailFragment implements IHasEntera
             GiveawayListFragmentStack.onHideGame(internalGameId);
     }
 
-    @NonNull
     @Override
-    protected Serializable getDetailObject() {
+    protected @NonNull Serializable getDetailObject() {
         return basicGiveaway;
     }
 
-    @Nullable
     @Override
-    protected String getDetailPath() {
+    protected @Nullable String getDetailPath() {
         if (basicGiveaway instanceof Giveaway giveaway)
             return "giveaway/" + giveaway.getGiveawayId() + "/" + giveaway.getName();
 

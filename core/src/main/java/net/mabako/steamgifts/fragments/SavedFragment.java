@@ -18,9 +18,8 @@ import net.mabako.steamgifts.fragments.interfaces.IActivityTitle;
 
 public class SavedFragment extends Fragment {
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public @Nullable View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_saved, container, false);
 
         ActionBar toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();

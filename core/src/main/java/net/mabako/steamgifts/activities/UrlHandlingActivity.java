@@ -32,8 +32,7 @@ public class UrlHandlingActivity extends CommonActivity {
     private static final Pattern youtubePattern = Pattern.compile("^https?://[\\.\\w]*youtube\\.\\w+/.*");
     private static final Pattern youtu_bePattern = Pattern.compile("^https?://[\\.\\w]*youtu\\.be/([A-Za-z0-9\\-_]+)(\\?.*|).*");
 
-    @Nullable
-    public static Intent getIntentForUri(@NonNull Context context, @NonNull Uri uri) {
+    public static @Nullable Intent getIntentForUri(@NonNull Context context, @NonNull Uri uri) {
         Log.v(TAG, uri.toString());
         List<String> pathSegments = uri.getPathSegments();
         if ("www.steamgifts.com".equals(uri.getHost()) || "steamgifts.com".equals(uri.getHost())) {
@@ -88,13 +87,11 @@ public class UrlHandlingActivity extends CommonActivity {
         return null;
     }
 
-    @NonNull
-    public static IntentDelegate getIntentForUri(@NonNull Context context, @NonNull Uri uri, boolean returnWebIntentIfNoneMatching) {
+    public static @NonNull IntentDelegate getIntentForUri(@NonNull Context context, @NonNull Uri uri, boolean returnWebIntentIfNoneMatching) {
         return getIntentForUri(context, uri, returnWebIntentIfNoneMatching, false);
     }
 
-    @NonNull
-    public static IntentDelegate getIntentForUri(@NonNull final Context context, @NonNull Uri uri, boolean returnWebIntentIfNoneMatching, boolean noBackStack) {
+    public static @NonNull IntentDelegate getIntentForUri(@NonNull final Context context, @NonNull Uri uri, boolean returnWebIntentIfNoneMatching, boolean noBackStack) {
         Intent intent = getIntentForUri(context, uri);
 
         if (intent == null) {
@@ -153,8 +150,7 @@ public class UrlHandlingActivity extends CommonActivity {
     }
 
     private static class RealIntentDelegate implements IntentDelegate {
-        @NonNull
-        private final Intent intent;
+        private final @NonNull Intent intent;
 
         public RealIntentDelegate(@NonNull Intent intent) {
             this.intent = intent;

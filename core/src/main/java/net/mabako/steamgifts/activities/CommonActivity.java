@@ -64,8 +64,7 @@ public class CommonActivity extends BaseActivity {
         }
     }
 
-    @NonNull
-    protected String getFragmentTitle(Fragment fragment) {
+    protected @NonNull String getFragmentTitle(Fragment fragment) {
         String title = getString(R.string.app_name);
         if (fragment instanceof IActivityTitle fWithActivityTitle) {
             int resource = fWithActivityTitle.getTitleResource();

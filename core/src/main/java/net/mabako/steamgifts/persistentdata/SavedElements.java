@@ -63,8 +63,7 @@ public abstract class SavedElements<T> implements Comparator<T> {
      * @param elementId the id of the element
      * @return the found element, or null if not existent.
      */
-    @Nullable
-    public T get(@NonNull String elementId) {
+    public @Nullable T get(@NonNull String elementId) {
         return helper.get(elementId);
     }
 

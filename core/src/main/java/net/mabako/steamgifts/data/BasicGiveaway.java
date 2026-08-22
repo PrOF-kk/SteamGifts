@@ -24,8 +24,7 @@ public class BasicGiveaway implements Serializable {
         this.giveawayId = giveawayId;
     }
 
-    @Nullable
-    public String getGiveawayId() {
+    public @Nullable String getGiveawayId() {
         return giveawayId;
     }
 

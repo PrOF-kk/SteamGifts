@@ -42,8 +42,7 @@ public class LoadGiveawayDetailsTask extends AsyncTask<Void, Void, GiveawayExtra
     }
 
     @Override
-    @Nullable
-    protected GiveawayExtras doInBackground(Void... params) {
+    protected @Nullable GiveawayExtras doInBackground(Void... params) {
         String url = "https://www.steamgifts.com/giveaway/" + giveawayId + "/search?page=" + page;
         Log.d(TAG, "Fetching giveaway details for " + url);
 
@@ -136,8 +135,7 @@ public class LoadGiveawayDetailsTask extends AsyncTask<Void, Void, GiveawayExtra
         return giveaway;
     }
 
-    @NonNull
-    private GiveawayExtras loadExtras(Document document) {
+    private @NonNull GiveawayExtras loadExtras(Document document) {
         GiveawayExtras extras = new GiveawayExtras();
 
         extras.setTitle(Utils.getPageTitle(document));

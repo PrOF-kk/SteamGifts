@@ -47,9 +47,8 @@ public class ImagePagerFragment extends Fragment {
         images = (List<Image>) requireArguments().getSerializable(ARG_IMAGES);
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public @Nullable View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.image_pager_fragment, container, false);
 
         fixStatusBarSpacing(view);
@@ -113,9 +112,8 @@ public class ImagePagerFragment extends Fragment {
             super(fm);
         }
 
-        @NonNull
         @Override
-        public Fragment getItem(int position) {
+        public @NonNull Fragment getItem(int position) {
             Log.v(TAG, "image at position " + position + " is " + images.get(position));
             return ImageFragment.newInstance(images.get(position).getUrl());
         }

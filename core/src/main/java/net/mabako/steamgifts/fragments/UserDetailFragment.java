@@ -105,9 +105,8 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
         }
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public @Nullable View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_user, container, false);
 
         ActionBar toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
@@ -350,9 +349,8 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
             outState.putString(SAVED_PATH, path);
         }
 
-        @NonNull
         @Override
-        protected GiveawayAdapter createAdapter() {
+        protected @NonNull GiveawayAdapter createAdapter() {
             return new GiveawayAdapter(25, PreferenceManager.getDefaultSharedPreferences(getContext()));
         }
 
@@ -437,9 +435,8 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
             outState.putString(SAVED_RATING, rating);
         }
 
-        @NonNull
         @Override
-        protected CommentAdapter createAdapter() {
+        protected @NonNull CommentAdapter createAdapter() {
             return new CommentAdapter();
         }
 

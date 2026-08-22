@@ -29,9 +29,8 @@ public class Image implements Serializable {
         this.title = title;
     }
 
-    @NonNull
     @Override
-    public String toString() {
+    public @NonNull String toString() {
         return String.format("(%s,%s)", url, title);
     }
 }

@@ -48,9 +48,8 @@ public class MessageListFragment extends ListFragment<MessageAdapter> implements
         return view;
     }
 
-    @NonNull
     @Override
-    protected MessageAdapter createAdapter() {
+    protected @NonNull MessageAdapter createAdapter() {
         return new MessageAdapter();
     }
 

@@ -46,8 +46,7 @@ public abstract class ListFragment<AdapterType extends EndlessAdapter> extends F
     protected SwipeRefreshLayout swipeContainer;
     private ProgressBar progressBar;
 
-    @Nullable
-    private FloatingActionButton scrollToTopButton;
+    private @Nullable FloatingActionButton scrollToTopButton;
 
     private AsyncTask<Void, Void, ?> taskToFetchItems = null;
 
@@ -213,8 +212,7 @@ public abstract class ListFragment<AdapterType extends EndlessAdapter> extends F
         }
     }
 
-    @NonNull
-    protected abstract AdapterType createAdapter();
+    protected abstract @NonNull AdapterType createAdapter();
 
     /**
      * Load all items from a particular page.

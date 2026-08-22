@@ -38,9 +38,8 @@ public class SavedDiscussionsFragment extends ListFragment<DiscussionAdapter> im
         }
     }
 
-    @NonNull
     @Override
-    protected DiscussionAdapter createAdapter() {
+    protected @NonNull DiscussionAdapter createAdapter() {
         return new DiscussionAdapter();
     }
 

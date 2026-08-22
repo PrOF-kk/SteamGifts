@@ -37,8 +37,7 @@ public abstract class StoreFragment extends ListFragment<StoreFragment.Adapter> 
     }
 
     @Override
-    @NonNull
-    protected Adapter createAdapter() {
+    protected @NonNull Adapter createAdapter() {
         return new Adapter();
     }
 

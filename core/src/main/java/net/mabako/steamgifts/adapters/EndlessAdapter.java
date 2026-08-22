@@ -332,8 +332,7 @@ public abstract class EndlessAdapter extends RecyclerView.Adapter<RecyclerView.V
      * @param viewType type of the view
      * @return
      */
-    @NonNull
-    public final RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public final @NonNull RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == PROGRESS_VIEW || viewType == END_VIEW) {
             View view = LayoutInflater.from(parent.getContext()).inflate(viewType == PROGRESS_VIEW ? R.layout.endless_progress_bar : R.layout.endless_scroll_end, parent, false);
             return new EmptyViewHolder(view);

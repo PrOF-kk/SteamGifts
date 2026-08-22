@@ -60,9 +60,8 @@ public class Poll implements Serializable {
         this.closed = closed;
     }
 
-    @NonNull
     @Override
-    public String toString() {
+    public @NonNull String toString() {
         StringBuilder sb = new StringBuilder("Poll[");
 
         for (int i = 0; i < answers.size(); ++i) {
@@ -153,9 +152,8 @@ public class Poll implements Serializable {
             return id;
         }
 
-        @NonNull
         @Override
-        public String toString() {
+        public @NonNull String toString() {
             return "[" + id + "," + voteCount + "," + text + "]";
         }
     }

@@ -59,9 +59,8 @@ public class HiddenGamesFragment extends SearchableListFragment<HiddenGamesAdapt
         outState.putSerializable(SAVED_LAST_REMOVED, lastRemovedGame);
     }
 
-    @NonNull
     @Override
-    protected HiddenGamesAdapter createAdapter() {
+    protected @NonNull HiddenGamesAdapter createAdapter() {
         return new HiddenGamesAdapter();
     }
 

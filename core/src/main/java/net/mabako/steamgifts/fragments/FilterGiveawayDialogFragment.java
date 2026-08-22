@@ -25,9 +25,8 @@ public class FilterGiveawayDialogFragment extends DialogFragment implements Dial
     private View view;
     private IFilterUpdatedListener listener;
 
-    @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public @NonNull Dialog onCreateDialog(Bundle savedInstanceState) {
         FilterData f = FilterData.getCurrent(getContext());
         view = getActivity().getLayoutInflater().inflate(R.layout.fragment_filter, null, false);
 

@@ -79,9 +79,8 @@ public class WhitelistBlacklistFragment extends SearchableListFragment<UserAdapt
         }
     }
 
-    @NonNull
     @Override
-    protected UserAdapter createAdapter() {
+    protected @NonNull UserAdapter createAdapter() {
         return new UserAdapter();
     }
 

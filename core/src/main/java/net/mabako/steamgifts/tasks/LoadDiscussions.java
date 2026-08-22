@@ -45,9 +45,8 @@ public class LoadDiscussions extends AsyncTask<Void, Void, List<Discussion>> {
         this.searchQuery = searchQuery;
     }
 
-    @Nullable
     @Override
-    protected List<Discussion> doInBackground(Void... params) {
+    protected @Nullable List<Discussion> doInBackground(Void... params) {
         try {
             // Fetch the Discussions page
 
