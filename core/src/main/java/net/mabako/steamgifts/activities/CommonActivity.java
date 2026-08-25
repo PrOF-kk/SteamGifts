@@ -1,12 +1,11 @@
 package net.mabako.steamgifts.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.text.Editable;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -137,12 +136,8 @@ public class CommonActivity extends BaseActivity {
             idInputBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> { /* do nothing */ });
             AlertDialog idInputDialog = idInputBuilder.show();
 
-            // Force opening the keyboard. This is a hack.
+            idInputDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
             inputField.requestFocus();
-            inputField.postDelayed(() -> {
-                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                inputMethodManager.showSoftInput(inputField, InputMethodManager.SHOW_IMPLICIT);
-            }, 500);
 
             Button okButton = idInputDialog.getButton(AlertDialog.BUTTON_POSITIVE);
             okButton.setOnClickListener(v -> {
