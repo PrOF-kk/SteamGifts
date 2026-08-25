@@ -129,7 +129,7 @@ public class GiveawayListFragment extends SearchableListFragment<GiveawayAdapter
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
-        if (PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("preference_giveaway_swipe_to_hide", true) && SteamGiftsUserData.getCurrent(getContext()).isLoggedIn()) {
+        if (PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("preference_giveaway_swipe_to_hide", false) && SteamGiftsUserData.getCurrent(getContext()).isLoggedIn()) {
             setupSwiping();
         }
 

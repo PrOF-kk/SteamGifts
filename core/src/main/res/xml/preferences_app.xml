@@ -36,7 +36,7 @@
             android:title="@string/preference_giveaway_quick_enter" />
 
         <SwitchPreference
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:key="preference_giveaway_swipe_to_hide"
             android:title="@string/preference_giveaway_swipe_to_hide" />
     </PreferenceCategory>
