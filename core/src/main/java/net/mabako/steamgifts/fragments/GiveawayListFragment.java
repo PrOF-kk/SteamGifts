@@ -335,20 +335,19 @@ public class GiveawayListFragment extends SearchableListFragment<GiveawayAdapter
         /// New giveaways.
         NEW(R.string.navigation_giveaways_new, R.string.navigation_giveaways_new_title);
 
-        private final int titleResource;
         private final int navbarResource;
+        private final int titleResource;
 
         Type(int navbarResource, int titleResource) {
             this.navbarResource = navbarResource;
             this.titleResource = titleResource;
         }
 
-        public int getTitleResource() {
-            return titleResource;
-        }
-
         public int getNavbarResource() {
             return navbarResource;
+        }
+        public int getTitleResource() {
+            return titleResource;
         }
     }
 
