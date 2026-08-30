@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -319,6 +320,7 @@ public class GiveawayListFragment extends SearchableListFragment<GiveawayAdapter
     }
 
     /// Different types of Giveaway lists.
+    @Keep
     public enum Type {
         /// All giveaways.
         ALL(R.string.navigation_giveaways_all, R.string.navigation_giveaways_all_title),
@@ -348,6 +350,17 @@ public class GiveawayListFragment extends SearchableListFragment<GiveawayAdapter
         }
         public int getTitleResource() {
             return titleResource;
+        }
+
+        public static Type fromString(@Nullable String name) {
+            if (name == null)
+                return ALL;
+
+            try {
+                return valueOf(name);
+            } catch (IllegalArgumentException e) {
+                return ALL;
+            }
         }
     }
 

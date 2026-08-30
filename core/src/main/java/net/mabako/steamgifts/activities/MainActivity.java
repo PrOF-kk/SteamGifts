@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -46,10 +47,12 @@ public class MainActivity extends CommonActivity implements IPointUpdateNotifica
         if (savedInstanceState == null) {
             ((ApplicationTemplate) getApplication()).showBetaNotification(this, true);
 
-            // Load a default fragment to show all giveaways
+            // Load the landing page fragment
             Serializable type = getIntent().getSerializableExtra(ARG_TYPE);
-            if (type == null)
-                type = GiveawayListFragment.Type.ALL;
+            if (type == null) {
+                String landingPage = PreferenceManager.getDefaultSharedPreferences(this).getString("preference_giveaway_landing_page", GiveawayListFragment.Type.ALL.name());
+                type = GiveawayListFragment.Type.fromString(landingPage);
+            }
 
             String query = getIntent().getStringExtra(ARG_QUERY);
 
@@ -89,10 +92,12 @@ public class MainActivity extends CommonActivity implements IPointUpdateNotifica
 
         super.onAccountChange();
 
-        loadFragment(GiveawayListFragment.newInstance(GiveawayListFragment.Type.ALL, null, navbar == null));
+        String landingPage = PreferenceManager.getDefaultSharedPreferences(this).getString("preference_giveaway_landing_page", GiveawayListFragment.Type.ALL.name());
+        GiveawayListFragment.Type type = GiveawayListFragment.Type.fromString(landingPage);
+        loadFragment(GiveawayListFragment.newInstance(type, null, navbar == null));
 
         if (navbar != null)
-            navbar.setSelection(R.string.navigation_giveaways_all);
+            navbar.setSelection(type.getNavbarResource());
     }
 
     @Override

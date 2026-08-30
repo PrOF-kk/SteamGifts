@@ -13,6 +13,13 @@
         android:key="preferences_giveaways"
         android:title="@string/preferences_giveaways">
         <ListPreference
+            android:defaultValue="ALL"
+            android:entries="@array/preference_giveaways_landing_page_entries"
+            android:entryValues="@array/preference_giveaways_landing_page_entry_values"
+            android:key="preference_giveaway_landing_page"
+            android:summary="%s"
+            android:title="@string/preference_giveaway_landing_page" />
+        <ListPreference
             android:defaultValue="details;list"
             android:entries="@array/preference_giveaway_load_images_entries"
             android:entryValues="@array/preference_giveaway_load_images_entry_values"

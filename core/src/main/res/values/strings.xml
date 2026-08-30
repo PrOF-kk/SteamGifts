@@ -6,15 +6,15 @@
     <!-- Navigation for Giveaways -->
     <string name="navigation_giveaways">Giveaways</string>
     <string name="navigation_giveaways_all">All</string>
-    <string name="navigation_giveaways_wishlist">Wishlist</string>
     <string name="navigation_giveaways_recommended">Recommended</string>
-    <string name="navigation_giveaways_group">Group</string>
     <string name="navigation_giveaways_new">New</string>
+    <string name="navigation_giveaways_wishlist">Wishlist</string>
+    <string name="navigation_giveaways_group">Group</string>
     <string name="navigation_giveaways_all_title">All Giveaways</string>
-    <string name="navigation_giveaways_wishlist_title">Wishlist Giveaways</string>
     <string name="navigation_giveaways_recommended_title">Recommended Giveaways</string>
-    <string name="navigation_giveaways_group_title">Group Giveaways</string>
     <string name="navigation_giveaways_new_title">New Giveaways</string>
+    <string name="navigation_giveaways_wishlist_title">Wishlist Giveaways</string>
+    <string name="navigation_giveaways_group_title">Group Giveaways</string>
 
     <!-- Navigation for Discussions -->
     <string name="navigation_discussions">Discussions</string>
@@ -156,6 +156,21 @@
     <string name="preference_theme_nightmode">Night Mode</string>
 
     <string name="preferences_giveaways">Giveaways</string>
+    <string name="preference_giveaway_landing_page">Landing Page</string>
+    <string-array name="preference_giveaways_landing_page_entries">
+        <item>@string/navigation_giveaways_all_title</item>
+        <item>@string/navigation_giveaways_recommended_title</item>
+        <item>@string/navigation_giveaways_new_title</item>
+        <item>@string/navigation_giveaways_wishlist_title</item>
+        <item>@string/navigation_giveaways_group_title</item>
+    </string-array>
+    <string-array name="preference_giveaways_landing_page_entry_values">
+        <item>ALL</item>
+        <item>RECOMMENDED</item>
+        <item>NEW</item>
+        <item>WISHLIST</item>
+        <item>GROUP</item>
+    </string-array>
     <string name="preference_giveaway_load_images">Load Images</string>
     <string name="preference_giveaway_show_game_features">Load Game Features</string>
     <string name="preference_giveaway_show_pinned">Show Featured Giveaways first</string>
