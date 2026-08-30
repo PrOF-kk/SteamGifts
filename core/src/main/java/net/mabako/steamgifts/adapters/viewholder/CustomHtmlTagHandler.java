@@ -10,6 +10,7 @@ import android.text.Editable;
 import android.text.Html;
 import android.text.Layout;
 import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.BulletSpan;
 import android.text.style.ClickableSpan;
@@ -224,14 +225,27 @@ public class CustomHtmlTagHandler implements Html.TagHandler {
             output.setSpan(new Spoiler(), len, len, Spanned.SPAN_MARK_MARK);
         } else {
             Object obj = getLast(output, Spoiler.class);
+            if (obj == null) {
+                // Malformed HTML?
+                return;
+            }
             int where = output.getSpanStart(obj);
 
             output.removeSpan(obj);
 
             if (where != len) {
-                char[] str = new char[len - where];
-                output.getChars(where, len, str, 0);
-                final String text = String.valueOf(str);
+                // SpannableStringBuilder, keeps the original spans
+                CharSequence text = output.subSequence(where, len);
+
+                // Remove links
+                ClickableSpan[] spans = output.getSpans(where, len, ClickableSpan.class);
+                for (ClickableSpan span : spans) {
+                    int spanStart = output.getSpanStart(span);
+                    int spanEnd = output.getSpanEnd(span);
+                    if (spanStart >= where && spanEnd <= len) {
+                        output.removeSpan(span);
+                    }
+                }
 
                 output.setSpan(new ClickableSpan() {
                     @Override
@@ -239,7 +253,9 @@ public class CustomHtmlTagHandler implements Html.TagHandler {
                         Dialog dialog = new Dialog(widget.getContext());
                         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                         dialog.setContentView(R.layout.spoiler_dialog);
-                        ((TextView) dialog.findViewById(R.id.text)).setText(text);
+                        TextView textView = dialog.findViewById(R.id.text);
+                        textView.setText(text);
+                        textView.setMovementMethod(LinkMovementMethod.getInstance());
                         dialog.show();
                     }
                 }, where, len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
