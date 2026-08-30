@@ -61,10 +61,10 @@
             android:exported="false"
             android:screenOrientation="portrait" />
 
-        <!-- handle all urls... or at least some -->
         <activity
             android:name="net.mabako.steamgifts.activities.UrlHandlingActivity"
             android:exported="true">
+            <!-- Open URL in app if set as default, or through some browsers with "Open in app" -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -85,13 +85,19 @@
                 <data android:pathPattern="/discussion/...../.*" />
 
                 <!-- users -->
-                <data android:pathPattern="/user/.*" />
+                <data android:pathPrefix="/user/" />
 
                 <!-- list of giveaways -->
                 <data android:path="/giveaways/search" />
 
                 <!-- breaks other filtering? -->
                 <!-- <data android:path="/"/> -->
+            </intent-filter>
+            <!-- Open URL in app from share menu -->
+            <intent-filter android:label="Open SteamGifts urls">
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
 

@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,6 +33,7 @@ public class UrlHandlingActivity extends CommonActivity {
     private static final Pattern youtubePattern = Pattern.compile("^https?://[\\.\\w]*youtube\\.\\w+/.*");
     private static final Pattern youtu_bePattern = Pattern.compile("^https?://[\\.\\w]*youtu\\.be/([A-Za-z0-9\\-_]+)(\\?.*|).*");
 
+    /// Returns `null` if the uri is unknown
     public static @Nullable Intent getIntentForUri(@NonNull Context context, @NonNull Uri uri) {
         Log.v(TAG, uri.toString());
         List<String> pathSegments = uri.getPathSegments();
@@ -124,15 +126,22 @@ public class UrlHandlingActivity extends CommonActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Start whatever intent we were launching
-        Intent intentToStart = getIntentForUri(this, getIntent().getData());
-        if (intentToStart != null) {
-            startActivity(intentToStart);
-        } else {
-            // Fallback for opening an unknown url.
-            startActivity(new Intent(this, MainActivity.class));
+        // Get target uri from intent
+        Uri uri = switch (getIntent()) {
+            case Intent i when Intent.ACTION_VIEW.equals(i.getAction()) -> i.getData();
+            case Intent i when Intent.ACTION_SEND.equals(i.getAction()) && "text/plain".equals(i.getType()) -> Uri.parse(i.getStringExtra(Intent.EXTRA_TEXT));
+            default -> null;
+        };
+        Intent start = null;
+        if (uri != null) {
+            start = getIntentForUri(this, uri);
         }
 
+        if (start != null) {
+            startActivity(start);
+        } else {
+            Toast.makeText(this, "URL not supported", Toast.LENGTH_SHORT).show();
+        }
         finish();
     }
 
