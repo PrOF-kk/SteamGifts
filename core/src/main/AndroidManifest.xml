@@ -105,11 +105,16 @@
         <activity
             android:name="net.mabako.steamgifts.activities.SettingsActivity"
             android:configChanges="orientation|screenSize"
+            android:exported="true"
             android:label="@string/preferences"
             android:parentActivityName="net.mabako.steamgifts.activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="net.mabako.steamgifts.activities.MainActivity" />
+            <intent-filter>
+                <action android:name="android.intent.action.APPLICATION_PREFERENCES" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
 
         <!-- intro -->
