@@ -147,48 +147,45 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
     @Override
     public void onUserUpdated(User user) {
         AppCompatActivity activity = (AppCompatActivity) getActivity();
-        if (activity != null) {
-            ActionBar actionBar = activity.getSupportActionBar();
-            if (actionBar != null) {
-                actionBar.setTitle(getNonConfusingUsername());
+        ActionBar actionBar = activity != null ? activity.getSupportActionBar() : null;
+        if (actionBar != null) {
+            actionBar.setTitle(getNonConfusingUsername());
 
-                StringBuilder subtitle = new StringBuilder();
-                if (user.getRole() != null)
-                    subtitle.append(user.getRole()).append(" • ");
-                subtitle.append(getString(R.string.user_level, user.getLevel()));
+            StringBuilder subtitle = new StringBuilder();
+            if (user.getRole() != null)
+                subtitle.append(user.getRole()).append(" • ");
+            subtitle.append(getString(R.string.user_level, user.getLevel()));
 
-                actionBar.setSubtitle(subtitle);
+            actionBar.setSubtitle(subtitle);
+
+            // Rescale the avatar to not take up the full navbar height.
+            int[] attrs = new int[]{R.attr.actionBarSize};
+            int size;
+            try (TypedArray ta = getContext().getTheme().obtainStyledAttributes(attrs)) {
+                size = (int) (ta.getDimensionPixelSize(0, 0) * 0.75f);
             }
+
+            Picasso.get()
+                    .load(user.getAvatar())
+                    .placeholder(R.drawable.default_avatar_mask)
+                    .resize(size, size)
+                    .transform(new RoundedCornersTransformation(20, 0))
+                    .into(new Target() {
+                        @Override
+                        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                            Drawable drawable = new BitmapDrawable(getResources(), bitmap);
+                            actionBar.setDisplayUseLogoEnabled(true);
+                            actionBar.setDisplayShowHomeEnabled(true);
+                            actionBar.setIcon(drawable);
+                        }
+                        @Override
+                        public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+                            Log.e(TAG, "Failed to load user avatar for " + user.getName(), e);
+                        }
+                        @Override
+                        public void onPrepareLoad(Drawable placeHolderDrawable) {}
+                    });
         }
-
-        // Rescale the avatar to not take up the full navbar height.
-        int[] attrs = new int[]{R.attr.actionBarSize};
-        int size;
-        try (TypedArray ta = getContext().getTheme().obtainStyledAttributes(attrs)) {
-            size = (int) (ta.getDimensionPixelSize(0, 0) * 0.75f);
-        }
-
-        Picasso.get().load(user.getAvatar()).placeholder(R.drawable.default_avatar_mask).resize(size, size).transform(new RoundedCornersTransformation(20, 0)).into(new Target() {
-            @Override
-            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                AppCompatActivity activity = (AppCompatActivity) getActivity();
-                if (activity != null) {
-                    ActionBar actionBar = activity.getSupportActionBar();
-                    if (actionBar != null) {
-                        Drawable drawable = new BitmapDrawable(getResources(), bitmap);
-                        actionBar.setDisplayUseLogoEnabled(true);
-                        actionBar.setDisplayShowHomeEnabled(true);
-                        actionBar.setIcon(drawable);
-                    }
-                }
-            }
-            @Override
-            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-                Log.e(TAG, "Failed to load user avatar for " + user.getName(), e);
-            }
-            @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {}
-        });
 
         if (user.getId() != 0) {
             whitelist.setVisibility(View.VISIBLE);
