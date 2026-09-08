@@ -34,7 +34,7 @@ public class CustomDateTime implements Serializable {
     /**
      * Set the time to an absolute date.
      *
-     * @param timestamp the unix timestamp
+     * @param timestamp the unix timestamp (seconds)
      * @param beginning true if this date is the date of the beginning, and not the end. Giveaways do not have an 'end date' if they're not open yet
      */
     public CustomDateTime(int timestamp, boolean beginning) {
@@ -73,6 +73,7 @@ public class CustomDateTime implements Serializable {
         String inWords = String.format(Locale.US, "%d %s%s", timeDiff, unit, timeDiff == 1 ? "" : "s");
         if (beginning && realTimeDiff > 0)
             // Giveaway already began, but we don't really know when it does actually -end-.
+            // This happens when bookmarking a giveaway that hasn't started yet
             return "Began already";
         else if (beginning)
             return "Begins in " + inWords;
