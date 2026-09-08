@@ -67,6 +67,8 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
     private IconicsImageButton blacklist;
 
     private UpdateWhitelistBlacklistTask updateWhitelistBlacklistTask;
+    /// Keep a strong reference until it's done loading
+    private Target actionBarLogo;
 
     public static UserDetailFragment newInstance(String userName) {
         UserDetailFragment fragment = new UserDetailFragment();
@@ -165,26 +167,30 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
                 size = (int) (ta.getDimensionPixelSize(0, 0) * 0.75f);
             }
 
+            actionBarLogo = new Target() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                    Drawable drawable = new BitmapDrawable(getResources(), bitmap);
+                    actionBar.setDisplayUseLogoEnabled(true);
+                    actionBar.setDisplayShowHomeEnabled(true);
+                    actionBar.setIcon(drawable);
+                    actionBarLogo = null;
+                }
+                @Override
+                public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+                    Log.e(TAG, "Failed to load user avatar for " + user.getName(), e);
+                    actionBarLogo = null;
+                }
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable) {}
+            };
+
             Picasso.get()
                     .load(user.getAvatar())
                     .placeholder(R.drawable.default_avatar_mask)
                     .resize(size, size)
                     .transform(new RoundedCornersTransformation(20, 0))
-                    .into(new Target() {
-                        @Override
-                        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                            Drawable drawable = new BitmapDrawable(getResources(), bitmap);
-                            actionBar.setDisplayUseLogoEnabled(true);
-                            actionBar.setDisplayShowHomeEnabled(true);
-                            actionBar.setIcon(drawable);
-                        }
-                        @Override
-                        public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-                            Log.e(TAG, "Failed to load user avatar for " + user.getName(), e);
-                        }
-                        @Override
-                        public void onPrepareLoad(Drawable placeHolderDrawable) {}
-                    });
+                    .into(actionBarLogo);
         }
 
         if (user.getId() != 0) {
