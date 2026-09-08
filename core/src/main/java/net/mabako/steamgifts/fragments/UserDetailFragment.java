@@ -283,33 +283,21 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    if (user.isLoaded()) {
-                        return getString(R.string.user_giveaways_created_count, user.getCreated(), user.getCreatedAmount());
-                    } else {
-                        return getString(R.string.user_giveaways_created);
-                    }
-                case 1:
-                    if (user.isLoaded()) {
-                        return getString(R.string.user_giveaway_won_count, user.getWon(), user.getWonAmount());
-                    } else {
-                        return getString(R.string.user_giveaway_won);
-                    }
-                case 2:
-                    if (user.isFeedbackLoaded()) {
-                        return getString(R.string.user_trade_feedback_positive_count, user.getPositiveFeedback());
-                    } else {
-                        return getString(R.string.user_trade_feedback_positive);
-                    }
-                case 3:
-                    if (user.isFeedbackLoaded()) {
-                        return getString(R.string.user_trade_feedback_negative_count, user.getNegativeFeedback());
-                    } else {
-                        return getString(R.string.user_trade_feedback_negative);
-                    }
-            }
-            return null;
+            return switch (position) {
+                case 0 -> user.isLoaded()
+                        ? getString(R.string.user_giveaways_created_count, user.getCreated(), user.getCreatedAmount())
+                        : getString(R.string.user_giveaways_created);
+                case 1 -> user.isLoaded()
+                        ? getString(R.string.user_giveaway_won_count, user.getWon(), user.getWonAmount())
+                        : getString(R.string.user_giveaway_won);
+                case 2 -> user.isFeedbackLoaded()
+                        ? getString(R.string.user_trade_feedback_positive_count, user.getPositiveFeedback())
+                        : getString(R.string.user_trade_feedback_positive);
+                case 3 -> user.isFeedbackLoaded()
+                        ? getString(R.string.user_trade_feedback_negative_count, user.getNegativeFeedback())
+                        : getString(R.string.user_trade_feedback_negative);
+                default -> null;
+            };
         }
     }
 
