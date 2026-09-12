@@ -121,60 +121,59 @@ public class CommonActivity extends BaseActivity {
         CharSequence[] strings = new CharSequence[]{getString(R.string.go_to_giveaway), getString(R.string.go_to_discussion), getString(R.string.go_to_user)};
         int[] hints = new int[]{R.string.go_to_giveaway_hint, R.string.go_to_discussion_hint, R.string.go_to_user_hint};
 
-        AlertDialog.Builder gotoButtonsBuilder = new AlertDialog.Builder(this);
-        gotoButtonsBuilder.setTitle(R.string.go_to);
-        gotoButtonsBuilder.setItems(strings, (dialogInterface, dialogSelected) -> {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.go_to)
+                .setItems(strings, (dialogInterface, dialogSelected) -> {
+                    View view = getLayoutInflater().inflate(R.layout.go_to_dialog, null);
+                    EditText inputField = view.findViewById(R.id.edit_text);
+                    inputField.setHint(hints[dialogSelected]);
 
-            View view = getLayoutInflater().inflate(R.layout.go_to_dialog, null);
-            EditText inputField = view.findViewById(R.id.edit_text);
-            inputField.setHint(hints[dialogSelected]);
+                    AlertDialog.Builder idInputBuilder = new AlertDialog.Builder(CommonActivity.this);
+                    idInputBuilder.setTitle(R.string.go_to);
+                    idInputBuilder.setMessage(strings[dialogSelected]);
+                    idInputBuilder.setView(view);
+                    idInputBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> { /* do nothing */ });
+                    AlertDialog idInputDialog = idInputBuilder.show();
 
-            AlertDialog.Builder idInputBuilder = new AlertDialog.Builder(CommonActivity.this);
-            idInputBuilder.setTitle(R.string.go_to);
-            idInputBuilder.setMessage(strings[dialogSelected]);
-            idInputBuilder.setView(view);
-            idInputBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> { /* do nothing */ });
-            AlertDialog idInputDialog = idInputBuilder.show();
+                    idInputDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                    inputField.requestFocus();
 
-            idInputDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-            inputField.requestFocus();
+                    Button okButton = idInputDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                    okButton.setOnClickListener(v -> {
+                        String target = inputField.getText().toString();
+                        Intent intent = new Intent(CommonActivity.this, DetailActivity.class);
+                        switch (dialogSelected) {
+                            case 0 -> intent.putExtra(GiveawayDetailFragment.ARG_GIVEAWAY, new BasicGiveaway(target));
+                            case 1 -> intent.putExtra(DiscussionDetailFragment.ARG_DISCUSSION, new BasicDiscussion(target));
+                            case 2 -> intent.putExtra(UserDetailFragment.ARG_USER, target);
+                        }
+                        startActivity(intent);
 
-            Button okButton = idInputDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-            okButton.setOnClickListener(v -> {
-                String target = inputField.getText().toString();
-                Intent intent = new Intent(CommonActivity.this, DetailActivity.class);
-                switch (dialogSelected) {
-                    case 0 -> intent.putExtra(GiveawayDetailFragment.ARG_GIVEAWAY, new BasicGiveaway(target));
-                    case 1 -> intent.putExtra(DiscussionDetailFragment.ARG_DISCUSSION, new BasicDiscussion(target));
-                    case 2 -> intent.putExtra(UserDetailFragment.ARG_USER, target);
-                }
-                startActivity(intent);
+                        idInputDialog.dismiss();
+                    });
+                    // Handle the enter key
+                    inputField.setOnEditorActionListener((v, actionId, enterEvent) -> {
+                        if (actionId == EditorInfo.IME_ACTION_GO || enterEvent != null) {
+                            okButton.performClick();
+                            return true;
+                        }
+                        return false;
+                    });
 
-                idInputDialog.dismiss();
-            });
-            // Handle the enter key
-            inputField.setOnEditorActionListener((v, actionId, enterEvent) -> {
-                if (actionId == EditorInfo.IME_ACTION_GO || enterEvent != null) {
-                    okButton.performClick();
-                    return true;
-                }
-                return false;
-            });
-
-            // Giveaway and discussion ids can only be 5 chars long, allow entering longer text and then editing it down to 5
-            boolean isGiveawayOrDiscussionDialog = (dialogSelected == 0 || dialogSelected == 1);
-            if (isGiveawayOrDiscussionDialog) {
-                okButton.setEnabled(false);
-                inputField.addTextChangedListener(new AbstractTextWatcher() {
-                    @Override
-                    public void afterTextChanged(Editable s) {
-                        okButton.setEnabled(s.length() == 5);
+                    // Giveaway and discussion ids can only be 5 chars long, allow entering longer text and then editing it down to 5
+                    boolean isGiveawayOrDiscussionDialog = (dialogSelected == 0 || dialogSelected == 1);
+                    if (isGiveawayOrDiscussionDialog) {
+                        okButton.setEnabled(false);
+                        inputField.addTextChangedListener(new AbstractTextWatcher() {
+                            @Override
+                            public void afterTextChanged(Editable s) {
+                                okButton.setEnabled(s.length() == 5);
+                            }
+                        });
                     }
-                });
-            }
 
-        });
-        gotoButtonsBuilder.show();
+                })
+                .show();
         return true;
     }
 }
