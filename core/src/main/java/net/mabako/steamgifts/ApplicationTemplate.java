@@ -8,6 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.PreferenceManager;
 
+import com.squareup.picasso.OkHttp3Downloader;
+import com.squareup.picasso.Picasso;
+
 import net.mabako.steamgifts.data.GameFeaturesRepository;
 import net.mabako.steamgifts.http.OkHttp;
 import net.mabako.steamgifts.receivers.AbstractNotificationCheckReceiver;
@@ -38,6 +41,9 @@ public abstract class ApplicationTemplate extends Application {
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitNetwork().build());
         AbstractNotificationCheckReceiver.initNotificationChannels(getBaseContext());
         OkHttp.init(getApplicationContext());
+        Picasso.setSingletonInstance(new Picasso.Builder(this)
+                .downloader(new OkHttp3Downloader(OkHttp.client()))
+                .build());
         GameFeaturesRepository.firstInit(getBaseContext());
         PeriodicTasks.scheduleAllTasks(getBaseContext());
     }
