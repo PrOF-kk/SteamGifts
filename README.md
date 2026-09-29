@@ -7,6 +7,10 @@
 
 An Android application to browse and manage SteamGifts giveaways, discussions, and user profiles right from your mobile device.
 
+
+<img alt="Giveaway list screenshot" src="res/giveaway_list.png" width="33%"/><img alt="Giveaway detail screenshot" src="res/giveaway_detail.png" width="33%"/><img alt="Discussion list screenshot" src="res/discussion_list.png" width="33%"/>
+
+
 ## ✨ Features
 
 > [!NOTE]
