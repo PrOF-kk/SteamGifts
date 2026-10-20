@@ -101,6 +101,11 @@ public class UserDetailFragment extends Fragment implements IUserNotifications, 
     public void onDestroyView() {
         super.onDestroyView();
 
+        if (actionBarLogo != null) {
+            Picasso.get().cancelRequest(actionBarLogo);
+            actionBarLogo = null;
+        }
+
         if (updateWhitelistBlacklistTask != null) {
             updateWhitelistBlacklistTask.cancel(true);
             updateWhitelistBlacklistTask = null;
