@@ -84,7 +84,7 @@ public class SteamGiftsUserData {
 
             // fetch the image
             String style = userContainer.expectFirst("div").attr("style");
-            style = Utils.extractAvatar(style);
+            style = Utils.extractBackgroundUrl(style);
             current.setImageUrl(style);
 
             // points

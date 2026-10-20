@@ -115,7 +115,7 @@ public class LoadDiscussions extends AsyncTask<Void, Void, List<Discussion>> {
                 // The creator's avatar
                 Element avatarNode = element.selectFirst(".table_image_avatar");
                 if (avatarNode != null)
-                    discussion.setCreatorAvatar(Utils.extractAvatar(avatarNode.attr("style")));
+                    discussion.setCreatorAvatar(Utils.extractBackgroundUrl(avatarNode.attr("style")));
 
                 discussion.setLocked(element.hasClass("is-faded"));
                 // Discussion title has the poll or pinned icon

@@ -97,7 +97,7 @@ public final class Utils {
         String avatar = null;
         Element avatarNode = element.selectFirst(type == Comment.Type.COMMENT ? ".global__image-inner-wrap" : ".author_avatar");
         if (avatarNode != null) {
-            avatar = extractAvatar(avatarNode.attr("style"));
+            avatar = extractBackgroundUrl(avatarNode.attr("style"));
         }
 
         Element timeCreated = element.expectFirst(type == Comment.Type.COMMENT ? ".comment__actions > div span" : ".action_list > span > span");
@@ -149,15 +149,20 @@ public final class Utils {
         return comment;
     }
 
-    public static String extractAvatar(String style) {
-        return style.substring(style.indexOf("https://"), style.indexOf(");")).replace("_medium", "_full");
+    /// `"background-image:url(https://...);` -> `...`
+    public static @Nullable String extractBackgroundUrl(String style) {
+        int start = style.indexOf("https://");
+        int end = style.indexOf(");");
+        if (start == -1 || end == -1)
+            return null;
+        return style.substring(start, end).replace("_medium", "_full");
     }
 
     /**
      * Extracts game info from thumbnails found in "list" pages (Won, Entered, Created, etc.)
      */
     public static @Nullable Game extractGameFromThumbnail(@NonNull Element thumbnail) {
-        Uri thumbUri = Uri.parse(Utils.extractAvatar(thumbnail.attr("style")));
+        Uri thumbUri = Uri.parse(Utils.extractBackgroundUrl(thumbnail.attr("style")));
         List<String> pathSegments = thumbUri.getPathSegments();
         // Thumbnail uris are usually like
         // SOMETHING/steam/apps/APPID/...
@@ -338,7 +343,7 @@ public final class Utils {
             foundXsrfToken = xsrfToken.attr("value");
 
         user.setName(document.expectFirst(".featured__heading__medium").text());
-        user.setAvatar(Utils.extractAvatar(document.expectFirst(".global__image-inner-wrap").attr("style")));
+        user.setAvatar(Utils.extractBackgroundUrl(document.expectFirst(".global__image-inner-wrap").attr("style")));
         user.setUrl(document.expectFirst(".sidebar a[data-tooltip=\"Visit Steam Profile\"]").attr("href"));
 
         Elements columns = document.select(".featured__table__column");

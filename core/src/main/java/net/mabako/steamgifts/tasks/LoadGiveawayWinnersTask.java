@@ -87,7 +87,7 @@ public class LoadGiveawayWinnersTask extends AsyncTask<Void, Void, List<Winner>>
         Winner user = new Winner();
 
         user.setName(element.select(".table__column__heading").text());
-        user.setAvatar(Utils.extractAvatar(element.select(".table_image_avatar").attr("style")));
+        user.setAvatar(Utils.extractBackgroundUrl(element.select(".table_image_avatar").attr("style")));
         user.setStatus(element.select(".table__column--width-small.text-center").last().text());
 
         return user;

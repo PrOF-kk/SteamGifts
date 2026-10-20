@@ -79,7 +79,7 @@ public class LoadGiveawayGroupsTask extends AsyncTask<Void, Void, List<GiveawayG
                 String avatar = null;
                 Element avatarNode = element.getElementsByClass("table_image_avatar").first();
                 if (avatarNode != null)
-                    avatar = Utils.extractAvatar(avatarNode.attr("style"));
+                    avatar = Utils.extractBackgroundUrl(avatarNode.attr("style"));
 
                 GiveawayGroup group = new GiveawayGroup(id, title, avatar);
                 groupList.add(group);
