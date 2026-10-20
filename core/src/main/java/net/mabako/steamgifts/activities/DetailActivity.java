@@ -40,16 +40,21 @@ import net.mabako.steamgifts.receivers.CheckForNewMessages;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class DetailActivity extends CommonActivity {
     public static final String ARG_NOTIFICATIONS = "notifications";
     public static final String ARG_HIDDEN_GAMES = "view-hidden-games";
     public static final String ARG_GIVEAWAY_DETAILS = "giveaway-details";
 
-    /**
-     * If we have a {@link net.mabako.steamgifts.fragments.DetailFragment.CommentContextInfo} instance, mark the comment associated with this instance as read.
-     */
+    /// If we have a [DetailFragment.CommentContextInfo] instance, mark the comment associated with this instance as read.
     public static final String ARG_MARK_CONTEXT_READ = "mark-context-read";
+
+    /// A train is a chain of giveaways linked by hyperlinks.
+    /// Opening too many in a row keeps all activities in memory and leads to OOM
+    private static final int MAX_TRAIN_SIZE = 64;
+    private static final Deque<DetailActivity> currentTrain = new ArrayDeque<>();
 
     @LayoutRes
     private int layoutId;
@@ -62,6 +67,11 @@ public class DetailActivity extends CommonActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (currentTrain.size() >= MAX_TRAIN_SIZE) {
+            currentTrain.pop().finish();
+        }
+        currentTrain.add(this);
+
         initLayout(savedInstanceState);
 
         setSupportActionBar(findViewById(R.id.toolbar));
@@ -69,6 +79,12 @@ public class DetailActivity extends CommonActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        currentTrain.remove(this);
     }
 
     private void initLayout(Bundle savedInstanceState) {
