@@ -63,8 +63,6 @@ public class SyncFragment extends Fragment {
         if (!SteamGiftsUserData.getCurrent(getContext()).isLoggedIn()) {
             getActivity().setResult(Activity.RESULT_CANCELED);
             getActivity().finish();
-
-            return view;
         } else {
             View syncView = view.findViewById(R.id.sync_now);
             syncView.setOnClickListener(v -> {
@@ -80,8 +78,8 @@ public class SyncFragment extends Fragment {
             loadSyncDetailsTask = new LoadSyncDetailsTask(this);
             loadSyncDetailsTask.execute();
 
-            return view;
         }
+        return view;
     }
 
     public void onSyncDetailsLoaded(String xsrfToken, String lastSyncTime) {
